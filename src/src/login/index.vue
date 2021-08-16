@@ -1,17 +1,17 @@
 <template>
   <div class="login_con">
-    <a-form class="login_form">
+    <a-form class="login_form" ref="formRef" :rules="rules" :model="userData">
       <a-form-item>
         <div class="login_title">后台管理系统</div>
       </a-form-item>
-      <a-form-item>
+      <a-form-item name="username">
         <a-input placeholder="请输入邮箱" v-model:value="userData.username">
           <template #prefix>
             <AppleFilled />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item>
+      <a-form-item name="password">
         <a-input placeholder="请输入密码" v-model:value="userData.password">
           <template #prefix>
             <LockOutlined />
@@ -30,16 +30,22 @@
 
 <script setup lang="ts">
 import { AppleFilled, LockOutlined } from '@ant-design/icons-vue'
-import { reactive } from '@vue/reactivity'
+import { reactive, ref } from '@vue/reactivity'
 import { inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const formRef = ref()
 const userData = reactive({
   username: '',
   password: '',
 })
+
+const rules = {
+  username: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+}
 
 let app: any = inject('$app')
 
@@ -63,23 +69,24 @@ function gotoRegistory() {
 }
 function gotoHome() {
   console.log(userData)
-  if (userData.username == '') {
-    message.error('请输入邮箱')
-    return false
-  }
-  if (userData.password == '') {
-    message.error('请输入密码')
-    return false
-  }
-
-  auth
-    .signInWithEmailAndPassword(userData.username, userData.password)
-    .then((res) => {
-      console.log(res)
+  formRef.value
+    .validate()
+    .then(() => {
+      auth
+        .signInWithEmailAndPassword(userData.username, userData.password)
+        .then((res) => {
+          localStorage.setItem('loginStatus', 'true')
+          router.replace({
+            name: 'home',
+          })
+        })
+        .catch((err) => {
+          console.log('错误', err)
+          message.error('账号密码存在错误')
+        })
     })
-    .catch((err) => {
-      console.log('错误', err)
-      message.error('账号密码存在错误')
+    .catch((error) => {
+      console.log('error', error)
     })
 }
 </script>

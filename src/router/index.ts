@@ -1,3 +1,4 @@
+import { message } from 'ant-design-vue'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
@@ -21,4 +22,22 @@ const routes: RouteRecordRaw[] = [
 export const router = createRouter({
   history: createWebHistory(),
   routes: routes,
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(to, from)
+  if (localStorage.getItem('loginStatus') == 'true') {
+    if (to.name == 'login') {
+      next('/')
+    } else {
+      next()
+    }
+  } else {
+    if (to.name == 'login' || to.name == 'registory') {
+      next()
+    } else {
+      message.warn('登录失效,请重新登录')
+      next('/login')
+    }
+  }
 })

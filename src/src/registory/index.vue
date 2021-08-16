@@ -69,7 +69,7 @@ function gotoRegistory() {
   auth
     .signUpWithEmailAndPassword(userData.username, userData.password)
     .then((res: any) => {
-      message.error('邮箱验证码发送成功,请前往邮箱完成登录')
+      message.success('邮箱验证码发送成功,请前往邮箱完成登录')
       // 发送验证邮件成功
     })
     .catch((err) => {
