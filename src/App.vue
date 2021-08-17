@@ -26,8 +26,19 @@ export default defineComponent({
 </script>
 
 <style>
+.padd {
+  padding: 10px;
+  background-color: #fff;
+}
+.marg {
+  margin: 10px;
+}
 #app {
+  position: relative;
+  /* padding: 10px; */
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  background: #f0f2f5;
+  min-height: 100vh;
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

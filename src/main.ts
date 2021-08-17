@@ -9,6 +9,7 @@ import cloudbase from '@cloudbase/js-sdk'
 const $app = cloudbase.init({
   env: 'mall-2gdgzk540aab98cd',
 })
+const db = $app.database()
 const app = createApp(App)
 
 app.provide('$app', $app)

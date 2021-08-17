@@ -17,6 +17,16 @@ const routes: RouteRecordRaw[] = [
     name: 'registory',
     component: () => import('../src/registory/index.vue'),
   },
+  {
+    path: '/pageList',
+    name: 'pageList',
+    component: () => import('../src/pageList/index.vue'),
+  },
+  {
+    path: '/content',
+    name: 'content',
+    component: () => import('../src/content/index.vue'),
+  },
 ]
 
 export const router = createRouter({
