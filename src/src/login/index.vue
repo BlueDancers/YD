@@ -28,67 +28,79 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
 import { AppleFilled, LockOutlined } from '@ant-design/icons-vue'
 import { reactive, ref } from '@vue/reactivity'
-import { inject, onMounted } from 'vue'
+import { defineComponent, inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
-const formRef = ref()
-const userData = reactive({
-  username: '',
-  password: '',
-})
-
-const rules = {
-  username: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-}
-
-let app: any = inject('$app')
-
-const auth: any = app.auth({
-  persistence: 'local',
-})
-const loginState = app.auth().hasLoginState()
-if (loginState) {
-  router.replace({
-    name: 'home',
-  })
-  console.log('当前已经登录')
-} else {
-  console.log('当前未登录')
-}
-
-function gotoRegistory() {
-  router.push({
-    name: 'registory',
-  })
-}
-function gotoHome() {
-  console.log(userData)
-  formRef.value
-    .validate()
-    .then(() => {
-      auth
-        .signInWithEmailAndPassword(userData.username, userData.password)
-        .then((res) => {
-          localStorage.setItem('loginStatus', 'true')
-          router.replace({
-            name: 'home',
-          })
-        })
-        .catch((err) => {
-          console.log('错误', err)
-          message.error('账号密码存在错误')
-        })
+export default defineComponent({
+  setup() {
+    const router = useRouter()
+    const formRef = ref()
+    const userData = reactive({
+      username: '',
+      password: '',
     })
-    .catch((error) => {
-      console.log('error', error)
+
+    const rules = {
+      username: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+      password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+    }
+
+    let app: any = inject('$app')
+
+    const auth: any = app.auth({
+      persistence: 'local',
     })
-}
+    const loginState = app.auth().hasLoginState()
+    if (loginState) {
+      router.replace({
+        name: 'home',
+      })
+      console.log('当前已经登录')
+    } else {
+      console.log('当前未登录')
+    }
+
+    function gotoRegistory() {
+      router.push({
+        name: 'registory',
+      })
+    }
+    function gotoHome() {
+      console.log(userData)
+      formRef.value
+        .validate()
+        .then(() => {
+          auth
+            .signInWithEmailAndPassword(userData.username, userData.password)
+            .then((res) => {
+              localStorage.setItem('loginStatus', 'true')
+              router.replace({
+                name: 'home',
+              })
+            })
+            .catch((err) => {
+              console.log('错误', err)
+              message.error('账号密码存在错误')
+            })
+        })
+        .catch((error) => {
+          console.log('error', error)
+        })
+    }
+    return {
+      AppleFilled,
+      LockOutlined,
+      userData,
+      rules,
+      gotoRegistory,
+      gotoHome,
+    }
+  },
+})
 </script>
 
 <style lang="scss" scoped>
