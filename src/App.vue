@@ -37,7 +37,7 @@ export default defineComponent({
   position: relative;
   /* padding: 10px; */
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  background: #f0f2f5;
+  background: #eef0f4;
   min-height: 100vh;
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
