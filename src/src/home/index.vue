@@ -24,6 +24,9 @@
         <a-form-item label="组织名称">
           <a-input v-model:value="formState.name" placeholder="请输入组织名称" />
         </a-form-item>
+        <a-form-item label="路由前缀">
+          <a-input v-model:value="formState.routerCode" placeholder="请输入路由前缀" />
+        </a-form-item>
         <a-form-item label="组织描述">
           <a-input v-model:value="formState.disp" placeholder="请输入组织描述" />
         </a-form-item>
@@ -62,6 +65,7 @@ export default defineComponent({
       name: '',
       disp: '',
       password: '',
+      routerCode: '',
     })
     const columns = [
       {
@@ -71,6 +75,10 @@ export default defineComponent({
       {
         title: '组织管理员',
         dataIndex: 'founderName',
+      },
+      {
+        title: '路由前缀',
+        dataIndex: 'routerCode',
       },
       {
         title: '群组描述',
@@ -159,7 +167,7 @@ export default defineComponent({
       visible.value = true
     }
     async function handleOk() {
-      let { name, disp, password } = formState.value
+      let { name, disp, password, routerCode } = formState.value
       let { uid, email } = store.state.app.userData
       await db
         .collection('organize')
@@ -168,6 +176,7 @@ export default defineComponent({
           founderUser: [uid],
           organizeName: name,
           organizeDisp: disp,
+          routerCode: routerCode,
           password,
         })
         .then((res) => {

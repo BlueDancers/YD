@@ -7,10 +7,26 @@
         <a-button>保存</a-button>
       </a-col>
     </a-row>
+    <!-- 操作台 -->
     <div class="content_main">
       <page-left></page-left>
       <div class="main_page">
-        <div class="main_iframe"></div>
+        <div class="main_iframe">
+          <draggable v-model="containerList" :animation="300">
+            <div
+              @click="toggleActive(item)"
+              class="contains_item"
+              :class="activeCont == item.id ? 'active_cont' : ''"
+              :style="resetCss(item.cssModule)"
+              v-for="item in containerList"
+              :key="item.id"
+            >
+              <div v-if="item.components.length == 0" class="no_components">点击左侧组件进行添加</div>
+              <div v-else>
+              </div>
+            </div>
+          </draggable>
+        </div>
       </div>
       <page-right></page-right>
     </div>
@@ -18,16 +34,50 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
+import { VueDraggableNext } from 'vue-draggable-next'
+import { useStore } from 'vuex'
 export default defineComponent({
   components: {
     PageLeft,
     PageRight,
+    draggable: VueDraggableNext,
   },
   setup() {
-    return {}
+    const store = useStore()
+    let containerList = computed({
+      get: () => {
+        return store.state.core.containerList
+      },
+      set: (value) => {
+        console.log(value)
+        store.commit('core/changeContList', value)
+      },
+    })
+    let activeCont = computed(() => store.state.core.activeCont)
+    const resetCss = (data) => {
+      const cssData = {}
+      for (const key in data) {
+        if (['width', 'height'].includes(key)) {
+          cssData[key] = `${data[key]}px`
+        } else {
+          cssData[key] = data[key]
+        }
+      }
+      return cssData
+    }
+    const toggleActive = (data) => {
+      console.log(data.id)
+      store.commit('core/toggleActive', data.id)
+    }
+    return {
+      containerList,
+      activeCont,
+      resetCss,
+      toggleActive,
+    }
   },
 })
 </script>
@@ -64,6 +114,22 @@ export default defineComponent({
         background-color: white;
         width: 375px;
         height: 700px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .contains_item {
+        }
+        .active_cont {
+          &::after {
+            content: '';
+            z-index: 0;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            border: 1px solid #000;
+          }
+        }
       }
     }
   }
