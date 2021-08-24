@@ -14,14 +14,16 @@ const app: Module<any, any> = {
     },
   },
   actions: {
-    getUserData({ commit }) {
-      let app: any = inject('$app')
-      app
-        .auth()
+    getUserData({ commit }, $app) {
+      console.log(inject)
+      $app
+        .auth({
+          persistence: 'local',
+        })
         .getCurrenUser()
         .then((user) => {
           if (user) {
-            console.log('用户信息', user)
+            console.log('用户信息11', user)
             commit('set_user_data', user)
           } else {
             console.log('未登录')

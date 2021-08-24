@@ -10,7 +10,8 @@ export default defineComponent({
   components: {},
   setup() {
     const store = useStore()
-    store.dispatch('app/getUserData')
+    let $app: any = inject('$app')
+    store.dispatch('app/getUserData', $app)
     // app
     //   .callFunction({
     //     name: 'hello-word',

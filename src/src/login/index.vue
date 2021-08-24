@@ -42,8 +42,8 @@ export default defineComponent({
     const store = useStore()
     const formRef = ref()
     const userData = reactive({
-      username: '',
-      password: '',
+      username: '2467230789@qq.com',
+      password: '79715712242a',
     })
 
     const rules = {
@@ -71,8 +71,7 @@ export default defineComponent({
         name: 'registory',
       })
     }
-    function gotoHome() {
-      console.log(formRef.value)
+    const gotoHome = () => {
       formRef.value
         .validate()
         .then(() => {
@@ -80,7 +79,7 @@ export default defineComponent({
             .signInWithEmailAndPassword(userData.username, userData.password)
             .then((res) => {
               localStorage.setItem('loginStatus', 'true')
-              store.dispatch('app/getUserData')
+              store.dispatch('app/getUserData', app)
               router.replace({
                 name: 'home',
               })
