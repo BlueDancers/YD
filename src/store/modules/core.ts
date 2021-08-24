@@ -1,3 +1,6 @@
+import { baseComList } from '@/modules/components'
+import { guid } from '@/utils'
+import { message } from 'ant-design-vue'
 import { Module } from 'vuex'
 
 const core: Module<any, any> = {
@@ -10,6 +13,7 @@ const core: Module<any, any> = {
     }
   },
   mutations: {
+    // 添加容器
     set_containerList(state) {
       state.containerList.push({
         id: guid(),
@@ -17,30 +21,34 @@ const core: Module<any, any> = {
           width: 375,
           height: 200,
           position: 'relative',
+          backgroundColor: '#59c7f9',
         },
-        components: [],
+        components: [], // 当前页面数据
       })
+    },
+    // 添加组件
+    add_components(state, name) {
+      if (state.activeCont) {
+        // 寻找父级下标
+        let index = state.containerList.findIndex((e) => e.id == state.activeCont)
+        // 设定层级
+        let zIndex = state.containerList[index].components.length
+        // 获取dom数据
+        let comp = baseComList(name, zIndex + 1)
+        // 插入数据
+        state.containerList[index].components.push(comp)
+      } else {
+        message.warn('请选择父级组件')
+      }
     },
     changeContList(state, data) {
       state.containerList = data
     },
-    toggleActive(state, id){
+    toggleActive(state, id) {
       state.activeCont = id
-    }
+    },
   },
   actions: {},
-}
-
-/**
- * 生成随机id
- */
-function guid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8
-
-    return v.toString(16)
-  })
 }
 
 export default core

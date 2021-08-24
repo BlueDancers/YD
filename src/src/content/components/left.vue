@@ -56,14 +56,14 @@ export default defineComponent({
       store.commit('core/set_containerList')
     }
     const addComp = (name) => {
-      console.log(name)
+      store.commit('core/add_components', name)
       // 添加组件到vuex
     }
     return {
       selectedKeys,
       toggleType,
       addCon,
-      addComp
+      addComp,
     }
   },
 })

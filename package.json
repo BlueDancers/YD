@@ -8,10 +8,12 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
+    "@ckpack/vue-color": "^0.0.3",
     "@cloudbase/js-sdk": "^1.7.1",
     "@vitejs/plugin-vue-jsx": "^1.1.7",
     "ant-design-vue": "^2.2.5",
     "vue": "^3.0.5",
+    "vue-color-kit": "^1.0.5",
     "vue-draggable-next": "^2.0.1",
     "vue-router": "^4.0.11",
     "vue3-draggable": "^2.0.9",

@@ -83,6 +83,9 @@ export default defineComponent({
     async function init() {
       await db
         .collection('pageList')
+        .where({
+          organizeId: route.query.id,
+        })
         .get()
         .then((res) => {
           console.log(res)

@@ -34,10 +34,12 @@ import { reactive, ref } from '@vue/reactivity'
 import { defineComponent, inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   setup() {
     const router = useRouter()
+    const store = useStore()
     const formRef = ref()
     const userData = reactive({
       username: '',
@@ -70,7 +72,7 @@ export default defineComponent({
       })
     }
     function gotoHome() {
-      console.log(userData)
+      console.log(formRef.value)
       formRef.value
         .validate()
         .then(() => {
@@ -78,6 +80,7 @@ export default defineComponent({
             .signInWithEmailAndPassword(userData.username, userData.password)
             .then((res) => {
               localStorage.setItem('loginStatus', 'true')
+              store.dispatch('app/getUserData')
               router.replace({
                 name: 'home',
               })
@@ -92,8 +95,7 @@ export default defineComponent({
         })
     }
     return {
-      AppleFilled,
-      LockOutlined,
+      formRef,
       userData,
       rules,
       gotoRegistory,

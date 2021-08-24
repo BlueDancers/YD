@@ -10,20 +10,22 @@
     <!-- 操作台 -->
     <div class="content_main">
       <page-left></page-left>
-      <div class="main_page">
+      <div class="main_page" @click="clearActive">
         <div class="main_iframe">
-          <draggable v-model="containerList" :animation="300">
+          <draggable v-model="containerList" :animation="300" handle=".active_handle">
             <div
-              @click="toggleActive(item)"
+              @click.stop="toggleActive(item)"
               class="contains_item"
               :class="activeCont == item.id ? 'active_cont' : ''"
               :style="resetCss(item.cssModule)"
               v-for="item in containerList"
               :key="item.id"
             >
-              <div v-if="item.components.length == 0" class="no_components">点击左侧组件进行添加</div>
-              <div v-else>
+              <InsertRowLeftOutlined class="active_handle"></InsertRowLeftOutlined>
+              <div v-if="item.components.length == 0" class="no_components">
+                <button class="test">{{ item.id }}</button>
               </div>
+              <div v-else></div>
             </div>
           </draggable>
         </div>
@@ -37,13 +39,16 @@
 import { computed, defineComponent, ref } from 'vue'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
+import { InsertRowLeftOutlined } from '@ant-design/icons-vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useStore } from 'vuex'
+import { resetCss } from '@/utils/index'
 export default defineComponent({
   components: {
     PageLeft,
     PageRight,
     draggable: VueDraggableNext,
+    InsertRowLeftOutlined,
   },
   setup() {
     const store = useStore()
@@ -57,26 +62,21 @@ export default defineComponent({
       },
     })
     let activeCont = computed(() => store.state.core.activeCont)
-    const resetCss = (data) => {
-      const cssData = {}
-      for (const key in data) {
-        if (['width', 'height'].includes(key)) {
-          cssData[key] = `${data[key]}px`
-        } else {
-          cssData[key] = data[key]
-        }
-      }
-      return cssData
-    }
+    
     const toggleActive = (data) => {
-      console.log(data.id)
       store.commit('core/toggleActive', data.id)
+    }
+    const clearActive = () => {
+      console.log('触发')
+
+      store.commit('core/toggleActive', null)
     }
     return {
       containerList,
       activeCont,
       resetCss,
       toggleActive,
+      clearActive,
     }
   },
 })
@@ -117,6 +117,19 @@ export default defineComponent({
         overflow-x: hidden;
         overflow-y: auto;
         .contains_item {
+          .active_handle {
+            position: absolute;
+            z-index: 100;
+            right: 0px;
+            top: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+          }
         }
         .active_cont {
           &::after {
@@ -131,6 +144,15 @@ export default defineComponent({
           }
         }
       }
+    }
+  }
+  .no_components {
+    position: absolute;
+    .test {
+      position: absolute;
+      z-index: 10;
+      top: 0px;
+      left: 0px;
     }
   }
 }
