@@ -26,6 +26,9 @@ const core: Module<any, any> = {
         components: [], // 当前页面数据
       })
     },
+    set_activechild(state, id) {
+      state.activechild = id
+    },
     // 添加组件
     add_components(state, name) {
       if (state.activeCont) {

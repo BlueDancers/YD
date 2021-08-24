@@ -25,7 +25,18 @@
               <div v-if="item.components.length == 0" class="no_components">
                 <button class="test">{{ item.id }}</button>
               </div>
-              <div v-else></div>
+              <template v-else>
+                <template v-for="comp in item.components" :key="comp.id">
+                  <component
+                    :is="comp.name"
+                    :cssModule="comp.cssModule"
+                    :staticData="comp.staticData"
+                    :configuration="comp.configuration"
+                    :componentId="comp.id"
+                    :activeCont="activeCont"
+                  ></component>
+                </template>
+              </template>
             </div>
           </draggable>
         </div>
@@ -43,12 +54,15 @@ import { InsertRowLeftOutlined } from '@ant-design/icons-vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useStore } from 'vuex'
 import { resetCss } from '@/utils/index'
+import YButton from './comp/YButton.vue'
+
 export default defineComponent({
   components: {
     PageLeft,
     PageRight,
     draggable: VueDraggableNext,
     InsertRowLeftOutlined,
+    YButton,
   },
   setup() {
     const store = useStore()
@@ -62,7 +76,7 @@ export default defineComponent({
       },
     })
     let activeCont = computed(() => store.state.core.activeCont)
-    
+
     const toggleActive = (data) => {
       store.commit('core/toggleActive', data.id)
     }
