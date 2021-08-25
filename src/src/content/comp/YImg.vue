@@ -1,12 +1,11 @@
 <template>
-  <button
-    class="ybutton"
+  <img
+    class="yimg"
     :class="props.activeCont == props.componentId ? 'aaa' : ''"
     :style="resetCss(props.cssModule)"
     @click="activeCompId"
-  >
-    {{ props.staticData.value }}
-  </button>
+    :src="props.staticData.src"
+  />
 </template>
 
 <script lang="ts">
@@ -23,7 +22,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ybutton {
+.yimg {
   position: relative;
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
-  <button
-    class="ybutton"
+  <input
+    class="yinput"
     :class="props.activeCont == props.componentId ? 'aaa' : ''"
     :style="resetCss(props.cssModule)"
     @click="activeCompId"
-  >
-    {{ props.staticData.value }}
-  </button>
+    :type="props.staticData.type"
+    :placeholder="props.staticData.placeholder"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { compProps } from './common/config'
 import useCommonFun from './common/commonFun'
+import { compProps } from './common/config'
 export default defineComponent({
   props: compProps,
   setup(props) {
@@ -23,7 +23,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ybutton {
+.yimg {
+
   position: relative;
 }
 </style>

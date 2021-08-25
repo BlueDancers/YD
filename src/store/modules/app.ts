@@ -15,7 +15,6 @@ const app: Module<any, any> = {
   },
   actions: {
     getUserData({ commit }, $app) {
-      console.log(inject)
       $app
         .auth({
           persistence: 'local',

@@ -28,7 +28,7 @@
         <div @click="addComp('y-button')">按钮</div>
         <div @click="addComp('y-img')">图片</div>
         <div @click="addComp('y-input')">输入框</div>
-        <div @click="addComp('y-span')">文字</div>
+        <div @click="addComp('y-p')">文字</div>
       </div>
     </div>
     <div v-if="selectedKeys[0] == '2'">页面设置</div>

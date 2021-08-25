@@ -35,7 +35,6 @@ export const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
   if (localStorage.getItem('loginStatus') == 'true') {
     if (to.name == 'login') {
       next('/')

@@ -22,8 +22,8 @@
               :key="item.id"
             >
               <InsertRowLeftOutlined class="active_handle"></InsertRowLeftOutlined>
-              <div v-if="item.components.length == 0" class="no_components">
-                <button class="test">{{ item.id }}</button>
+              <div v-if="item.components.length == 0">
+                <span>选中组件,点击左侧添加元素</span>
               </div>
               <template v-else>
                 <template v-for="comp in item.components" :key="comp.id">
@@ -41,13 +41,14 @@
           </draggable>
         </div>
       </div>
+      <!-- 数据管理 -->
       <page-right></page-right>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
 import { InsertRowLeftOutlined } from '@ant-design/icons-vue'
@@ -55,6 +56,9 @@ import { VueDraggableNext } from 'vue-draggable-next'
 import { useStore } from 'vuex'
 import { resetCss } from '@/utils/index'
 import YButton from './comp/YButton.vue'
+import YImg from './comp/YImg.vue'
+import YInput from './comp/YInput.vue'
+import YP from './comp/YP.vue'
 
 export default defineComponent({
   components: {
@@ -63,6 +67,9 @@ export default defineComponent({
     draggable: VueDraggableNext,
     InsertRowLeftOutlined,
     YButton,
+    YImg,
+    YInput,
+    YP
   },
   setup() {
     const store = useStore()
@@ -158,15 +165,6 @@ export default defineComponent({
           }
         }
       }
-    }
-  }
-  .no_components {
-    position: absolute;
-    .test {
-      position: absolute;
-      z-index: 10;
-      top: 0px;
-      left: 0px;
     }
   }
 }
