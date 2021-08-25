@@ -21,29 +21,31 @@
       </a-tab-pane>
       <a-tab-pane key="2">
         <template #tab>组件设置</template>
-        <!-- 设置容器数据 -->
-        <div class="form_con"></div>
+        <comp-data></comp-data>
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, effect, ref } from 'vue'
 import { useStore } from 'vuex'
-import { ColorPicker } from 'vue-color-kit'
-import 'vue-color-kit/dist/vue-color-kit.css'
+import compData from './right-components/compData.vue'
 export default defineComponent({
   components: {
-    ColorPicker,
+    compData,
   },
   setup() {
     const activeKey = ref('1')
     const store = useStore()
     const activeCont = computed(() => store.state.core.activeCont)
-    const activechild = computed(() => store.state.core.activechild)
     const containerList = computed(() => store.state.core.containerList)
-
+    const coordinate = computed(() => store.state.core.coordinate)
+    effect(() => {
+      if (coordinate.value.length == 2) {
+        activeKey.value = '2'
+      }
+    })
     const activeContCss = computed({
       get: () => {
         let carry = containerList.value.find((e) => e.id == activeCont.value)
@@ -59,7 +61,6 @@ export default defineComponent({
     })
     return {
       activeCont,
-      activechild,
       activeContCss,
       activeKey,
     }
@@ -69,7 +70,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .content_right {
-
   background-color: #f8f9fa;
   width: 340px;
   height: calc(100vh - 50px);

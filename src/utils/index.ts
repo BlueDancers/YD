@@ -15,7 +15,7 @@ export function guid() {
 export function resetCss(data: Object) {
   const cssData = {}
   for (const key in data) {
-    if (['width', 'height', 'x', 'y', 'top', 'left', 'borderWidth'].includes(key)) {
+    if (['width', 'height', 'x', 'y', 'top', 'left', 'borderWidth', 'fontSize','borderRadius'].includes(key)) {
       cssData[key] = `${data[key]}px`
     } else {
       cssData[key] = data[key]

@@ -3,9 +3,9 @@
     class="yinput"
     :class="activechild == props.componentId ? 'aaa' : ''"
     :style="resetCss(props.cssModule)"
-    @click="activeCompId"
     :type="props.staticData.type"
     :placeholder="props.staticData.placeholder"
+    @mousedown="mousedown($event, props.componentId, props.parentId)"
   />
 </template>
 
@@ -13,18 +13,19 @@
 import { defineComponent } from 'vue'
 import useCommonFun from './common/commonFun'
 import { compProps } from './common/config'
+import { useMouseFun } from './common/mouseFun'
 export default defineComponent({
   props: compProps,
   setup(props) {
     const common = useCommonFun(props)
-    return { ...common }
+    const mouse = useMouseFun()
+    return { ...common, ...mouse }
   },
 })
 </script>
 
 <style lang="scss" scoped>
 .yimg {
-
   position: relative;
 }
 </style>

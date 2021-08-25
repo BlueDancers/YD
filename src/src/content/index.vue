@@ -10,94 +10,26 @@
     <!-- 操作台 -->
     <div class="content_main">
       <page-left></page-left>
-      <div class="main_page" @click="clearActive">
-        <div class="main_iframe">
-          <draggable v-model="containerList" :animation="300" handle=".active_handle">
-            <div
-              @click.stop="toggleActive(item)"
-              class="contains_item"
-              :class="activeCont == item.id ? 'active_cont' : ''"
-              :style="resetCss(item.cssModule)"
-              v-for="item in containerList"
-              :key="item.id"
-            >
-              <InsertRowLeftOutlined class="active_handle"></InsertRowLeftOutlined>
-              <div v-if="item.components.length == 0">
-                <span>选中组件,点击左侧添加元素</span>
-              </div>
-              <template v-else>
-                <template v-for="comp in item.components" :key="comp.id">
-                  <component
-                    :is="comp.name"
-                    :cssModule="comp.cssModule"
-                    :staticData="comp.staticData"
-                    :configuration="comp.configuration"
-                    :componentId="comp.id"
-                  ></component>
-                </template>
-              </template>
-            </div>
-          </draggable>
-        </div>
-      </div>
-      <!-- 数据管理 -->
+      <page-center></page-center>
       <page-right></page-right>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
-import { InsertRowLeftOutlined } from '@ant-design/icons-vue'
-import { VueDraggableNext } from 'vue-draggable-next'
-import { useStore } from 'vuex'
-import { resetCss } from '@/utils/index'
-import YButton from './comp/YButton.vue'
-import YImg from './comp/YImg.vue'
-import YInput from './comp/YInput.vue'
-import YP from './comp/YP.vue'
+import PageCenter from './components/center.vue'
 
 export default defineComponent({
   components: {
     PageLeft,
     PageRight,
-    draggable: VueDraggableNext,
-    InsertRowLeftOutlined,
-    YButton,
-    YImg,
-    YInput,
-    YP
+    PageCenter,
   },
   setup() {
-    const store = useStore()
-    let containerList = computed({
-      get: () => {
-        return store.state.core.containerList
-      },
-      set: (value) => {
-        console.log(value)
-        store.commit('core/changeContList', value)
-      },
-    })
-    let activeCont = computed(() => store.state.core.activeCont)
-
-    const toggleActive = (data) => {
-      store.commit('core/toggleActive', data.id)
-    }
-    const clearActive = () => {
-      console.log('触发')
-
-      store.commit('core/toggleActive', null)
-    }
-    return {
-      containerList,
-      activeCont,
-      resetCss,
-      toggleActive,
-      clearActive,
-    }
+    return {}
   },
 })
 </script>
@@ -128,43 +60,6 @@ export default defineComponent({
     height: calc(100vh - 50px);
     display: flex;
     justify-content: space-between;
-    .main_page {
-      .main_iframe {
-        margin-top: 20px;
-        background-color: white;
-        width: 375px;
-        height: 700px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        .contains_item {
-          .active_handle {
-            position: absolute;
-            z-index: 100;
-            right: 0px;
-            top: 0px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-          }
-        }
-        .active_cont {
-          &::after {
-            content: '';
-            z-index: 0;
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            height: 100%;
-            width: 100%;
-            border: 1px solid #000;
-          }
-        }
-      }
-    }
   }
 }
 </style>
