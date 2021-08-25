@@ -1,7 +1,7 @@
 <template>
   <button
     class="ybutton"
-    :class="props.activeCont == props.componentId ? 'aaa' : ''"
+    :class="activechild == props.componentId ? 'aaa' : ''"
     :style="resetCss(props.cssModule)"
     @click="activeCompId"
   >

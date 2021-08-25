@@ -33,7 +33,6 @@
                     :staticData="comp.staticData"
                     :configuration="comp.configuration"
                     :componentId="comp.id"
-                    :activeCont="activeCont"
                   ></component>
                 </template>
               </template>

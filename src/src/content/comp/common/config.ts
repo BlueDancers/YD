@@ -1,3 +1,9 @@
-const compProps = ['cssModule', 'configuration', 'staticData', 'activeCont', 'activeCompId', 'componentId']
+const compProps = ['cssModule', 'configuration', 'staticData', 'activeCompId', 'componentId']
 
-export { compProps }
+interface compPropsInter {
+  cssModule: any
+  configuration: any
+  staticData: any
+  componentId: string
+}
+export { compProps, compPropsInter }

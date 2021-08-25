@@ -1,7 +1,7 @@
 <template>
   <input
     class="yinput"
-    :class="props.activeCont == props.componentId ? 'aaa' : ''"
+    :class="activechild == props.componentId ? 'aaa' : ''"
     :style="resetCss(props.cssModule)"
     @click="activeCompId"
     :type="props.staticData.type"

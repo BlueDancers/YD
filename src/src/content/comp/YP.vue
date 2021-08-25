@@ -1,7 +1,7 @@
 <template>
   <p
     class="yp"
-    :class="props.activeCont == props.componentId ? 'aaa' : ''"
+    :class="activechild == props.componentId ? 'active_child' : ''"
     :style="resetCss(props.cssModule)"
     @click="activeCompId"
     :value="props.staticData.value"
