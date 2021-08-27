@@ -34,7 +34,12 @@
         <input class="default_input" type="color" v-model="contCss.borderColor" />
       </a-form-item>
       <a-form-item label="边框样式">
-        <a-input class="default_input" v-model:value="contCss.borderStyle" />
+        <a-select v-model:value="contCss.borderStyle" style="width: 120px">
+          <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
+            {{ item.value }}
+          </a-select-option>
+        </a-select>
+        <!-- <a-input class="default_input" v-model:value="contCss.borderStyle" /> -->
       </a-form-item>
       <a-form-item label="圆角">
         <a-input-number class="default_input" :min="0" v-model:value="contCss.borderRadius" />
@@ -46,7 +51,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-
+import { borderStyleList } from '../common/selectData'
 export default defineComponent({
   setup() {
     const store = useStore()
@@ -70,7 +75,7 @@ export default defineComponent({
     })
     return {
       contCss,
-      coordinate,
+      borderStyleList,
     }
   },
 })

@@ -27,6 +27,7 @@
               ></component>
             </template>
           </template>
+          <!-- 下方拖拽 -->
         </div>
       </draggable>
     </div>
@@ -65,13 +66,13 @@ export default defineComponent({
     })
     // 当前选中组件
     let activeCont = computed(() => store.state.core.activeCont)
-    // 当前设定点
+    // 当前设定点锁
     let potinLock = computed(() => store.state.core.potinLock)
+    let mouseLock = computed(() => store.state.core.mouseLock)
+    let coordinate = computed(() => store.state.core.coordinate)
 
     // 选中父级
     const toggleActive = (data) => {
-      console.log('父级被点击')
-
       // 切换父级的时候去除缓存数据
       if (activeCont.value != data.id) {
         store.commit('core/clearContList')
@@ -90,26 +91,29 @@ export default defineComponent({
     }
     const mousedown = (e) => {
       store.commit('core/toggle_mouseLock', true)
-      console.log('按下')
+      // console.log('按下')
     }
     const mouseup = (e) => {
       store.commit('core/toggle_mouseLock', false)
-      console.log('松开')
+      // console.log('松开')
     }
     const mousemove = (e) => {
       let data = {
         x: e.movementX,
         y: e.movementY,
       }
-      if (potinLock.value == 0) {
-        store.commit('core/updateCarryXY', data)
-      } else {
-        store.commit('core/updateCarryPoint', data)
+      if (mouseLock.value) {
+        if (potinLock.value == 0) {
+          store.commit('core/updateCarryXY', data)
+        }
+        if (potinLock.value != 0) {
+          store.commit('core/updateCarryPoint', data)
+        }
       }
-      console.log('移动')
+      // console.log('移动')
     }
     const mouseleave = (e) => {
-      console.log('离开')
+      // console.log('离开')
     }
     return {
       containerList,
@@ -131,6 +135,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .main_page {
   .main_iframe {
+    position: relative;
     margin-top: 20px;
     background-color: white;
     width: 375px;

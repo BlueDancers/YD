@@ -31,6 +31,8 @@ const core: Module<any, any> = {
           width: 375,
           height: 200,
           position: 'relative',
+          top: 0,
+          left: 0,
           backgroundColor: '#59c7f9',
         },
         components: [], // 当前页面数据
@@ -82,13 +84,14 @@ const core: Module<any, any> = {
     },
     clearContList(state) {
       state.coordinate = []
+      state.activechild = ''
     },
     toggleActive(state, id) {
       state.activeCont = id
     },
     // 更新选中组件的x,y
     updateCarryXY(state, data) {
-      if (state.mouseLock) {
+      if (state.coordinate.length == 2) {
         let fast = {
           parcssModule: state.containerList[state.coordinate[0]].cssModule,
           childcssModule: state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule,

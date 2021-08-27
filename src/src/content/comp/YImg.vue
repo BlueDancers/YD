@@ -1,12 +1,13 @@
 <template>
-  <img
-    draggable="false"
-    class="yimg"
-    :class="activechild == props.componentId ? 'aaa' : ''"
-    :style="resetCss(props.cssModule)"
-    :src="props.staticData.src"
-    @mousedown="mousedown($event, props.componentId, props.parentId)"
-  />
+  <div class="yimg" :style="{ ...resetCss(props.cssModule), border: 'none' }">
+    <auxiliary-point v-if="activechild == props.componentId"></auxiliary-point>
+    <img
+      :style="{ ...resetCss(props.cssModule), top: '0px', left: '0px' }"
+      @mousedown="mousedown($event, props.componentId, props.parentId)"
+      :src="props.staticData.src"
+      draggable="false"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -14,7 +15,11 @@ import { defineComponent } from 'vue'
 import { compProps } from './common/config'
 import useCommonFun from './common/commonFun'
 import { useMouseFun } from './common/mouseFun'
+import auxiliaryPoint from '@/components/auxiliaryPoint.vue'
 export default defineComponent({
+  components: {
+    auxiliaryPoint,
+  },
   props: compProps,
   setup(props) {
     const common = useCommonFun(props)

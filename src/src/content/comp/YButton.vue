@@ -1,5 +1,5 @@
 <template>
-  <div class="ybutton" :style="resetCss(props.cssModule)">
+  <div class="ybutton" :style="{ ...resetCss(props.cssModule), border: 'none' }">
     <auxiliary-point v-if="activechild == props.componentId"></auxiliary-point>
     <button
       :style="{ ...resetCss(props.cssModule), top: '0px', left: '0px' }"

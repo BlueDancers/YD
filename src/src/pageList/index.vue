@@ -15,7 +15,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, Ref, ref, toRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { cloud } from '../../modules/request'
+import { cloud } from '@/modules/request'
 
 export default defineComponent({
   setup() {
