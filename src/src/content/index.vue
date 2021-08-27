@@ -1,7 +1,7 @@
 <template>
   <div class="page_content">
     <a-row class="content_header">
-      <a-col class="header_left" :span="5">开发工具</a-col>
+      <a-col class="header_left" :span="5" @click="gotoHome">开发工具</a-col>
       <a-col class="header_centent" :span="14">页面设置按钮</a-col>
       <a-col class="header_right" :span="5">
         <a-button @click="saveCarryPage" type="primary">保存</a-button>
@@ -21,7 +21,7 @@ import { computed, defineComponent, onMounted } from 'vue'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
 import PageCenter from './components/center.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { cloud } from '@/modules/request'
 export default defineComponent({
@@ -33,6 +33,7 @@ export default defineComponent({
   setup() {
     const db = cloud.database()
     const route = useRoute()
+    const router = useRouter()
     const store = useStore()
     onMounted(() => {
       let id: string = String(route.query.id)
@@ -42,8 +43,8 @@ export default defineComponent({
         .then((res) => {
           if (res.data.length == 1) {
             store.commit('core/changeContList', res.data[0].content)
-          }else {
-            console.log('获取页面数据失败');
+          } else {
+            console.log('获取页面数据失败')
           }
         })
     })
@@ -61,8 +62,14 @@ export default defineComponent({
           console.log(res)
         })
     }
+    const gotoHome = () => {
+      router.replace({
+        name: 'home',
+      })
+    }
     return {
       saveCarryPage,
+      gotoHome,
     }
   },
 })

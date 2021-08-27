@@ -34,10 +34,15 @@ export default defineComponent({
 .marg {
   margin: 10px;
 }
+
+@font-face {
+  font-family: mFont;
+  src: url('../src/assets/common/DIN-MEDIUM.OTF');
+}
 #app {
   position: relative;
   /* padding: 10px; */
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: mFont;
   background: #eef0f4;
   min-height: 100vh;
   /* -webkit-font-smoothing: antialiased;

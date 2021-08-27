@@ -1,6 +1,14 @@
 <template>
   <!-- @click="clearActive" -->
   <div class="main_page" @mousemove="mousemove" @mouseleave="mouseleave" @mousedown="mousedown" @mouseup="mouseup">
+    <div class="main_header">
+      <div class="header_time">15:06</div>
+      <div class="header_icon_list">
+        <img class="header_icon" src="@/assets/common/xinhao.png" alt="" />
+        <img class="header_icon" src="@/assets/common/wifi.png" alt="" />
+        <img class="header_icon_dc" src="@/assets/common/dianchi.png" alt="" />
+      </div>
+    </div>
     <div class="main_iframe">
       <draggable v-model="containerList" :animation="300" handle=".active_handle" @start="dragStart" @end="dragEnd">
         <div
@@ -38,6 +46,7 @@
       </draggable>
     </div>
   </div>
+ 
 </template>
 
 <script lang="ts">
@@ -96,7 +105,9 @@ export default defineComponent({
       store.commit('core/update_activechild')
     }
     const mousedown = (e) => {
-      store.commit('core/down_mouseLock')
+      if (e.button == 0) {
+        store.commit('core/down_mouseLock')
+      }
       // console.log('按下')
     }
     const mouseup = (e) => {
@@ -150,10 +161,35 @@ export default defineComponent({
   flex: 1;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .main_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    background-color: white;
+    width: 375px;
+    height: 40px;
+    padding: 0 6px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    .header_time {
+    }
+    .header_icon_list {
+      .header_icon {
+        margin: 0 2px;
+        width: 14px;
+      }
+      .header_icon_dc {
+        margin: 0 2px;
+        width: 22px;
+      }
+    }
+  }
   .main_iframe {
     position: relative;
-    margin-top: 20px;
     background-color: white;
     width: 375px;
     height: 700px;
