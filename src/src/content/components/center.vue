@@ -11,10 +11,13 @@
           v-for="item in containerList"
           :key="item.id"
         >
+          <!-- 拖拽 -->
           <InsertRowLeftOutlined class="active_handle"></InsertRowLeftOutlined>
+          <!-- 未选择组件 -->
           <div v-if="item.components.length == 0">
             <span>选中组件,点击左侧添加元素</span>
           </div>
+          <!-- 容器内租金 -->
           <template v-else>
             <template v-for="comp in item.components" :key="comp.id">
               <component
@@ -28,6 +31,9 @@
             </template>
           </template>
           <!-- 下方拖拽 -->
+          <div v-show="activeCont == item.id" class="max_cont" @mousedown="contHeightAddDown">
+            <TableOutlined width="1em" height="1em" fill="#000" />
+          </div>
         </div>
       </draggable>
     </div>
@@ -38,7 +44,7 @@
 import { computed, defineComponent, effect, ref } from 'vue'
 import { useStore } from 'vuex'
 import { resetCss } from '@/utils/index'
-import { InsertRowLeftOutlined } from '@ant-design/icons-vue'
+import { InsertRowLeftOutlined, TableOutlined } from '@ant-design/icons-vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
@@ -48,6 +54,7 @@ export default defineComponent({
   components: {
     draggable: VueDraggableNext,
     InsertRowLeftOutlined,
+    TableOutlined,
     YButton,
     YImg,
     YInput,
@@ -67,9 +74,8 @@ export default defineComponent({
     // 当前选中组件
     let activeCont = computed(() => store.state.core.activeCont)
     // 当前设定点锁
-    let potinLock = computed(() => store.state.core.potinLock)
     let mouseLock = computed(() => store.state.core.mouseLock)
-    let coordinate = computed(() => store.state.core.coordinate)
+    let mouseType = computed(() => store.state.core.mouseType)
 
     // 选中父级
     const toggleActive = (data) => {
@@ -90,11 +96,11 @@ export default defineComponent({
       store.commit('core/update_activechild')
     }
     const mousedown = (e) => {
-      store.commit('core/toggle_mouseLock', true)
+      store.commit('core/down_mouseLock')
       // console.log('按下')
     }
     const mouseup = (e) => {
-      store.commit('core/toggle_mouseLock', false)
+      store.commit('core/up_mouseLock')
       // console.log('松开')
     }
     const mousemove = (e) => {
@@ -103,17 +109,23 @@ export default defineComponent({
         y: e.movementY,
       }
       if (mouseLock.value) {
-        if (potinLock.value == 0) {
+        if (mouseType.value == 2) {
           store.commit('core/updateCarryXY', data)
         }
-        if (potinLock.value != 0) {
+        if (mouseType.value == 3) {
           store.commit('core/updateCarryPoint', data)
+        }
+        if (mouseType.value == 4) {
+          store.commit('core/updateCarryHeight', data)
         }
       }
       // console.log('移动')
     }
     const mouseleave = (e) => {
       // console.log('离开')
+    }
+    const contHeightAddDown = () => {
+      store.commit('core/toggle_mouseType', 4)
     }
     return {
       containerList,
@@ -127,6 +139,7 @@ export default defineComponent({
       mouseup,
       mousemove,
       mouseleave,
+      contHeightAddDown,
     }
   },
 })
@@ -134,6 +147,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main_page {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   .main_iframe {
     position: relative;
     margin-top: 20px;
@@ -155,6 +172,21 @@ export default defineComponent({
         height: 20px;
         background-color: rgba(255, 255, 255, 0.4);
         cursor: pointer;
+      }
+      .max_cont {
+        width: 40px;
+        border-radius: 4px;
+        height: 12px;
+        background-color: #fff;
+        position: absolute;
+        z-index: 1000;
+        left: 50%;
+        bottom: -6px;
+        transform: translate(-50%, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: row-resize;
       }
     }
     .active_cont {

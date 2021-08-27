@@ -30,14 +30,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const containerList = computed(() => store.state.core.containerList)
-    const activeCont = computed(() => store.state.core.activeCont)
+    const coordinate = computed(() => store.state.core.coordinate)
     const contCss = computed({
       get: () => {
-        console.log(activeCont.value, containerList.value)
-
-        if (activeCont.value) {
-          let carry = containerList.value.find((e) => e.id == activeCont.value).cssModule
-          console.log(carry)
+        if (coordinate.value.length != 0) {
+          let carry = containerList.value[coordinate.value[0]].cssModule
 
           if (carry) {
             return carry
@@ -48,9 +45,7 @@ export default defineComponent({
           return null
         }
       },
-      set: (value) => {
-        console.log(value)
-      },
+      set: (value) => {},
     })
     return {
       contCss,

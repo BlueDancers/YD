@@ -13,15 +13,22 @@ const core: Module<any, any> = {
       containerList: [],
       coordinate: [], // 当前选中坐标
       mouseLock: false, // 当前是否按下鼠标
+      mouseType: 0, // 当前鼠标按下的单位 1 容器 2 组件 3 缩放点 4 容器增加点
       potinLock: 0, // 当前是否存在按下的设定点
     }
   },
   mutations: {
-    toggle_mouseLock(state, status) {
-      state.mouseLock = status
-      if (!status) {
-        state.potinLock = 0
-      }
+    // 鼠标按下
+    down_mouseLock(state) {
+      state.mouseLock = true
+    },
+    up_mouseLock(state) {
+      state.mouseLock = false
+      state.potinLock = 0
+      state.mouseType = 0
+    },
+    toggle_mouseType(state, type) {
+      state.mouseType = type
     },
     // 添加容器
     set_containerList(state) {
@@ -88,39 +95,41 @@ const core: Module<any, any> = {
     },
     toggleActive(state, id) {
       state.activeCont = id
+      let index = state.containerList.findIndex((e) => e.id == state.activeCont)
+      if (index != null) {
+        state.coordinate = [index]
+      } else {
+        state.coordinate = []
+      }
     },
     // 更新选中组件的x,y
     updateCarryXY(state, data) {
       if (state.coordinate.length == 2) {
-        let fast = {
-          parcssModule: state.containerList[state.coordinate[0]].cssModule,
-          childcssModule: state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule,
-        }
-        let { width, height } = fast.parcssModule
-        let { top, left, width: cwidth, height: cheight } = fast.childcssModule
+        let parcssModule = getParentCssModule(state)
+        let childcssModule = getChildCssModule(state)
+        let { width, height } = parcssModule
+        let { top, left, width: cwidth, height: cheight } = childcssModule
         let newtop = top + data.y
         let mewleft = left + data.x
         if (newtop >= 0 && newtop + cheight <= height) {
-          fast.childcssModule.top = newtop
+          childcssModule.top = newtop
         }
         if (mewleft >= 0 && mewleft + cwidth <= width) {
-          fast.childcssModule.left = mewleft
+          childcssModule.left = mewleft
         }
       }
     },
     updateCarryPoint(state, data) {
-      let fast = {
-        parcssModule: state.containerList[state.coordinate[0]].cssModule,
-        childcssModule: state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule,
-      }
-      let { width, height } = fast.parcssModule
-      let { top, left, width: cwidth, height: cheight } = fast.childcssModule
-      let newtop = cwidth + data.x
-      let mewleft = cheight + data.y
-      fast.childcssModule.width = newtop
-      fast.childcssModule.height = mewleft
-
-      console.log(data)
+      let parcssModule = getParentCssModule(state)
+      let childcssModule = getChildCssModule(state)
+      let { width, height } = parcssModule
+      let { top, left, width: cwidth, height: cheight } = childcssModule
+      childcssModule.width = cwidth + data.x
+      childcssModule.height = cheight + data.y
+    },
+    updateCarryHeight(state, data) {
+      let parcssModule = getParentCssModule(state)
+      parcssModule.height = parcssModule.height + data.y
     },
     // 设定当前准备设置元素的点
     pointDataUpdate(state, type) {
@@ -128,6 +137,14 @@ const core: Module<any, any> = {
     },
   },
   actions: {},
+}
+
+function getParentCssModule(state) {
+  return state.containerList[state.coordinate[0]].cssModule
+}
+
+function getChildCssModule(state) {
+  return state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule
 }
 
 export default core

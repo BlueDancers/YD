@@ -70,7 +70,6 @@ export default defineComponent({
         }
       },
       set: (value) => {
-        console.log(value)
       },
     })
     return {

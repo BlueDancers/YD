@@ -20,16 +20,7 @@ export default defineComponent({
     const store = useStore()
     const potintActive = (type) => {
       store.commit('core/pointDataUpdate', type)
-      if (type == 1) {
-        // 设置 x y width height
-      } else if (type == 2) {
-      } else if (type == 3) {
-      } else if (type == 4) {
-      } else if (type == 5) {
-      } else if (type == 6) {
-      } else if (type == 7) {
-      } else if (type == 8) {
-      }
+      store.commit('core/toggle_mouseType', 3)
     }
     return {
       potintActive,
