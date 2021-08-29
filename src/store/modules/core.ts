@@ -45,7 +45,17 @@ const core: Module<any, any> = {
         components: [], // 当前页面数据
       })
     },
-    // 获取当前父子下标(缓存) id 子组件id
+    // 设置父级
+    toggleActive(state, id) {
+      state.activeCont = id
+      let index = state.containerList.findIndex((e) => e.id == state.activeCont)
+      if (index != null) {
+        state.coordinate = [index]
+      } else {
+        state.coordinate = []
+      }
+    },
+    // 设置父子 以及下标(缓存) id 子组件id
     set_activechild(state, data) {
       let { pid, cid } = data
       state.activeCont = pid
@@ -65,12 +75,39 @@ const core: Module<any, any> = {
         }
       }
     },
+    // 删除父级
+    deleteParentCont(state, id) {
+      let index = state.containerList.findIndex((e) => e.id == state.activeCont)
+      state.containerList.splice(index, 1)
+      // 对当前选中需要进行处理
+      if (id == state.activeCont) {
+        state.coordinate = []
+        state.activeCont = ''
+        state.activechild = ''
+      }
+    },
+    // 删除子级
+    deleteChildComp(state, id) {
+      parentFor: for (let i = 0; i < state.containerList.length; i++) {
+        const e = state.containerList[i]
+        for (let j = 0; j < e.components.length; j++) {
+          const c = e.components[j]
+          if (c.id == id) {
+            e.components.splice(j, 1)
+            // 跳出父级循环
+            break parentFor
+          }
+        }
+      }
+    },
+    // 更新下标点,拖拽完成后重新计算
     update_activechild(state) {
       store.commit('core/set_activechild', {
         pid: state.activeCont,
         cid: state.activechild,
       })
     },
+
     // 添加组件
     add_components(state, name) {
       if (state.activeCont) {
@@ -93,15 +130,7 @@ const core: Module<any, any> = {
       state.coordinate = []
       state.activechild = ''
     },
-    toggleActive(state, id) {
-      state.activeCont = id
-      let index = state.containerList.findIndex((e) => e.id == state.activeCont)
-      if (index != null) {
-        state.coordinate = [index]
-      } else {
-        state.coordinate = []
-      }
-    },
+
     // 更新选中组件的x,y
     updateCarryXY(state, data) {
       if (state.coordinate.length == 2) {
