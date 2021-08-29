@@ -4,8 +4,9 @@
     <p
       :style="{ ...resetCss(props.cssModule), top: '0px', left: '0px' }"
       @mousedown="mousedown($event, props.componentId, props.parentId)"
-      :value="props.staticData.value"
-    ></p>
+    >
+      {{ props.staticData.value }}
+    </p>
   </div>
 </template>
 
@@ -31,5 +32,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .yp {
   position: relative;
+  user-select: none;
 }
 </style>

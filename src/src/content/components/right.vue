@@ -3,10 +3,14 @@
     <a-tabs v-model:activeKey="activeKey" v-if="activeCont">
       <a-tab-pane key="1">
         <template #tab>容器设置</template>
-        <cont-data></cont-data>
+        <cont-style></cont-style>
       </a-tab-pane>
       <a-tab-pane key="2">
         <template #tab>组件设置</template>
+        <comp-style></comp-style>
+      </a-tab-pane>
+      <a-tab-pane key="3">
+        <template #tab>数据设置</template>
         <comp-data></comp-data>
       </a-tab-pane>
     </a-tabs>
@@ -16,13 +20,16 @@
 <script lang="ts">
 import { computed, defineComponent, effect, ref } from 'vue'
 import { useStore } from 'vuex'
+import compStyle from './right-components/compStyle.vue'
+import contStyle from './right-components/contStyle.vue'
 import compData from './right-components/compData.vue'
-import contData from './right-components/contData.vue'
+import CompData from './right-components/compData.vue'
 
 export default defineComponent({
   components: {
+    compStyle,
+    contStyle,
     compData,
-    contData,
   },
   setup() {
     const activeKey = ref('1')

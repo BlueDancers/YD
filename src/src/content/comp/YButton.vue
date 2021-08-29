@@ -32,5 +32,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .ybutton {
   position: relative;
+  user-select: none;
 }
 </style>
