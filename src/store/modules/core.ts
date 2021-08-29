@@ -51,6 +51,7 @@ const core: Module<any, any> = {
       let index = state.containerList.findIndex((e) => e.id == state.activeCont)
       if (index != null) {
         state.coordinate = [index]
+        state.activechild = ''
       } else {
         state.coordinate = []
       }

@@ -33,7 +33,7 @@ export default defineComponent({
       if (coordinate.value.length == 2) {
         activeKey.value = '2'
       }
-      if (coordinate.value.length == 0) {
+      if (coordinate.value.length == 1) {
         activeKey.value = '1'
       }
     })

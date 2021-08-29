@@ -7,6 +7,7 @@
     :replaceFields="{ children: 'components', title: 'id', key: 'id' }"
     :selectedKeys="activechild ? [activechild] : [activeCont]"
     @select="onSelect"
+    
   >
     <template #title="{ id, components, name }">
       <a-dropdown :trigger="['contextmenu']">
