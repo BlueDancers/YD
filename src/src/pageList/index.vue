@@ -93,7 +93,6 @@ export default defineComponent({
         })
     }
     function gotoUpdate(data) {
-      console.log(data)
       router.push({
         name: 'content',
         query: {

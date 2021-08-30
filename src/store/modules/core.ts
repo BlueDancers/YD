@@ -2,12 +2,30 @@ import { baseComList } from '@/modules/components'
 import { guid } from '@/utils'
 import { message } from 'ant-design-vue'
 import { Module } from 'vuex'
-import store from '..'
+import store from '../index'
 
-const core: Module<any, any> = {
+interface coreInter {
+  _id: string
+  pageDisp: string
+  router: string
+  routerName: string
+  activeCont: string
+  activechild: string
+  containerList: any[]
+  coordinate: number[]
+  mouseLock: boolean
+  mouseType: number
+  potinLock: number
+}
+
+const core: Module<coreInter, any> = {
   namespaced: true,
   state() {
     return {
+      _id: '', // 编辑id
+      pageDisp: '', // 页面描述
+      router: '', // 页面路由
+      routerName: '', // 页面名称
       activeCont: '', // 当前选中的父级组件
       activechild: '', // 当前选中的子类组件
       containerList: [],
@@ -18,10 +36,19 @@ const core: Module<any, any> = {
     }
   },
   mutations: {
+    // 开启编辑
+    change_Template(state, data) {
+      state._id = data._id
+      state.pageDisp = data.disp
+      state.router = data.router
+      state.routerName = data.routerName
+      state.containerList = data.content
+    },
     // 鼠标按下
     down_mouseLock(state) {
       state.mouseLock = true
     },
+    // 鼠标松开
     up_mouseLock(state) {
       state.mouseLock = false
       state.potinLock = 0

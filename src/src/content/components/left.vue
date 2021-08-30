@@ -30,8 +30,7 @@
     </div>
     <component-list v-if="selectedKeys[0] == '1'"></component-list>
     <component-set v-if="selectedKeys[0] == '2'"></component-set>
-    <div v-if="selectedKeys[0] == '3'">页面设置</div>
-    <div v-if="selectedKeys[0] == '3'">页面模板</div>
+    <page-set v-if="selectedKeys[0] == '3'"></page-set>
   </div>
 </template>
 
@@ -40,6 +39,7 @@ import { defineComponent, ref } from 'vue'
 import { AppstoreAddOutlined, ProfileOutlined, LaptopOutlined, SettingOutlined } from '@ant-design/icons-vue'
 import componentList from './left-components/componentList.vue'
 import ComponentSet from './left-components/componentSet.vue'
+import PageSet from './left-components/pageSet.vue'
 export default defineComponent({
   components: {
     AppstoreAddOutlined,
@@ -48,6 +48,7 @@ export default defineComponent({
     SettingOutlined,
     componentList,
     ComponentSet,
+    PageSet,
   },
   setup() {
     const selectedKeys = ref(['1'])

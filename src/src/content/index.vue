@@ -42,7 +42,7 @@ export default defineComponent({
         .get()
         .then((res) => {
           if (res.data.length == 1) {
-            store.commit('core/changeContList', res.data[0].content)
+            store.commit('core/change_Template', res.data[0])
           } else {
             console.log('获取页面数据失败')
           }

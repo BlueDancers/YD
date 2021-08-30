@@ -5,7 +5,7 @@
         <a-input class="long_input" v-model:value="activeComp.staticData.value" />
       </a-form-item>
       <a-form-item label="图片" v-if="activeComp.name == 'y-img'">
-        <a-input class="long_input" v-model:value="activeComp.staticData.value" />
+        <upload-img v-model:value="activeComp.staticData.src"></upload-img>
       </a-form-item>
       <a-form-item label="提示文字" v-if="activeComp.name == 'y-input'">
         <a-input class="long_input" v-model:value="activeComp.staticData.placeholder" />
@@ -18,10 +18,12 @@
 </template>
 
 <script lang="ts">
+import uploadImg from '@/components/uploadImg.vue'
 import { defineComponent } from 'vue'
 import { useRightData } from './common/commonData'
 
 export default defineComponent({
+  components: { uploadImg },
   setup() {
     const rightData = useRightData()
     return {
