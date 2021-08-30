@@ -19,13 +19,15 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, toRaw } from 'vue'
+import html2canvas from 'html2canvas'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
 import PageCenter from './components/center.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { cloud } from '@/modules/request'
+import { cloud, uploadFile } from '@/modules/request'
 import { jsonToVue } from '@/modules/components'
+import { dataURLtoFile } from '@/utils'
 export default defineComponent({
   components: {
     PageLeft,
@@ -51,17 +53,24 @@ export default defineComponent({
         })
     })
     let containerList = computed(() => store.state.core.containerList)
-    const saveCarryPage = () => {
+    let _id = computed(() => store.state.core._id)
+    const saveCarryPage = async () => {
       console.log(containerList.value)
+      // 生成缩略图
+      let thub = await getThumbnail()
       db.collection('pageList')
         .where({
           _id: route.query.id,
         })
         .update({
           content: containerList.value,
+          tumbUrl: thub,
         })
         .then((res) => {
           console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
         })
     }
     const jsonProcessor = () => {
@@ -72,6 +81,19 @@ export default defineComponent({
       router.replace({
         name: 'home',
       })
+    }
+    const getThumbnail = async () => {
+      let core: any = document.querySelector('.main_iframe')
+      let photo = await html2canvas(core, {
+        useCORS: true,
+        scale: 1,
+        width: 375,
+        height: 700,
+      })
+
+      let file: any = dataURLtoFile(photo.toDataURL('image/jpeg'), `${_id.value}.jpg`)
+      let url = await uploadFile(`pagePhoto/${file.name}`, file)
+      return url
     }
     return {
       saveCarryPage,

@@ -130,7 +130,6 @@ function jsonToVue(components: any[]) {
     // 全局样式处理
     let classItem = ''
     res.components.map((child) => {
-      console.log(child)
       let cClass = getClass() // 当前class名称
       // 解析html
       parentHtml = `${parentHtml}${objToH5(child, cClass)}`

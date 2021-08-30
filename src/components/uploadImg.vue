@@ -83,7 +83,6 @@ export default defineComponent({
               result.fileList.forEach((el) => {
                 if (el.code === 'SUCCESS') {
                   emit('update:value', el.tempFileURL)
-                  nextTick
                 } else {
                   console.log('获取地址失败') //获取地址失败
                 }

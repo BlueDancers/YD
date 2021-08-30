@@ -1,10 +1,14 @@
 <template>
-  <div class="padd">
+  <div class="padd page_list">
     <a-button type="primary" @click="newPage">新建页面</a-button>
   </div>
   <a-table row-key="_id" :columns="columns" :data-source="listData" bordered class="marg">
     <template #name="{ text }">
       <a>{{ text }}</a>
+    </template>
+
+    <template #thmb="{ record }">
+      <img class="thmb_img" :src="record.tumbUrl" />
     </template>
     <template #action="{ record }">
       <a-button type="primary" @click="gotoUpdate(record)">编辑</a-button>
@@ -38,6 +42,7 @@ export default defineComponent({
           router: '', // 自定义路由名称
           routerName: '', // 自定义网页名称
           disp: '', // 描述阻断
+          tumbUrl: '', // 缩略图
           content: [], // 页面数据
         })
         .then((res: any) => {
@@ -53,8 +58,8 @@ export default defineComponent({
     // 表格部分逻辑
     const columns = [
       {
-        title: '页面id',
-        dataIndex: '_id',
+        title: '页面缩略图',
+        slots: { customRender: 'thmb' },
       },
       {
         title: '页面描述',
@@ -110,4 +115,11 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.page_list {
+}
+.thmb_img {
+  max-width: 168px;
+  max-height: 168px;
+}
+</style>
