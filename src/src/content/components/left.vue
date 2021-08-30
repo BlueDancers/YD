@@ -65,6 +65,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .content_left {
+  box-shadow: 0 2px 13px 0 rgb(0 0 0 / 10%);
   display: flex;
   background-color: #f8f9fa;
   width: 340px;

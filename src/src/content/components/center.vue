@@ -20,7 +20,7 @@
           :key="item.id"
         >
           <!-- 拖拽 -->
-          <InsertRowLeftOutlined class="active_handle"></InsertRowLeftOutlined>
+          <InsertRowLeftOutlined class="active_handle" :style="{ color: '#fff' }"></InsertRowLeftOutlined>
           <!-- 未选择组件 -->
           <div v-if="item.components.length == 0">
             <span>选中组件,点击左侧添加元素</span>
@@ -40,13 +40,12 @@
           </template>
           <!-- 下方拖拽 -->
           <div v-show="activeCont == item.id" class="max_cont" @mousedown="contHeightAddDown">
-            <TableOutlined width="1em" height="1em" fill="#000" />
+            <TableOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
           </div>
         </div>
       </draggable>
     </div>
   </div>
- 
 </template>
 
 <script lang="ts">
@@ -163,7 +162,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  box-shadow: 0 2px 13px 0 rgb(0 0 0 / 10%);
   .main_header {
     display: flex;
     justify-content: space-between;
@@ -205,19 +204,19 @@ export default defineComponent({
         align-items: center;
         justify-content: center;
         width: 20px;
-        height: 20px;
-        background-color: rgba(255, 255, 255, 0.4);
+        height: 24px;
+        background-color: #2970f6;
         cursor: pointer;
       }
       .max_cont {
-        width: 40px;
+        width: 30px;
         border-radius: 4px;
-        height: 12px;
-        background-color: #fff;
+        height: 20px;
+        background-color: #2970f6;
         position: absolute;
         z-index: 1000;
         left: 50%;
-        bottom: -6px;
+        bottom: -10px;
         transform: translate(-50%, 0);
         display: flex;
         justify-content: center;
@@ -234,7 +233,7 @@ export default defineComponent({
         left: 0px;
         height: 100%;
         width: 100%;
-        border: 1px solid #000;
+        border: 1px solid #2970f6;
       }
     }
   }

@@ -67,7 +67,7 @@ const core: Module<coreInter, any> = {
           position: 'relative',
           top: 0,
           left: 0,
-          backgroundColor: '#59c7f9',
+          backgroundColor: '#fff',
         },
         components: [], // 当前页面数据
       })

@@ -43,7 +43,7 @@ export default defineComponent({
   position: relative;
   /* padding: 10px; */
   font-family: mFont;
-  background: #eef0f4;
+  background: #f2f2f2;
   min-height: 100vh;
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -31,9 +31,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .point_item {
-  width: 5px;
-  height: 5px;
-  border: 1px solid #000;
+  width: 6px;
+  height: 6px;
+  border: 1px solid #2970f6;
   border-radius: 100%;
   position: absolute;
   z-index: 1000;

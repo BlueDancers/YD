@@ -57,6 +57,7 @@ export default defineComponent({
   background-color: #f8f9fa;
   width: 340px;
   height: calc(100vh - 50px);
+  box-shadow: -2px 0 13px 0 rgb(0 0 0 / 10%);
   .form_con {
     padding-left: 20px;
     .right_wh {

@@ -78,6 +78,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .page_content {
   .content_header {
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 2px 13px 0 rgb(0 0 0 / 10%);
     background-color: #f8f9fa;
     height: 50px;
     padding: 0 20px;
