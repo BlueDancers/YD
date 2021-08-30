@@ -7,12 +7,11 @@
     :replaceFields="{ children: 'components', title: 'id', key: 'id' }"
     :selectedKeys="activechild ? [activechild] : [activeCont]"
     @select="onSelect"
-    
   >
     <template #title="{ id, components, name }">
       <a-dropdown :trigger="['contextmenu']">
         <span v-if="components">容器</span>
-        <span v-else>{{ name }}</span>
+        <span v-else>{{ name.split('-')[1] }}</span>
         <template #overlay>
           <a-menu @click="({ key }) => onContextMenuClick(id, name, key)">
             <a-menu-item key="delete">删除</a-menu-item>

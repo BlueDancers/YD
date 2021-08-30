@@ -10,12 +10,21 @@ export function guid() {
 }
 
 /**
+ * 当前css数据是否需要增加单位
+ * @param name css属性名称
+ * @returns 
+ */
+export function cssTopx(name) {
+  return ['width', 'height', 'x', 'y', 'top', 'left', 'borderWidth', 'fontSize', 'borderRadius'].includes(name)
+}
+
+/**
  * 格式化
  */
 export function resetCss(data: Object) {
   const cssData = {}
   for (const key in data) {
-    if (['width', 'height', 'x', 'y', 'top', 'left', 'borderWidth', 'fontSize','borderRadius'].includes(key)) {
+    if (cssTopx(key)) {
       cssData[key] = `${data[key]}px`
     } else {
       cssData[key] = data[key]

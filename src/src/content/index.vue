@@ -4,7 +4,8 @@
       <a-col class="header_left" :span="5" @click="gotoHome">开发工具</a-col>
       <a-col class="header_centent" :span="14">页面设置按钮</a-col>
       <a-col class="header_right" :span="5">
-        <a-button @click="saveCarryPage" type="primary">保存</a-button>
+        <a-button class="right_btn" @click="jsonProcessor" type="primary">生成代码</a-button>
+        <a-button class="right_btn" @click="saveCarryPage" type="primary">保存</a-button>
       </a-col>
     </a-row>
     <!-- 操作台 -->
@@ -17,13 +18,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue'
+import { computed, defineComponent, onMounted, toRaw } from 'vue'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
 import PageCenter from './components/center.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { cloud } from '@/modules/request'
+import { jsonToVue } from '@/modules/components'
 export default defineComponent({
   components: {
     PageLeft,
@@ -62,6 +64,10 @@ export default defineComponent({
           console.log(res)
         })
     }
+    const jsonProcessor = () => {
+      console.log('开始生成代码')
+      jsonToVue(toRaw(containerList.value))
+    }
     const gotoHome = () => {
       router.replace({
         name: 'home',
@@ -70,6 +76,7 @@ export default defineComponent({
     return {
       saveCarryPage,
       gotoHome,
+      jsonProcessor,
     }
   },
 })
@@ -98,6 +105,9 @@ export default defineComponent({
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      .right_btn {
+        margin: 0 10px;
+      }
     }
   }
   .content_main {
