@@ -1,4 +1,4 @@
-import { baseComList } from '@/modules/components'
+import { baseComList, baseContList } from '@/modules/components'
 import { guid } from '@/utils'
 import { message } from 'ant-design-vue'
 import { Module } from 'vuex'
@@ -16,6 +16,7 @@ interface coreInter {
   mouseLock: boolean
   mouseType: number
   potinLock: number
+  contMinHeight: number
 }
 
 const core: Module<coreInter, any> = {
@@ -31,8 +32,9 @@ const core: Module<coreInter, any> = {
       containerList: [],
       coordinate: [], // 当前选中坐标
       mouseLock: false, // 当前是否按下鼠标
-      mouseType: 0, // 当前鼠标按下的单位 1 容器 2 组件 3 缩放点 4 容器增加点
+      mouseType: 0, // 当前鼠标按下的单位 1 容器 2 组件 3 缩放点 4 容器高度增加
       potinLock: 0, // 当前是否存在按下的设定点
+      contMinHeight: 0, // 当前选中组件可允许最小高度
     }
   },
   mutations: {
@@ -54,23 +56,18 @@ const core: Module<coreInter, any> = {
       state.potinLock = 0
       state.mouseType = 0
     },
+    // 设置当前操作类型
     toggle_mouseType(state, type) {
+      console.log(type)
+      if (type == 4) {
+        // 父级组件高度修改
+        store.commit('core/set_contMinHeight')
+      }
       state.mouseType = type
     },
     // 添加容器
     set_containerList(state) {
-      state.containerList.push({
-        id: guid(),
-        cssModule: {
-          width: 375,
-          height: 200,
-          position: 'relative',
-          top: 0,
-          left: 0,
-          backgroundColor: '#fff',
-        },
-        components: [], // 当前页面数据
-      })
+      state.containerList.push(baseContList('base', state.containerList.length))
     },
     // 设置父级
     toggleActive(state, id) {
@@ -191,11 +188,25 @@ const core: Module<coreInter, any> = {
     },
     updateCarryHeight(state, data) {
       let parcssModule = getParentCssModule(state)
-      parcssModule.height = parcssModule.height + data.y
+      if (parcssModule.height + data.y > state.contMinHeight) {
+        parcssModule.height = parcssModule.height + data.y
+      }
     },
     // 设定当前准备设置元素的点
     pointDataUpdate(state, type) {
       state.potinLock = type
+    },
+    // 计算当前组件,最小高度
+    set_contMinHeight(state) {
+      let minHeight = 0
+      let carryCont = state.containerList[state.coordinate[0]]
+      carryCont.components.map((res) => {
+        let eleHeight = res.cssModule.top + res.cssModule.height
+        if (minHeight < eleHeight) {
+          minHeight = eleHeight
+        }
+      })
+      state.contMinHeight = minHeight
     },
   },
   actions: {},

@@ -1,5 +1,32 @@
 import { cssTopx, guid } from '@/utils'
 
+export function baseContList(name, carryLength) {
+  const list = [
+    {
+      id: guid(),
+      cssModule: {
+        width: 375,
+        height: 300,
+        position: 'relative',
+        top: 0,
+        left: 0,
+        backgroundColor: '#fff',
+        zIndex: 100 - carryLength,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+      },
+      components: [], // 当前页面数据
+    },
+  ]
+  return list[0]
+}
+
 export interface baseComponent {
   id: String
   name: string
@@ -31,6 +58,14 @@ function baseComList(name: string, zIndex) {
         zIndex: 10 + zIndex,
         top: 10 + zIndex * 5,
         left: 10 + zIndex * 5,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
       }, // 样式
       staticData: {
         value: '按钮',
@@ -54,6 +89,14 @@ function baseComList(name: string, zIndex) {
         zIndex: 10 + zIndex,
         top: 10 + zIndex * 5,
         left: 10 + zIndex * 5,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
       }, // 样式
       staticData: {
         src: 'https://images.591wsh.com/2021/08/03/thumb_1627959419101.png',
@@ -78,6 +121,14 @@ function baseComList(name: string, zIndex) {
         zIndex: 10 + zIndex,
         top: 10 + zIndex * 5,
         left: 10 + zIndex * 5,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
       }, // 样式
       staticData: {
         type: 'text',
@@ -103,6 +154,14 @@ function baseComList(name: string, zIndex) {
         zIndex: 10 + zIndex,
         top: 10 + zIndex * 5,
         left: 10 + zIndex * 5,
+        marginTop: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
       }, // 样式
       staticData: {
         value: '点击点击文字',
@@ -136,7 +195,7 @@ function jsonToVue(components: any[]) {
       // 解析css
       classItem = `${classItem}.${pClass} .${cClass}{${objToClass(child.cssModule)}}`
     })
-    // 组件处理 id="${res.id}" 
+    // 组件处理 id="${res.id}"
     html = html + `<div class="${pClass}">${parentHtml}</div>`
     css = css + `.${pClass}{${objToClass(res.cssModule)}}${classItem}`
   })
@@ -174,13 +233,13 @@ function objToClass(obj) {
  * 根据组件生成h5标签
  * @param child 当前子组件
  * @param cClass 当前组件class名称
- * @returns 
+ * @returns
  */
 function objToH5(child, cClass) {
   let label = child.name.split('-')[1] // 当前标签名称
   let { value, src, placeholder } = child.staticData
   let childHtml = ''
-  let commonLabel = `class="${cClass}"` // 公共标签 id="${child.id}" 
+  let commonLabel = `class="${cClass}"` // 公共标签 id="${child.id}"
   switch (label) {
     case 'button':
       childHtml = `<${label} ${commonLabel}>${value}</${label}>`

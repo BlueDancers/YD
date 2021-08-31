@@ -43,3 +43,14 @@ export const positionSelect = [
     value: '固定布局',
   },
 ]
+
+export const inputTypeSelect = [
+  {
+    key: 'text',
+    value: '汉字',
+  },
+  {
+    key: 'number',
+    value: '数字',
+  },
+]
