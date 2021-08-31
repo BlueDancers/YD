@@ -23,7 +23,6 @@ import { useStore } from 'vuex'
 import compStyle from './right-components/compStyle.vue'
 import contStyle from './right-components/contStyle.vue'
 import compData from './right-components/compData.vue'
-import CompData from './right-components/compData.vue'
 
 export default defineComponent({
   components: {
@@ -32,15 +31,18 @@ export default defineComponent({
     compData,
   },
   setup() {
-    const activeKey = ref('1')
+    const activeKey = ref('0')
     const store = useStore()
     const coordinate = computed(() => store.state.core.coordinate)
     const activeCont = computed(() => store.state.core.activeCont)
     effect(() => {
-      if (coordinate.value.length == 2) {
-        activeKey.value = '2'
+      let coordLen = coordinate.value.length
+      if (coordLen == 2) {
+        if (!['2', '3'].includes(activeKey.value)) {
+          activeKey.value = '2'
+        }
       }
-      if (coordinate.value.length == 1) {
+      if (coordLen == 1) {
         activeKey.value = '1'
       }
     })

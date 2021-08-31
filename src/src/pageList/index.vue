@@ -59,6 +59,7 @@ export default defineComponent({
     const columns = [
       {
         title: '页面缩略图',
+        align:'center',
         slots: { customRender: 'thmb' },
       },
       {

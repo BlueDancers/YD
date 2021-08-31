@@ -136,12 +136,13 @@ function jsonToVue(components: any[]) {
       // 解析css
       classItem = `${classItem}.${pClass} .${cClass}{${objToClass(child.cssModule)}}`
     })
-    // 组件处理
-    html = html + `<div id="${1 || res.id}" class="${pClass}">${parentHtml}</div>`
+    // 组件处理 id="${res.id}" 
+    html = html + `<div class="${pClass}">${parentHtml}</div>`
     css = css + `.${pClass}{${objToClass(res.cssModule)}}${classItem}`
   })
   html = `<template><div>${html}</div></template>`
   css = `<style>${css}</style>`
+
   downFile(`${html}${css}`)
 }
 
@@ -169,12 +170,17 @@ function objToClass(obj) {
   }
   return text
 }
-
+/**
+ * 根据组件生成h5标签
+ * @param child 当前子组件
+ * @param cClass 当前组件class名称
+ * @returns 
+ */
 function objToH5(child, cClass) {
   let label = child.name.split('-')[1] // 当前标签名称
   let { value, src, placeholder } = child.staticData
   let childHtml = ''
-  let commonLabel = `id="${1 || child.id}" class="${cClass}"` // 公共标签
+  let commonLabel = `class="${cClass}"` // 公共标签 id="${child.id}" 
   switch (label) {
     case 'button':
       childHtml = `<${label} ${commonLabel}>${value}</${label}>`

@@ -21,7 +21,7 @@
 import { message } from 'ant-design-vue'
 import { defineComponent, nextTick, ref, watchEffect } from 'vue'
 import { UploadOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons-vue'
-import { cloud } from '@/modules/request'
+import { cloud, uploadFile } from '@/modules/request'
 import { useStore } from 'vuex'
 interface FileItem {
   uid: string
@@ -67,27 +67,9 @@ export default defineComponent({
       let userName = store.state.app.userData.email
       let fileName = `${userName}_${Date.now()}.${file.name.split('.')[1]}`
       loading.value = true
-      cloud
-        .uploadFile({
-          // 云存储的路径
-          cloudPath: `staticImg/${fileName}`,
-          filePath: file,
-        })
+      uploadFile(`staticImg/${fileName}`, file)
         .then((res) => {
-          // 返回文件 ID
-          return cloud
-            .getTempFileURL({
-              fileList: [res.fileID], //要下载的文件 ID 组成的数组 本示例填写为上面代码的文件id
-            })
-            .then((result: any) => {
-              result.fileList.forEach((el) => {
-                if (el.code === 'SUCCESS') {
-                  emit('update:value', el.tempFileURL)
-                } else {
-                  console.log('获取地址失败') //获取地址失败
-                }
-              })
-            })
+          emit('update:value', res)
         })
         .finally(() => {
           loading.value = false
