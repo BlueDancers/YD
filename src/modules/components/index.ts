@@ -10,7 +10,7 @@ export function baseContList(name, carryLength) {
         position: 'relative',
         top: 0,
         left: 0,
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff',
         zIndex: 100 - carryLength,
         marginTop: 0,
         marginBottom: 0,

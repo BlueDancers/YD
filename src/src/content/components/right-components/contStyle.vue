@@ -18,6 +18,9 @@
       <a-form-item label="背景色">
         <input type="color" v-model="activeCont.cssModule.backgroundColor" />
       </a-form-item>
+      <a-form-item label="上边距">
+        <a-input-number class="default_input" v-model:value="activeCont.cssModule.marginTop" />
+      </a-form-item>
     </a-form>
   </div>
 </template>

@@ -28,6 +28,7 @@ import { useStore } from 'vuex'
 import { cloud, uploadFile } from '@/modules/request'
 import { jsonToVue } from '@/modules/components'
 import { dataURLtoFile } from '@/utils'
+import { message } from 'ant-design-vue'
 export default defineComponent({
   components: {
     PageLeft,
@@ -68,6 +69,7 @@ export default defineComponent({
         })
         .then((res) => {
           console.log(res)
+          message.success('页面保存成功')
         })
         .catch((err) => {
           console.log(err)

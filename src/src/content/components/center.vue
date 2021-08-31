@@ -174,6 +174,7 @@ export default defineComponent({
     padding: 0 6px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    border-bottom: 1px solid #eee;
     .header_time {
     }
     .header_icon_list {

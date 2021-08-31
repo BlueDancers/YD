@@ -15,6 +15,8 @@
         <template #overlay>
           <a-menu @click="({ key }) => onContextMenuClick(id, name, key)">
             <a-menu-item key="delete">删除</a-menu-item>
+            <a-menu-item key="zIndexUp">置于顶部</a-menu-item>
+            <a-menu-item key="zIndexDown">置于底部</a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
@@ -60,6 +62,8 @@ export default defineComponent({
         } else {
           store.commit('core/deleteParentCont', id)
         }
+      } else if (key == 'zIndexUp') {
+      } else if (key == 'zIndexDown') {
       }
     }
 
