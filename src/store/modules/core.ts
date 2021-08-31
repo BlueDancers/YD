@@ -176,13 +176,18 @@ const core: Module<coreInter, any> = {
         }
       }
     },
+    //
     updateCarryPoint(state, data) {
       let parcssModule = getParentCssModule(state)
       let childcssModule = getChildCssModule(state)
       let { width, height } = parcssModule
       let { top, left, width: cwidth, height: cheight } = childcssModule
-      childcssModule.width = cwidth + data.x
-      childcssModule.height = cheight + data.y
+      if (top + cheight + data.y <= height) {
+        childcssModule.height = cheight + data.y
+      }
+      if (left + cwidth + data.x <= width) {
+        childcssModule.width = cwidth + data.x
+      }
     },
     updateCarryHeight(state, data) {
       let parcssModule = getParentCssModule(state)
