@@ -1,10 +1,3 @@
-/*
- * @Descripttion:
- * @Author: lgldlk
- * @Date: 2021-09-01 08:45:32
- * @Editors: lgldlk
- * @LastEditTime: 2021-09-01 10:53:12
- */
 /**
  * 生成随机id
  */
