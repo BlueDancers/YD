@@ -41,6 +41,7 @@ import { reactive } from '@vue/reactivity'
 import { inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
+import { $APP } from "@/PROVIDE_KEY";
 
 const router = useRouter()
 const userData = reactive({
@@ -49,7 +50,7 @@ const userData = reactive({
   aspassword: '',
 })
 
-let app: any = inject('$app')
+let app: any = inject($APP)
 function gotoRegistory() {
   if (userData.username == '') {
     message.error('请输入邮箱')

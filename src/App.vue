@@ -5,12 +5,13 @@
 <script lang="ts">
 import { defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
+import { $APP } from "@/PROVIDE_KEY";
 export default defineComponent({
   name: 'App',
   components: {},
   setup() {
     const store = useStore()
-    let $app: any = inject('$app')
+    let $app: any = inject($APP)
     store.dispatch('app/getUserData', $app)
     // app
     //   .callFunction({
@@ -37,7 +38,7 @@ export default defineComponent({
 
 @font-face {
   font-family: mFont;
-  src: url('../src/assets/common/DIN-MEDIUM.OTF');
+  src: url("../src/assets/common/DIN-MEDIUM.OTF");
 }
 #app {
   position: relative;

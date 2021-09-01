@@ -35,6 +35,7 @@ import { defineComponent, inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { $APP } from "@/PROVIDE_KEY";
 
 export default defineComponent({
   setup() {
@@ -51,7 +52,7 @@ export default defineComponent({
       password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
     }
 
-    let app: any = inject('$app')
+    let app: any = inject($APP)
 
     const auth: any = app.auth({
       persistence: 'local',
