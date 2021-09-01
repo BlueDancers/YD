@@ -17,6 +17,7 @@ interface coreInter {
   mouseType: number
   potinLock: number
   contMinHeight: number
+  moveLock: boolean
 }
 
 const core: Module<coreInter, any> = {
@@ -35,6 +36,7 @@ const core: Module<coreInter, any> = {
       mouseType: 0, // 当前鼠标按下的单位 1 容器 2 组件 3 缩放点 4 容器高度增加
       potinLock: 0, // 当前是否存在按下的设定点
       contMinHeight: 0, // 当前选中组件可允许最小高度
+      moveLock: false, // 当前是否锁定了组件移动
     }
   },
   mutations: {
@@ -165,7 +167,9 @@ const core: Module<coreInter, any> = {
         let { top, left, width: cwidth, height: cheight } = childcssModule
         let newtop = top + data.y
         let mewleft = left + data.x
-        if (newtop >= 0 && newtop + cheight <= height) {
+        console.log(-cheight);
+        
+        if (newtop >= -cheight && newtop + cheight <= height) {
           childcssModule.top = newtop
         }
         if (mewleft >= 0 && mewleft + cwidth <= width) {
@@ -207,6 +211,11 @@ const core: Module<coreInter, any> = {
         }
       })
       state.contMinHeight = minHeight
+    },
+    // 锁定模式
+    toggleMoveLock(state) {
+      state.moveLock = !state.moveLock
+      console.log('锁定',state.moveLock);
     },
   },
   actions: {},

@@ -16,10 +16,22 @@
         </div>
       </a-form-item>
       <a-form-item label="背景色">
-        <input type="color" v-model="activeCont.cssModule.backgroundColor" />
+        <input type="color" v-model="activeCont.cssModule['background-color']" />
       </a-form-item>
       <a-form-item label="上边距">
-        <a-input-number class="default_input" v-model:value="activeCont.cssModule.marginTop" />
+        <a-input-number class="default_input" v-model:value="activeCont.cssModule['margin-top']" />
+      </a-form-item>
+      <a-form-item label="下边距">
+        <a-input-number class="default_input" v-model:value="activeCont.cssModule['margin-bottom']" />
+      </a-form-item>
+      <a-form-item label="左边距">
+        <a-input-number class="default_input" v-model:value="activeCont.cssModule['margin-left']" />
+      </a-form-item>
+      <a-form-item label="右边距">
+        <a-input-number class="default_input" v-model:value="activeCont.cssModule['margin-right']" />
+      </a-form-item>
+      <a-form-item label="圆角">
+        <a-input-number class="default_input" :min="0" v-model:value="activeCont.cssModule['border-radius']" />
       </a-form-item>
     </a-form>
   </div>

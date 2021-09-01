@@ -1,5 +1,6 @@
 <template>
   <div class="content_right">
+    <fast-active></fast-active>
     <a-tabs v-model:activeKey="activeKey" v-if="activeCont">
       <a-tab-pane key="1">
         <template #tab>容器设置</template>
@@ -18,37 +19,42 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, effect, ref } from 'vue'
+import { computed, defineComponent, effect, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import compStyle from './right-components/compStyle.vue'
 import contStyle from './right-components/contStyle.vue'
 import compData from './right-components/compData.vue'
-
+import FastActive from './right-components/fastActive.vue'
 export default defineComponent({
   components: {
     compStyle,
     contStyle,
     compData,
+    FastActive,
   },
   setup() {
     const activeKey = ref('0')
+
     const store = useStore()
     const coordinate = computed(() => store.state.core.coordinate)
     const activeCont = computed(() => store.state.core.activeCont)
-    effect(() => {
-      let coordLen = coordinate.value.length
-      if (coordLen == 2) {
-        if (!['2', '3'].includes(activeKey.value)) {
-          activeKey.value = '2'
+    watch(
+      () => coordinate.value,
+      () => {
+        let coordLen = coordinate.value.length
+        if (coordLen == 2) {
+          if (!['2', '3'].includes(activeKey.value)) {
+            activeKey.value = '2'
+          }
+        }
+        if (coordLen == 1) {
+          activeKey.value = '1'
         }
       }
-      if (coordLen == 1) {
-        activeKey.value = '1'
-      }
-    })
+    )
     return {
-      activeCont,
       activeKey,
+      activeCont,
     }
   },
 })
@@ -57,9 +63,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .content_right {
   background-color: #f8f9fa;
-  width: 340px;
+  width: 400px;
   height: calc(100vh - 50px);
   box-shadow: -2px 0 13px 0 rgb(0 0 0 / 10%);
+  display: flex;
   .form_con {
     padding-left: 20px;
     .right_wh {

@@ -15,7 +15,7 @@ export function guid() {
  * @returns
  */
 export function cssTopx(name) {
-  return ['width', 'height', 'x', 'y', 'top', 'left', 'borderWidth', 'fontSize', 'borderRadius','marginTop'].includes(name)
+  return ['width', 'height', 'x', 'y', 'top', 'left', 'border-width', 'font-size', 'border-radius','margin-top','margin-bottom','margin-left','margin-right'].includes(name)
 }
 
 /**

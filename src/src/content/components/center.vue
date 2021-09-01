@@ -20,7 +20,7 @@
           :key="item.id"
         >
           <!-- 拖拽 -->
-          <InsertRowLeftOutlined class="active_handle" :style="{ color: '#fff' }"></InsertRowLeftOutlined>
+          <AppstoreOutlined class="active_handle" :style="{ color: '#fff' }" />
           <!-- 未选择组件 -->
           <div v-if="item.components.length == 0">
             <span>选中组件,点击左侧添加元素</span>
@@ -40,7 +40,7 @@
           </template>
           <!-- 下方拖拽 -->
           <div v-show="activeCont == item.id" class="max_cont" @mousedown="contHeightAddDown">
-            <TableOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
+            <EllipsisOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
           </div>
         </div>
       </draggable>
@@ -52,7 +52,7 @@
 import { computed, defineComponent, effect, ref } from 'vue'
 import { useStore } from 'vuex'
 import { resetCss } from '@/utils/index'
-import { InsertRowLeftOutlined, TableOutlined } from '@ant-design/icons-vue'
+import { AppstoreOutlined, TableOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
@@ -61,8 +61,9 @@ import YP from '../comp/YP.vue'
 export default defineComponent({
   components: {
     draggable: VueDraggableNext,
-    InsertRowLeftOutlined,
+    AppstoreOutlined,
     TableOutlined,
+    EllipsisOutlined,
     YButton,
     YImg,
     YInput,
@@ -84,6 +85,7 @@ export default defineComponent({
     // 当前设定点锁
     let mouseLock = computed(() => store.state.core.mouseLock)
     let mouseType = computed(() => store.state.core.mouseType)
+    let moveLock = computed(() => store.state.core.moveLock)
 
     // 选中父级
     const toggleActive = (data) => {
@@ -118,7 +120,7 @@ export default defineComponent({
         x: e.movementX,
         y: e.movementY,
       }
-      if (mouseLock.value) {
+      if (mouseLock.value && !moveLock.value) {
         if (mouseType.value == 2) {
           store.commit('core/updateCarryXY', data)
         }
@@ -205,19 +207,19 @@ export default defineComponent({
         align-items: center;
         justify-content: center;
         width: 20px;
-        height: 24px;
+        height: 20px;
         background-color: #2970f6;
         cursor: pointer;
       }
       .max_cont {
         width: 30px;
         border-radius: 4px;
-        height: 20px;
+        height: 12px;
         background-color: #2970f6;
         position: absolute;
         z-index: 1000;
         left: 50%;
-        bottom: -10px;
+        bottom: -6px;
         transform: translate(-50%, 0);
         display: flex;
         justify-content: center;

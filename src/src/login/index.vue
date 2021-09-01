@@ -42,8 +42,8 @@ export default defineComponent({
     const store = useStore()
     const formRef = ref()
     const userData = reactive({
-      username: '2467230789@qq.com',
-      password: '79715712242a',
+      username: '',
+      password: '',
     })
 
     const rules = {

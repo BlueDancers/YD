@@ -54,3 +54,14 @@ export const inputTypeSelect = [
     value: '数字',
   },
 ]
+
+export const fontWeightList = [
+  {
+    key: 'normal',
+    value: '正常',
+  },
+  {
+    key: 'bold',
+    value: '加粗',
+  },
+]
