@@ -35,7 +35,8 @@ import { defineComponent, inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-
+import { $APP } from "@/PROVIDE_KEY";
+import { isEmail } from '@/utils/index'
 export default defineComponent({
   setup() {
     const router = useRouter()
@@ -47,11 +48,19 @@ export default defineComponent({
     })
 
     const rules = {
-      username: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+      username: [{
+        required: true, message: '请输入邮箱'
+        , trigger: 'blur'
+      },
+      {
+        message: '邮箱格式错误', validator: (rule, value) =>
+          isEmail(value) ? Promise.resolve() : Promise.reject()
+        , trigger: 'change'
+      }],
       password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
     }
 
-    let app: any = inject('$app')
+    let app: any = inject($APP)
 
     const auth: any = app.auth({
       persistence: 'local',
@@ -90,6 +99,7 @@ export default defineComponent({
             })
         })
         .catch((error) => {
+          message.error(error.errorFields[0].errors[0])
           console.log('error', error)
         })
     }

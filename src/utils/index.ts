@@ -1,3 +1,10 @@
+/*
+ * @Descripttion:
+ * @Author: lgldlk
+ * @Date: 2021-09-01 08:45:32
+ * @Editors: lgldlk
+ * @LastEditTime: 2021-09-01 10:53:12
+ */
 /**
  * 生成随机id
  */
@@ -15,7 +22,21 @@ export function guid() {
  * @returns
  */
 export function cssTopx(name) {
-  return ['width', 'height', 'x', 'y', 'top', 'left', 'border-width', 'font-size', 'border-radius','margin-top','margin-bottom','margin-left','margin-right'].includes(name)
+  return [
+    'width',
+    'height',
+    'x',
+    'y',
+    'top',
+    'left',
+    'border-width',
+    'font-size',
+    'border-radius',
+    'margin-top',
+    'margin-bottom',
+    'margin-left',
+    'margin-right',
+  ].includes(name)
 }
 
 /**
@@ -35,9 +56,9 @@ export function resetCss(data: Object) {
 
 /**
  * base64转file文件
- * @param dataurl 
- * @param filename 
- * @returns 
+ * @param dataurl
+ * @param filename
+ * @returns
  */
 export function dataURLtoFile(dataurl: string, filename: string) {
   // 获取到base64编码
@@ -52,4 +73,42 @@ export function dataURLtoFile(dataurl: string, filename: string) {
   return new File([u8arr], filename, {
     type: 'image/jpeg',
   })
+}
+
+/**
+ * 是否是邮箱格式
+ * @param {str} 判断的字符串
+ */
+export const isEmail = (str: string) => {
+  return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str)
+}
+
+let _debounceTimeout: any = undefined,
+  _throttleRunning = false
+
+/**
+ * 防抖
+ * @param {Function} 执行函数
+ * @param {Number} delay 延时ms
+ */
+export const debounce = (fn, delay = 500) => {
+  clearTimeout(_debounceTimeout)
+  _debounceTimeout = setTimeout(() => {
+    fn()
+  }, delay)
+}
+/**
+ * 节流
+ * @param {Function} 执行函数
+ * @param {Number} delay 延时ms
+ */
+export const throttle = (fn, delay = 500) => {
+  if (_throttleRunning) {
+    return
+  }
+  _throttleRunning = true
+  fn()
+  setTimeout(() => {
+    _throttleRunning = false
+  }, delay)
 }
