@@ -34,6 +34,18 @@
             <a-input-number type="number" class="default_input" v-model:value="contCss.top"></a-input-number>
           </div>
         </a-form-item>
+        <a-form-item label="外边距">
+          <a-input-number class="mini_input" v-model:value="contCss['margin-top']" />
+          <a-input-number class="mini_input" v-model:value="contCss['margin-bottom']" />
+          <a-input-number class="mini_input" v-model:value="contCss['margin-left']" />
+          <a-input-number class="mini_input" v-model:value="contCss['margin-right']" />
+        </a-form-item>
+        <a-form-item label="内边距">
+          <a-input-number class="mini_input" v-model:value="contCss['padding-top']" />
+          <a-input-number class="mini_input" v-model:value="contCss['padding-bottom']" />
+          <a-input-number class="mini_input" v-model:value="contCss['padding-left']" />
+          <a-input-number class="mini_input" v-model:value="contCss['padding-right']" />
+        </a-form-item>
         <a-form-item label="背景颜色">
           <input class="default_input" type="color" v-model="contCss['background-color']" />
         </a-form-item>
@@ -143,6 +155,10 @@ export default defineComponent({
   }
   .default_input {
     width: 80px;
+  }
+  .mini_input {
+    width: 50px;
+    margin: 0 2px;
   }
 }
 </style>

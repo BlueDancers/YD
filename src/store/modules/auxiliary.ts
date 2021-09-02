@@ -16,27 +16,27 @@ const app: Module<any, any> = {
       let topList: any[] = []
       let leftList: any[] = []
       data.map((res) => {
-        if (topList.includes(res.cssModule.top)) {
-          state.showlineX.push(res.cssModule.top)
-        }
-        if (leftList.includes(res.cssModule.left)) {
-          state.showlineY.push(res.cssModule.left)
-        }
-        if (topList.includes(res.cssModule.top + res.cssModule.height)) {
-          state.showlineX.push(res.cssModule.top + res.cssModule.height)
-        }
-        if (leftList.includes(res.cssModule.left + res.cssModule.width)) {
-          state.showlineY.push(res.cssModule.left + res.cssModule.width)
-        }
-
-        topList.push(res.cssModule.top, res.cssModule.top + res.cssModule.height)
-        leftList.push(res.cssModule.left, res.cssModule.left + res.cssModule.width)
+        let { top, left, height, width } = res.cssModule
+        let showX = [top, top + height, top + height / 2]
+        let showY = [left, left + width, left + width / 2]
+        showX.map((i) => {
+          if (topList.includes(i)) {
+            state.showlineX.push(i)
+          }
+        })
+        showY.map((i) => {
+          if (leftList.includes(i)) {
+            state.showlineY.push(i)
+          }
+        })
+        topList.push(top, top + height, top + height / 2)
+        leftList.push(left, left + width, left + width / 2)
       })
-
-      console.log(state.showline)
-      console.log(topList)
-      console.log(leftList)
     },
+    clearShowLine(state){
+      state.showlineX = []
+      state.showlineY = []
+    }
   },
   actions: {},
 }

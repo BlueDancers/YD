@@ -43,6 +43,7 @@ export default defineComponent({
           routerName: '', // 自定义网页名称
           disp: '', // 描述阻断
           tumbUrl: '', // 缩略图
+          backColor:'#ffffff',
           content: [], // 页面数据
         })
         .then((res: any) => {

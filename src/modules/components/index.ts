@@ -101,7 +101,7 @@ function baseComList(name: string, zIndex) {
         'padding-right': 0,
       }, // 样式
       staticData: {
-        src: 'https://images.591wsh.com/2021/08/03/thumb_1627959419101.png',
+        src: 'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
       }, // 展示文字
       configuration: {}, // 行为
       function: {}, // 方法

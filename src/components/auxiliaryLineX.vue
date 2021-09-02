@@ -1,5 +1,11 @@
 <template>
-  <div v-for="item in line" :key="item" v-show="item != 0" class="x_line" :style="{ top: item + 'px' }"></div>
+  <div
+    v-for="item in line"
+    :key="item"
+    v-show="item != 0 && coordinate.length == 2 && mouseLock"
+    class="x_line"
+    :style="{ top: item + 'px' }"
+  ></div>
 </template>
 
 <script lang="ts">
@@ -10,8 +16,12 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const line = computed(() => store.state.auxiliary.showlineX)
+    const coordinate = computed(() => store.state.core.coordinate)
+    const mouseLock = computed(() => store.state.core.mouseLock)
     return {
       line,
+      mouseLock,
+      coordinate,
     }
   },
 })
@@ -22,7 +32,7 @@ export default defineComponent({
   width: 100%;
   z-index: 99999;
   height: 1px;
-  background-color: #2970f6;
+  background-color: rgba(41, 113, 246, 0.3);
   left: 0px;
 }
 </style>

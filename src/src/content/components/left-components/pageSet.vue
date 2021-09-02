@@ -1,11 +1,14 @@
 <template>
-  <div>
-    <a-form ref="pageRef" :model="pageForm" :rules="pageRules">
+  <div class="page_set">
+    <a-form ref="pageRef" :model="pageForm" :rules="pageRules" :label-col="{ style: { width: '80px' }}">
       <a-form-item label="页面名称" name="routerName">
         <a-input v-model:value="pageForm.routerName" />
       </a-form-item>
       <a-form-item label="页面路由" name="router">
         <a-input v-model:value="pageForm.router" />
+      </a-form-item>
+      <a-form-item label="背景颜色">
+        <input type="color" v-model="pageForm.backColor" />
       </a-form-item>
       <a-form-item label="页面描述" name="disp">
         <a-textarea v-model:value="pageForm.disp" />
@@ -33,12 +36,14 @@ export default defineComponent({
     let routerName = computed(() => store.state.core.routerName)
     let router = computed(() => store.state.core.router)
     let pageDisp = computed(() => store.state.core.pageDisp)
+    let backColor = computed(() => store.state.core.backColor)
     console.log(routerName.value, router.value, pageDisp.value)
 
     const pageForm = reactive({
       router: toRaw(routerName.value),
       routerName: toRaw(router.value),
       disp: toRaw(pageDisp.value),
+      backColor: toRaw(backColor.value),
     })
     const pageRules = {
       router: [{ required: true, message: '请输入路由路径', trigger: 'change' }],
@@ -76,4 +81,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.page_set {
+  margin-top: 30px;
+}
+</style>

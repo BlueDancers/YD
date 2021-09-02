@@ -9,11 +9,11 @@
         <img class="header_icon_dc" src="@/assets/common/dianchi.png" alt="" />
       </div>
     </div>
-    <div class="main_iframe">
+    <div class="main_iframe" :style="{backgroundColor: backColor }">
       <!-- 辅助线 -->
       <draggable v-model="containerList" :animation="300" handle=".active_handle" @start="dragStart" @end="dragEnd">
         <div
-          @click.self="toggleActive(item)"
+          @mousedown.self="toggleActive(item)"
           class="contains_item"
           :class="activeCont == item.id ? 'active_cont' : ''"
           :style="resetCss(item.cssModule)"
@@ -94,12 +94,15 @@ export default defineComponent({
     let mouseLock = computed(() => store.state.core.mouseLock)
     let mouseType = computed(() => store.state.core.mouseType)
     let moveLock = computed(() => store.state.core.moveLock)
+    // 背景颜色
+    let backColor = computed(() => store.state.core.backColor)
 
     // 选中父级
     const toggleActive = (data) => {
       // 切换父级的时候去除缓存数据
       if (activeCont.value != data.id) {
         store.commit('core/clearContList')
+        store.commit('auxiliary/clearShowLine')
       }
       store.commit('core/toggleActive', data.id)
     }
@@ -149,10 +152,10 @@ export default defineComponent({
     }
     return {
       containerList,
+      backColor,
       activeCont,
       resetCss,
       toggleActive,
-      clearActive,
       dragStart,
       dragEnd,
       mousedown,
@@ -245,7 +248,7 @@ export default defineComponent({
         left: 0px;
         height: 100%;
         width: 100%;
-        border: 1px solid #2970f6;
+        border: 1px dashed #2970f6;
       }
     }
   }

@@ -29,6 +29,10 @@ export function cssTopx(name) {
     'margin-bottom',
     'margin-left',
     'margin-right',
+    'padding-top',
+    'padding-bottom',
+    'padding-left',
+    'padding-right',
   ].includes(name)
 }
 

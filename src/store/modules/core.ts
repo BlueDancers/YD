@@ -11,6 +11,7 @@ interface coreInter {
   routerName: string
   activeCont: string
   activechild: string
+  backColor: string
   containerList: any[]
   coordinate: number[]
   mouseLock: boolean
@@ -31,6 +32,7 @@ const core: Module<coreInter, any> = {
       activeCont: '', // 当前选中的父级组件
       activechild: '', // 当前选中的子类组件
       containerList: [],
+      backColor: '', // 当前页面的背景颜色
       coordinate: [], // 当前选中坐标
       mouseLock: false, // 当前是否按下鼠标
       mouseType: 0, // 当前鼠标按下的单位 1 容器 2 组件 3 缩放点 4 容器高度增加
@@ -47,6 +49,7 @@ const core: Module<coreInter, any> = {
       state.router = data.router
       state.routerName = data.routerName
       state.containerList = data.content
+      state.backColor = data.backColor
     },
     // 鼠标按下
     down_mouseLock(state) {
@@ -101,6 +104,8 @@ const core: Module<coreInter, any> = {
           break
         }
       }
+      // 计算辅助线
+      store.commit('auxiliary/updateShowLine', state.containerList[state.coordinate[0]].components)
     },
     // 删除父级
     deleteParentCont(state, id) {
