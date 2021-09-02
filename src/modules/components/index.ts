@@ -21,7 +21,7 @@ export function baseContList(name, carryLength) {
         'padding-left': 0,
         'padding-right': 0,
         'border-radius': 0,
-        boxSizing: 'border-box',
+        'box-sizing': 'border-box',
       },
       components: [], // 当前页面数据
     },
@@ -47,7 +47,7 @@ function baseComList(name: string, zIndex) {
         position: 'absolute',
         display: 'flex',
         'justify-content': 'center',
-        alignItems: 'center',
+        'align-items': 'center',
         'background-color': '#eeeeee',
         'font-size': 14,
         color: '#000000',
@@ -81,8 +81,7 @@ function baseComList(name: string, zIndex) {
       name: 'y-img',
       cssModule: {
         position: 'absolute',
-        'background-color': '#eeeeee',
-        color: '#000000',
+        'background-color': '#ffffff00',
         'border-color': '#ffffff',
         'border-width': 0,
         'border-style': 'solid',
@@ -167,7 +166,7 @@ function baseComList(name: string, zIndex) {
         'padding-left': 0,
         'padding-right': 0,
         'font-weight': 'normal',
-        'text-aligin': 'center',
+        'text-align': 'center',
       }, // 样式
       staticData: {
         value: '点击点击文字',
@@ -216,9 +215,12 @@ function jsonToVue(components: any[]) {
  * @returns
  */
 function getClass() {
-  return Math.random().toString(36).slice(-8)
+  let length = 8
+  let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  var result = ''
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)]
+  return result
 }
-
 /**
  * 将对象转为css
  * @param obj

@@ -167,14 +167,14 @@ const core: Module<coreInter, any> = {
         let { top, left, width: cwidth, height: cheight } = childcssModule
         let newtop = top + data.y
         let mewleft = left + data.x
-        console.log(-cheight);
-        
+
         if (newtop >= -cheight && newtop + cheight <= height) {
           childcssModule.top = newtop
         }
         if (mewleft >= 0 && mewleft + cwidth <= width) {
           childcssModule.left = mewleft
         }
+        store.commit('auxiliary/updateShowLine', state.containerList[state.coordinate[0]].components)
       }
     },
     //
@@ -215,7 +215,19 @@ const core: Module<coreInter, any> = {
     // 锁定模式
     toggleMoveLock(state) {
       state.moveLock = !state.moveLock
-      console.log('锁定',state.moveLock);
+      console.log('锁定', state.moveLock)
+    },
+    // 快速设置组件信息
+    fastCompLayout(state, type) {
+      let parent = getParentCssModule(state)
+      let child = getChildCssModule(state)
+      if (type == 'left') {
+        getChildCssModule(state).left = 0
+      } else if (type == 'center') {
+        getChildCssModule(state).left = (parent.width - child.width) / 2
+      } else if (type == 'right') {
+        getChildCssModule(state).left = parent.width - child.width
+      }
     },
   },
   actions: {},

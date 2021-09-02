@@ -10,6 +10,7 @@
       </div>
     </div>
     <div class="main_iframe">
+      <!-- 辅助线 -->
       <draggable v-model="containerList" :animation="300" handle=".active_handle" @start="dragStart" @end="dragEnd">
         <div
           @click.self="toggleActive(item)"
@@ -19,6 +20,8 @@
           v-for="item in containerList"
           :key="item.id"
         >
+          <auxiliary-line-x v-if="activeCont == item.id"></auxiliary-line-x>
+          <auxiliary-line-y v-if="activeCont == item.id"></auxiliary-line-y>
           <!-- 拖拽 -->
           <AppstoreOutlined class="active_handle" :style="{ color: '#fff' }" />
           <!-- 未选择组件 -->
@@ -54,16 +57,21 @@ import { useStore } from 'vuex'
 import { resetCss } from '@/utils/index'
 import { AppstoreOutlined, TableOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 import { VueDraggableNext } from 'vue-draggable-next'
+import auxiliaryLineX from '../../../components/auxiliaryLineX.vue'
+import auxiliaryLineY from '../../../components/auxiliaryLineY.vue'
 import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
 import YInput from '../comp/YInput.vue'
 import YP from '../comp/YP.vue'
+
 export default defineComponent({
   components: {
     draggable: VueDraggableNext,
     AppstoreOutlined,
     TableOutlined,
     EllipsisOutlined,
+    auxiliaryLineX,
+    auxiliaryLineY,
     YButton,
     YImg,
     YInput,
@@ -159,6 +167,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .main_page {
+  position: relative;
   flex: 1;
   width: 100%;
   display: flex;

@@ -65,3 +65,18 @@ export const fontWeightList = [
     value: '加粗',
   },
 ]
+
+export const fontAlignList = [
+  {
+    key: 'left',
+    value: '靠左',
+  },
+  {
+    key: 'center',
+    value: '居中',
+  },
+  {
+    key: 'right',
+    value: '靠右',
+  },
+]
