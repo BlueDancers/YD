@@ -7,14 +7,14 @@
           <a-radio-button value="2">源码模式</a-radio-button>
         </a-radio-group>
       </a-form-item>
-      <a-form-item label="快捷布局">
-        <div class="fast_layout">
-          <AlignLeftOutlined class="layout_item" @click="fastLayout('left')" />
-          <AlignCenterOutlined class="layout_item" @click="fastLayout('center')" />
-          <AlignRightOutlined class="layout_item" @click="fastLayout('right')" />
-        </div>
-      </a-form-item>
       <template v-if="toggleModal == '1'">
+        <a-form-item label="快捷布局">
+          <div class="fast_layout">
+            <AlignLeftOutlined class="layout_item" @click="fastLayout('left')" />
+            <AlignCenterOutlined class="layout_item" @click="fastLayout('center')" />
+            <AlignRightOutlined class="layout_item" @click="fastLayout('right')" />
+          </div>
+        </a-form-item>
         <a-form-item label="宽高">
           <div>
             <a-input-number type="number" :min="0" class="default_input" v-model:value="contCss.width"></a-input-number>
@@ -93,7 +93,11 @@
           <a-input class="default_input" v-model="contCss['font-weight']" />
         </a-form-item> -->
       </template>
-      <template v-if="toggleModal == '2'"> </template>
+      <json-editor
+        v-show="toggleModal == '2'"
+        :modelValue="JSON.stringify(contCss)"
+        @changeData="changeCompData"
+      ></json-editor>
     </a-form>
   </div>
 </template>
@@ -103,11 +107,14 @@ import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { borderStyleList, fontWeightList, fontAlignList } from '../common/selectData'
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant-design/icons-vue'
+import JsonEditor from '@/components/JsonEditor.vue'
+import { message } from 'ant-design-vue'
 export default defineComponent({
   components: {
     AlignCenterOutlined,
     AlignLeftOutlined,
     AlignRightOutlined,
+    JsonEditor,
   },
   setup() {
     const toggleModal = ref('1')
@@ -127,6 +134,15 @@ export default defineComponent({
     const fastLayout = (type) => {
       store.commit('core/fastCompLayout', type)
     }
+    const changeCompData = (value) => {
+      try {
+        console.log(JSON.parse(value))
+        let cssData = JSON.parse(value)
+        store.commit('core/setCarryCompData',cssData)
+      } catch (error) {
+        message.error('请输入正常的json语法')
+      }
+    }
     return {
       toggleModal,
       contCss,
@@ -134,6 +150,7 @@ export default defineComponent({
       fontWeightList,
       fontAlignList,
       fastLayout,
+      changeCompData,
     }
   },
 })

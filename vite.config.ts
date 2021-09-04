@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import path from 'path'
+const prefix = `monaco-editor/esm/vs`
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader()],
@@ -11,6 +12,14 @@ export default defineConfig({
   base: '/yc/',
   build: {
     outDir: 'yc',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          jsonWorker: [`${prefix}/language/json/json.worker`],
+          editorWorker: [`${prefix}/editor/editor.worker`],
+        },
+      },
+    },
   },
   resolve: {
     alias: {

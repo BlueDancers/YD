@@ -1,6 +1,6 @@
 <template>
   <div class="page_set">
-    <a-form ref="pageRef" :model="pageForm" :rules="pageRules" :label-col="{ style: { width: '80px' }}">
+    <a-form ref="pageRef" :model="pageForm" :rules="pageRules" :label-col="{ style: { width: '80px' } }">
       <a-form-item label="页面名称" name="routerName">
         <a-input v-model:value="pageForm.routerName" />
       </a-form-item>
@@ -63,6 +63,7 @@ export default defineComponent({
             })
             .update({ ...toRaw(pageForm) })
             .then((res: any) => {
+              store.commit('core/change_Temp_other', toRaw(pageForm))
               message.success('修改成功~')
             })
         })

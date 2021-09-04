@@ -48,6 +48,7 @@ export default defineComponent({
         .then((res) => {
           if (res.data.length == 1) {
             store.commit('core/change_Template', res.data[0])
+            store.commit('core/change_Temp_other', res.data[0])
           } else {
             console.log('获取页面数据失败')
           }

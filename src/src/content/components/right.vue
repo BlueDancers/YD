@@ -1,7 +1,7 @@
 <template>
   <div class="content_right">
     <fast-active></fast-active>
-    <a-tabs v-model:activeKey="activeKey" v-if="activeCont">
+    <a-tabs class="content_tab" v-model:activeKey="activeKey" v-if="activeCont">
       <a-tab-pane key="1">
         <template #tab>容器设置</template>
         <cont-style></cont-style>
@@ -67,6 +67,12 @@ export default defineComponent({
   height: calc(100vh - 50px);
   box-shadow: -2px 0 13px 0 rgb(0 0 0 / 10%);
   display: flex;
+
+  .content_tab {
+    overflow-y: scroll;
+    margin-bottom: 20px;
+  }
+
   .form_con {
     padding-left: 20px;
     .right_wh {

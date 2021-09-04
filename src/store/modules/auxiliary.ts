@@ -1,4 +1,5 @@
 import { Module } from 'vuex'
+import store from '../index'
 
 const app: Module<any, any> = {
   namespaced: true,
@@ -10,11 +11,11 @@ const app: Module<any, any> = {
   },
   mutations: {
     updateShowLine(state, data) {
-      console.log(data)
       state.showlineX = []
       state.showlineY = []
       let topList: any[] = []
       let leftList: any[] = []
+      let activeComp = store.state.core.activechild[store.state.core.coordinate[1]]
       data.map((res) => {
         let { top, left, height, width } = res.cssModule
         let showX = [top, top + height, top + height / 2]
@@ -33,10 +34,10 @@ const app: Module<any, any> = {
         leftList.push(left, left + width, left + width / 2)
       })
     },
-    clearShowLine(state){
+    clearShowLine(state) {
       state.showlineX = []
       state.showlineY = []
-    }
+    },
   },
   actions: {},
 }

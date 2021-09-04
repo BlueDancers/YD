@@ -45,10 +45,12 @@ const core: Module<coreInter, any> = {
     // 开启编辑
     change_Template(state, data) {
       state._id = data._id
+      state.containerList = data.content
+    },
+    change_Temp_other(state, data) {
       state.pageDisp = data.disp
       state.router = data.router
       state.routerName = data.routerName
-      state.containerList = data.content
       state.backColor = data.backColor
     },
     // 鼠标按下
@@ -182,7 +184,7 @@ const core: Module<coreInter, any> = {
         store.commit('auxiliary/updateShowLine', state.containerList[state.coordinate[0]].components)
       }
     },
-    //
+    // 按住元素点
     updateCarryPoint(state, data) {
       let parcssModule = getParentCssModule(state)
       let childcssModule = getChildCssModule(state)
@@ -195,6 +197,7 @@ const core: Module<coreInter, any> = {
         childcssModule.width = cwidth + data.x
       }
     },
+    // 更新容器高度
     updateCarryHeight(state, data) {
       let parcssModule = getParentCssModule(state)
       if (parcssModule.height + data.y > state.contMinHeight) {
@@ -233,6 +236,9 @@ const core: Module<coreInter, any> = {
       } else if (type == 'right') {
         getChildCssModule(state).left = parent.width - child.width
       }
+    },
+    setCarryCompData(state, data) {
+      state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule = data
     },
   },
   actions: {},
