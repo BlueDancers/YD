@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, nextTick } from 'vue'
+import { defineComponent, onMounted, ref, nextTick, onBeforeUnmount } from 'vue'
 import * as monaco from 'monaco-editor'
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
@@ -17,7 +17,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     let dom = ref()
-    let instance: any = ''
+    let instance: any = ref('')
     ;(self as any).MonacoEnvironment = {
       getWorker(workerId, label) {
         if (label === 'json') {
@@ -29,11 +29,9 @@ export default defineComponent({
     onMounted(() => {
       const jsonModel = monaco.editor.createModel(
         props.modelValue,
-        'json',
-        monaco.Uri.parse('json://grid/settings.json')
+        'json'
+        // monaco.Uri.parse('json://grid/settings.json')
       )
-      console.log(jsonModel, props.modelValue)
-
       instance = monaco.editor.create(dom.value, {
         model: jsonModel,
         tabSize: 2,
@@ -49,10 +47,15 @@ export default defineComponent({
         emit('changeData', value)
       })
       nextTick(() => {
-        instance.getAction(['editor.action.formatDocument'])
+        setTimeout(() => {
+          instance.getAction(['editor.action.formatDocument']).run()
+        }, 100)
       })
     })
-
+    onBeforeUnmount(() => {
+      console.log('卸载函数')
+      instance.dispose()
+    })
     return {
       dom,
     }

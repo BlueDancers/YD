@@ -14,11 +14,13 @@
       <page-center></page-center>
       <page-right></page-right>
     </div>
+    <!-- 生成代码设置 -->
+    <build-settings ref="buildSettings"></build-settings>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, toRaw } from 'vue'
+import { computed, defineComponent, onMounted, ref, toRaw } from 'vue'
 import html2canvas from 'html2canvas'
 import PageLeft from './components/left.vue'
 import PageRight from './components/right.vue'
@@ -29,17 +31,20 @@ import { cloud, uploadFile } from '@/modules/request'
 import { jsonToVue } from '@/modules/components'
 import { dataURLtoFile } from '@/utils'
 import { message } from 'ant-design-vue'
+import BuildSettings from './components/components/buildSettings.vue'
 export default defineComponent({
   components: {
     PageLeft,
     PageRight,
     PageCenter,
+    BuildSettings,
   },
   setup() {
     const db = cloud.database()
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
+    const buildSettings = ref()
     onMounted(() => {
       let id: string = String(route.query.id)
       db.collection('pageList')
@@ -77,8 +82,8 @@ export default defineComponent({
         })
     }
     const jsonProcessor = () => {
-      console.log('开始生成代码')
-      jsonToVue(toRaw(containerList.value))
+      // 打开弹窗
+      buildSettings.value.toggleVisble()
     }
     const gotoHome = () => {
       router.replace({
@@ -102,6 +107,7 @@ export default defineComponent({
       saveCarryPage,
       gotoHome,
       jsonProcessor,
+      buildSettings,
     }
   },
 })

@@ -237,9 +237,14 @@ const core: Module<coreInter, any> = {
         getChildCssModule(state).left = parent.width - child.width
       }
     },
+    // 组件 源码模式
     setCarryCompData(state, data) {
       state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule = data
     },
+    // 容器 源码模式
+    setCarryContData(state, data){
+      state.containerList[state.coordinate[0]].cssModule = data
+    }
   },
   actions: {},
 }

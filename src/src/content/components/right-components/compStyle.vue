@@ -46,13 +46,13 @@
           <a-input-number class="mini_input" v-model:value="contCss['padding-left']" />
           <a-input-number class="mini_input" v-model:value="contCss['padding-right']" />
         </a-form-item>
-        <a-form-item label="背景颜色">
+        <a-form-item label="背景颜色" v-if="contCss['background-color']">
           <input class="default_input" type="color" v-model="contCss['background-color']" />
         </a-form-item>
         <a-form-item label="字体颜色" v-if="contCss.color">
           <input class="default_input" type="color" v-model="contCss.color" />
         </a-form-item>
-        <a-form-item label="层级">
+        <a-form-item label="层级" v-if="contCss['z-index']">
           <a-input-number class="default_input" :min="0" v-model:value="contCss['z-index']" />
         </a-form-item>
         <a-form-item label="字号" v-if="contCss['font-size']">
@@ -71,7 +71,7 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item label="圆角">
+        <a-form-item label="圆角" v-if="contCss['border-radius']">
           <a-input-number class="default_input" :min="0" v-model:value="contCss['border-radius']" />
         </a-form-item>
         <a-form-item label="字重" v-if="contCss['font-weight']">
@@ -88,13 +88,9 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-
-        <!-- <a-form-item label="圆角">
-          <a-input class="default_input" v-model="contCss['font-weight']" />
-        </a-form-item> -->
       </template>
       <json-editor
-        v-show="toggleModal == '2'"
+        v-if="toggleModal == '2'"
         :modelValue="JSON.stringify(contCss)"
         @changeData="changeCompData"
       ></json-editor>
@@ -103,7 +99,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 import { borderStyleList, fontWeightList, fontAlignList } from '../common/selectData'
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant-design/icons-vue'
@@ -131,14 +127,19 @@ export default defineComponent({
       },
       set: (value) => {},
     })
+    watch(
+      () => coordinate.value,
+      () => {
+        toggleModal.value = '1'
+      }
+    )
     const fastLayout = (type) => {
       store.commit('core/fastCompLayout', type)
     }
     const changeCompData = (value) => {
       try {
-        console.log(JSON.parse(value))
         let cssData = JSON.parse(value)
-        store.commit('core/setCarryCompData',cssData)
+        store.commit('core/setCarryCompData', cssData)
       } catch (error) {
         message.error('请输入正常的json语法')
       }

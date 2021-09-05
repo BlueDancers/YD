@@ -182,7 +182,7 @@ function baseComList(name: string, zIndex) {
  * json转vue代码
  * @param components
  */
-function jsonToVue(components: any[]) {
+function jsonToVue(components: any[], pageWidth, pageUnit) {
   console.log(components)
   let html = ''
   let css = ''
@@ -198,11 +198,11 @@ function jsonToVue(components: any[]) {
       // 解析html
       parentHtml = `${parentHtml}${objToH5(child, cClass)}`
       // 解析css
-      classItem = `${classItem}.${pClass} .${cClass}{${objToClass(child.cssModule)}}`
+      classItem = `${classItem}.${pClass} .${cClass}{${objToClass(child.cssModule, pageWidth, pageUnit)}}`
     })
     // 组件处理 id="${res.id}"
     html = html + `<div class="${pClass}">${parentHtml}</div>`
-    css = css + `.${pClass}{${objToClass(res.cssModule)}}${classItem}`
+    css = css + `.${pClass}{${objToClass(res.cssModule, pageWidth, pageUnit)}}${classItem}`
   })
   html = `<template><div>${html}</div></template>`
   css = `<style>${css}</style>`
@@ -226,11 +226,11 @@ function getClass() {
  * @param obj
  * @returns
  */
-function objToClass(obj) {
+function objToClass(obj, pageWidth, pageUnit) {
   let text = ''
   for (const key in obj) {
     if (cssTopx(key)) {
-      text = `${text}${key}:${obj[key] * 2}px;`
+      text = `${text}${key}:${obj[key] * Math.round(pageWidth / 375)}${pageUnit};`
     } else {
       text = `${text}${key}:${obj[key]};`
     }
