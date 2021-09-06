@@ -1,5 +1,5 @@
 /*
- * @Descripttion: 
+ * @Descripttion:
  * @Author: lgldlk
  * @Date: 2021-08-31 10:56:39
  * @Editors: lgldlk
@@ -12,7 +12,9 @@ import store from './store/index'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 import cloudbase from '@cloudbase/js-sdk'
-import { $APP } from "./PROVIDE_KEY";
+import { $APP } from './PROVIDE_KEY'
+
+import './iconfont'
 
 const $app = cloudbase.init({
   env: 'mall-2gdgzk540aab98cd',

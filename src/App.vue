@@ -5,7 +5,7 @@
 <script lang="ts">
 import { defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
-import { $APP } from "@/PROVIDE_KEY";
+import { $APP } from '@/PROVIDE_KEY'
 export default defineComponent({
   name: 'App',
   components: {},
@@ -36,9 +36,17 @@ export default defineComponent({
   margin: 10px;
 }
 
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
 @font-face {
   font-family: mFont;
-  src: url("../src/assets/common/DIN-MEDIUM.OTF");
+  src: url('../src/assets/common/DIN-MEDIUM.OTF');
 }
 #app {
   position: relative;

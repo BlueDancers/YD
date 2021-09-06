@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import svgLoader from 'vite-svg-loader'
+import viteSvgIcons from 'vite-plugin-svg-icons'
 import path from 'path'
 const prefix = `monaco-editor/esm/vs`
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), svgLoader()],
+  plugins: [vue()],
   server: {
     host: '0.0.0.0',
   },
