@@ -9,7 +9,7 @@
         @click="toggleType(index)"
       >
         <svg-icon class="svg_content" :color="selectedKeys == index ? '#fff' : '#262626'" :name="item.icon"></svg-icon>
-        <span>{{ item.text }}</span>
+        <span class="svg_text">{{ item.text }}</span>
       </div>
     </div>
     <component-list v-if="selectedKeys == 0"></component-list>
@@ -45,7 +45,7 @@ export default defineComponent({
       },
       {
         text: '组件树',
-        icon: 'zujian',
+        icon: 'luoji',
       },
       {
         text: '设置',
@@ -89,6 +89,9 @@ export default defineComponent({
       .svg_content {
         width: 20px;
         height: 20px;
+      }
+      .svg_text {
+        font-size: 13px;
       }
     }
     .left_menu_item_active {
