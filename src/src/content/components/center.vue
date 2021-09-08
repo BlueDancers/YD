@@ -1,15 +1,17 @@
 <template>
   <!-- @click="clearActive" -->
   <div class="main_page" @mousemove="mousemove" @mouseleave="mouseleave" @mousedown="mousedown" @mouseup="mouseup">
+    <!-- 苹果状态栏 -->
     <div class="main_header">
       <div class="header_time">15:06</div>
       <div class="header_icon_list">
-        <img class="header_icon" src="@/assets/common/xinhao.png" alt="" />
-        <img class="header_icon" src="@/assets/common/wifi.png" alt="" />
-        <img class="header_icon_dc" src="@/assets/common/dianchi.png" alt="" />
+        <svg-icon :style="{ width: '14px', height: '14px' }" class="header_icon" name="ios-cellular"></svg-icon>
+        <svg-icon :style="{ width: '20px', height: '20px' }" class="header_icon" name="ios-battery-charging"></svg-icon>
       </div>
     </div>
-    <div class="main_iframe" :style="{backgroundColor: backColor }">
+    <!-- 网页标题 -->
+    <div class="main_header_title">{{ routerName || '网页名称' }}</div>
+    <div class="main_iframe" :style="{ backgroundColor: backColor }">
       <!-- 辅助线 -->
       <draggable v-model="containerList" :animation="300" handle=".active_handle" @start="dragStart" @end="dragEnd">
         <div
@@ -63,6 +65,7 @@ import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
 import YInput from '../comp/YInput.vue'
 import YP from '../comp/YP.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 export default defineComponent({
   components: {
@@ -76,6 +79,7 @@ export default defineComponent({
     YImg,
     YInput,
     YP,
+    SvgIcon,
   },
   setup() {
     const store = useStore()
@@ -96,6 +100,8 @@ export default defineComponent({
     let moveLock = computed(() => store.state.core.moveLock)
     // 背景颜色
     let backColor = computed(() => store.state.core.backColor)
+    // 路由名称
+    let routerName = computed(() => store.state.core.routerName)
 
     // 选中父级
     const toggleActive = (data) => {
@@ -153,6 +159,7 @@ export default defineComponent({
     return {
       containerList,
       backColor,
+      routerName,
       activeCont,
       resetCss,
       toggleActive,
@@ -184,23 +191,33 @@ export default defineComponent({
     margin-top: 20px;
     background-color: white;
     width: 375px;
-    height: 40px;
+    height: 30px;
     padding: 0 6px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    border-bottom: 1px solid #eee;
     .header_time {
     }
     .header_icon_list {
+      display: flex;
+      align-items: center;
       .header_icon {
-        margin: 0 2px;
-        width: 14px;
-      }
-      .header_icon_dc {
-        margin: 0 2px;
-        width: 22px;
+        margin: 0 4px;
       }
     }
+  }
+  .main_header_title {
+    position: relative;
+    z-index: 9999;
+    width: 375px;
+    font-size: 17px;
+    padding: 10px 0;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 5px 10px -5px #eee;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .main_iframe {
     position: relative;
@@ -208,7 +225,7 @@ export default defineComponent({
     width: 375px;
     height: 700px;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     .contains_item {
       .active_handle {
         position: absolute;

@@ -5,7 +5,7 @@
         <a-input class="page_set_input" v-model:value="pageForm.routerName" />
       </a-form-item>
       <a-form-item label="页面路由" name="router">
-        <a-input class="page_set_input" v-model:value="pageForm.router" />
+        <a-input addon-before="/" class="page_set_input" v-model:value="pageForm.router" />
       </a-form-item>
       <a-form-item label="背景颜色">
         <input type="color" v-model="pageForm.backColor" />
@@ -40,8 +40,8 @@ export default defineComponent({
     console.log(routerName.value, router.value, pageDisp.value)
 
     const pageForm = reactive({
-      router: toRaw(routerName.value),
-      routerName: toRaw(router.value),
+      routerName: toRaw(routerName.value),
+      router: toRaw(router.value),
       disp: toRaw(pageDisp.value),
       backColor: toRaw(backColor.value),
     })
@@ -61,7 +61,7 @@ export default defineComponent({
             .where({
               _id: route.query.id,
             })
-            .update({ ...toRaw(pageForm) })
+            .update({ ...pageForm })
             .then((res: any) => {
               store.commit('core/change_Temp_other', toRaw(pageForm))
               message.success('修改成功~')

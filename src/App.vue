@@ -28,6 +28,27 @@ export default defineComponent({
 </script>
 
 <style>
+html {
+}
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: rgba(187, 187, 187, 0.1);
+}
+/* 非激活窗口 */
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(0, 255, 0, 0.4);
+}
+
 .padd {
   padding: 10px;
   background-color: #fff;
@@ -47,17 +68,5 @@ export default defineComponent({
 @font-face {
   font-family: mFont;
   src: url('../src/assets/common/DIN-MEDIUM.OTF');
-}
-#app {
-  position: relative;
-  /* padding: 10px; */
-  font-family: mFont;
-  background: #f2f2f2;
-  min-height: 100vh;
-  /* -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px; */
 }
 </style>

@@ -25,7 +25,7 @@
           <a-input v-model:value="formState.name" placeholder="请输入组织名称" />
         </a-form-item>
         <a-form-item label="路由前缀">
-          <a-input v-model:value="formState.routerCode" placeholder="请输入路由前缀" />
+          <a-input addon-before="/" v-model:value="formState.routerCode" placeholder="请输入路由前缀" />
         </a-form-item>
         <a-form-item label="组织描述">
           <a-input v-model:value="formState.disp" placeholder="请输入组织描述" />
