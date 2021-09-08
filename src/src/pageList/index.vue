@@ -1,22 +1,24 @@
 <template>
-  <div class="padd page_list">
-    <a-button type="primary" @click="newPage">新建页面</a-button>
+  <div class="page_list">
+    <page-header></page-header>
+    <div class="padd marg">
+      <a-button type="primary" @click="newPage">新建页面</a-button>
+    </div>
+    <a-table row-key="_id" :columns="columns" :data-source="listData" bordered class="padd marg">
+      <template #name="{ text }">
+        <a>{{ text }}</a>
+      </template>
+      <template #thmb="{ record }">
+        <img class="thmb_img" :src="record.tumbUrl" />
+      </template>
+      <template #action="{ record }">
+        <a-button :style="{ margin: '0 10px' }" type="primary" @click="gotoUpdate(record)">编辑</a-button>
+        <a-popconfirm title="数据删除后将无法恢复" ok-text="删除" cancel-text="取消" @confirm="gotoDelete(record)">
+          <a-button :style="{ margin: '0 10px' }" type="primary" danger>删除</a-button>
+        </a-popconfirm>
+      </template>
+    </a-table>
   </div>
-  <a-table row-key="_id" :columns="columns" :data-source="listData" bordered class="marg">
-    <template #name="{ text }">
-      <a>{{ text }}</a>
-    </template>
-
-    <template #thmb="{ record }">
-      <img class="thmb_img" :src="record.tumbUrl" />
-    </template>
-    <template #action="{ record }">
-      <a-button :style="{ margin: '0 10px' }" type="primary" @click="gotoUpdate(record)">编辑</a-button>
-      <a-popconfirm title="数据删除后将无法恢复" ok-text="删除" cancel-text="取消" @confirm="gotoDelete(record)">
-        <a-button :style="{ margin: '0 10px' }" type="primary" danger>删除</a-button>
-      </a-popconfirm>
-    </template>
-  </a-table>
 </template>
 
 <script lang="ts">
@@ -25,8 +27,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { cloud } from '@/modules/request'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'
-
+import PageHeader from '@/components/header.vue'
 export default defineComponent({
+  components: {
+    PageHeader,
+  },
   setup() {
     onMounted(() => {
       init()

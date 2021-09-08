@@ -1,6 +1,8 @@
 <template>
   <div class="page_header">
-    <div class="header_left">logo</div>
+    <div class="header_left">
+      <img class="left_img" src="@/assets/logo.png" alt="">
+    </div>
     <div class="header_right">
       <a-dropdown>
         <a class="ant-dropdown-link" @click.prevent>
@@ -47,6 +49,10 @@ export default defineComponent({
   align-items: center;
   padding: 0 20px;
   .header_left {
+    .left_img {
+      width: 35px;
+      height: 35px;
+    }
   }
   .header_right {
   }

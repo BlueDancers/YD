@@ -1,7 +1,9 @@
 <template>
   <div class="page_content">
     <a-row class="content_header">
-      <a-col class="header_left" :span="5" @click="gotoHome">开发工具</a-col>
+      <a-col class="header_left" :span="5" @click="gotoHome">
+        <img class="left_img" src="@/assets/logo.png" alt="" />
+      </a-col>
       <a-col class="header_centent" :span="14">页面设置按钮</a-col>
       <a-col class="header_right" :span="5">
         <a-button class="right_btn" @click="jsonProcessor" type="primary">生成代码</a-button>
@@ -126,6 +128,10 @@ export default defineComponent({
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      .left_img {
+        width: 35px;
+        height: 35px;
+      }
     }
     .header_centent {
       display: flex;
