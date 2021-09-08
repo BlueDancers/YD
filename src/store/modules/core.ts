@@ -76,6 +76,10 @@ const core: Module<coreInter, any> = {
     set_containerList(state) {
       state.containerList.push(baseContList('base', state.containerList.length))
     },
+    // 添加组件,复制粘贴用
+    set_toPaste_cont(state, data) {
+      state.containerList[state.coordinate[0]].components.push(data)
+    },
     // 设置父级
     toggleActive(state, id) {
       state.activeCont = id
@@ -242,9 +246,9 @@ const core: Module<coreInter, any> = {
       state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule = data
     },
     // 容器 源码模式
-    setCarryContData(state, data){
+    setCarryContData(state, data) {
       state.containerList[state.coordinate[0]].cssModule = data
-    }
+    },
   },
   actions: {},
 }

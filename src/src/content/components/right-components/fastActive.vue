@@ -55,6 +55,7 @@
 import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { LockOutlined } from '@ant-design/icons-vue'
+import { message } from 'ant-design-vue'
 export default defineComponent({
   components: {
     LockOutlined,
@@ -65,6 +66,20 @@ export default defineComponent({
     const toggleActive = (type) => {
       if (type == 'moveLock') {
         store.commit('core/toggleMoveLock')
+      }
+      if (type == 'revoke') {
+        message.info('开发中,敬请期待👨‍💻🧑‍💻👩‍💻')
+      }
+      if (type == 'antiRevoke') {
+        message.info('开发中,敬请期待👨‍💻🧑‍💻👩‍💻')
+      }
+      if (type == 'copy') {
+        store.commit('coreAssist/copyCurrentComp')
+      }
+      if (type == 'paste') {
+        store.commit('coreAssist/pasteComp')
+      }
+      if (type == 'delete') {
       }
     }
     return {
