@@ -46,6 +46,8 @@ const core: Module<coreInter, any> = {
     change_Template(state, data) {
       state._id = data._id
       state.containerList = data.content
+      state.activeCont = state.containerList[0].id
+      state.coordinate = [0]
     },
     change_Temp_other(state, data) {
       state.pageDisp = data.disp
@@ -75,6 +77,9 @@ const core: Module<coreInter, any> = {
     // 添加容器
     set_containerList(state) {
       state.containerList.push(baseContList('base', state.containerList.length))
+      // 自动选中添加的
+      state.activeCont = state.containerList[state.containerList.length - 1].id
+      state.coordinate = [state.containerList.length - 1]
     },
     // 添加组件,复制粘贴用
     set_toPaste_cont(state, data) {
@@ -137,6 +142,8 @@ const core: Module<coreInter, any> = {
           }
         }
       }
+      state.coordinate.splice(1, 2)
+      state.activechild = ''
     },
     // 更新下标点,拖拽完成后重新计算
     update_activechild(state) {

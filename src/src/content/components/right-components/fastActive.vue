@@ -63,6 +63,8 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const moveLock = computed(() => store.state.core.moveLock)
+    const containerList = computed(() => store.state.core.containerList)
+    const coordinate = computed(() => store.state.core.coordinate)
     const toggleActive = (type) => {
       if (type == 'moveLock') {
         store.commit('core/toggleMoveLock')
@@ -80,6 +82,18 @@ export default defineComponent({
         store.commit('coreAssist/pasteComp')
       }
       if (type == 'delete') {
+        // 判断是否选中
+        if (coordinate.value.length == 0) {
+          message.warn('请选择需要删除的组件')
+        } else if (coordinate.value.length == 1) {
+          // 删除父类
+          let pid = containerList.value[coordinate.value[0]].id
+          store.commit('core/deleteParentCont', pid)
+        } else if (coordinate.value.length == 2) {
+          // 删除子类
+          let cid = containerList.value[coordinate.value[0]].components[coordinate.value[1]].id
+          store.commit('core/deleteChildComp', cid)
+        }
       }
     }
     return {
