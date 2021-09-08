@@ -2,16 +2,16 @@
   <div class="page_set">
     <a-form ref="pageRef" :model="pageForm" :rules="pageRules" :label-col="{ style: { width: '80px' } }">
       <a-form-item label="页面名称" name="routerName">
-        <a-input v-model:value="pageForm.routerName" />
+        <a-input class="page_set_input" v-model:value="pageForm.routerName" />
       </a-form-item>
       <a-form-item label="页面路由" name="router">
-        <a-input v-model:value="pageForm.router" />
+        <a-input class="page_set_input" v-model:value="pageForm.router" />
       </a-form-item>
       <a-form-item label="背景颜色">
         <input type="color" v-model="pageForm.backColor" />
       </a-form-item>
       <a-form-item label="页面描述" name="disp">
-        <a-textarea v-model:value="pageForm.disp" />
+        <a-textarea class="page_set_input" v-model:value="pageForm.disp" />
       </a-form-item>
       <a-form-item>
         <a-button type="primary" html-type="submit" @click="submitpageForm"> 提交 </a-button>
@@ -85,5 +85,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .page_set {
   margin-top: 30px;
+  margin-left: 20px;
+  .page_set_input {
+    width: 140px;
+  }
 }
 </style>

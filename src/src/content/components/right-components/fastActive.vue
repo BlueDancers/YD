@@ -1,21 +1,53 @@
 <template>
   <div class="fast_active_list">
-    <template v-for="item in fastActive" :key="item.icon">
-      <a-popover placement="left">
-        <template #content>
-          <p>状态:{{ item.status ? '开启' : '未开启' }}</p>
-        </template>
-        <template #title>
-          <span>锁定画布</span>
-        </template>
-        <component
-          class="active_item"
-          :class="item.status ? 'type_active' : ''"
-          @click="toggleActive(item.type)"
-          :is="item.icon"
-        ></component>
-      </a-popover>
-    </template>
+    <a-tooltip placement="left">
+      <template #title>
+        <span>锁定画布:{{ moveLock ? '开启' : '未开启' }}</span>
+      </template>
+      <div class="active_item" :class="moveLock ? 'active' : 'unactive'" @click="toggleActive('moveLock')">
+        <svg-icon class="item_svg" :color="moveLock ? '#fff' : '#262626'" name="suoding"></svg-icon>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template #title>
+        <span>撤销</span>
+      </template>
+      <div class="active_item unactive" @click="toggleActive('revoke')">
+        <svg-icon class="item_svg" name="chexiao1"></svg-icon>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template #title>
+        <span>反撤销</span>
+      </template>
+      <div class="active_item unactive" @click="toggleActive('antiRevoke')">
+        <svg-icon class="item_svg" name="huifu"></svg-icon>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template #title>
+        <span>复制</span>
+      </template>
+      <div class="active_item unactive" @click="toggleActive('copy')">
+        <svg-icon class="item_svg" name="fuzhi"></svg-icon>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template #title>
+        <span>粘贴</span>
+      </template>
+      <div class="active_item unactive" @click="toggleActive('paste')">
+        <svg-icon class="item_svg" name="niantie"></svg-icon>
+      </div>
+    </a-tooltip>
+    <a-tooltip placement="left">
+      <template #title>
+        <span>删除</span>
+      </template>
+      <div class="active_item unactive" @click="toggleActive('delete')">
+        <svg-icon class="item_svg" name="shanchu"></svg-icon>
+      </div>
+    </a-tooltip>
   </div>
 </template>
 
@@ -29,22 +61,14 @@ export default defineComponent({
   },
   setup() {
     const store = useStore()
-    const fastActive = ref([
-      {
-        icon: 'LockOutlined',
-        type: 'moveLock',
-        status: computed(() => store.state.core.moveLock),
-      },
-    ])
+    const moveLock = computed(() => store.state.core.moveLock)
     const toggleActive = (type) => {
-      console.log('点击事件', type)
-
       if (type == 'moveLock') {
         store.commit('core/toggleMoveLock')
       }
     }
     return {
-      fastActive,
+      moveLock,
       toggleActive,
     }
   },
@@ -54,21 +78,25 @@ export default defineComponent({
 <style lang="scss" scoped>
 .fast_active_list {
   height: 100%;
+  width: 48px;
   border-right: 1px solid #eee;
   display: flex;
   flex-direction: column;
   .active_item {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: '130%';
-    &:hover {
-      // background-color: #2970f6;
+    padding: 14px;
+    .item_svg {
+      width: 22px;
+      height: 22px;
     }
   }
-  .type_active {
+  .active {
     background-color: #2970f6;
-    color: #ffffff;
+  }
+  .unactive {
+    background-color: #fff;
+    &:hover {
+      background-color: #eee;
+    }
   }
 }
 </style>

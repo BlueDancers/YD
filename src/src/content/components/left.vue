@@ -24,7 +24,6 @@ import { AppstoreAddOutlined, ProfileOutlined, LaptopOutlined, SettingOutlined }
 import componentList from './left-components/componentList.vue'
 import ComponentSet from './left-components/componentSet.vue'
 import PageSet from './left-components/pageSet.vue'
-import SvgIcon from '@/components/SvgIcon.vue'
 export default defineComponent({
   components: {
     AppstoreAddOutlined,
@@ -34,7 +33,6 @@ export default defineComponent({
     componentList,
     ComponentSet,
     PageSet,
-    SvgIcon,
   },
   setup() {
     const selectedKeys = ref(0)

@@ -14,6 +14,8 @@ import 'ant-design-vue/dist/antd.less'
 import cloudbase from '@cloudbase/js-sdk'
 import { $APP } from './PROVIDE_KEY'
 
+import SvgIcon from './components/SvgIcon.vue'
+
 import './iconfont'
 
 const $app = cloudbase.init({
@@ -27,3 +29,4 @@ app.use(router)
 app.use(store)
 app.use(Antd)
 app.mount('#app')
+app.component('SvgIcon', SvgIcon)
