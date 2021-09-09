@@ -4,8 +4,20 @@
       <a-col class="header_left" :span="5" @click="gotoHome">
         <img class="left_img" src="@/assets/logo.png" alt="" />
       </a-col>
-      <a-col class="header_centent" :span="14">页面设置按钮</a-col>
-      <a-col class="header_right" :span="5">
+      <a-col class="header_centent" :span="10"> </a-col>
+      <a-col class="header_right" :span="9">
+        <div class="right_item" @click="gotoDoc">
+          <ReadOutlined :style="{ fontSize: '120%' }" />
+          <span class="right_item_text">文档</span>
+        </div>
+        <div class="right_item" @click="gotoGithub">
+          <GithubOutlined :style="{ fontSize: '120%' }" />
+          <span class="right_item_text">Github</span>
+        </div>
+        <div class="right_item" @click="gotoIM">
+          <QrcodeOutlined :style="{ fontSize: '120%' }" />
+          <span class="right_item_text">交流群</span>
+        </div>
         <a-button class="right_btn" @click="jsonProcessor" type="primary">生成代码</a-button>
         <a-button class="right_btn" @click="saveCarryPage" type="primary">保存</a-button>
       </a-col>
@@ -30,16 +42,19 @@ import PageCenter from './components/center.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { cloud, uploadFile } from '@/modules/request'
-import { jsonToVue } from '@/modules/components'
 import { dataURLtoFile } from '@/utils'
 import { message } from 'ant-design-vue'
 import BuildSettings from './components/components/buildSettings.vue'
+import { QrcodeOutlined, ReadOutlined, GithubOutlined } from '@ant-design/icons-vue'
 export default defineComponent({
   components: {
     PageLeft,
     PageRight,
     PageCenter,
     BuildSettings,
+    QrcodeOutlined,
+    ReadOutlined,
+    GithubOutlined,
   },
   setup() {
     const db = cloud.database()
@@ -105,11 +120,24 @@ export default defineComponent({
       let url = await uploadFile(`pagePhoto/${file.name}`, file)
       return url
     }
+    const gotoDoc = () => {
+      message.info('开发中,敬请期待👨‍💻🧑‍💻👩‍💻')
+    }
+    const gotoGithub = () => {
+      location.href = 'https://github.com/vkcyan/H5-YD.v2'
+    }
+    const gotoIM = () => {
+      message.info('开发中,敬请期待👨‍💻🧑‍💻👩‍💻')
+    }
+
     return {
       saveCarryPage,
       gotoHome,
       jsonProcessor,
       buildSettings,
+      gotoDoc,
+      gotoGithub,
+      gotoIM,
     }
   },
 })
@@ -142,6 +170,16 @@ export default defineComponent({
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      .right_item {
+        cursor: pointer;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        .right_item_text {
+          margin-left: 6px;
+          margin-right: 10px;
+        }
+      }
       .right_btn {
         margin: 0 10px;
       }

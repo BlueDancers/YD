@@ -65,7 +65,7 @@ import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
 import YInput from '../comp/YInput.vue'
 import YP from '../comp/YP.vue'
-import SvgIcon from '@/components/SvgIcon.vue'
+import yGrid from '../comp/yGrid.vue'
 
 export default defineComponent({
   components: {
@@ -79,7 +79,7 @@ export default defineComponent({
     YImg,
     YInput,
     YP,
-    SvgIcon,
+    yGrid,
   },
   setup() {
     const store = useStore()
@@ -184,6 +184,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   box-shadow: 0 2px 13px 0 rgb(0 0 0 / 10%);
+  background-color: #f2f2f2;
   .main_header {
     display: flex;
     justify-content: space-between;
@@ -207,7 +208,7 @@ export default defineComponent({
   }
   .main_header_title {
     position: relative;
-    z-index: 9999;
+    z-index: 999;
     width: 375px;
     font-size: 17px;
     padding: 10px 0;

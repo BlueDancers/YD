@@ -85,3 +85,9 @@ export default defineComponent({
   margin: 0 2px;
 }
 </style>
+
+<style>
+.form_con .ant-form-item {
+  margin-bottom: 10px;
+}
+</style>

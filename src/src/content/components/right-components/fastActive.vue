@@ -122,7 +122,6 @@ export default defineComponent({
     background-color: #2970f6;
   }
   .unactive {
-    background-color: #fff;
     &:hover {
       background-color: #eee;
     }

@@ -48,6 +48,11 @@ export default defineComponent({
         name: 'y-input',
         title: '输入框',
       },
+      {
+        icon: 'button',
+        name: 'y-grid',
+        title: '网格组件',
+      },
     ])
     return {
       addCon,

@@ -174,6 +174,61 @@ function baseComList(name: string, zIndex) {
       configuration: {}, // 行为
       function: {}, // 方法
     },
+    {
+      id: guid(),
+      name: 'y-grid',
+      cssModule: {
+        position: 'absolute',
+        'background-color': '#ffffff',
+        'font-size': 14,
+        color: '#000000',
+        'border-color': '#000000',
+        'border-width': 0,
+        'border-style': 'solid',
+        'border-radius': 0,
+        width: 100,
+        height: 20,
+        zIndex: 10 + zIndex,
+        top: 10 + zIndex * 5,
+        left: 10 + zIndex * 5,
+        'margin-top': 0,
+        'margin-bottom': 0,
+        'margin-left': 0,
+        'margin-right': 0,
+        'padding-top': 0,
+        'padding-bottom': 0,
+        'padding-left': 0,
+        'padding-right': 0,
+        'font-weight': 'normal',
+        'text-align': 'center',
+        display: 'grid',
+        'grid-template-columns': '1fr 1fr 1fr', // 行
+        'grid-template-rows': '1fr 1fr 1fr', // 列
+        'grid-row-gap': 10, // 列之间间距
+        'grid-column-gap': 10, // 行之间间距
+      }, // 样式
+      staticData: {
+        dataList: [
+          {
+            image:
+              'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
+            text: '文字',
+          },
+          {
+            image:
+              'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
+            text: '文字',
+          },
+          {
+            image:
+              'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
+            text: '文字',
+          },
+        ],
+      }, // 展示文字
+      configuration: {}, // 行为
+      function: {}, // 方法
+    },
   ]
   return list.find((e) => e.name == name)
 }

@@ -34,59 +34,71 @@
             <a-input-number type="number" class="default_input" v-model:value="contCss.top"></a-input-number>
           </div>
         </a-form-item>
-        <a-form-item label="外边距">
+        <a-form-item label="外边距" v-if="contCss['margin-top'] != null">
           <a-input-number class="mini_input" v-model:value="contCss['margin-top']" />
           <a-input-number class="mini_input" v-model:value="contCss['margin-bottom']" />
           <a-input-number class="mini_input" v-model:value="contCss['margin-left']" />
           <a-input-number class="mini_input" v-model:value="contCss['margin-right']" />
         </a-form-item>
-        <a-form-item label="内边距">
+        <a-form-item label="内边距" v-if="contCss['padding-top'] != null">
           <a-input-number class="mini_input" v-model:value="contCss['padding-top']" />
           <a-input-number class="mini_input" v-model:value="contCss['padding-bottom']" />
           <a-input-number class="mini_input" v-model:value="contCss['padding-left']" />
           <a-input-number class="mini_input" v-model:value="contCss['padding-right']" />
         </a-form-item>
-        <a-form-item label="背景颜色" v-if="contCss['background-color']">
+        <a-form-item label="背景颜色" v-if="contCss['background-color'] != null">
           <input class="default_input" type="color" v-model="contCss['background-color']" />
         </a-form-item>
-        <a-form-item label="字体颜色" v-if="contCss.color">
+        <a-form-item label="字体颜色" v-if="contCss.color != null">
           <input class="default_input" type="color" v-model="contCss.color" />
         </a-form-item>
-        <a-form-item label="层级" v-if="contCss['z-index']">
+        <a-form-item label="层级" v-if="contCss['z-index'] != null">
           <a-input-number class="default_input" :min="0" v-model:value="contCss['z-index']" />
         </a-form-item>
-        <a-form-item label="字号" v-if="contCss['font-size']">
+        <a-form-item label="字号" v-if="contCss['font-size'] != null">
           <a-input-number class="default_input" :min="0" v-model:value="contCss['font-size']" />
         </a-form-item>
-        <a-form-item label="边框宽度" v-if="contCss['border-width']">
+        <a-form-item label="边框宽度" v-if="contCss['border-width'] != null">
           <a-input-number class="default_input" :min="0" v-model:value="contCss['border-width']" />
         </a-form-item>
-        <a-form-item label="边框颜色" v-if="contCss['border-color']">
+        <a-form-item label="边框颜色" v-if="contCss['border-color'] != null">
           <input class="default_input" type="color" v-model="contCss['border-color']" />
         </a-form-item>
-        <a-form-item label="边框样式" v-if="contCss['border-style']">
+        <a-form-item label="边框样式" v-if="contCss['border-style'] != null">
           <a-select v-model:value="contCss['border-style']" style="width: 120px">
             <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
               {{ item.value }}
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item label="圆角" v-if="contCss['border-radius']">
+        <a-form-item label="圆角" v-if="contCss['border-radius'] != null">
           <a-input-number class="default_input" :min="0" v-model:value="contCss['border-radius']" />
         </a-form-item>
-        <a-form-item label="字重" v-if="contCss['font-weight']">
+        <a-form-item label="字重" v-if="contCss['font-weight'] != null">
           <a-select v-model:value="contCss['font-weight']" style="width: 120px">
             <a-select-option v-for="item in fontWeightList" :key="item.key" :value="item.key">
               {{ item.value }}
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item label="文字居中" v-if="contCss['text-align']">
+        <a-form-item label="文字居中" v-if="contCss['text-align'] != null">
           <a-select v-model:value="contCss['text-align']" style="width: 120px">
             <a-select-option v-for="item in fontAlignList" :key="item.key" :value="item.key">
               {{ item.value }}
             </a-select-option>
           </a-select>
+        </a-form-item>
+        <a-form-item label="网格-行设置" v-if="contCss['grid-template-columns'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-template-columns']" />
+        </a-form-item>
+        <a-form-item label="网格-列设置" v-if="contCss['grid-template-rows'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-template-rows']" />
+        </a-form-item>
+        <a-form-item label="网格-行间距" v-if="contCss['grid-column-gap'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-column-gap']" />
+        </a-form-item>
+        <a-form-item label="网格-列间距" v-if="contCss['grid-row-gap'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-row-gap']" />
         </a-form-item>
       </template>
       <json-editor
@@ -171,6 +183,9 @@ export default defineComponent({
       }
     }
   }
+  .big_input {
+    width: 220px;
+  }
   .default_input {
     width: 80px;
   }
@@ -178,5 +193,11 @@ export default defineComponent({
     width: 50px;
     margin: 0 2px;
   }
+}
+</style>
+
+<style>
+.comp_data .ant-form-item {
+  margin-bottom: 10px;
 }
 </style>

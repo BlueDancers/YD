@@ -32,7 +32,7 @@ html {
 }
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 0px;
   height: 2px;
 }
 /* 滚动槽 */
@@ -42,7 +42,7 @@ html {
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
   border-radius: 8px;
-  background: rgba(187, 187, 187, 0.1);
+  background: rgba(187, 187, 187);
 }
 /* 非激活窗口 */
 ::-webkit-scrollbar-thumb:window-inactive {

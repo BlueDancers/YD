@@ -33,6 +33,8 @@ export function cssTopx(name) {
     'padding-bottom',
     'padding-left',
     'padding-right',
+    'grid-row-gap',
+    'grid-column-gap'
   ].includes(name)
 }
 
