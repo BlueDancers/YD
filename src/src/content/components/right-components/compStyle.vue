@@ -1,7 +1,7 @@
 <template>
   <div class="comp_data">
     <a-form v-if="contCss != null" :label-col="{ style: { width: '80px' } }">
-      <a-form-item label="修改模式">
+      <a-form-item label="开发模式">
         <a-radio-group v-model:value="toggleModal">
           <a-radio-button value="1">快捷模式</a-radio-button>
           <a-radio-button value="2">源码模式</a-radio-button>
@@ -88,18 +88,7 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-        <a-form-item label="网格-行设置" v-if="contCss['grid-template-columns'] != null">
-          <a-input class="big_input" v-model:value="contCss['grid-template-columns']" />
-        </a-form-item>
-        <a-form-item label="网格-列设置" v-if="contCss['grid-template-rows'] != null">
-          <a-input class="big_input" v-model:value="contCss['grid-template-rows']" />
-        </a-form-item>
-        <a-form-item label="网格-行间距" v-if="contCss['grid-column-gap'] != null">
-          <a-input class="big_input" v-model:value="contCss['grid-column-gap']" />
-        </a-form-item>
-        <a-form-item label="网格-列间距" v-if="contCss['grid-row-gap'] != null">
-          <a-input class="big_input" v-model:value="contCss['grid-row-gap']" />
-        </a-form-item>
+      
       </template>
       <json-editor
         v-if="toggleModal == '2'"

@@ -34,7 +34,7 @@ export function cssTopx(name) {
     'padding-left',
     'padding-right',
     'grid-row-gap',
-    'grid-column-gap'
+    'grid-column-gap',
   ].includes(name)
 }
 
@@ -44,7 +44,7 @@ export function cssTopx(name) {
 export function resetCss(data: Object) {
   const cssData = {}
   for (const key in data) {
-    if (cssTopx(key)) {
+    if (cssTopx(key) && !String(data[key]).includes('%')) {
       cssData[key] = `${data[key]}px`
     } else {
       cssData[key] = data[key]

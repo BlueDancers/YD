@@ -46,8 +46,10 @@ const core: Module<coreInter, any> = {
     change_Template(state, data) {
       state._id = data._id
       state.containerList = data.content
-      state.activeCont = state.containerList[0].id
-      state.coordinate = [0]
+      if (state.containerList.length) {
+        state.activeCont = state.containerList[0].id
+        state.coordinate = [0]
+      }
     },
     change_Temp_other(state, data) {
       state.pageDisp = data.disp
@@ -75,9 +77,9 @@ const core: Module<coreInter, any> = {
       state.mouseType = type
     },
     // 添加容器
-    set_containerList(state) {
-      state.containerList.push(baseContList('base', state.containerList.length))
-      // 自动选中添加的
+    set_containerList(state, name) {
+      state.containerList.push(baseContList(name, state.containerList.length))
+      // 添加容器自动选中
       state.activeCont = state.containerList[state.containerList.length - 1].id
       state.coordinate = [state.containerList.length - 1]
     },
@@ -161,7 +163,7 @@ const core: Module<coreInter, any> = {
         // 设定层级
         let zIndex = state.containerList[index].components.length
         // 获取dom数据
-        let comp = baseComList(name, zIndex + 1)
+        let comp = baseComList(state.containerList[index].name, name, zIndex + 1)
         // 插入数据
         state.containerList[index].components.push(comp)
       } else {
@@ -251,6 +253,10 @@ const core: Module<coreInter, any> = {
     // 组件 源码模式
     setCarryCompData(state, data) {
       state.containerList[state.coordinate[0]].components[state.coordinate[1]].cssModule = data
+    },
+    // 数据 源码模式
+    setCarryStaticData(state, data) {
+      state.containerList[state.coordinate[0]].components[state.coordinate[1]].staticData = data
     },
     // 容器 源码模式
     setCarryContData(state, data) {

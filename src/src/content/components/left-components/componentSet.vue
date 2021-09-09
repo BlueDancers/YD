@@ -1,5 +1,6 @@
 <template>
   <a-tree
+    class="components_set"
     :show-line="true"
     :show-icon="true"
     :tree-data="containerList"
@@ -8,12 +9,12 @@
     :selectedKeys="activechild ? [activechild] : [activeCont]"
     @select="onSelect"
   >
-    <template #title="{ id, components, name }">
+    <template #title="{ id, components, name,staticData }">
       <a-dropdown :trigger="['contextmenu']">
         <span v-if="components">容器</span>
         <span v-else>{{ name.split('-')[1] }}</span>
         <template #overlay>
-          <a-menu @click="({ key }) => onContextMenuClick(id, name, key)">
+          <a-menu @click="({ key }) => onContextMenuClick(id, staticData, key)">
             <a-menu-item key="delete">删除</a-menu-item>
             <a-menu-item key="zIndexUp">置于顶部</a-menu-item>
             <a-menu-item key="zIndexDown">置于底部</a-menu-item>
@@ -54,12 +55,14 @@ export default defineComponent({
         })
       }
     }
-    const onContextMenuClick = (id, name, key) => {
+    const onContextMenuClick = (id, staticData, key) => {
       if (key == 'delete') {
-        // 存在 子级 不存在name 父级
-        if (name) {
+        // 父级没有 staticData
+        if (staticData) {
           store.commit('core/deleteChildComp', id)
         } else {
+          console.log('shanchu',id);
+          
           store.commit('core/deleteParentCont', id)
         }
       } else if (key == 'zIndexUp') {
@@ -79,4 +82,9 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.components_set {
+  height: 100%;
+  overflow-y: scroll;
+}
+</style>

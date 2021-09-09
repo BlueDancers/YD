@@ -24,13 +24,13 @@
         >
           <auxiliary-line-x v-if="activeCont == item.id"></auxiliary-line-x>
           <auxiliary-line-y v-if="activeCont == item.id"></auxiliary-line-y>
-          <!-- 拖拽 -->
+          <!-- 拖拽换位 -->
           <AppstoreOutlined class="active_handle" :style="{ color: '#fff' }" />
           <!-- 未选择组件 -->
           <div v-if="item.components.length == 0">
             <span>选中组件,点击左侧添加元素</span>
           </div>
-          <!-- 容器内租金 -->
+          <!-- 容器内组件 -->
           <template v-else>
             <template v-for="comp in item.components" :key="comp.id">
               <component
@@ -44,7 +44,7 @@
             </template>
           </template>
           <!-- 下方拖拽 -->
-          <div v-show="activeCont == item.id" class="max_cont" @mousedown="contHeightAddDown">
+          <div v-show="activeCont == item.id && item.name == 'default'" class="max_cont" @mousedown="contHeightAddDown">
             <EllipsisOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
           </div>
         </div>

@@ -15,23 +15,24 @@ const app: Module<any, any> = {
       state.showlineY = []
       let topList: any[] = []
       let leftList: any[] = []
-      let activeComp = store.state.core.activechild[store.state.core.coordinate[1]]
       data.map((res) => {
-        let { top, left, height, width } = res.cssModule
-        let showX = [top, top + height, top + height / 2]
-        let showY = [left, left + width, left + width / 2]
-        showX.map((i) => {
-          if (topList.includes(i)) {
-            state.showlineX.push(i)
-          }
-        })
-        showY.map((i) => {
-          if (leftList.includes(i)) {
-            state.showlineY.push(i)
-          }
-        })
-        topList.push(top, top + height, top + height / 2)
-        leftList.push(left, left + width, left + width / 2)
+        if (res.cssModule.name == 'default') {
+          let { top, left, height, width } = res.cssModule
+          let showX = [top, top + height, top + height / 2]
+          let showY = [left, left + width, left + width / 2]
+          showX.map((i) => {
+            if (topList.includes(i)) {
+              state.showlineX.push(i)
+            }
+          })
+          showY.map((i) => {
+            if (leftList.includes(i)) {
+              state.showlineY.push(i)
+            }
+          })
+          topList.push(top, top + height, top + height / 2)
+          leftList.push(left, left + width, left + width / 2)
+        }
       })
     },
     clearShowLine(state) {
