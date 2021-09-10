@@ -41,7 +41,7 @@ export function cssTopx(name) {
 /**
  * 格式化
  */
-export function resetCss(data: Object) {
+export function resetCss(data: Object): any {
   const cssData = {}
   for (const key in data) {
     if (cssTopx(key) && !String(data[key]).includes('%')) {
@@ -51,6 +51,33 @@ export function resetCss(data: Object) {
     }
   }
   return cssData
+}
+
+/**
+ * 容器用
+ * @param data
+ * @returns
+ */
+export function contResetCss(data: Object) {
+  let newCss = resetCss(data)
+  return {
+    position: newCss.position,
+    'z-index': newCss['z-index'],
+    top: newCss.top,
+    left: newCss.left,
+    width: newCss.width,
+    height: newCss.height,
+    border: 'none',
+  }
+}
+
+export function compResetCss(data: Object) {
+  let newCss = resetCss(data)
+  delete newCss.position
+  delete newCss['z-index']
+  delete newCss.top
+  delete newCss.left
+  return newCss
 }
 
 /**

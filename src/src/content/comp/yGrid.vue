@@ -1,13 +1,7 @@
 <template>
-  <div class="yp" :style="{ ...resetCss(props.cssModule), border: 'none' }">
-    <auxiliary-point v-if="activechild == props.componentId"></auxiliary-point>
-    <div
-      :style="{ ...resetCss(props.cssModule), top: '0px', left: '0px' }"
-      @mousedown="mousedown($event, props.componentId, props.parentId)"
-    >
-      <div v-for="(item, index) in props.staticData.dataList" :key="index">
-        <img :style="{ width: item.width, height: item.height }" :src="item.image" alt="" />
-      </div>
+  <div :style="props.cssModule" @mousedown="mousedown($event, props.componentId, props.parentId)">
+    <div v-for="(item, index) in props.staticData.dataList" :key="index">
+      <img :style="{ width: item.width, height: item.height }" :src="item.image" alt="" />
     </div>
   </div>
 </template>
@@ -31,9 +25,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.yp {
-  position: relative;
-  user-select: none;
-}
-</style>
+<style lang="scss" scoped></style>

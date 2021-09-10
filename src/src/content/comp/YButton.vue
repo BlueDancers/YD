@@ -1,13 +1,7 @@
 <template>
-  <div class="ybutton" :style="{ ...resetCss(props.cssModule), border: 'none' }">
-    <auxiliary-point v-if="activechild == props.componentId"></auxiliary-point>
-    <button
-      :style="{ ...resetCss(props.cssModule), top: '0px', left: '0px' }"
-      @mousedown="mousedown($event, props.componentId, props.parentId)"
-    >
-      {{ props.staticData.value }}
-    </button>
-  </div>
+  <button :style="props.cssModule" @mousedown="mousedown($event, props.componentId, props.parentId)">
+    {{ props.staticData.value }}
+  </button>
 </template>
 
 <script lang="ts">
@@ -29,9 +23,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.ybutton {
-  position: relative;
-  user-select: none;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -1,13 +1,10 @@
 <template>
-  <div class="yinput" :style="{ ...resetCss(props.cssModule), border: 'none' }">
-    <auxiliary-point v-if="activechild == props.componentId"></auxiliary-point>
-    <input
-      :style="{ ...resetCss(props.cssModule), top: '0px', left: '0px' }"
-      @mousedown="mousedown($event, props.componentId, props.parentId)"
-      :type="props.staticData.type"
-      :placeholder="props.staticData.placeholder"
-    />
-  </div>
+  <input
+    :style="props.cssModule"
+    @mousedown="mousedown($event, props.componentId, props.parentId)"
+    :type="props.staticData.type"
+    :placeholder="props.staticData.placeholder"
+  />
 </template>
 
 <script lang="ts">
@@ -29,9 +26,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.yimg {
-  position: relative;
-  user-select: none;
-}
-</style>
+<style lang="scss" scoped></style>

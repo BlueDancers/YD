@@ -32,17 +32,23 @@
           </div>
           <!-- 容器内组件 -->
           <template v-else>
-            <template v-for="comp in item.components" :key="comp.id">
+            <div
+              class="component_item"
+              :style="{ ...contResetCss(comp.cssModule) }"
+              v-for="comp in item.components"
+              :key="comp.id"
+            >
+              <auxiliary-point v-if="activechild == comp.id"></auxiliary-point>
               <component
-                class="active_comp"
+                :class="activechild == comp.id ? 'active_comp' : ''"
                 :is="comp.name"
-                :cssModule="comp.cssModule"
+                :cssModule="{ ...compResetCss(comp.cssModule) }"
                 :staticData="comp.staticData"
                 :configuration="comp.configuration"
                 :componentId="comp.id"
                 :parentId="item.id"
               ></component>
-            </template>
+            </div>
           </template>
           <!-- 下方拖拽 -->
           <div v-show="activeCont == item.id && item.name == 'default'" class="max_cont" @mousedown="contHeightAddDown">
@@ -57,7 +63,7 @@
 <script lang="ts">
 import { computed, defineComponent, effect, ref } from 'vue'
 import { useStore } from 'vuex'
-import { resetCss } from '@/utils/index'
+import { resetCss, contResetCss, compResetCss } from '@/utils/index'
 import { AppstoreOutlined, TableOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import auxiliaryLineX from '../../../components/auxiliaryLineX.vue'
@@ -67,6 +73,7 @@ import YImg from '../comp/YImg.vue'
 import YInput from '../comp/YInput.vue'
 import YP from '../comp/YP.vue'
 import yGrid from '../comp/yGrid.vue'
+import AuxiliaryPoint from '@/components/auxiliaryPoint.vue'
 
 export default defineComponent({
   components: {
@@ -81,6 +88,7 @@ export default defineComponent({
     YInput,
     YP,
     yGrid,
+    AuxiliaryPoint,
   },
   setup() {
     const store = useStore()
@@ -95,6 +103,7 @@ export default defineComponent({
     })
     // 当前选中组件
     let activeCont = computed(() => store.state.core.activeCont)
+    let activechild = computed(() => store.state.core.activechild)
     // 当前设定点锁
     let mouseLock = computed(() => store.state.core.mouseLock)
     let mouseType = computed(() => store.state.core.mouseType)
@@ -162,7 +171,10 @@ export default defineComponent({
       backColor,
       routerName,
       activeCont,
+      activechild,
       resetCss,
+      contResetCss,
+      compResetCss,
       toggleActive,
       dragStart,
       dragEnd,
@@ -229,6 +241,7 @@ export default defineComponent({
     overflow-x: hidden;
     overflow-y: scroll;
     .contains_item {
+      position: relative;
       .active_handle {
         position: absolute;
         z-index: 100;
@@ -256,6 +269,9 @@ export default defineComponent({
         justify-content: center;
         align-items: center;
         cursor: row-resize;
+      }
+      .component_item {
+        position: relative;
       }
     }
     .active_cont {
