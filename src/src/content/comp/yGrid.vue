@@ -6,7 +6,7 @@
       @mousedown="mousedown($event, props.componentId, props.parentId)"
     >
       <div v-for="(item, index) in props.staticData.dataList" :key="index">
-        <img style="width: 100%; height: 100%" :src="item.image" alt="" />
+        <img :style="{ width: item.width, height: item.height }" :src="item.image" alt="" />
       </div>
     </div>
   </div>

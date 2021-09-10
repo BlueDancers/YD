@@ -17,23 +17,18 @@
         </a-form-item>
         <a-form-item label="宽高">
           <div>
-            <a-input-number type="number" :min="0" class="default_input" v-model:value="contCss.width"></a-input-number>
+            <a-input class="default_input" v-model:value="contCss.width"></a-input>
             x
-            <a-input-number
-              type="number"
-              :min="0"
-              class="default_input"
-              v-model:value="contCss.height"
-            ></a-input-number>
+            <a-input class="default_input" v-model:value="contCss.height"></a-input>
           </div>
         </a-form-item>
-        <a-form-item label="坐标">
+        <!-- <a-form-item label="坐标" v-if="contCss.left" >
           <div>
-            <a-input-number type="number" :min="0" class="default_input" v-model:value="contCss.left"></a-input-number>
+            <a-input class="default_input" v-model:value="contCss.left"></a-input>
             x
-            <a-input-number type="number" class="default_input" v-model:value="contCss.top"></a-input-number>
+            <a-input class="default_input" v-model:value="contCss.top"></a-input>
           </div>
-        </a-form-item>
+        </a-form-item> -->
         <a-form-item label="外边距" v-if="contCss['margin-top'] != null">
           <a-input-number class="mini_input" v-model:value="contCss['margin-top']" />
           <a-input-number class="mini_input" v-model:value="contCss['margin-bottom']" />
@@ -88,7 +83,18 @@
             </a-select-option>
           </a-select>
         </a-form-item>
-      
+        <a-form-item label="网格-行设置" v-if="contCss['grid-template-columns'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-template-columns']" />
+        </a-form-item>
+        <a-form-item label="网格-列设置" v-if="contCss['grid-template-rows'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-template-rows']" />
+        </a-form-item>
+        <a-form-item label="网格-行间距" v-if="contCss['grid-column-gap'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-column-gap']" />
+        </a-form-item>
+        <a-form-item label="网格-列间距" v-if="contCss['grid-row-gap'] != null">
+          <a-input class="big_input" v-model:value="contCss['grid-row-gap']" />
+        </a-form-item>
       </template>
       <json-editor
         v-if="toggleModal == '2'"

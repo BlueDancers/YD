@@ -136,6 +136,35 @@ function baseComList(contName, name: string, zIndex) {
       configuration: {}, // 行为
       function: {}, // 方法
     },
+    {
+      id: guid(),
+      name: 'y-grid',
+      cssModule: {
+        ...absolute(contName, zIndex),
+        ...borderData(),
+        ...padAndMar(),
+        ...compSize(contName, 100, 20),
+        'background-color': '#ffffff',
+        display: 'grid',
+        'grid-template-columns': '1fr 1fr 1fr', // 行
+        'grid-template-rows': '1fr 1fr 1fr', // 列
+        'grid-row-gap': 10, // 列之间间距
+        'grid-column-gap': 10, // 行之间间距
+      }, // 样式
+      staticData: {
+        dataList: [
+          {
+            image:
+              'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
+            text: '',
+            width: '100%',
+            height: '100%',
+          },
+        ],
+      }, // 展示文字
+      configuration: {}, // 行为
+      function: {}, // 方法
+    },
   ]
   return list.find((e) => e.name == name)
 }

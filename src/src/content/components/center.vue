@@ -34,6 +34,7 @@
           <template v-else>
             <template v-for="comp in item.components" :key="comp.id">
               <component
+                class="active_comp"
                 :is="comp.name"
                 :cssModule="comp.cssModule"
                 :staticData="comp.staticData"
@@ -264,10 +265,13 @@ export default defineComponent({
         position: absolute;
         top: 0px;
         left: 0px;
-        height: 100%;
-        width: 100%;
-        border: 1px dashed #2970f6;
+        height: 100%; // calc(100% - 2px);
+        width: 100%; // calc(100% - 2px);
+        border: 1px solid #2970f6;
       }
+    }
+    .active_comp {
+      outline: 1px dashed #2970f6;
     }
   }
 }

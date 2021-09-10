@@ -16,7 +16,7 @@ const app: Module<any, any> = {
       let topList: any[] = []
       let leftList: any[] = []
       data.map((res) => {
-        if (res.cssModule.name == 'default') {
+        if (res.cssModule.position == 'absolute') {
           let { top, left, height, width } = res.cssModule
           let showX = [top, top + height, top + height / 2]
           let showY = [left, left + width, left + width / 2]
