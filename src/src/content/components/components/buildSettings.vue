@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { jsonToVue } from '@/modules/components'
+import { jsonToVue } from '@/modules/components/jsonToHtml'
 import { computed, defineComponent, reactive, ref, toRaw } from 'vue'
 import { useStore } from 'vuex'
 
