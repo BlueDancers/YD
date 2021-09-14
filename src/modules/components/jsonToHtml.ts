@@ -26,10 +26,27 @@ function jsonToVue(components: any[], pageWidth, pageUnit) {
     html = html + `<div class="${pClass}">${parentHtml}</div>`
     css = css + `.${pClass}{${objToClass(res.cssModule, pageWidth, pageUnit)}}${classItem}`
   })
-  html = `<template><div>${html}</div></template>`
+  html = `<div>${html}</div>`
   css = `<style>${css}</style>`
 
-  downFile(`${html}${css}`)
+  downFile(`<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+      <style>
+        body,html {
+          margin:0;
+          padding:0
+        }
+      </style>
+    </head>
+    <body>
+    ${html}
+    ${css}
+  </html>`)
 }
 
 /**
@@ -52,7 +69,7 @@ function objToClass(obj, pageWidth, pageUnit) {
   let text = ''
   for (const key in obj) {
     if (cssTopx(key) && !String(cssTopx(key)).includes('%')) {
-      text = `${text}${key}:${obj[key] * Math.round(pageWidth / 375)}${pageUnit};`
+      text = `${text}${key}:${Math.round(obj[key] * (pageWidth / 375))}${pageUnit};`
     } else {
       text = `${text}${key}:${obj[key]};`
     }
@@ -97,7 +114,7 @@ function downFile(text: string) {
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'index.vue'
+  a.download = 'index.html'
   document.documentElement.appendChild(a)
   a.click()
   document.documentElement.removeChild(a)
