@@ -65,8 +65,8 @@ export function contResetCss(data: Object) {
     'z-index': newCss['z-index'],
     top: newCss.top,
     left: newCss.left,
-    width: newCss.width,
-    height: newCss.height,
+    // width: newCss.width,
+    // height: newCss.height,
     border: 'none',
   }
 }

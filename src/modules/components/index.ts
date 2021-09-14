@@ -39,6 +39,27 @@ export function baseContList(name, carryLength) {
       },
       components: [], // 当前页面数据
     },
+    {
+      id: guid(),
+      name: 'flex',
+      cssModule: {
+        width: 375,
+        height: 300,
+        position: 'relative',
+        top: 0,
+        left: 0,
+        'background-color': '#ffffff',
+        'z-index': 100 - carryLength,
+        ...borderData(),
+        ...padAndMar(),
+        display: 'flex',
+        'flex-direction': 'row',
+        'flex-wrap': 'wrap',
+        'align-items': 'center',
+        'justify-content': 'center',
+      },
+      components: [], // 当前页面数据
+    },
   ]
   return list.find((e) => e.name == name)
 }
@@ -222,7 +243,7 @@ function absolute(contName, zIndex) {
 }
 
 function compSize(contName, width, height) {
-  if (contName == 'default') {
+  if (contName == 'default' || contName == 'flex') {
     return {
       width,
       height,

@@ -45,6 +45,34 @@
         <a-form-item label="网格-列间距" v-if="activeCont.cssModule['grid-row-gap'] != null">
           <a-input class="big_input" v-model:value="activeCont.cssModule['grid-row-gap']" />
         </a-form-item>
+        <a-form-item label="主轴方向" v-if="activeCont.cssModule['flex-direction'] != null">
+          <a-select v-model:value="activeCont.cssModule['flex-direction']" style="width: 120px">
+            <a-select-option v-for="item in flexDirectionList" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="主轴方向" v-if="activeCont.cssModule['flex-wrap'] != null">
+          <a-select v-model:value="activeCont.cssModule['flex-wrap']" style="width: 120px">
+            <a-select-option v-for="item in flexWrapList" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="上下排列" v-if="activeCont.cssModule['align-items'] != null">
+          <a-select v-model:value="activeCont.cssModule['align-items']" style="width: 120px">
+            <a-select-option v-for="item in alignItemsList" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
+        <a-form-item label="左右排列" v-if="activeCont.cssModule['justify-content'] != null">
+          <a-select v-model:value="activeCont.cssModule['justify-content']" style="width: 120px">
+            <a-select-option v-for="item in justifyContentList" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </a-select-option>
+          </a-select>
+        </a-form-item>
       </template>
       <json-editor
         v-if="toggleModal == '2'"
@@ -57,7 +85,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { positionSelect } from '../common/selectData'
+import {
+  positionSelect,
+  flexDirectionList,
+  justifyContentList,
+  alignItemsList,
+  flexWrapList,
+} from '../common/selectData'
 import { useRightData } from './common/commonData'
 import JsonEditor from '@/components/JsonEditor.vue'
 import { useStore } from 'vuex'
@@ -80,6 +114,10 @@ export default defineComponent({
     return {
       ...rightData,
       positionSelect,
+      flexDirectionList,
+      justifyContentList,
+      alignItemsList,
+      flexWrapList,
       toggleModal,
       changeContData,
     }

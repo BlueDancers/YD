@@ -80,3 +80,64 @@ export const fontAlignList = [
     value: '靠右',
   },
 ]
+
+export const flexDirectionList = [
+  {
+    key: 'row',
+    value: '水平排列',
+  },
+  {
+    key: 'column',
+    value: '上下排列',
+  },
+]
+
+export const alignItemsList = [
+  {
+    key: 'start',
+    value: '上对齐',
+  },
+  {
+    key: 'center',
+    value: '居中',
+  },
+  {
+    key: 'end',
+    value: '下对齐',
+  },
+]
+
+export const justifyContentList = [
+  {
+    key: 'start',
+    value: '左对齐',
+  },
+  {
+    key: 'center',
+    value: '居中',
+  },
+  {
+    key: 'end',
+    value: '右对齐',
+  },
+  {
+    key: 'space-between',
+    value: '左右对齐',
+  },
+  {
+    key: 'space-around',
+    value: '等分对齐',
+  },
+]
+
+export const flexWrapList = [
+  {
+    key: 'wrap',
+    value: '换行',
+  },
+  {
+    key: 'nowrap',
+    value: '不换行',
+  },
+]
+

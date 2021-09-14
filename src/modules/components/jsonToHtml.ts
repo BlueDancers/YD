@@ -22,14 +22,12 @@ function jsonToVue(components: any[], pageWidth, pageUnit) {
       // 解析css
       classItem = `${classItem}.${pClass} .${cClass}{${objToClass(child.cssModule, pageWidth, pageUnit)}}`
     })
-    // 组件处理 id="${res.id}"
     html = html + `<div class="${pClass}">${parentHtml}</div>`
     css = css + `.${pClass}{${objToClass(res.cssModule, pageWidth, pageUnit)}}${classItem}`
   })
   html = `<div>${html}</div>`
   css = `<style>${css}</style>`
-
-  downFile(`<!DOCTYPE html>
+  let downHtml = `<!DOCTYPE html>
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
@@ -45,8 +43,10 @@ function jsonToVue(components: any[], pageWidth, pageUnit) {
     </head>
     <body>
     ${html}
+    </body>
     ${css}
-  </html>`)
+  </html>`
+  downFile(downHtml, 'index.html')
 }
 
 /**
@@ -68,7 +68,7 @@ function getClass() {
 function objToClass(obj, pageWidth, pageUnit) {
   let text = ''
   for (const key in obj) {
-    if (cssTopx(key) && !String(cssTopx(key)).includes('%')) {
+    if (cssTopx(key) && !String(obj[key]).includes('%')) {
       text = `${text}${key}:${Math.round(obj[key] * (pageWidth / 375))}${pageUnit};`
     } else {
       text = `${text}${key}:${obj[key]};`
@@ -84,37 +84,50 @@ function objToClass(obj, pageWidth, pageUnit) {
  */
 function objToH5(child, cClass) {
   let label = child.name.split('-')[1] // 当前标签名称
-  let { value, src, placeholder } = child.staticData
+  let { value, src, placeholder, dataList } = child.staticData
   let childHtml = ''
-  let commonLabel = `class="${cClass}"` // 公共标签 id="${child.id}"
+  let common = `class="${cClass}"` // 公共标签 id="${child.id}"
   switch (label) {
     case 'button':
-      childHtml = `<${label} ${commonLabel}>${value}</${label}>`
+      childHtml = `<${label} ${common}>${value}</${label}>`
       break
     case 'img':
-      childHtml = `<${label} ${commonLabel} src="${src}"/>`
+      childHtml = `<${label} ${common} src="${src}"/>`
       break
     case 'p':
-      childHtml = `<${label} ${commonLabel}>${value}</${label}>`
+      childHtml = `<${label} ${common}>${value}</${label}>`
       break
     case 'input':
-      childHtml = `<${label} ${commonLabel} placeholder="${placeholder}"/>`
+      childHtml = `<${label} ${common} placeholder="${placeholder}"/>`
       break
+    // case 'grid':
+    //   childHtml = `<div ${common}>
+
+    //   </div>`
+    //   break
     default:
       break
   }
   return childHtml
 }
 
+
+function gridChild(data) {
+  let gridData = ''
+  data.map(res => {
+
+  })  
+}
+
 /**
  * 下载代码文件
  */
-function downFile(text: string) {
+function downFile(text: string, downName) {
   const blob = new Blob([text], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'index.html'
+  a.download = downName
   document.documentElement.appendChild(a)
   a.click()
   document.documentElement.removeChild(a)

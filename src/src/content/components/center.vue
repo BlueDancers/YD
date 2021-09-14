@@ -51,7 +51,7 @@
             </div>
           </template>
           <!-- 下方拖拽 -->
-          <div v-show="activeCont == item.id && item.name == 'default'" class="max_cont" @mousedown="contHeightAddDown">
+          <div v-show="activeCont == item.id && ['default','flex'].includes(item.name)" class="max_cont" @mousedown="contHeightAddDown">
             <EllipsisOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
           </div>
         </div>
