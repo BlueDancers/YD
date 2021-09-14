@@ -15,6 +15,7 @@ export function baseContList(name, carryLength) {
         'z-index': 100 - carryLength,
         ...borderData(),
         ...padAndMar(),
+        'box-shadow': '5px 5px 10px #333',
       },
       components: [], // 当前页面数据
     },
@@ -31,6 +32,7 @@ export function baseContList(name, carryLength) {
         'z-index': 100 - carryLength,
         ...borderData(),
         ...padAndMar(),
+        'box-shadow': '5px 5px 10px #333',
         display: 'grid',
         'grid-template-columns': '1fr 1fr 1fr', // 行
         'grid-template-rows': '1fr 1fr 1fr', // 列
@@ -52,6 +54,7 @@ export function baseContList(name, carryLength) {
         'z-index': 100 - carryLength,
         ...borderData(),
         ...padAndMar(),
+        'box-shadow': '5px 5px 10px #333',
         display: 'flex',
         'flex-direction': 'row',
         'flex-wrap': 'wrap',

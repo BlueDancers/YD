@@ -18,6 +18,9 @@
         <a-form-item label="背景色">
           <input type="color" v-model="activeCont.cssModule['background-color']" />
         </a-form-item>
+        <a-form-item label="阴影">
+          <a-input class="big_input" v-model:value="activeCont.cssModule['box-shadow']" />
+        </a-form-item>
         <a-form-item label="外边距">
           <a-input-number class="mini_input" v-model:value="activeCont.cssModule['margin-top']" />
           <a-input-number class="mini_input" v-model:value="activeCont.cssModule['margin-bottom']" />
@@ -29,6 +32,19 @@
           <a-input-number class="mini_input" v-model:value="activeCont.cssModule['padding-bottom']" />
           <a-input-number class="mini_input" v-model:value="activeCont.cssModule['padding-left']" />
           <a-input-number class="mini_input" v-model:value="activeCont.cssModule['padding-right']" />
+        </a-form-item>
+        <a-form-item label="边框宽度" v-if="activeCont.cssModule['border-width'] != null">
+          <a-input-number class="default_input" :min="0" v-model:value="activeCont.cssModule['border-width']" />
+        </a-form-item>
+        <a-form-item label="边框颜色" v-if="activeCont.cssModule['border-color'] != null">
+          <input class="default_input" type="color" v-model="activeCont.cssModule['border-color']" />
+        </a-form-item>
+        <a-form-item label="边框样式" v-if="activeCont.cssModule['border-style'] != null">
+          <a-select v-model:value="activeCont.cssModule['border-style']" style="width: 120px">
+            <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
+              {{ item.value }}
+            </a-select-option>
+          </a-select>
         </a-form-item>
         <a-form-item label="圆角">
           <a-input-number class="default_input" :min="0" v-model:value="activeCont.cssModule['border-radius']" />
@@ -91,6 +107,7 @@ import {
   justifyContentList,
   alignItemsList,
   flexWrapList,
+  borderStyleList,
 } from '../common/selectData'
 import { useRightData } from './common/commonData'
 import JsonEditor from '@/components/JsonEditor.vue'
@@ -118,6 +135,7 @@ export default defineComponent({
       justifyContentList,
       alignItemsList,
       flexWrapList,
+      borderStyleList,
       toggleModal,
       changeContData,
     }

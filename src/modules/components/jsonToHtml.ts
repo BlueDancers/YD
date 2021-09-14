@@ -112,13 +112,6 @@ function objToH5(child, cClass) {
 }
 
 
-function gridChild(data) {
-  let gridData = ''
-  data.map(res => {
-
-  })  
-}
-
 /**
  * 下载代码文件
  */
