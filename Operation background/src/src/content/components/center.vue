@@ -24,6 +24,8 @@
         >
           <auxiliary-line-x v-if="activeCont == item.id"></auxiliary-line-x>
           <auxiliary-line-y v-if="activeCont == item.id"></auxiliary-line-y>
+          <!-- 容器说明 -->
+          <view class="contains_name">{{ item.name }}</view>
           <!-- 拖拽换位 -->
           <AppstoreOutlined class="active_handle" :style="{ color: '#fff' }" />
           <!-- 未选择组件 -->
@@ -38,7 +40,7 @@
               v-for="comp in item.components"
               :key="comp.id"
             >
-              <auxiliary-point v-if="activechild == comp.id"></auxiliary-point>
+              <auxiliary-point v-if="activechild == comp.id && item.name == 'default'"></auxiliary-point>
               <component
                 :class="activechild == comp.id ? 'active_comp' : ''"
                 :is="comp.name"
@@ -51,7 +53,11 @@
             </div>
           </template>
           <!-- 下方拖拽 -->
-          <div v-show="activeCont == item.id && ['default','flex'].includes(item.name)" class="max_cont" @mousedown="contHeightAddDown">
+          <div
+            v-show="activeCont == item.id && ['default', 'flex'].includes(item.name)"
+            class="max_cont"
+            @mousedown="contHeightAddDown"
+          >
             <EllipsisOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
           </div>
         </div>
@@ -242,6 +248,16 @@ export default defineComponent({
     overflow-y: scroll;
     .contains_item {
       position: relative;
+      .contains_name {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 9999;
+        background-color: #2970f6;
+        color: #fff;
+        font-size: 12px;
+        padding: 0 4px;
+      }
       .active_handle {
         position: absolute;
         z-index: 100;

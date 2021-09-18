@@ -2,7 +2,7 @@
   <div class="login_con">
     <a-form class="login_form" ref="formRef" :rules="rules" :model="userData">
       <a-form-item>
-        <div class="login_title">后台管理系统</div>
+        <div class="login_title">易动 v2</div>
       </a-form-item>
       <a-form-item name="username">
         <a-input placeholder="请输入邮箱" v-model:value="userData.username">

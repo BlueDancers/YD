@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import viteSvgIcons from 'vite-plugin-svg-icons'
 import path from 'path'
 const prefix = `monaco-editor/esm/vs`
 // https://vitejs.dev/config/
