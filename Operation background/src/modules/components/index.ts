@@ -15,7 +15,7 @@ export function baseContList(name, carryLength) {
         'z-index': 100 - carryLength,
         ...borderData(),
         ...padAndMar(),
-        'box-shadow': '5px 5px 10px #333',
+        'box-shadow': '0px 0px 0px #333',
       },
       components: [], // 当前页面数据
     },
@@ -32,7 +32,7 @@ export function baseContList(name, carryLength) {
         'z-index': 100 - carryLength,
         ...borderData(),
         ...padAndMar(),
-        'box-shadow': '5px 5px 10px #333',
+        'box-shadow': '0px 0px 0px #333',
         display: 'grid',
         'grid-template-columns': '1fr 1fr 1fr', // 行
         'grid-template-rows': '1fr 1fr 1fr', // 列
@@ -54,7 +54,7 @@ export function baseContList(name, carryLength) {
         'z-index': 100 - carryLength,
         ...borderData(),
         ...padAndMar(),
-        'box-shadow': '5px 5px 10px #333',
+        'box-shadow': '0px 0px 0px #333',
         display: 'flex',
         'flex-direction': 'row',
         'flex-wrap': 'wrap',
@@ -101,7 +101,9 @@ function baseComList(contName, name: string, zIndex) {
       staticData: {
         value: '按钮',
       }, // 展示文字
-      configuration: {}, // 行为
+      configuration: {
+        externalUrl: '',
+      }, // 行为
       function: {}, // 方法
     },
     {
@@ -117,29 +119,31 @@ function baseComList(contName, name: string, zIndex) {
       staticData: {
         src: 'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
       }, // 展示文字
-      configuration: {}, // 行为
+      configuration: {
+        externalUrl: '',
+      }, // 行为
       function: {}, // 方法
     },
-    {
-      id: guid(),
-      name: 'y-input',
-      cssModule: {
-        ...absolute(contName, zIndex),
-        ...borderData(),
-        ...padAndMar(),
-        ...compSize(contName, 100, 20),
-        'background-color': '#eeeeee',
-        'font-size': 14,
-        color: '#000000',
-        'font-weight': 'normal',
-      }, // 样式
-      staticData: {
-        type: 'text',
-        placeholder: '请输入文字',
-      }, // 展示文字
-      configuration: {}, // 行为
-      function: {}, // 方法
-    },
+    // {
+    //   id: guid(),
+    //   name: 'y-input',
+    //   cssModule: {
+    //     ...absolute(contName, zIndex),
+    //     ...borderData(),
+    //     ...padAndMar(),
+    //     ...compSize(contName, 100, 20),
+    //     'background-color': '#eeeeee',
+    //     'font-size': 14,
+    //     color: '#000000',
+    //     'font-weight': 'normal',
+    //   }, // 样式
+    //   staticData: {
+    //     type: 'text',
+    //     placeholder: '请输入文字',
+    //   }, // 展示文字
+    //   configuration: {}, // 行为
+    //   function: {}, // 方法
+    // },
     {
       id: guid(),
       name: 'y-p',

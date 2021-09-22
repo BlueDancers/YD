@@ -13,10 +13,13 @@ import { useRoute } from 'vue-router'
 import { resetCss } from '../../utils/index'
 import YImg from '../../component/YImg.vue'
 import YP from '../../component/YP.vue'
+import YButton from '../../component/YButton.vue'
+
 export default defineComponent({
   components: {
     YImg,
     YP,
+    YButton
   },
   setup() {
     const db = cloud.database()

@@ -58,11 +58,11 @@ export default defineComponent({
         name: 'y-p',
         title: '文字',
       },
-      {
-        icon: 'wenben',
-        name: 'y-input',
-        title: '输入框',
-      },
+      // {
+      //   icon: 'wenben',
+      //   name: 'y-input',
+      //   title: '输入框',
+      // },
       // {
       //   icon: 'button',
       //   name: 'y-grid',

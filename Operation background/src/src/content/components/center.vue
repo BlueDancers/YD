@@ -249,6 +249,7 @@ export default defineComponent({
     .contains_item {
       position: relative;
       .contains_name {
+        opacity: 0.7;
         position: absolute;
         left: 0px;
         top: 0px;

@@ -27,6 +27,13 @@
         <a-form-item label="输入文字" v-if="activeComp.name == 'y-p'">
           <a-textarea auto-size class="long_input" v-model:value="activeComp.staticData.value" />
         </a-form-item>
+        <a-form-item label="点击跳转" v-if="activeComp.staticData.configuration != null">
+          <a-input
+            placeholder="https://www.baidu.com"
+            class="long_input"
+            v-model:value="activeComp.staticData.configuration"
+          />
+        </a-form-item>
       </template>
       <json-editor
         v-if="toggleModal == '2'"
