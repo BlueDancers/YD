@@ -17,9 +17,9 @@
         </a-form-item>
         <a-form-item label="宽高">
           <div>
-            <a-input class="default_input" v-model:value="contCss.width"></a-input>
+            <a-input class="default_input" v-model:value.number="contCss.width"></a-input>
             x
-            <a-input class="default_input" v-model:value="contCss.height"></a-input>
+            <a-input class="default_input" v-model:value.number="contCss.height"></a-input>
           </div>
         </a-form-item>
         <!-- <a-form-item label="坐标" v-if="contCss.left" >

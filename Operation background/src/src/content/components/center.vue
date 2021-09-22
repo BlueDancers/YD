@@ -74,9 +74,9 @@ import { AppstoreOutlined, TableOutlined, EllipsisOutlined } from '@ant-design/i
 import { VueDraggableNext } from 'vue-draggable-next'
 import auxiliaryLineX from '../../../components/auxiliaryLineX.vue'
 import auxiliaryLineY from '../../../components/auxiliaryLineY.vue'
+import YDiv from '../comp/YDiv.vue';
 import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
-import YInput from '../comp/YInput.vue'
 import YP from '../comp/YP.vue'
 import yGrid from '../comp/yGrid.vue'
 import AuxiliaryPoint from '@/components/auxiliaryPoint.vue'
@@ -89,9 +89,9 @@ export default defineComponent({
     EllipsisOutlined,
     auxiliaryLineX,
     auxiliaryLineY,
+    YDiv,
     YButton,
     YImg,
-    YInput,
     YP,
     yGrid,
     AuxiliaryPoint,

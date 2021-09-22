@@ -87,6 +87,23 @@ function baseComList(contName, name: string, zIndex) {
   const list: baseComponent[] = [
     {
       id: guid(),
+      name: 'y-div',
+      cssModule: {
+        ...absolute(contName, zIndex),
+        ...borderData(),
+        ...padAndMar(),
+        ...compSize(contName, 50, 30),
+        color: '#000000',
+        'background-color': '#eeeeee',
+      }, // 样式
+      staticData: {},
+      configuration: {
+        externalUrl: '',
+      }, // 行为
+      function: {}, // 方法
+    },
+    {
+      id: guid(),
       name: 'y-button',
       cssModule: {
         ...absolute(contName, zIndex),

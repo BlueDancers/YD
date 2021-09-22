@@ -44,6 +44,11 @@ export default defineComponent({
     const activeKey = ref(1)
     const compList = ref([
       {
+        icon: 'wenben',
+        name: 'y-div',
+        title: '模块',
+      },
+      {
         icon: 'button',
         name: 'y-button',
         title: '按钮',
@@ -58,11 +63,6 @@ export default defineComponent({
         name: 'y-p',
         title: '文字',
       },
-      // {
-      //   icon: 'wenben',
-      //   name: 'y-input',
-      //   title: '输入框',
-      // },
       // {
       //   icon: 'button',
       //   name: 'y-grid',
