@@ -92,7 +92,7 @@ export default defineComponent({
   }
   .contains {
     display: grid;
-    grid-template-columns: 104px 104px;
+    grid-template-columns: 117px 117px;
     grid-template-rows: auto;
     grid-row-gap: 10px;
     grid-column-gap: 10px;

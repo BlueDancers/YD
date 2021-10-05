@@ -9,7 +9,7 @@
       </a-form-item>
       <template v-if="toggleModal == '1'">
         <a-collapse v-model:activeKey="activeKey">
-          <a-collapse-panel :key="1" header="布局设置">
+          <a-collapse-panel :key="1" header="布局设置" :show-arrow="false">
             <a-form-item label="尺寸">
               <a-input class="default_input" addon-before="宽" v-model:value="activeCont.cssModule.width" />
               <a-input class="default_input" addon-before="高" v-model:value="activeCont.cssModule.height" />

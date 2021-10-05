@@ -59,7 +59,7 @@
             class="max_cont"
             @mousedown="contHeightAddDown"
           >
-            <EllipsisOutlined :style="{ color: '#fff' }" />
+            <!-- <EllipsisOutlined :style="{ color: '#fff' }" /> -->
           </div>
         </div>
       </draggable>

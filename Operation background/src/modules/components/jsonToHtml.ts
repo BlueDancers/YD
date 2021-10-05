@@ -1,5 +1,5 @@
 import { cssTopx } from '@/utils'
-
+import store from '@/store/index'
 /**
  * json转vue代码
  * @param components
@@ -9,14 +9,14 @@ function jsonToVue(components: any[], pageWidth, pageUnit) {
   let html = ''
   let css = ''
 
-  components.map((res) => {
-    let pClass = getClass()
+  components.map((res, index) => {
+    let pClass = `parent_${index + 1}`
     // 开始组装代码
     let parentHtml = ''
     // 全局样式处理
     let classItem = ''
-    res.components.map((child) => {
-      let cClass = getClass() // 当前class名称
+    res.components.map((child, index) => {
+      let cClass = `${pClass}_${index + 1}` // 当前class名称
       // 解析html
       parentHtml = `${parentHtml}${objToH5(child, cClass)}`
       // 解析css
@@ -36,8 +36,9 @@ function jsonToVue(components: any[], pageWidth, pageUnit) {
       <title>Document</title>
       <style>
         body,html {
-          margin:0;
-          padding:0
+          margin: 0;
+          padding: 0;
+          background-color: ${store.state.core.backColor};
         }
       </style>
     </head>
@@ -100,6 +101,9 @@ function objToH5(child, cClass) {
     case 'input':
       childHtml = `<${label} ${common} placeholder="${placeholder}"/>`
       break
+    case 'div':
+      childHtml = `<${label} ${common}></${label}>`
+      break
     // case 'grid':
     //   childHtml = `<div ${common}>
 
@@ -110,7 +114,6 @@ function objToH5(child, cClass) {
   }
   return childHtml
 }
-
 
 /**
  * 下载代码文件
