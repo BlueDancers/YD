@@ -1,8 +1,14 @@
 import { useStore } from 'vuex'
 import { computed, ref, toRefs } from 'vue'
 
-export function useRightData() {
+/**
+ * 父级容器的当前选中数据
+ * @returns 
+ */
+function useRightData() {
   const store = useStore()
+  console.log('当前',store);
+  
   const containerList = computed(() => store.state.core.containerList)
   const coordinate = computed(() => store.state.core.coordinate)
   const activeCont = computed({
@@ -35,3 +41,5 @@ export function useRightData() {
     activeComp,
   }
 }
+
+export default useRightData

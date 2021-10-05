@@ -1,18 +1,20 @@
 <template>
   <div class="add_components">
-    <a-collapse v-model:activeKey="activeKey" accordion :bordered="false">
+    <a-collapse v-model:activeKey="activeKey" :bordered="false">
       <a-collapse-panel :key="1" header="容器列表">
-        <div class="add_contains" @click="addCon('default')">
-          <svg-icon class="contains_svg" name="bujurongqi"></svg-icon>
-          <span class="contains_text">添加通用容器</span>
-        </div>
-        <div class="add_contains" @click="addCon('grid')">
-          <svg-icon class="contains_svg" name="bujurongqi"></svg-icon>
-          <span class="contains_text">添加网格容器</span>
-        </div>
-        <div class="add_contains" @click="addCon('flex')">
-          <svg-icon class="contains_svg" name="bujurongqi"></svg-icon>
-          <span class="contains_text">添加flex容器</span>
+        <div class="contains">
+          <div class="add_contains" @click="addCon('default')">
+            <svg-icon class="contains_svg" name="kuaisubuju"></svg-icon>
+            <span class="contains_text">通用容器</span>
+          </div>
+          <div class="add_contains" @click="addCon('flex')">
+            <svg-icon class="contains_svg" name="bianzu"></svg-icon>
+            <span class="contains_text">flex容器</span>
+          </div>
+          <div class="add_contains" @click="addCon('grid')">
+            <svg-icon class="contains_svg" name="grid-wangge"></svg-icon>
+            <span class="contains_text">网格容器</span>
+          </div>
         </div>
       </a-collapse-panel>
       <a-collapse-panel :key="2" header="组件列表">
@@ -88,29 +90,36 @@ export default defineComponent({
   .ant-collapse {
     width: 100%;
   }
-  .add_contains {
-    cursor: pointer;
-    margin-top: 20px;
-    border: 1px solid rgb(206, 206, 206);
-    border-radius: 10px;
-    background-color: #fff;
-    width: 240px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    &:hover {
-      border: 1px solid #3a71ee;
-    }
-    .contains_svg {
-      width: 40px;
-      height: 40px;
-    }
-    .contains_text {
-      font-size: 14px;
+  .contains {
+    display: grid;
+    grid-template-columns: 104px 104px;
+    grid-template-rows: auto;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    .add_contains {
+      cursor: pointer;
+      border: 1px solid rgb(206, 206, 206);
+      border-radius: 10px;
+      background-color: #fff;
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        border: 1px solid #3a71ee;
+      }
+      .contains_svg {
+        width: 26px;
+        height: 26px;
+      }
+      .contains_text {
+        margin-top: 4px;
+        font-size: 14px;
+      }
     }
   }
+
   .add_div_list {
     margin-top: 10px;
     display: grid;

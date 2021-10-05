@@ -1,31 +1,31 @@
 export const borderStyleList = [
   {
     key: 'solid',
-    value: '实线边框',
+    value: '实线',
   },
   {
     key: 'dotted',
-    value: '点线边框',
+    value: '点线',
   },
   {
     key: 'dashed',
-    value: '虚线边框',
+    value: '虚线',
   },
   {
     key: 'groove',
-    value: '3D沟槽边框',
+    value: '3D沟槽',
   },
   {
     key: 'ridge',
-    value: '3D脊边框',
+    value: '3D脊',
   },
   {
     key: 'inset',
-    value: '3D嵌入边框',
+    value: '3D嵌入',
   },
   {
     key: 'outset',
-    value: '3D突出边框',
+    value: '3D突出',
   },
 ]
 

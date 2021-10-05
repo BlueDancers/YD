@@ -17,7 +17,7 @@
         <div
           @mousedown.self="toggleActive(item)"
           class="contains_item"
-          :class="activeCont == item.id ? 'active_cont' : ''"
+          :class="activeCont == item.id ? 'active_cont' : 'unactive_cont'"
           :style="resetCss(item.cssModule)"
           v-for="item in containerList"
           :key="item.id"
@@ -25,9 +25,9 @@
           <auxiliary-line-x v-if="activeCont == item.id"></auxiliary-line-x>
           <auxiliary-line-y v-if="activeCont == item.id"></auxiliary-line-y>
           <!-- 容器说明 -->
-          <view class="contains_name">{{ item.name }}</view>
+          <view v-show="activeCont == item.id" class="contains_name">{{ item.name }}</view>
           <!-- 拖拽换位 -->
-          <AppstoreOutlined class="active_handle" :style="{ color: '#fff' }" />
+          <AppstoreOutlined v-show="activeCont == item.id" class="active_handle" :style="{ color: '#fff' }" />
           <!-- 未选择组件 -->
           <div v-if="item.components.length == 0">
             <span>选中组件,点击左侧添加元素</span>
@@ -40,9 +40,10 @@
               v-for="comp in item.components"
               :key="comp.id"
             >
+              <!-- 组件的六个点 -->
               <auxiliary-point v-if="activechild == comp.id && item.name == 'default'"></auxiliary-point>
               <component
-                :class="activechild == comp.id ? 'active_comp' : ''"
+                :class="activechild == comp.id ? 'active_comp' : 'comp_default'"
                 :is="comp.name"
                 :cssModule="{ ...compResetCss(comp.cssModule) }"
                 :staticData="comp.staticData"
@@ -58,7 +59,7 @@
             class="max_cont"
             @mousedown="contHeightAddDown"
           >
-            <EllipsisOutlined width="1em" height="1em" :style="{ color: '#fff' }" />
+            <EllipsisOutlined :style="{ color: '#fff' }" />
           </div>
         </div>
       </draggable>
@@ -74,7 +75,7 @@ import { AppstoreOutlined, TableOutlined, EllipsisOutlined } from '@ant-design/i
 import { VueDraggableNext } from 'vue-draggable-next'
 import auxiliaryLineX from '../../../components/auxiliaryLineX.vue'
 import auxiliaryLineY from '../../../components/auxiliaryLineY.vue'
-import YDiv from '../comp/YDiv.vue';
+import YDiv from '../comp/YDiv.vue'
 import YButton from '../comp/YButton.vue'
 import YImg from '../comp/YImg.vue'
 import YP from '../comp/YP.vue'
@@ -249,10 +250,10 @@ export default defineComponent({
     .contains_item {
       position: relative;
       .contains_name {
-        opacity: 0.7;
+        opacity: 1;
         position: absolute;
         left: 0px;
-        top: 0px;
+        bottom: -18px;
         z-index: 9999;
         background-color: #2970f6;
         color: #fff;
@@ -273,15 +274,13 @@ export default defineComponent({
         cursor: pointer;
       }
       .max_cont {
-        width: 30px;
-        border-radius: 4px;
-        height: 12px;
-        background-color: #2970f6;
+        width: 100%;
+        height: 4px;
+        background-color: #1e58c3;
         position: absolute;
         z-index: 1000;
-        left: 50%;
-        bottom: -6px;
-        transform: translate(-50%, 0);
+        right: 0px;
+        bottom: -4px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -303,8 +302,25 @@ export default defineComponent({
         border: 1px solid #2970f6;
       }
     }
+    .unactive_cont {
+      &::after {
+        content: '';
+        z-index: 0;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%; // calc(100% - 2px);
+        width: 100%; // calc(100% - 2px);
+        border: 1px dashed rgb(201, 201, 201);
+      }
+    }
     .active_comp {
-      outline: 1px dashed #2970f6;
+      outline: 1px solid #2970f6;
+    }
+    .comp_default {
+      &:hover {
+        outline: 1px dashed #2970f6;
+      }
     }
   }
 }

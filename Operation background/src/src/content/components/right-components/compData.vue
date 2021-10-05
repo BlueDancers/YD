@@ -47,7 +47,7 @@
 <script lang="ts">
 import uploadImg from '@/components/uploadImg.vue'
 import { defineComponent, ref } from 'vue'
-import { useRightData } from './common/commonData'
+import useRightData from './common/commonData'
 import { inputTypeSelect } from '../common/selectData'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'

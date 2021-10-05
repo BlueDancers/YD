@@ -72,17 +72,5 @@ export default defineComponent({
     overflow-y: scroll;
     margin-bottom: 20px;
   }
-
-  .form_con {
-    padding-left: 20px;
-    .right_wh {
-      .right_w {
-        width: 60px;
-      }
-      .right_h {
-        width: 60px;
-      }
-    }
-  }
 }
 </style>

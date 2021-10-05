@@ -8,82 +8,77 @@
         </a-radio-group>
       </a-form-item>
       <template v-if="toggleModal == '1'">
-        <a-form-item label="快捷布局">
+        <a-form-item label="快捷布局" v-if="activeCont.cssModule.display == 'block'">
           <div class="fast_layout">
             <AlignLeftOutlined class="layout_item" @click="fastLayout('left')" />
             <AlignCenterOutlined class="layout_item" @click="fastLayout('center')" />
             <AlignRightOutlined class="layout_item" @click="fastLayout('right')" />
           </div>
         </a-form-item>
-        <a-form-item label="宽高">
-          <div>
-            <a-input class="default_input" v-model:value.number="contCss.width"></a-input>
-            x
-            <a-input class="default_input" v-model:value.number="contCss.height"></a-input>
-          </div>
-        </a-form-item>
-        <!-- <a-form-item label="坐标" v-if="contCss.left" >
-          <div>
-            <a-input class="default_input" v-model:value="contCss.left"></a-input>
-            x
-            <a-input class="default_input" v-model:value="contCss.top"></a-input>
-          </div>
-        </a-form-item> -->
-        <a-form-item label="外边距" v-if="contCss['margin-top'] != null">
-          <a-input-number class="mini_input" v-model:value="contCss['margin-top']" />
-          <a-input-number class="mini_input" v-model:value="contCss['margin-bottom']" />
-          <a-input-number class="mini_input" v-model:value="contCss['margin-left']" />
-          <a-input-number class="mini_input" v-model:value="contCss['margin-right']" />
-        </a-form-item>
-        <a-form-item label="内边距" v-if="contCss['padding-top'] != null">
-          <a-input-number class="mini_input" v-model:value="contCss['padding-top']" />
-          <a-input-number class="mini_input" v-model:value="contCss['padding-bottom']" />
-          <a-input-number class="mini_input" v-model:value="contCss['padding-left']" />
-          <a-input-number class="mini_input" v-model:value="contCss['padding-right']" />
-        </a-form-item>
-        <a-form-item label="背景颜色" v-if="contCss['background-color'] != null">
-          <input class="default_input" type="color" v-model="contCss['background-color']" />
-        </a-form-item>
-        <a-form-item label="字体颜色" v-if="contCss.color != null">
-          <input class="default_input" type="color" v-model="contCss.color" />
-        </a-form-item>
-        <a-form-item label="层级" v-if="contCss['z-index'] != null">
-          <a-input-number class="default_input" :min="0" v-model:value="contCss['z-index']" />
-        </a-form-item>
-        <a-form-item label="字号" v-if="contCss['font-size'] != null">
-          <a-input-number class="default_input" :min="0" v-model:value="contCss['font-size']" />
-        </a-form-item>
-        <a-form-item label="边框宽度" v-if="contCss['border-width'] != null">
-          <a-input-number class="default_input" :min="0" v-model:value="contCss['border-width']" />
-        </a-form-item>
-        <a-form-item label="边框颜色" v-if="contCss['border-color'] != null">
-          <input class="default_input" type="color" v-model="contCss['border-color']" />
-        </a-form-item>
-        <a-form-item label="边框样式" v-if="contCss['border-style'] != null">
-          <a-select v-model:value="contCss['border-style']" style="width: 120px">
-            <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
-              {{ item.value }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item label="圆角" v-if="contCss['border-radius'] != null">
-          <a-input-number class="default_input" :min="0" v-model:value="contCss['border-radius']" />
-        </a-form-item>
-        <a-form-item label="字重" v-if="contCss['font-weight'] != null">
-          <a-select v-model:value="contCss['font-weight']" style="width: 120px">
-            <a-select-option v-for="item in fontWeightList" :key="item.key" :value="item.key">
-              {{ item.value }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item label="文字居中" v-if="contCss['text-align'] != null">
-          <a-select v-model:value="contCss['text-align']" style="width: 120px">
-            <a-select-option v-for="item in fontAlignList" :key="item.key" :value="item.key">
-              {{ item.value }}
-            </a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item label="网格-行设置" v-if="contCss['grid-template-columns'] != null">
+        <a-collapse v-model:activeKey="activeKey">
+          <a-collapse-panel :key="1" header="布局设置" :show-arrow="false">
+            <a-form-item label="尺寸">
+              <a-input class="default_input" addon-before="宽" v-model:value="contCss.width" />
+              <a-input class="default_input" addon-before="高" v-model:value="contCss.height" />
+            </a-form-item>
+            <a-form-item label="外边距">
+              <a-input class="default_input" addon-before="上" v-model:value="contCss['margin-top']" />
+              <a-input class="default_input" addon-before="下" v-model:value="contCss['margin-bottom']" />
+              <a-input class="default_input" addon-before="左" v-model:value="contCss['margin-left']" />
+              <a-input class="default_input" addon-before="右" v-model:value="contCss['margin-right']" />
+            </a-form-item>
+            <a-form-item label="内边距">
+              <a-input class="default_input" addon-before="上" v-model:value="contCss['padding-top']" />
+              <a-input class="default_input" addon-before="下" v-model:value="contCss['padding-bottom']" />
+              <a-input class="default_input" addon-before="左" v-model:value="contCss['padding-left']" />
+              <a-input class="default_input" addon-before="右" v-model:value="contCss['padding-right']" />
+            </a-form-item>
+            <a-form-item label="层级" v-if="contCss['z-index'] != null">
+              <a-input-number class="default_input" :min="0" v-model:value="contCss['z-index']" />
+            </a-form-item>
+          </a-collapse-panel>
+          <a-collapse-panel :key="2" header="样式设置" :show-arrow="false">
+            <a-form-item label="背景颜色" v-if="contCss['background-color'] != null">
+              <input class="default_input" type="color" v-model="contCss['background-color']" />
+            </a-form-item>
+            <a-form-item label="边框" v-if="contCss['border-width'] != null">
+              <a-input class="mini_input" v-model:value="contCss['border-width']" />
+              <a-select v-model:value="contCss['border-style']" style="width: 80px">
+                <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
+                  {{ item.value }}
+                </a-select-option>
+              </a-select>
+              <input class="mini_input" type="color" v-model="contCss['border-color']" />
+            </a-form-item>
+            <a-form-item label="圆角" v-if="contCss['border-radius'] != null">
+              <a-input-number class="default_input" :min="0" v-model:value="contCss['border-radius']" />
+            </a-form-item>
+          </a-collapse-panel>
+          <a-collapse-panel :key="3" header="文字设置" :show-arrow="false">
+            <a-form-item label="字体颜色" v-if="contCss.color != null">
+              <input class="default_input" type="color" v-model="contCss.color" />
+            </a-form-item>
+            <a-form-item label="字号" v-if="contCss['font-size'] != null">
+              <a-input-number class="default_input" :min="0" v-model:value="contCss['font-size']" />
+            </a-form-item>
+            <a-form-item label="字重" v-if="contCss['font-weight'] != null">
+              <a-select v-model:value="contCss['font-weight']" style="width: 120px">
+                <a-select-option v-for="item in fontWeightList" :key="item.key" :value="item.key">
+                  {{ item.value }}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item label="文字居中" v-if="contCss['text-align'] != null">
+              <a-select v-model:value="contCss['text-align']" style="width: 120px">
+                <a-select-option v-for="item in fontAlignList" :key="item.key" :value="item.key">
+                  {{ item.value }}
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-collapse-panel>
+        </a-collapse>
+
+        <!-- <a-form-item label="网格-行设置" v-if="contCss['grid-template-columns'] != null">
           <a-input class="big_input" v-model:value="contCss['grid-template-columns']" />
         </a-form-item>
         <a-form-item label="网格-列设置" v-if="contCss['grid-template-rows'] != null">
@@ -94,7 +89,7 @@
         </a-form-item>
         <a-form-item label="网格-列间距" v-if="contCss['grid-row-gap'] != null">
           <a-input class="big_input" v-model:value="contCss['grid-row-gap']" />
-        </a-form-item>
+        </a-form-item> -->
       </template>
       <json-editor
         v-if="toggleModal == '2'"
@@ -112,6 +107,7 @@ import { borderStyleList, fontWeightList, fontAlignList } from '../common/select
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant-design/icons-vue'
 import JsonEditor from '@/components/JsonEditor.vue'
 import { message } from 'ant-design-vue'
+import useRightData from './common/commonData'
 export default defineComponent({
   components: {
     AlignCenterOutlined,
@@ -121,7 +117,9 @@ export default defineComponent({
   },
   setup() {
     const toggleModal = ref('1')
+    const activeKey = ref(1)
     const store = useStore()
+    const rightData = useRightData()
     let coordinate = computed(() => store.state.core.coordinate)
     let containerList = computed(() => store.state.core.containerList)
     const contCss = computed({
@@ -153,12 +151,14 @@ export default defineComponent({
     }
     return {
       toggleModal,
+      activeKey,
       contCss,
       borderStyleList,
       fontWeightList,
       fontAlignList,
       fastLayout,
       changeCompData,
+      ...rightData,
     }
   },
 })
@@ -166,7 +166,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .comp_data {
-  padding-left: 20px;
+  padding: 0 4px;
   .fast_layout {
     display: flex;
     .layout_item {
@@ -179,10 +179,20 @@ export default defineComponent({
     }
   }
   .big_input {
-    width: 220px;
+    width: 120px;
+    margin: 0 2px;
+  }
+  .big_plus_input {
+    width: 200px;
+    margin: 0 2px;
+  }
+  .d_input {
+    width: 140px;
+    margin: 2px;
   }
   .default_input {
-    width: 80px;
+    width: 100px;
+    margin: 0 2px;
   }
   .mini_input {
     width: 50px;

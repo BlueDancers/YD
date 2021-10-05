@@ -13,16 +13,6 @@ export default defineComponent({
     const store = useStore()
     let $app: any = inject($APP)
     store.dispatch('app/getUserData', $app)
-    // app
-    //   .callFunction({
-    //     name: 'hello-word',
-    //   })
-    //   .then((res) => {
-    //     console.log(res)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
   },
 })
 </script>
@@ -68,5 +58,8 @@ html {
 @font-face {
   font-family: mFont;
   src: url('../src/assets/common/DIN-MEDIUM.OTF');
+}
+* {
+  user-select: none;
 }
 </style>

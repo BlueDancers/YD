@@ -16,6 +16,7 @@ export function baseContList(name, carryLength) {
         ...borderData(),
         ...padAndMar(),
         'box-shadow': '0px 0px 0px #333',
+        display: 'block',
       },
       components: [], // 当前页面数据
     },
