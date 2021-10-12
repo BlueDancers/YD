@@ -8,7 +8,7 @@
         <a-input addon-before="/" class="page_set_input" v-model:value="pageForm.router" />
       </a-form-item>
       <a-form-item label="背景颜色">
-        <input type="color" v-model="pageForm.backColor" />
+        <el-color-picker v-model="pageForm.backColor" />
       </a-form-item>
       <a-form-item label="页面描述" name="disp">
         <a-textarea class="page_set_input" v-model:value="pageForm.disp" />
@@ -26,7 +26,11 @@ import { computed, defineComponent, reactive, ref, toRaw } from 'vue'
 import { cloud } from '@/modules/request'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { ElColorPicker } from 'element-plus'
 export default defineComponent({
+  components: {
+    ElColorPicker,
+  },
   setup() {
     // 统一依赖
     const db = cloud.database()

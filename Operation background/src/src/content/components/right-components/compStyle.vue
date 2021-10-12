@@ -1,5 +1,5 @@
 <template>
-  <div class="comp_data">
+  <div class="comp_style">
     <a-form v-if="contCss != null" :label-col="{ style: { width: '80px' } }">
       <a-form-item label="开发模式">
         <a-radio-group v-model:value="toggleModal">
@@ -39,16 +39,18 @@
           </a-collapse-panel>
           <a-collapse-panel :key="2" header="样式设置" :show-arrow="false">
             <a-form-item label="背景颜色" v-if="contCss['background-color'] != null">
-              <input class="default_input" type="color" v-model="contCss['background-color']" />
+              <el-color-picker v-model="contCss['background-color']" />
             </a-form-item>
             <a-form-item label="边框" v-if="contCss['border-width'] != null">
-              <a-input class="mini_input" v-model:value="contCss['border-width']" />
-              <a-select v-model:value="contCss['border-style']" style="width: 80px">
-                <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
-                  {{ item.value }}
-                </a-select-option>
-              </a-select>
-              <input class="mini_input" type="color" v-model="contCss['border-color']" />
+              <div class="border_cont">
+                <a-input class="mini_input" v-model:value="contCss['border-width']" />
+                <a-select v-model:value="contCss['border-style']" style="width: 80px">
+                  <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
+                    {{ item.value }}
+                  </a-select-option>
+                </a-select>
+                <el-color-picker class="color_picker" v-model="contCss['border-color']" />
+              </div>
             </a-form-item>
             <a-form-item label="圆角" v-if="contCss['border-radius'] != null">
               <a-input-number class="default_input" :min="0" v-model:value="contCss['border-radius']" />
@@ -56,7 +58,7 @@
           </a-collapse-panel>
           <a-collapse-panel :key="3" header="文字设置" :show-arrow="false">
             <a-form-item label="字体颜色" v-if="contCss.color != null">
-              <input class="default_input" type="color" v-model="contCss.color" />
+              <el-color-picker v-model="contCss.color" />
             </a-form-item>
             <a-form-item label="字号" v-if="contCss['font-size'] != null">
               <a-input-number class="default_input" :min="0" v-model:value="contCss['font-size']" />
@@ -108,12 +110,14 @@ import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant
 import JsonEditor from '@/components/JsonEditor.vue'
 import { message } from 'ant-design-vue'
 import useRightData from './common/commonData'
+import { ElColorPicker } from 'element-plus'
 export default defineComponent({
   components: {
     AlignCenterOutlined,
     AlignLeftOutlined,
     AlignRightOutlined,
     JsonEditor,
+    ElColorPicker,
   },
   setup() {
     const toggleModal = ref('1')
@@ -164,8 +168,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.comp_data {
+<style lang="scss">
+.comp_style {
   padding: 0 4px;
   .fast_layout {
     display: flex;
@@ -178,6 +182,14 @@ export default defineComponent({
       }
     }
   }
+  .border_cont {
+    display: flex;
+    align-items: center;
+    .color_picker {
+      margin-left: 5px;
+    }
+  }
+
   .big_input {
     width: 120px;
     margin: 0 2px;

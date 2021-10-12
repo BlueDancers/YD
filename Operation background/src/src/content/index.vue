@@ -46,6 +46,7 @@ import { dataURLtoFile } from '@/utils'
 import { message } from 'ant-design-vue'
 import BuildSettings from './components/components/buildSettings.vue'
 import { QrcodeOutlined, ReadOutlined, GithubOutlined } from '@ant-design/icons-vue'
+import backMouseEvent from '../../modules/mouseEvent/index'
 export default defineComponent({
   components: {
     PageLeft,
@@ -64,6 +65,7 @@ export default defineComponent({
     const buildSettings = ref()
     onMounted(() => {
       let id: string = String(route.query.id)
+      // 获取页面数据
       db.collection('pageList')
         .doc(id)
         .get()
@@ -75,6 +77,8 @@ export default defineComponent({
             console.log('获取页面数据失败')
           }
         })
+      // 键盘监听事件
+      backMouseEvent()
     })
     let containerList = computed(() => store.state.core.containerList)
     let _id = computed(() => store.state.core._id)

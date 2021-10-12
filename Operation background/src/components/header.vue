@@ -1,7 +1,7 @@
 <template>
   <div class="page_header">
     <div class="header_left">
-      <img class="left_img" src="@/assets/logo.png" alt="">
+      <img class="left_img" src="@/assets/logo.png" alt="" />
     </div>
     <div class="header_right">
       <a-dropdown>
@@ -14,7 +14,7 @@
             <a-menu-item>
               <span>设置</span>
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item @click="loginOut">
               <span>退出</span>
             </a-menu-item>
           </a-menu>
@@ -28,13 +28,21 @@
 import store from '@/store'
 import { computed, defineComponent } from 'vue'
 import { DownOutlined } from '@ant-design/icons-vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   components: {
     DownOutlined,
   },
   setup() {
+    const route = useRouter()
     const userData = computed(() => store.state.app.userData)
-    return { userData }
+    function loginOut() {
+      localStorage.clear()
+      route.replace({
+        name: 'login',
+      })
+    }
+    return { userData, loginOut }
   },
 })
 </script>

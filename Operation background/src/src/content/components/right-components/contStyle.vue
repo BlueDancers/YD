@@ -1,5 +1,5 @@
 <template>
-  <div class="form_con">
+  <div class="cont_style">
     <a-form v-if="activeCont.cssModule != null" :label-col="{ style: { width: '60px' } }">
       <a-form-item label="开发模式" :label-col="{ style: { width: '80px' } }">
         <a-radio-group v-model:value="toggleModal">
@@ -29,16 +29,18 @@
           </a-collapse-panel>
           <a-collapse-panel :key="2" header="样式设置" :show-arrow="false">
             <a-form-item label="背景色">
-              <input type="color" v-model="activeCont.cssModule['background-color']" />
+              <el-color-picker v-model="activeCont.cssModule['background-color']" />
             </a-form-item>
             <a-form-item label="边框" v-if="activeCont.cssModule['border-width'] != null">
-              <a-input class="mini_input" v-model:value="activeCont.cssModule['border-width']" />
-              <a-select v-model:value="activeCont.cssModule['border-style']" style="width: 80px">
-                <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
-                  {{ item.value }}
-                </a-select-option>
-              </a-select>
-              <input class="mini_input" type="color" v-model="activeCont.cssModule['border-color']" />
+              <div class="border_cont">
+                <a-input class="mini_input" v-model:value="activeCont.cssModule['border-width']" />
+                <a-select v-model:value="activeCont.cssModule['border-style']" style="width: 80px">
+                  <a-select-option v-for="item in borderStyleList" :key="item.key" :value="item.key">
+                    {{ item.value }}
+                  </a-select-option>
+                </a-select>
+                <el-color-picker class="color_picker" v-model="activeCont.cssModule['border-color']" />
+              </div>
             </a-form-item>
             <a-form-item label="圆角1">
               <a-input-number class="big_input" v-model:value="activeCont.cssModule['border-radius']" />
@@ -126,8 +128,9 @@ import useRightData from './common/commonData'
 import JsonEditor from '@/components/JsonEditor.vue'
 import { useStore } from 'vuex'
 import { message } from 'ant-design-vue'
+import { ElColorPicker } from 'element-plus'
 export default defineComponent({
-  components: { JsonEditor },
+  components: { JsonEditor, ElColorPicker },
   setup() {
     const store = useStore()
     const rightData = useRightData()
@@ -158,33 +161,37 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.form_con {
+<style lang="scss">
+.cont_style {
   margin: 0 4px;
+  .big_input {
+    width: 120px;
+    margin: 0 2px;
+  }
+  .big_plus_input {
+    width: 200px;
+    margin: 0 2px;
+  }
+  .d_input {
+    width: 140px;
+    margin: 2px;
+  }
+  .default_input {
+    width: 100px;
+    margin: 0 2px;
+  }
+  .mini_input {
+    width: 50px;
+    margin: 0 2px;
+  }
+  .border_cont {
+    display: flex;
+    align-items: center;
+    .color_picker {
+      margin-left: 5px;
+    }
+  }
 }
-.big_input {
-  width: 120px;
-  margin: 0 2px;
-}
-.big_plus_input {
-  width: 200px;
-  margin: 0 2px;
-}
-.d_input {
-  width: 140px;
-  margin: 2px;
-}
-.default_input {
-  width: 100px;
-  margin: 0 2px;
-}
-.mini_input {
-  width: 50px;
-  margin: 0 2px;
-}
-</style>
-
-<style>
 .form_con .ant-form-item {
   margin-bottom: 10px;
 }
