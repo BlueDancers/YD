@@ -135,7 +135,7 @@ export default defineComponent({
     const store = useStore()
     const rightData = useRightData()
     const toggleModal = ref('1')
-    const activeKey = ref(1)
+    const activeKey = ref([1, 2, 3, 4])
     const changeContData = (value) => {
       try {
         console.log(JSON.parse(value))

@@ -121,7 +121,7 @@ export default defineComponent({
   },
   setup() {
     const toggleModal = ref('1')
-    const activeKey = ref(1)
+    const activeKey = ref([1, 2, 3])
     const store = useStore()
     const rightData = useRightData()
     let coordinate = computed(() => store.state.core.coordinate)

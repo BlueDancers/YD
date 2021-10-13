@@ -43,7 +43,7 @@ export default defineComponent({
       store.commit('core/add_components', name)
       // 添加组件到vuex
     }
-    const activeKey = ref(1)
+    const activeKey = ref([1, 2])
     const compList = ref([
       {
         icon: 'wenben',
