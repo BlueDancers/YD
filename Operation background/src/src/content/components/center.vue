@@ -6,9 +6,9 @@
       <div class="main_header">
         <div class="header_time">15:06</div>
         <div class="header_icon_list">
-          <svg-icon :style="{ width: '14px', height: '14px' }" class="header_icon" name="ios-cellular"></svg-icon>
+          <svg-icon :style="{ width: '18px', height: '18px' }" class="header_icon" name="ios-cellular"></svg-icon>
           <svg-icon
-            :style="{ width: '20px', height: '20px' }"
+            :style="{ width: '26px', height: '26px' }"
             class="header_icon"
             name="ios-battery-charging"
           ></svg-icon>
@@ -32,7 +32,7 @@
             <!-- 容器说明 -->
             <view v-show="activeCont == item.id" class="contains_name">{{ item.name }}</view>
             <!-- 拖拽换位 -->
-            <AppstoreOutlined v-show="activeCont == item.id" class="active_handle" :style="{ color: '#fff' }" />
+            <svg-icon v-show="activeCont == item.id" :color="'#2970f6'" class="active_handle" name="tuozhuaicaidandaohang" />
             <!-- 未选择组件 -->
             <div v-if="item.components.length == 0">
               <span>选中组件,点击左侧添加元素</span>
@@ -276,9 +276,10 @@ export default defineComponent({
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 2px;
           width: 20px;
           height: 20px;
-          background-color: #2970f6;
+          // background-color: #2970f6;
           cursor: pointer;
         }
         .max_cont {

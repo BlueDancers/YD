@@ -17,7 +17,7 @@
           </div>
         </div>
       </a-collapse-panel>
-      <a-collapse-panel :key="2" header="组件列表">
+      <a-collapse-panel :key="2" header="基础组件">
         <div class="add_div_list">
           <div class="list_item" v-for="item in compList" :key="item.name" @click="addComp(item.name)">
             <svg-icon class="item_svg" :name="item.icon"></svg-icon>
