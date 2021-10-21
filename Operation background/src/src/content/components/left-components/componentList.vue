@@ -19,7 +19,14 @@
       </a-collapse-panel>
       <a-collapse-panel :key="2" header="基础组件">
         <div class="add_div_list">
-          <div class="list_item" v-for="item in compList" :key="item.name" @click="addComp(item.name)">
+          <div
+            class="list_item"
+            v-for="item in compList"
+            :key="item.name"
+            @click="addComp(item.name)"
+            draggable="true"
+            @dragstart="dragstart"
+          >
             <svg-icon class="item_svg" :name="item.icon"></svg-icon>
             <span class="item_text">{{ item.title }}</span>
           </div>
@@ -71,11 +78,16 @@ export default defineComponent({
       //   title: '网格组件',
       // },
     ])
+    function dragstart(event) {
+      console.log(event);
+      
+    }
     return {
       addCon,
       addComp,
       compList,
       activeKey,
+      dragstart
     }
   },
 })

@@ -1,5 +1,8 @@
 import { cssTopx } from '@/utils'
 import store from '@/store/index'
+
+const pTab = '\n      '
+
 /**
  * json转vue代码
  * @param components
@@ -20,12 +23,14 @@ function jsonToCode(components: any[], pageWidth, pageUnit) {
       // 解析html
       parentHtml = `${parentHtml}${objToH5(child, cClass)}`
       // 解析css
-      classItem = `${classItem}.${pClass} .${cClass}{${objToClass(child.cssModule, pageWidth, pageUnit)}}`
+      classItem = `${classItem}${pTab}.${pClass} .${cClass}{${objToClass(child.cssModule, pageWidth, pageUnit)}${pTab}}`
     })
-    html = html + `<div class="${pClass}">${parentHtml}</div>`
-    css = css + `.${pClass}{${objToClass(res.cssModule, pageWidth, pageUnit)}}${classItem}`
+
+    html = `${html}${pTab}<div class="${pClass}">${parentHtml}${pTab}</div>`
+
+    css = `${css}${pTab}.${pClass} {${objToClass(res.cssModule, pageWidth, pageUnit)}${pTab}}${pTab}${classItem}`
   })
-  html = `<div>${html}</div>`
+  html = `${pTab}<div>${html}${pTab}</div>`
   css = `<style>${css}</style>`
   let downHtml = `<!DOCTYPE html>
   <html lang="en">
@@ -57,9 +62,9 @@ function objToClass(obj, pageWidth, pageUnit) {
   let text = ''
   for (const key in obj) {
     if (cssTopx(key) && !String(obj[key]).includes('%')) {
-      text = `${text}${key}:${Math.round(obj[key] * (pageWidth / 375))}${pageUnit};`
+      text = `${text}${pTab}  ${key}:${Math.round(obj[key] * (pageWidth / 375))}${pageUnit};`
     } else {
-      text = `${text}${key}:${obj[key]};`
+      text = `${text}${pTab}  ${key}:${obj[key]};`
     }
   }
   return text

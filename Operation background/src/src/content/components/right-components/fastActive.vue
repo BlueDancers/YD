@@ -56,6 +56,7 @@ import { computed, defineComponent, ref } from 'vue'
 import { useStore } from 'vuex'
 import { LockOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
+import { deleteActive } from '@/modules/mouseEvent'
 export default defineComponent({
   components: {
     LockOutlined,
@@ -82,18 +83,7 @@ export default defineComponent({
         store.commit('coreAssist/pasteComp')
       }
       if (type == 'delete') {
-        // 判断是否选中
-        if (coordinate.value.length == 0) {
-          message.warn('请选择需要删除的组件')
-        } else if (coordinate.value.length == 1) {
-          // 删除父类
-          let pid = containerList.value[coordinate.value[0]].id
-          store.commit('core/deleteParentCont', pid)
-        } else if (coordinate.value.length == 2) {
-          // 删除子类
-          let cid = containerList.value[coordinate.value[0]].components[coordinate.value[1]].id
-          store.commit('core/deleteChildComp', cid)
-        }
+        deleteActive()
       }
     }
     return {

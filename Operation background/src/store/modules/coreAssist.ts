@@ -39,6 +39,7 @@ const coreAssist: Module<any, any> = {
         let compData = JSON.parse(JSON.stringify(state.copyData))
         compData.id = guid()
         store.commit('core/set_toPaste_cont', compData)
+        message.success('粘贴成功~')
       }
     },
   },

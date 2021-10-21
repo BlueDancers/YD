@@ -7,12 +7,22 @@ import { defineComponent, onMounted, ref, nextTick, onBeforeUnmount } from 'vue'
 import * as monaco from 'monaco-editor'
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+import CssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
 
 export default defineComponent({
   props: {
     modelValue: {
       default: '',
       type: String,
+    },
+    codeType: {
+      default: 'json',
+      type: String,
+    },
+    format: {
+      default: true,
+      type: Boolean,
     },
   },
   setup(props, { emit }) {
@@ -22,6 +32,10 @@ export default defineComponent({
       getWorker(workerId, label) {
         if (label === 'json') {
           return new JsonWorker()
+        } else if (label === 'html') {
+          return new HtmlWorker()
+        } else if (label === 'css') {
+          return new CssWorker()
         }
         return new EditorWorker()
       },
@@ -29,7 +43,7 @@ export default defineComponent({
     onMounted(() => {
       const jsonModel = monaco.editor.createModel(
         props.modelValue,
-        'json'
+        props.codeType
         // monaco.Uri.parse('json://grid/settings.json')
       )
       instance = monaco.editor.create(dom.value, {
@@ -47,9 +61,11 @@ export default defineComponent({
         emit('changeData', value)
       })
       nextTick(() => {
-        setTimeout(() => {
-          instance.getAction(['editor.action.formatDocument']).run()
-        }, 100)
+        if (props.format) {
+          setTimeout(() => {
+            instance.getAction(['editor.action.formatDocument']).run()
+          }, 200)
+        }
       })
     })
     onBeforeUnmount(() => {

@@ -6,12 +6,8 @@
       <div class="main_header">
         <div class="header_time">15:06</div>
         <div class="header_icon_list">
-          <svg-icon :style="{ width: '18px', height: '18px' }" class="header_icon" name="ios-cellular"></svg-icon>
-          <svg-icon
-            :style="{ width: '26px', height: '26px' }"
-            class="header_icon"
-            name="ios-battery-charging"
-          ></svg-icon>
+          <svg-icon :style="{ width: '18px', height: '18px' }" class="header_icon" name="ios-cellular" />
+          <svg-icon :style="{ width: '26px', height: '26px' }" class="header_icon" name="ios-battery-charging" />
         </div>
       </div>
       <!-- 网页标题 -->
@@ -32,7 +28,12 @@
             <!-- 容器说明 -->
             <view v-show="activeCont == item.id" class="contains_name">{{ item.name }}</view>
             <!-- 拖拽换位 -->
-            <svg-icon v-show="activeCont == item.id" :color="'#2970f6'" class="active_handle" name="tuozhuaicaidandaohang" />
+            <svg-icon
+              v-show="activeCont == item.id"
+              :color="'#2970f6'"
+              class="active_handle"
+              name="tuozhuaicaidandaohang"
+            />
             <!-- 未选择组件 -->
             <div v-if="item.components.length == 0">
               <span>选中组件,点击左侧添加元素</span>
@@ -44,6 +45,7 @@
                 :style="{ ...contResetCss(comp.cssModule) }"
                 v-for="comp in item.components"
                 :key="comp.id"
+                @drag="dragover"
               >
                 <!-- 组件的六个点 -->
                 <auxiliary-point v-if="activechild == comp.id && item.name == 'default'"></auxiliary-point>
@@ -179,6 +181,10 @@ export default defineComponent({
     const contHeightAddDown = () => {
       store.commit('core/toggle_mouseType', 4)
     }
+    function dragover(event) {
+      console.log(event)
+      event.preventDefault()
+    }
     return {
       containerList,
       backColor,
@@ -196,6 +202,7 @@ export default defineComponent({
       mousemove,
       mouseleave,
       contHeightAddDown,
+      dragover,
     }
   },
 })

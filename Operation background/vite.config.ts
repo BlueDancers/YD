@@ -16,6 +16,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           jsonWorker: [`${prefix}/language/json/json.worker`],
+          htmlWorker: [`${prefix}/language/json/html.worker`],
+          cssWorker: [`${prefix}/language/json/css.worker`],
           editorWorker: [`${prefix}/editor/editor.worker`],
         },
       },
