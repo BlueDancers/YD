@@ -104,7 +104,7 @@ export default defineComponent({
     }
     const jsonProcessor = () => {
       // 打开弹窗
-      buildSettings.value.toggleVisble()
+      buildSettings.value.handleOk()
     }
     const gotoHome = () => {
       router.replace({
