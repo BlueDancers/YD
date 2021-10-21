@@ -22,6 +22,8 @@
             :style="resetCss(item.cssModule)"
             v-for="item in containerList"
             :key="item.id"
+            @drop="drop($event, item)"
+            @dragover="dragover"
           >
             <auxiliary-line-x v-if="activeCont == item.id"></auxiliary-line-x>
             <auxiliary-line-y v-if="activeCont == item.id"></auxiliary-line-y>
@@ -45,7 +47,6 @@
                 :style="{ ...contResetCss(comp.cssModule) }"
                 v-for="comp in item.components"
                 :key="comp.id"
-                @drag="dragover"
               >
                 <!-- 组件的六个点 -->
                 <auxiliary-point v-if="activechild == comp.id && item.name == 'default'"></auxiliary-point>
@@ -89,6 +90,8 @@ import YImg from '../comp/YImg.vue'
 import YP from '../comp/YP.vue'
 import yGrid from '../comp/yGrid.vue'
 import AuxiliaryPoint from '@/components/auxiliaryPoint.vue'
+import { log } from 'console'
+import { message } from 'ant-design-vue'
 
 export default defineComponent({
   components: {
@@ -181,9 +184,24 @@ export default defineComponent({
     const contHeightAddDown = () => {
       store.commit('core/toggle_mouseType', 4)
     }
-    function dragover(event) {
-      console.log(event)
+    // 拖拽放下
+    function drop(event, data) {
+      if (event.target.className.includes('contains_item')) {
+        // 选中组件
+        toggleActive(data)
+        // 填充拖拽元素
+        store.commit('core/add_components', {
+          name: event.dataTransfer.getData('compIndex'),
+          top: event.layerY,
+          left: event.layerX,
+        })
+      } else {
+        message.error('请勿叠加组件~')
+      }
       event.preventDefault()
+    }
+    function dragover(e) {
+      e.preventDefault()
     }
     return {
       containerList,
@@ -202,6 +220,7 @@ export default defineComponent({
       mousemove,
       mouseleave,
       contHeightAddDown,
+      drop,
       dragover,
     }
   },

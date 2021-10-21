@@ -156,14 +156,18 @@ const core: Module<coreInter, any> = {
     },
 
     // 添加组件
-    add_components(state, name) {
+    add_components(state, { name, top, left }) {
       if (state.activeCont) {
         // 寻找父级下标
         let index = state.containerList.findIndex((e) => e.id == state.activeCont)
         // 设定层级
         let zIndex = state.containerList[index].components.length
         // 获取dom数据
-        let comp = baseComList(state.containerList[index].name, name, zIndex + 1)
+        let comp: any = baseComList(state.containerList[index].name, name, zIndex + 1)
+        if (top && left) {
+          comp.cssModule.top = top - comp.cssModule.height / 2
+          comp.cssModule.left = left - comp.cssModule.width / 2
+        }
         // 插入数据
         state.containerList[index].components.push(comp)
       } else {

@@ -25,7 +25,7 @@
             :key="item.name"
             @click="addComp(item.name)"
             draggable="true"
-            @dragstart="dragstart"
+            @dragstart="dragstart($event, item.name)"
           >
             <svg-icon class="item_svg" :name="item.icon"></svg-icon>
             <span class="item_text">{{ item.title }}</span>
@@ -47,7 +47,9 @@ export default defineComponent({
       store.commit('core/set_containerList', name)
     }
     const addComp = (name) => {
-      store.commit('core/add_components', name)
+      store.commit('core/add_components', {
+        name,
+      })
       // 添加组件到vuex
     }
     const activeKey = ref([1, 2])
@@ -78,16 +80,15 @@ export default defineComponent({
       //   title: '网格组件',
       // },
     ])
-    function dragstart(event) {
-      console.log(event);
-      
+    function dragstart(event, name) {
+      event.dataTransfer.setData('compIndex', name)
     }
     return {
       addCon,
       addComp,
       compList,
       activeKey,
-      dragstart
+      dragstart,
     }
   },
 })
