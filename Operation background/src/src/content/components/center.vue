@@ -98,6 +98,7 @@ import YP from '../comp/YP.vue'
 import yGrid from '../comp/yGrid.vue'
 import AuxiliaryPoint from '@/components/auxiliaryPoint.vue'
 import { message } from 'ant-design-vue'
+import { log } from 'console'
 
 export default defineComponent({
   components: {
@@ -194,6 +195,10 @@ export default defineComponent({
     }
     // 拖拽放下
     function drop(event, data) {
+      if (event.target.style.display != 'block') {
+        message.error('非通用组件,请通过点击进行组件添加')
+        return
+      }
       if (event.target.className.includes('contains_item')) {
         // 选中组件
         toggleActive(data)
