@@ -39,7 +39,7 @@
           </a-collapse-panel>
           <a-collapse-panel :key="2" header="样式设置" :show-arrow="false">
             <a-form-item label="背景颜色" v-if="contCss['background-color'] != null">
-              <el-color-picker v-model="contCss['background-color']" />
+              <el-color-picker show-alpha v-model="contCss['background-color']" />
             </a-form-item>
             <a-form-item label="边框" v-if="contCss['border-width'] != null">
               <div class="border_cont">
@@ -49,7 +49,7 @@
                     {{ item.value }}
                   </a-select-option>
                 </a-select>
-                <el-color-picker class="color_picker" v-model="contCss['border-color']" />
+                <el-color-picker show-alpha class="color_picker" v-model="contCss['border-color']" />
               </div>
             </a-form-item>
             <a-form-item label="圆角" v-if="contCss['border-radius'] != null">
@@ -58,7 +58,7 @@
           </a-collapse-panel>
           <a-collapse-panel :key="3" header="文字设置" :show-arrow="false">
             <a-form-item label="字体颜色" v-if="contCss.color != null">
-              <el-color-picker v-model="contCss.color" />
+              <el-color-picker show-alpha v-model="contCss.color" />
             </a-form-item>
             <a-form-item label="字号" v-if="contCss['font-size'] != null">
               <a-input-number class="default_input" :min="0" v-model:value="contCss['font-size']" />

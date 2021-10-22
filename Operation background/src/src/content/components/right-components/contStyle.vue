@@ -29,7 +29,7 @@
           </a-collapse-panel>
           <a-collapse-panel :key="2" header="样式设置" :show-arrow="false">
             <a-form-item label="背景色">
-              <el-color-picker v-model="activeCont.cssModule['background-color']" />
+              <el-color-picker show-alpha v-model="activeCont.cssModule['background-color']" />
             </a-form-item>
             <a-form-item label="边框" v-if="activeCont.cssModule['border-width'] != null">
               <div class="border_cont">
@@ -39,7 +39,7 @@
                     {{ item.value }}
                   </a-select-option>
                 </a-select>
-                <el-color-picker class="color_picker" v-model="activeCont.cssModule['border-color']" />
+                <el-color-picker show-alpha class="color_picker" v-model="activeCont.cssModule['border-color']" />
               </div>
             </a-form-item>
             <a-form-item label="圆角1">

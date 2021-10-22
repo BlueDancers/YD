@@ -192,12 +192,13 @@ const core: Module<coreInter, any> = {
         let newtop = top + data.y
         let mewleft = left + data.x
 
-        if (newtop >= -cheight && newtop + cheight <= height) {
+        if (newtop >= 0 && newtop + cheight <= height) {
           childcssModule.top = newtop
         }
-        if (mewleft >= 0 && mewleft + cwidth <= width) {
-          childcssModule.left = mewleft
-        }
+        childcssModule.left = mewleft
+        // if (mewleft >= 0 && mewleft + cwidth <= width) {
+        //   childcssModule.left = mewleft
+        // }
         store.commit('auxiliary/updateShowLine', state.containerList[state.coordinate[0]].components)
       }
     },

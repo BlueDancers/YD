@@ -8,7 +8,7 @@
         <a-input addon-before="/" class="page_set_input" v-model:value="pageForm.router" />
       </a-form-item>
       <a-form-item label="背景颜色">
-        <el-color-picker v-model="pageForm.backColor" />
+        <el-color-picker show-alpha v-model="pageForm.backColor" />
       </a-form-item>
       <a-form-item label="页面描述" name="disp">
         <a-textarea class="page_set_input" v-model:value="pageForm.disp" />
