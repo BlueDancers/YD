@@ -833,7 +833,7 @@
   "resolved" "https://registry.npmjs.org/@vue/shared/-/shared-3.2.22.tgz"
   "version" "3.2.22"
 
-"@vueuse/core@^6.7.3":
+"@vueuse/core@^6.7.3", "@vueuse/core@^6.9.1":
   "integrity" "sha512-msa36DxnnbIu41bUTvfSudF6TL4wo0+Yrpw6yr1bFtwtYTOo8GZXYWPKyvXUVGhBBqrTVNTqsTtD0eXXHJ3roA=="
   "resolved" "https://registry.npmjs.org/@vueuse/core/-/core-6.9.1.tgz"
   "version" "6.9.1"
