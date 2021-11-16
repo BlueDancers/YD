@@ -97,8 +97,7 @@ export default defineComponent({
               })
             })
             .catch((err) => {
-              console.log('错误', err)
-              message.error('账号密码存在错误')
+              message.error(err.message)
             })
         })
         .catch((error) => {

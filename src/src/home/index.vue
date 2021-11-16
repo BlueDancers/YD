@@ -2,11 +2,6 @@
   <div>
     <page-header></page-header>
     <div class="padd">
-      <!-- <div v-if="userData">
-        <p>登录成功</p>
-        {{ userData.email }}
-      </div>
-      <div v-else>未登录</div> -->
       <a-button @click="newGroup">新建组织</a-button>
     </div>
     <a-table row-key="_id" :columns="columns" :data-source="listData" bordered class="marg">
@@ -14,7 +9,11 @@
         <a>{{ text }}</a>
       </template>
       <template #action="{ record }">
-        <a-button type="primary" v-if="record.founderUser.includes(userId)" @click="gotoRoom(record)"> 进入 </a-button>
+        <a-button
+          type="primary"
+          v-if="record.founderUser.includes(userId)"
+          @click="gotoRoom(record)"
+        >进入</a-button>
         <a-button v-else @click="joinRoom(record)">加入组织</a-button>
       </template>
     </a-table>
