@@ -13,7 +13,12 @@
       </template>
       <template #action="{ record }">
         <a-button :style="{ margin: '0 10px' }" type="primary" @click="gotoUpdate(record)">编辑</a-button>
-        <a-popconfirm title="数据删除后将无法恢复" ok-text="删除" cancel-text="取消" @confirm="gotoDelete(record)">
+        <a-popconfirm
+          title="数据删除后将无法恢复"
+          ok-text="删除"
+          cancel-text="取消"
+          @confirm="gotoDelete(record)"
+        >
           <a-button :style="{ margin: '0 10px' }" type="primary" danger>删除</a-button>
         </a-popconfirm>
       </template>
@@ -22,12 +27,12 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, Ref, ref, toRef } from 'vue'
+import { defineComponent, onMounted, Ref, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { cloud } from '@/modules/request'
-import { useStore } from 'vuex'
+import { useAppStore } from '@/stores/app'
 import { message } from 'ant-design-vue'
 import PageHeader from '@/components/header.vue'
+import { useCloud } from '@/utils/Hook/useRequest'
 export default defineComponent({
   components: {
     PageHeader,
@@ -38,11 +43,11 @@ export default defineComponent({
     })
 
     // 统一依赖
-    const db = cloud.database()
     const route = useRoute()
     const router = useRouter()
-    const store = useStore()
-
+    const store = useAppStore()
+    // 表格数据
+    const listData: Ref<any[]> = ref([])
     // 表格部分逻辑
     const columns = [
       {
@@ -71,13 +76,10 @@ export default defineComponent({
         slots: { customRender: 'action' },
       },
     ]
-    // 表格数据
-    const listData: Ref<any> = ref([])
-    const userData = computed(() => store.state.app.userData)
+
     // 请求数据
     async function init() {
-      await db
-        .collection('pageList')
+      await useCloud('pageList')
         .where({
           organizeId: route.query.id,
         })
@@ -91,8 +93,7 @@ export default defineComponent({
      * 新建页面
      */
     const newPage = async () => {
-      await db
-        .collection('pageList')
+      await useCloud('pageList')
         .add({
           organizeId: route.query.id, // 群组id
           router: '', // 自定义路由名称
@@ -123,9 +124,8 @@ export default defineComponent({
     }
     // 删除页面
     async function gotoDelete(data) {
-      if (userData.value.uid == data._openid) {
-        await db
-          .collection('pageList')
+      if (store.userData.uid == data._openid) {
+        await useCloud('pageList')
           .where({ _id: data._id })
           .remove()
           .then(() => {

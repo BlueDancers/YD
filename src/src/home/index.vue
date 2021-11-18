@@ -45,27 +45,27 @@
 </template>
 
 <script lang="ts">
-import { message } from 'ant-design-vue'
-import { computed, defineComponent, onMounted, Ref, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import { cloud } from '@/modules/request'
+import { defineComponent, onMounted, Ref, ref } from 'vue'
 import PageHeader from '@/components/header.vue'
+import { message } from 'ant-design-vue'
+import { useRouter } from 'vue-router'
+import { useAppStore } from "@/stores/app";
+import { useCloud } from '@/utils/Hook/useRequest';
 export default defineComponent({
   components: {
     PageHeader,
   },
   setup() {
-    const store = useStore()
+    const store = useAppStore()
     const router = useRouter()
-    const db = cloud.database()
-    const userData = computed(() => store.state.app.userData)
+    // 新建组织表单
     const formState = ref({
       name: '',
       disp: '',
       password: '',
       routerCode: '',
     })
+    // 表格声明
     const columns = [
       {
         title: '组织名称',
@@ -90,22 +90,24 @@ export default defineComponent({
         slots: { customRender: 'action' },
       },
     ]
-    const listData: Ref<any> = ref([])
-    const visible: Ref<Boolean> = ref(false) // 新建组织
-    const userId = computed(() => store.state.app.userData.uid) // 当前用户id
+    const listData: Ref<any[]> = ref([]) // 表格数据
+    const visible = ref(false) // 新建组织
+    const joinVisible: Ref<Boolean> = ref(false) // 加入组织
+    const joinData = ref({ // 加入组织密码
+      id: '',
+      password: '',
+    })
 
     onMounted(async () => {
       initTable()
     })
 
     async function initTable() {
-      const groupData = await db.collection('organize').get()
-      console.log(groupData.data)
+      const groupData = await useCloud('organize').get()
       listData.value = groupData.data
     }
     // 进入房间
     function gotoRoom(data) {
-      console.log(data)
       router.push({
         name: 'pageList',
         query: {
@@ -114,38 +116,32 @@ export default defineComponent({
       })
     }
 
-    const joinVisible: Ref<Boolean> = ref(false) // 新建组织
-    const joinData: any = ref({
-      password: '',
-    })
+
     // 加入房间
     async function joinRoom(data) {
       // 输入群组密码
       joinVisible.value = true
-      joinData.value = { ...data, password: '' }
+      joinData.value = { id: data._id, password: '' }
     }
 
     function handleJoinCancel() {
       joinVisible.value = false
     }
+
     async function handleJoinOk() {
       console.log(joinData.value)
       // 改变数据
-      let currentData = await db
-        .collection('organize')
-        .where({
-          _id: joinData.value._id,
-          password: joinData.value.password,
-        })
-        .get()
+      let currentData = await useCloud('organize').where({
+        _id: joinData.value.id,
+        password: joinData.value.password,
+      }).get()
       console.log(currentData)
       if (currentData.data.length == 1) {
         let { founderUser } = currentData.data[0]
-        founderUser.push(userId.value)
-        await db
-          .collection('organize')
+        founderUser.push(store.userData.uid)
+        await useCloud('organize')
           .where({
-            _id: joinData.value._id,
+            _id: joinData.value.id,
           })
           .update({
             founderUser: founderUser,
@@ -165,11 +161,11 @@ export default defineComponent({
       // 打开弹窗
       visible.value = true
     }
+
     async function handleOk() {
       let { name, disp, password, routerCode } = formState.value
-      let { uid, email } = store.state.app.userData
-      await db
-        .collection('organize')
+      let { uid, email } = store.userData
+      await useCloud('organize')
         .add({
           founderName: email,
           founderUser: [uid],
@@ -188,13 +184,14 @@ export default defineComponent({
     function handleCancel() {
       visible.value = false
     }
+
     return {
-      userData,
+      userData: store.userData,
       formState,
       columns,
       listData,
       visible,
-      userId,
+      userId: store.userData.uid,
       gotoRoom,
       joinVisible,
       joinData,

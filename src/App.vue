@@ -4,15 +4,15 @@
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue'
-import { useStore } from 'vuex'
 import { $APP } from '@/PROVIDE_KEY'
+import { useAppStore } from "@/stores/app";
 export default defineComponent({
   name: 'App',
   components: {},
   setup() {
-    const store = useStore()
+    const store = useAppStore()
     let $app: any = inject($APP)
-    store.dispatch('app/getUserData', $app)
+    store.updateUserData($app)
   },
 })
 </script>
@@ -57,7 +57,7 @@ html {
 
 @font-face {
   font-family: mFont;
-  src: url('../src/assets/common/DIN-MEDIUM.OTF');
+  src: url("../src/assets/common/DIN-MEDIUM.OTF");
 }
 * {
   user-select: none;

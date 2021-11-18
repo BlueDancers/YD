@@ -1,13 +1,13 @@
 <template>
   <div class="page_header">
     <div class="header_left">
-      <img class="left_img" src="@/assets/logo.png" alt="" />
+      <img class="left_img" src="@/assets/logo.png" />
     </div>
     <div class="header_right">
       <a-dropdown>
         <a class="ant-dropdown-link" @click.prevent>
           {{ userData.email }}
-          <DownOutlined color="" />
+          <DownOutlined />
         </a>
         <template #overlay>
           <a-menu>
@@ -25,17 +25,18 @@
 </template>
 
 <script lang="ts">
-import store from '@/store'
 import { computed, defineComponent } from 'vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
+import { useAppStore } from "@/stores/app";
 export default defineComponent({
   components: {
     DownOutlined,
   },
   setup() {
     const route = useRouter()
-    const userData = computed(() => store.state.app.userData)
+    const store = useAppStore()
+    const userData = store.userData
     function loginOut() {
       localStorage.clear()
       route.replace({
