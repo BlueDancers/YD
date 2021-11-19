@@ -15,19 +15,11 @@ import { createPinia } from 'pinia'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 
-import cloudbase from '@cloudbase/js-sdk'
-import { $APP } from './PROVIDE_KEY'
-
 import SvgIcon from './components/SvgIcon.vue'
 
 import './iconfont'
 
-const $app = cloudbase.init({
-  env: 'mall-2gdgzk540aab98cd',
-})
 const app = createApp(App)
-
-app.provide($APP, $app)
 
 app.use(router)
 app.use(store)

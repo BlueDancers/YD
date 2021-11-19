@@ -7,7 +7,7 @@
       <a-form-item>
         <a-input placeholder="请输入邮箱" v-model:value="userData.username">
           <template #prefix>
-            <AppleFilled />
+            <MailOutlined />
           </template>
         </a-input>
       </a-form-item>
@@ -36,13 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import { AppleFilled, LockOutlined } from '@ant-design/icons-vue'
+import { MailOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { reactive } from '@vue/reactivity'
-import { inject, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { $APP } from '@/PROVIDE_KEY'
 import { isEmail } from '@/utils/index'
+import { cloud } from '@/modules/request'
 const router = useRouter()
 const userData = reactive({
   username: '',
@@ -50,7 +50,6 @@ const userData = reactive({
   aspassword: '',
 })
 
-let app: any = inject($APP)
 function gotoRegistory() {
   if (userData.username == '') {
     message.error('请输入邮箱')
@@ -68,7 +67,7 @@ function gotoRegistory() {
     message.error('请再次密码')
     return false
   }
-  const auth: any = app.auth({
+  const auth: any = cloud.auth({
     persistence: 'local',
   })
   auth
@@ -78,7 +77,7 @@ function gotoRegistory() {
       // 发送验证邮件成功
     })
     .catch((err) => {
-      message.error('注册失败,请检查邮箱信息')
+      message.error(err.message)
     })
 }
 function gotoBack() {

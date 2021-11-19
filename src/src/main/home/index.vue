@@ -1,6 +1,5 @@
 <template>
   <div>
-    <page-header></page-header>
     <div class="padd">
       <a-button @click="newGroup">新建组织</a-button>
     </div>
@@ -9,11 +8,7 @@
         <a>{{ text }}</a>
       </template>
       <template #action="{ record }">
-        <a-button
-          type="primary"
-          v-if="record.founderUser.includes(userId)"
-          @click="gotoRoom(record)"
-        >进入</a-button>
+        <a-button type="primary" v-if="record.founderUser.includes(userId)" @click="gotoRoom(record)">进入</a-button>
         <a-button v-else @click="joinRoom(record)">加入组织</a-button>
       </template>
     </a-table>
@@ -46,15 +41,12 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, Ref, ref } from 'vue'
-import PageHeader from '@/components/header.vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { useAppStore } from "@/stores/app";
-import { useCloud } from '@/utils/Hook/useRequest';
+import { useAppStore } from '@/stores/app'
+import { useCloud } from '@/utils/Hook/useRequest'
 export default defineComponent({
-  components: {
-    PageHeader,
-  },
+  components: {},
   setup() {
     const store = useAppStore()
     const router = useRouter()
@@ -93,7 +85,8 @@ export default defineComponent({
     const listData: Ref<any[]> = ref([]) // 表格数据
     const visible = ref(false) // 新建组织
     const joinVisible: Ref<Boolean> = ref(false) // 加入组织
-    const joinData = ref({ // 加入组织密码
+    const joinData = ref({
+      // 加入组织密码
       id: '',
       password: '',
     })
@@ -116,7 +109,6 @@ export default defineComponent({
       })
     }
 
-
     // 加入房间
     async function joinRoom(data) {
       // 输入群组密码
@@ -131,10 +123,12 @@ export default defineComponent({
     async function handleJoinOk() {
       console.log(joinData.value)
       // 改变数据
-      let currentData = await useCloud('organize').where({
-        _id: joinData.value.id,
-        password: joinData.value.password,
-      }).get()
+      let currentData = await useCloud('organize')
+        .where({
+          _id: joinData.value.id,
+          password: joinData.value.password,
+        })
+        .get()
       console.log(currentData)
       if (currentData.data.length == 1) {
         let { founderUser } = currentData.data[0]

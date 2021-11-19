@@ -14,8 +14,8 @@ const app: Module<any, any> = {
     },
   },
   actions: {
-    getUserData({ commit }, $app) {
-      $app
+    getUserData({ commit }, cloud) {
+      cloud
         .auth({
           persistence: 'local',
         })

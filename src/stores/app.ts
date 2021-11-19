@@ -7,8 +7,8 @@ export const useAppStore = defineStore('app', {
     }
   },
   actions: {
-    updateUserData($app) {
-      $app
+    updateUserData(cloud) {
+      cloud
         .auth({
           persistence: 'local',
         })

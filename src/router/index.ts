@@ -4,12 +4,24 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: 'home',
+    redirect: '/app/home',
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../src/home/index.vue'),
+    path: '/app',
+    redirect: '/app/home',
+    component: () => import('../src/main/index.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('../src/main/home/index.vue'),
+      },
+      {
+        path: 'pageList',
+        name: 'pageList',
+        component: () => import('../src/main/pageList/index.vue'),
+      },
+    ],
   },
   {
     path: '/login',
@@ -21,11 +33,7 @@ const routes: RouteRecordRaw[] = [
     name: 'registory',
     component: () => import('../src/registory/index.vue'),
   },
-  {
-    path: '/pageList',
-    name: 'pageList',
-    component: () => import('../src/pageList/index.vue'),
-  },
+
   {
     path: '/content',
     name: 'content',

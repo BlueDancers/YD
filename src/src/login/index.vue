@@ -7,7 +7,7 @@
       <a-form-item name="username">
         <a-input placeholder="请输入邮箱" v-model:value="userData.username">
           <template #prefix>
-            <AppleFilled />
+            <MailOutlined />
           </template>
         </a-input>
       </a-form-item>
@@ -29,19 +29,24 @@
 </template>
 
 <script lang="ts">
-import { AppleFilled, LockOutlined } from '@ant-design/icons-vue'
+import { MailOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { reactive, ref } from '@vue/reactivity'
 import { defineComponent, inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import { $APP } from '@/PROVIDE_KEY'
 import { isEmail } from '@/utils/index'
+import { useAppStore } from '@/stores/app'
+import { cloud } from '@/modules/request'
 export default defineComponent({
+  components: {
+    MailOutlined,
+    LockOutlined,
+  },
   setup() {
     const router = useRouter()
-    const store = useStore()
+    const store = useAppStore()
     const formRef = ref()
+
     const userData = reactive({
       username: '',
       password: '',
@@ -63,12 +68,10 @@ export default defineComponent({
       password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
     }
 
-    let app: any = inject($APP)
-
-    const auth: any = app.auth({
+    const auth = cloud.auth({
       persistence: 'local',
     })
-    const loginState = app.auth().hasLoginState()
+    const loginState = (cloud as any).auth().hasLoginState()
     if (loginState) {
       router.replace({
         name: 'home',
@@ -91,7 +94,7 @@ export default defineComponent({
             .signInWithEmailAndPassword(userData.username, userData.password)
             .then((res) => {
               localStorage.setItem('loginStatus', 'true')
-              store.dispatch('app/getUserData', app)
+              store.updateUserData(cloud)
               router.replace({
                 name: 'home',
               })

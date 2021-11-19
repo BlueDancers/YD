@@ -4,21 +4,26 @@
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue'
-import { $APP } from '@/PROVIDE_KEY'
-import { useAppStore } from "@/stores/app";
+import { useAppStore } from '@/stores/app'
+import { cloud } from './modules/request'
 export default defineComponent({
   name: 'App',
   components: {},
   setup() {
     const store = useAppStore()
-    let $app: any = inject($APP)
-    store.updateUserData($app)
+    store.updateUserData(cloud)
   },
 })
 </script>
 
 <style>
-html {
+.none_cont {
+  background-color: #fff;
+  box-sizing: border-box;
+  width: calc(100% - 20px);
+  height: 500px;
+  padding: 20px 0 !important;
+  margin: 10px !important;
 }
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {
@@ -57,7 +62,7 @@ html {
 
 @font-face {
   font-family: mFont;
-  src: url("../src/assets/common/DIN-MEDIUM.OTF");
+  src: url('../src/assets/common/DIN-MEDIUM.OTF');
 }
 * {
   user-select: none;

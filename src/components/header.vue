@@ -1,14 +1,14 @@
 <template>
   <div class="page_header">
-    <div class="header_left">
+    <div class="header_left" @click="gotoHome">
       <img class="left_img" src="@/assets/logo.png" />
     </div>
     <div class="header_right">
-      <a-dropdown>
-        <a class="ant-dropdown-link" @click.prevent>
+      <a-dropdown :trigger="['click']">
+        <div class="dropdown_link">
           {{ userData.email }}
           <DownOutlined />
-        </a>
+        </div>
         <template #overlay>
           <a-menu>
             <a-menu-item>
@@ -28,7 +28,7 @@
 import { computed, defineComponent } from 'vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
-import { useAppStore } from "@/stores/app";
+import { useAppStore } from '@/stores/app'
 export default defineComponent({
   components: {
     DownOutlined,
@@ -43,13 +43,23 @@ export default defineComponent({
         name: 'login',
       })
     }
-    return { userData, loginOut }
+    function gotoHome() {
+      route.replace({
+        name: 'home',
+      })
+    }
+    return { userData, loginOut, gotoHome }
   },
 })
 </script>
 
 <style lang="scss" scoped>
 .page_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+  right: 0px;
   color: #fff;
   background-color: #041527;
   height: 50px;
@@ -58,12 +68,16 @@ export default defineComponent({
   align-items: center;
   padding: 0 20px;
   .header_left {
+    cursor: pointer;
     .left_img {
       width: 35px;
       height: 35px;
     }
   }
   .header_right {
+    .dropdown_link {
+      color: #3a71ee;
+    }
   }
 }
 </style>
