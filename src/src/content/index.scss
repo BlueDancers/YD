@@ -1,0 +1,9 @@
+.content {
+    .content_main {
+        width: 100%;
+        height: calc(100vh - 50px);
+        background-color: #efefef;
+        display: flex;
+        justify-content: space-between;
+    }
+}

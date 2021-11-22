@@ -9,10 +9,10 @@
 import { defineComponent } from 'vue'
 import PageHeader from '@/components/header.vue'
 export default defineComponent({
+  name: 'Main',
   components: {
     PageHeader,
   },
-  name: 'Main',
   setup() {},
 })
 </script>

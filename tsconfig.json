@@ -13,7 +13,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global"],
+    "plugins": [{"name": "typescript-plugin-css-modules"}]
+    // module.scss 配置文章 https://www.jianshu.com/p/be1778a76763
   },
   "include": ["src/*", "src/**/*.vue", "src/**/*.tsx", "src/**/*.jsx", "src/**/*.ts", "src/**/*.js"]
 }

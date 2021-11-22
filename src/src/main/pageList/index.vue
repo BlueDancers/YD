@@ -6,7 +6,7 @@
     <!-- {{ status }} -->
     <!-- 具体数据 -->
     <div class="pagelist_main" v-if="listData.length > 0">
-      <div class="list_item" v-for="item in listData" :key="item._id">
+      <div class="list_item" v-for="item in listData" :key="item._id" @click="gotoPage(item)">
         <img class="item_img" v-if="item.tumbUrl" :src="item.tumbUrl" />
         <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
@@ -118,7 +118,7 @@ export default defineComponent({
         })
     }
     // 前往编辑
-    function gotoUpdate(data) {
+    function gotoPage(data) {
       router.push({
         name: 'content',
         query: {
@@ -148,7 +148,7 @@ export default defineComponent({
       newPage,
       listData: data,
       status,
-      gotoUpdate,
+      gotoPage,
       gotoDelete,
     }
   },

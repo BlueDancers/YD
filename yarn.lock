@@ -697,7 +697,7 @@
   resolved "https://registry.npmjs.org/@vue/babel-helper-vue-transform-on/-/babel-helper-vue-transform-on-1.0.2.tgz"
   integrity sha512-hz4R8tS5jMn8lDq6iD+yWL6XNB699pGIVLk7WSJnn1dbpjaazsjZQkieJoRX6gW5zpYSCFqQ7jUquPNY65tQYA==
 
-"@vue/babel-plugin-jsx@^1.0.7":
+"@vue/babel-plugin-jsx@^1.0.7", "@vue/babel-plugin-jsx@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@vue/babel-plugin-jsx/-/babel-plugin-jsx-1.1.1.tgz"
   integrity sha512-j2uVfZjnB5+zkcbc/zsOc0fSNGCMMjaEXP52wdwdIfn0qjFfEYpYZBFKFg+HHnQeJCVrjOeO0YxgaL7DMrym9w==
