@@ -1,4 +1,21 @@
-.center {
+#center_core {
+    position: relative;
     flex: 1;
+    overflow: hidden;
+
+    .core {
+        position: absolute;
+        background-color: #fff;
+        width: 375px;
+
+        .add_height {
+            position: absolute;
+            width: 375px;
+            height: 10px;
+            background: #000;
+            cursor: pointer;
+        }
+    }
+
 
 }

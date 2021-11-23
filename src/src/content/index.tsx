@@ -11,6 +11,8 @@ export default defineComponent({
     contentHeader, contentLeft, contentRight, contentCenter
   },
   setup() {
+    // 监听键盘
+    
     return () => (
       <div class="content">
         <content-header></content-header>
