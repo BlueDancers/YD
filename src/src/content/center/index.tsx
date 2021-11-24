@@ -9,22 +9,29 @@ export default defineComponent({
 		// 全局数据
 		const board = useBoardStore()
 		const centerCore = ref(null)
-		const listen = useListen(centerCore)
+		const heightCore = ref(null)
+		useListen({
+			mainTarget: centerCore,
+			heightTarget: heightCore
+		})
 
 
 		return () => (
 			<div id={c.center_core} ref={centerCore}>
 				<div class={c.core} style={{
 					left: `${board.left}%`,
-					top: `${board.top}%`,
+					top: `${board.top}px`,
 					height: `${board.height}px`,
-					transform: `translate(-50%, -50%) scale(${board.scale})`,
+					transform: `translate(-50%, 0%) scale(${board.scale})`,
 				}}>
-					<div></div>
-					<div class={c.add_height} style={{
+					<div>
+						{/* 正式数据 */}
+					</div>
+					<div ref={heightCore} class={c.add_height} style={{
 						top: `100%`,
 						left: `0`,
-					}}>点击</div>
+					}}>
+					</div>
 				</div>
 
 			</div >
