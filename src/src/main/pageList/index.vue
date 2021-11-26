@@ -1,7 +1,7 @@
 <template>
   <div class="page_list">
     <div class="padd">
-      <a-button type="primary" @click="newPage">新建页面</a-button>
+      <a-button type="primary" @click="openNewModal">新建页面</a-button>
     </div>
     <!-- {{ status }} -->
     <!-- 具体数据 -->
@@ -31,16 +31,36 @@
       <!-- 加载状态 -->
       <a-spin class="none_cont" size="large" v-if="status == 'loading'" />
     </div>
+    <a-modal v-model:visible="showNewModal" title="新建页面" @ok="newPage" :rules="rules">
+      <a-form :ref="newPageRef" :model="newPageState" name="routerName">
+        <a-form-item label="页面名称">
+          <a-input placeholder="请输入页面名称" v-model:value="newPageState.routerName" />
+        </a-form-item>
+        <a-form-item label="页面路径" name="router">
+          <a-input placeholder="请输入页面路径" v-model:value="newPageState.router" />
+        </a-form-item>
+        <a-form-item label="页面类型" name="pageType">
+          <a-radio-group v-model:value="newPageState.pageType">
+            <a-radio :value="1">长页面</a-radio>
+            <a-radio :value="2">滚动页</a-radio>
+          </a-radio-group>
+        </a-form-item>
+        <a-form-item label="页面描述" name="disp">
+          <a-textarea placeholder="请输入页面描述" v-model:value="newPageState.disp" />
+        </a-form-item>
+      </a-form>
+    </a-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, Ref, ref } from 'vue'
+import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { message } from 'ant-design-vue'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useReq } from '@/utils/Hook/useRqe'
+import { log } from 'console'
 export default defineComponent({
   components: {},
   setup() {
@@ -53,36 +73,20 @@ export default defineComponent({
     const router = useRouter()
     const store = useAppStore()
     const { run, data, status } = useReq<any>()
-    // 表格数据
-    // 表格部分逻辑
-    const columns = [
-      {
-        title: '页面缩略图',
-        align: 'center',
-        slots: { customRender: 'thmb' },
-      },
-      {
-        title: '页面描述',
-        dataIndex: 'disp',
-      },
-      {
-        title: '页面路由',
-        dataIndex: 'router',
-      },
-      {
-        title: '页面描述',
-        dataIndex: 'disp',
-      },
-      {
-        title: '页面名称',
-        dataIndex: 'routerName',
-      },
-      {
-        title: '操作',
-        slots: { customRender: 'action' },
-      },
-    ]
-
+    const showNewModal = ref(false)
+    const newPageRef = ref()
+    const newPageState = reactive({
+      router: '', // 自定义路由名称
+      routerName: '', // 自定义网页名称
+      disp: '', // 描述字段
+      pageType: 1, // 1 长单页模式 2 滑动页模式
+    })
+    const rules = {
+      router: [{ required: true, message: '请输入页面路径', trigger: 'blur' }],
+      routerName: [{ required: true, message: '请输入页面名称', trigger: 'blur' }],
+      disp: [{ required: true, message: '请输入页面详情', trigger: 'blur' }],
+      pageType: [{ required: true, message: '请选择页面类型', trigger: 'blur' }],
+    }
     // 请求数据
     async function init() {
       run(
@@ -93,19 +97,37 @@ export default defineComponent({
           .get()
       )
     }
+    // 打开新建页面弹窗
+    function openNewModal() {
+      showNewModal.value = true
+    }
     /**
      * 新建页面
      */
     const newPage = async () => {
+      // newPageRef.value
+      //   .validate()
+      //   .then(() => {
+      //     console.log('values')
+      //   })
+      //   .catch((error) => {
+      //     console.log('error', error)
+      //   })
+      if (newPageState.router == '') {
+        message.error('请输入页面路由')
+        return
+      }
+      if (newPageState.routerName == '') {
+        message.error('请输入页面名称')
+        return
+      }
       await useCloud('pageList')
         .add({
           organizeId: route.query.id, // 群组id
-          router: '', // 自定义路由名称
-          routerName: '', // 自定义网页名称
-          disp: '', // 描述阻断
           tumbUrl: '', // 缩略图
           backColor: '#ffffff',
           content: [], // 页面数据
+          ...newPageState,
         })
         .then((res: any) => {
           console.log(res)
@@ -144,12 +166,16 @@ export default defineComponent({
       }
     }
     return {
-      columns,
       newPage,
       listData: data,
       status,
       gotoPage,
       gotoDelete,
+      showNewModal,
+      openNewModal,
+      newPageState,
+      rules,
+      newPageRef,
     }
   },
 })
