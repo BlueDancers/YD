@@ -12,14 +12,22 @@
         <span class="svg_text">{{ item.text }}</span>
       </div>
     </div>
+    <!-- 页面管理数据 -->
+    <!-- 组件数据 -->
+    <comp-list v-if="selectedKeys == 1"></comp-list>
+    <!-- 项目设置 -->
+    <!-- 模板市场 -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { ref } from 'vue'
-
+import compList from './component/compList/index'
 export default defineComponent({
+  components: {
+    compList,
+  },
   setup() {
     const selectedKeys = ref(0)
     const leftMenu = [
