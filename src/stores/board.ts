@@ -1,3 +1,4 @@
+import { useCloud } from '@/utils/Hook/useRequest'
 import { defineStore } from 'pinia'
 
 export const useBoardStore = defineStore('board', {
@@ -11,7 +12,45 @@ export const useBoardStore = defineStore('board', {
       lock: {
         heightLink: false, // 当前是否在拖动高度
       },
+      pageDetail: {
+        backColor: '#ffffff', // 背景色
+        disp: '', // 描述
+        organizeId: '', // 组织id
+        pageType: 1, // 1 长列表 2 多页面
+        router: '11', // 客户端路由
+        routerName: '11', // 网页名称
+        tumbUrl: '', // 缩略图
+        _id: '', // 当前页面id
+        _openid: '', // 用户openid
+      },
+      pageDataId: '',
+      pageData: [],
     }
   },
-  actions: {},
+  actions: {
+    getPageData(id) {
+      useCloud('pageList')
+        .doc(id)
+        .get()
+        .then((res) => {
+          this.pageDetail = res.data[0]
+          console.log(this.pageDetail)
+        })
+      // 根据id 获取装修数据
+      useCloud('pageDetails')
+        .where({
+          pageId: id,
+        })
+        .get()
+        .then((res) => {
+          this.pageDataId = res.data[0]._id
+          this.pageData = res.data[0].content
+          console.log('装修数据', {
+            pageDataId: this.pageDataId,
+            pageData: this.pageData,
+            pageDetail: this.pageDetail,
+          })
+        })
+    },
+  },
 })

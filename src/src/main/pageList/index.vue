@@ -121,23 +121,24 @@ export default defineComponent({
         message.error('请输入页面名称')
         return
       }
-      await useCloud('pageList')
-        .add({
-          organizeId: route.query.id, // 群组id
-          tumbUrl: '', // 缩略图
-          backColor: '#ffffff',
-          content: [], // 页面数据
-          ...newPageState,
-        })
-        .then((res: any) => {
-          console.log(res)
-          router.push({
-            name: 'content',
-            query: {
-              id: res.id,
-            },
-          })
-        })
+      let listRes: any = await useCloud('pageList').add({
+        organizeId: route.query.id, // 群组id
+        tumbUrl: '', // 缩略图
+        backColor: '#ffffff',
+        ...newPageState,
+      })
+      console.log('页面数据填充完成')
+      await useCloud('pageDetails').add({
+        pageId: listRes.id,
+        content: [],
+      })
+      console.log('装修数据填充完成')
+      router.push({
+        name: 'content',
+        query: {
+          id: listRes.id,
+        },
+      })
     }
     // 前往编辑
     function gotoPage(data) {

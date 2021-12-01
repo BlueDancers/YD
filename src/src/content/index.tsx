@@ -1,10 +1,12 @@
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 
 import contentHeader from './components/contentHeader.vue'
 import contentLeft from './left/index.vue'
 import contentRight from './right/index'
 import contentCenter from './center/index'
 import './index.scss';
+import { useRoute } from 'vue-router';
+import { useBoardStore } from '@/stores/board';
 
 export default defineComponent({
   components: {
@@ -12,7 +14,11 @@ export default defineComponent({
   },
   setup() {
     // 监听键盘
-    
+    const route = useRoute()
+    const board = useBoardStore()
+    onMounted(() => {
+      board.getPageData(route.query.id)
+    })
     return () => (
       <div class="content">
         <content-header></content-header>

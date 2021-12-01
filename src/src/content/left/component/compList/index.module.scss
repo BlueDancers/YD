@@ -1,3 +1,78 @@
-.compList {
-  
+.add_components {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .ant-collapse {
+    width: 100%;
+  }
+
+  // .contains {
+  //   display: grid;
+  //   grid-template-columns: 117px 117px;
+  //   grid-template-rows: auto;
+  //   grid-row-gap: 10px;
+  //   grid-column-gap: 10px;
+
+  //   .add_contains {
+  //     cursor: pointer;
+  //     border: 1px solid rgb(206, 206, 206);
+  //     border-radius: 10px;
+  //     background-color: #fff;
+  //     height: 80px;
+  //     display: flex;
+  //     flex-direction: column;
+  //     align-items: center;
+  //     justify-content: center;
+
+  //     &:hover {
+  //       border: 1px solid #3a71ee;
+  //     }
+
+  //     .contains_svg {
+  //       width: 26px;
+  //       height: 26px;
+  //     }
+
+  //     .contains_text {
+  //       margin-top: 4px;
+  //       font-size: 14px;
+  //     }
+  //   }
+  // }
+
+  .add_div_list {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row-gap: 5px; // 行与行之间的间距
+    grid-column-gap: 5px; // 列与列之间的间距
+
+    .list_item {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgb(206, 206, 206);
+      border-radius: 10px;
+      background-color: #fff;
+      width: 74px;
+      height: 74px;
+
+      &:hover {
+        border: 1px solid #3a71ee;
+      }
+
+      .item_svg {
+        width: 30px;
+        height: 30px;
+      }
+
+      .item_text {
+        font-size: 12px;
+      }
+    }
+  }
 }
