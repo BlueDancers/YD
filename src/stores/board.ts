@@ -1,6 +1,8 @@
 import { useCloud } from '@/utils/Hook/useRequest'
 import { defineStore } from 'pinia'
+import { useCoreStore } from './core'
 
+let core = useCoreStore()
 export const useBoardStore = defineStore('board', {
   state: () => {
     return {
@@ -24,7 +26,6 @@ export const useBoardStore = defineStore('board', {
         _openid: '', // 用户openid
       },
       pageDataId: '',
-      pageData: [],
     }
   },
   actions: {
@@ -43,13 +44,10 @@ export const useBoardStore = defineStore('board', {
         })
         .get()
         .then((res) => {
-          this.pageDataId = res.data[0]._id
-          this.pageData = res.data[0].content
-          console.log('装修数据', {
-            pageDataId: this.pageDataId,
-            pageData: this.pageData,
-            pageDetail: this.pageDetail,
-          })
+          if (res.data.length) {
+            this.pageDataId = res.data[0]._id
+            core.pageData = res.data[0].content
+          }
         })
     },
   },

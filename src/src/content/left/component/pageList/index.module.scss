@@ -1,0 +1,53 @@
+.page_list {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .page_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    .page_item {
+      position: relative;
+      margin-bottom: 20px;
+      display: flex;
+      margin-right: 20px;
+      .item_index {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        background-color: #3a71ee;
+        color: #fff;
+      }
+
+      .item_core {
+        background-color: #fff;
+        width: 180px;
+        height: 360px;
+      }
+
+      .page_item_active {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 180px;
+        height: 360px;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+
+
+  }
+
+  .add_page {
+    margin: 20px 0;
+    width: 200px;
+  }
+}
