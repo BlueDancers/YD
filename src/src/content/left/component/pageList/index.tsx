@@ -16,14 +16,29 @@ export default defineComponent({
     }
     return () => (
       <div class={css.page_list}>
-        <a-button class={css.add_page} onClick={addPage}>增加页面</a-button>
+        <div class={css.add_page_cont}>
+          <a-button class={css.add_page} onClick={addPage}>增加页面</a-button>
+        </div>
+
         <div class={css.page_main}>
           {
             core.pageData.map((item, index) => (
-              <div class={css.page_item} onClick={() => changePageIndex(index)}>
-                {index == core.acPageIndex && <div class={css.page_item_active}></div>}
-                <div class={css.item_index}>{index + 1}.</div>
-                <div class={css.item_core}> </div>
+              <div class={[css.page_item, index == core.acPageIndex ? css.active_item : '']} onClick={() => changePageIndex(index)}>
+                {/* {index == core.acPageIndex && <div class={css.page_item_active}></div>} */}
+                <div class={css.item_index}>{index + 1}</div>
+                <div class={[css.item_core, index == core.acPageIndex ? css.active_core : '']} > </div>
+                {
+                  index == core.acPageIndex && (
+                    <div class={css.item_action}>
+                      <div class={css.action_active}>1</div>
+                      <div class={css.action_active}>1</div>
+                      <div class={css.action_active}>1</div>
+                      <div class={css.action_active}>1</div>
+                      <div class={css.action_active}>1</div>
+                    </div>
+                  )
+                }
+
               </div>
             ))
           }

@@ -29,6 +29,9 @@ import { defineComponent } from 'vue'
 import { QrcodeOutlined, ReadOutlined, GithubOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
+import { useCloud } from '@/utils/Hook/useRequest'
+import { useBoardStore } from '@/stores/board'
+import { useCoreStore } from '@/stores/core'
 export default defineComponent({
   components: {
     QrcodeOutlined,
@@ -37,6 +40,8 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
+    let borad = useBoardStore()
+    let core = useCoreStore()
     function gotoHome() {
       router.replace({
         name: 'home',
@@ -52,7 +57,17 @@ export default defineComponent({
       message.info('开发中,敬请期待👨‍💻🧑‍💻👩‍💻')
     }
     function jsonProcessor() {}
-    function saveCarryPage() {}
+    // 保存页面组件数据
+    function saveCarryPage() {
+      useCloud('pageDetails')
+        .doc(borad.pageDataId)
+        .update({
+          content: core.pageData,
+        })
+        .then((res) => {
+          console.log(res)
+        })
+    }
     return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }
   },
 })
