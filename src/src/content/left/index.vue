@@ -17,6 +17,7 @@
     <!-- 组件数据 -->
     <comp-list v-if="selectedKeys == 1"></comp-list>
     <!-- 项目设置 -->
+    <object-data v-if="selectedKeys == 2"></object-data>
     <!-- 模板市场 -->
   </div>
 </template>
@@ -26,10 +27,12 @@ import { defineComponent } from 'vue'
 import { ref } from 'vue'
 import compList from './component/compList/index'
 import pageList from './component/pageList/index'
+import objectData from './component/objectData/index'
 export default defineComponent({
   components: {
     compList,
     pageList,
+    objectData,
   },
   setup() {
     const selectedKeys = ref(0)

@@ -37,7 +37,7 @@
           <a-input placeholder="请输入页面名称" v-model:value="newPageState.routerName" />
         </a-form-item>
         <a-form-item label="页面路径" name="router">
-          <a-input placeholder="请输入页面路径" v-model:value="newPageState.router" />
+          <a-input addon-before="/" placeholder="请输入页面路径" v-model:value="newPageState.router" />
         </a-form-item>
         <a-form-item label="页面类型" name="pageType">
           <a-radio-group v-model:value="newPageState.pageType">

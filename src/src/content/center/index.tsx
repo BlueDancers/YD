@@ -23,6 +23,7 @@ export default defineComponent({
 					top: `${board.top}px`,
 					height: `${board.height}px`,
 					transform: `translate(-50%, 0%) scale(${board.scale})`,
+					backgroundColor: board.pageDetail.backColor
 				}}>
 					<div>
 						{/* 正式数据 */}
