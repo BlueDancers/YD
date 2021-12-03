@@ -12,13 +12,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+
     position: relative;
     width: 100%;
     border-bottom: 1px solid #eee;
 
     .page_item {
-
       border-top: 1px solid #eee;
       padding-top: 10px;
       padding-bottom: 10px;
@@ -55,25 +54,22 @@
 
 
         .action_active {
+          cursor: pointer;
           margin: 10px 0;
           border-radius: 100%;
           background-color: #fff;
           color: #3a71ee;
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
+          text-align: center;
+          line-height: 24px;
+
+          .svg_icon {
+            width: 22px;
+            height: 22px;
+          }
         }
       }
-
-
-
-      // .page_item_active {
-      //   position: absolute;
-      //   right: 0px;
-      //   top: 0px;
-      //   width: 100px;
-      //   height: 180px;
-      //   background-color: rgba(0, 0, 0, 0.1);
-      // }
     }
 
     .active_item {
