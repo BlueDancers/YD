@@ -79,21 +79,20 @@ export interface baseComponent {
 
 /**
  *
- * @param contName 容器名称
  * @param name 组件名称
  * @param zIndex 本次层级
  * @returns
  */
-function baseComList(contName, name: string, zIndex) {
+function baseComList(name: string, zIndex) {
   const list: baseComponent[] = [
     {
       id: guid(),
       name: 'y-div',
       cssModule: {
-        ...absolute(contName, zIndex),
+        ...absolute(zIndex),
         ...borderData(),
         ...padAndMar(),
-        ...compSize(contName, 50, 30),
+        ...compSize(50, 30),
         color: '#000000',
         'background-color': '#eeeeee',
       }, // 样式
@@ -107,10 +106,10 @@ function baseComList(contName, name: string, zIndex) {
       id: guid(),
       name: 'y-button',
       cssModule: {
-        ...absolute(contName, zIndex),
+        ...absolute(zIndex),
         ...borderData(),
         ...padAndMar(),
-        ...compSize(contName, 50, 30),
+        ...compSize(50, 30),
         color: '#000000',
         'font-weight': 'normal',
         'background-color': '#eeeeee',
@@ -128,10 +127,10 @@ function baseComList(contName, name: string, zIndex) {
       id: guid(),
       name: 'y-img',
       cssModule: {
-        ...absolute(contName, zIndex),
+        ...absolute(zIndex),
         ...borderData(),
         ...padAndMar(),
-        ...compSize(contName, 100, 60),
+        ...compSize(100, 60),
         'background-color': '#ffffff00',
       }, // 样式
       staticData: {
@@ -166,10 +165,10 @@ function baseComList(contName, name: string, zIndex) {
       id: guid(),
       name: 'y-p',
       cssModule: {
-        ...absolute(contName, zIndex),
+        ...absolute(zIndex),
         ...borderData(),
         ...padAndMar(),
-        ...compSize(contName, 100, 20),
+        ...compSize(100, 20),
         'font-weight': 'normal',
         'text-align': 'center',
         'background-color': '#ffffff',
@@ -178,35 +177,6 @@ function baseComList(contName, name: string, zIndex) {
       }, // 样式
       staticData: {
         value: '点击点击文字',
-      }, // 展示文字
-      configuration: {}, // 行为
-      function: {}, // 方法
-    },
-    {
-      id: guid(),
-      name: 'y-grid',
-      cssModule: {
-        ...absolute(contName, zIndex),
-        ...borderData(),
-        ...padAndMar(),
-        ...compSize(contName, 100, 20),
-        'background-color': '#ffffff',
-        display: 'grid',
-        'grid-template-columns': '1fr 1fr 1fr', // 行
-        'grid-template-rows': '1fr 1fr 1fr', // 列
-        'grid-row-gap': 10, // 列之间间距
-        'grid-column-gap': 10, // 行之间间距
-      }, // 样式
-      staticData: {
-        dataList: [
-          {
-            image:
-              'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
-            text: '',
-            width: '100%',
-            height: '100%',
-          },
-        ],
       }, // 展示文字
       configuration: {}, // 行为
       function: {}, // 方法
@@ -251,33 +221,19 @@ function borderData() {
  * @param zIndex
  * @returns
  */
-function absolute(contName, zIndex) {
-  if (contName == 'default') {
-    return {
-      position: 'absolute',
-      'z-index': 10 + zIndex,
-      top: 10 + zIndex * 5,
-      left: 10 + zIndex * 5,
-    }
-  } else {
-    return {
-      position: 'relative',
-      'z-index': 10 + zIndex,
-    }
+function absolute(zIndex) {
+  return {
+    position: 'absolute',
+    'z-index': 10 + zIndex,
+    top: 10 + zIndex * 5,
+    left: 10 + zIndex * 5,
   }
 }
 
-function compSize(contName, width, height) {
-  if (contName == 'default' || contName == 'flex') {
-    return {
-      width,
-      height,
-    }
-  } else {
-    return {
-      width: '100%',
-      height: '100%',
-    }
+function compSize(width, height) {
+  return {
+    width,
+    height,
   }
 }
 
