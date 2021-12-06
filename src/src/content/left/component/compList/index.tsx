@@ -1,8 +1,11 @@
+import { baseComList } from '@/modules/components';
+import { useCoreStore } from '@/stores/core';
 import { defineComponent, ref, reactive } from 'vue'
 import css from './index.module.scss';
 
 export default defineComponent({
   setup() {
+    let core = useCoreStore()
     const activeKey = ref([2])
     const compList = ref([
       {
@@ -30,7 +33,9 @@ export default defineComponent({
      * 增加元素
      * @param name 组件名称
      */
-    function addComp(name) { }
+    function addComp(name: string) {
+      core.addComp(name)
+    }
     /**
      * 拖拽增加组件
      * @param event 

@@ -4,18 +4,24 @@
     overflow: hidden;
 
     .core {
-        position: absolute;
+        position: relative;
         background-color: #fff;
-        width: 375px;
+        width: 320px;
+
+        .core_assist {
+
+            .comp_line {
+                border: 1px solid #2970f6;
+                // cursor: pointer;
+            }
+        }
 
         .add_height {
             position: absolute;
-            width: 375px;
+            width: 320px;
             height: 10px;
             background: #000;
-            cursor: move;
+            cursor: ns-resize;
         }
     }
-
-
 }
