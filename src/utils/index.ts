@@ -2,11 +2,7 @@
  * 生成随机id
  */
 export function guid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8
-    return v.toString(16)
-  })
+  return Number(Math.random().toString().substr(2, 0) + Date.now()).toString(36)
 }
 
 /**
@@ -65,9 +61,8 @@ export function contResetCss(data: Object) {
     'z-index': newCss['z-index'],
     top: newCss.top,
     left: newCss.left,
-    // width: newCss.width,
-    // height: newCss.height,
-    border: 'none',
+    width: newCss.width,
+    height: newCss.height,
   }
 }
 

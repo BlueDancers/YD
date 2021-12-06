@@ -34,6 +34,7 @@ export default defineComponent({
   width: 6px;
   height: 6px;
   border: 1px solid #2970f6;
+  background-color: #fff;
   position: absolute;
   z-index: 1000;
   margin-left: -3px;

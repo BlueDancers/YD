@@ -68,7 +68,7 @@ export default defineComponent({
       },
       {
         key: 3,
-        text: '模板',
+        text: '模板市场',
         icon: 'fabuweimoban',
       },
     ])
