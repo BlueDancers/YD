@@ -2,13 +2,17 @@
   <div class="content_left">
     <div class="left_menu">
       <div
-        v-for="(item, index) in leftMenu"
+        v-for="item in leftMenu"
         :key="item.text"
         class="left_menu_item"
-        :class="selectedKeys == index ? 'left_menu_item_active' : ''"
-        @click="toggleType(index)"
+        :class="selectedKeys == item.key ? 'left_menu_item_active' : ''"
+        @click="toggleType(item.key)"
       >
-        <svg-icon class="svg_content" :color="selectedKeys == index ? '#fff' : '#262626'" :name="item.icon"></svg-icon>
+        <svg-icon
+          class="svg_content"
+          :color="selectedKeys == item.key ? '#fff' : '#262626'"
+          :name="item.icon"
+        ></svg-icon>
         <span class="svg_text">{{ item.text }}</span>
       </div>
     </div>
@@ -23,11 +27,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive, watch } from 'vue'
 import { ref } from 'vue'
 import compList from './component/compList/index'
 import pageList from './component/pageList/index'
 import objectData from './component/objectData/index'
+import { useBoardStore } from '@/stores/board'
 export default defineComponent({
   components: {
     compList,
@@ -35,25 +40,38 @@ export default defineComponent({
     objectData,
   },
   setup() {
-    const selectedKeys = ref(0)
-    const leftMenu = [
+    let board = useBoardStore()
+    watch(
+      () => board.pageDetail.pageType,
+      () => {
+        if (board.pageDetail.pageType == 2) {
+          leftMenu.unshift({
+            key: 0,
+            text: '页面管理',
+            icon: 'luoji',
+          })
+          selectedKeys.value = 0
+        }
+      }
+    )
+    const selectedKeys = ref(1)
+    const leftMenu = reactive([
       {
-        text: '页面管理',
-        icon: 'luoji',
-      },
-      {
+        key: 1,
         text: '组件',
         icon: 'zujian',
       },
       {
+        key: 2,
         text: '项目设置',
         icon: 'shezhi',
       },
       {
+        key: 3,
         text: '模板',
         icon: 'fabuweimoban',
       },
-    ]
+    ])
     const toggleType = (index) => {
       selectedKeys.value = index
     }

@@ -44,9 +44,12 @@ export const useBoardStore = defineStore('board', {
         })
         .get()
         .then((res) => {
-          if (res.data.length) {
-            this.pageDataId = res.data[0]._id
-            core.pageData = res.data[0].content
+          console.log(res.data)
+          this.pageDataId = res.data[0]._id
+          core.pageData = res.data[0].content
+          // 如果当前无页面,则增加页面
+          if (res.data[0].content.length == 0) {
+            core.addPage()
           }
         })
     },

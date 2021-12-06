@@ -19,6 +19,10 @@
             <div class="data_item_left">网页路由:</div>
             <div class="data_item_right">{{ item.router }}</div>
           </div>
+          <div class="data_item">
+            <div class="data_item_left">网页类型:</div>
+            <div class="data_item_right">{{ item.pageType == 1 ? '长页面' : '滚动页' }}</div>
+          </div>
         </div>
       </div>
     </div>
