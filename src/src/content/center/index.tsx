@@ -42,8 +42,12 @@ export default defineComponent({
 			core.toggleComp(index)
 			evt.preventDefault()
 		}
+		function mouseOver(evt, index) {
+			core.hoverCompIndex = index
+			evt.preventDefault()
+		}
 		return () => (
-			<div id={c.center_core} ref={boardCore}>
+			<div id={c.center_core} ref={boardCore} class="board_center">
 				<div class={c.core}
 					ref={mainCore}
 					style={{
@@ -66,7 +70,9 @@ export default defineComponent({
 									style={contResetCss(e.cssModule)}
 									index={i}
 									activeCompIndex={core.activeCompIndex}
+									hoverCompIndex={core.hoverCompIndex}
 									onMousedown={(evt) => mouseDown(evt, i)}
+									onMouseover={evt => mouseOver(evt, i)}
 								>
 									{e.name == 'y-div' && <Ydiv compData={e}></Ydiv>}
 								</auxiliaryPoint>

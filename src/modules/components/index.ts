@@ -237,4 +237,11 @@ function compSize(width, height) {
   }
 }
 
-export { baseComList }
+function compNameObj(name) {
+  let nameObj = {
+    'y-div': '模块',
+  }
+  return nameObj[name]
+}
+
+export { baseComList, compNameObj }

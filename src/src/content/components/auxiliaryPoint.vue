@@ -1,5 +1,10 @@
 <template>
-  <div :class="props.index == props.activeCompIndex ? 'auxiliary_point' : ''" @mouseup="mouseup">
+  <div
+    class="auxiliary_point"
+    :class="[
+      props.index == props.hoverCompIndex || props.index == props.activeCompIndex ? 'auxiliary_point_active' : '',
+    ]"
+  >
     <template v-if="props.index == props.activeCompIndex">
       <div class="point_item point_left_top" @mousedown="potintActive(1)"></div>
       <div class="point_item point_left_center" @mousedown="potintActive(2)"></div>
@@ -21,20 +26,16 @@ import { useCoreStore } from '@/stores/core'
 import { defineComponent } from 'vue'
 // 辅助点
 export default defineComponent({
-  props: ['index', 'activeCompIndex'],
+  props: ['index', 'activeCompIndex', 'hoverCompIndex'],
   setup(props) {
     let core = useCoreStore()
     const potintActive = (type: number) => {
       console.log('类型', type)
       core.changeMoveIndex(type)
     }
-    function mouseup(e) {
-      console.log(e)
-    }
     return {
       potintActive,
       props,
-      mouseup,
     }
   },
 })
@@ -42,6 +43,19 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .auxiliary_point {
+  &:hover {
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      border: 1px solid #2970f6;
+    }
+  }
+}
+.auxiliary_point_active {
   &::after {
     content: '';
     position: absolute;

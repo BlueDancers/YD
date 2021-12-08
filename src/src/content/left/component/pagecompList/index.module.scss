@@ -1,0 +1,11 @@
+.page_comp_list {
+  width: 100%;
+
+  .list_item {
+    background-color: #fff;
+    cursor: pointer;
+  }
+  .active_list_item {
+    outline: 1px solid #2970f6;;
+  }
+}

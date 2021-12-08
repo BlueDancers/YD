@@ -18,10 +18,12 @@
     </div>
     <!-- 页面管理数据 -->
     <page-list v-if="selectedKeys == 0"></page-list>
-    <!-- 组件数据 -->
+    <!-- 可用组件 -->
     <comp-list v-if="selectedKeys == 1"></comp-list>
+    <!-- 组件层级 -->
+    <page-comp-list v-if="selectedKeys == 2"></page-comp-list>
     <!-- 项目设置 -->
-    <object-data v-if="selectedKeys == 2"></object-data>
+    <object-data v-if="selectedKeys == 3"></object-data>
     <!-- 模板市场 -->
   </div>
 </template>
@@ -32,12 +34,14 @@ import { ref } from 'vue'
 import compList from './component/compList/index'
 import pageList from './component/pageList/index'
 import objectData from './component/objectData/index'
+import pageCompList from './component/pagecompList/index'
 import { useBoardStore } from '@/stores/board'
 export default defineComponent({
   components: {
     compList,
     pageList,
     objectData,
+    pageCompList,
   },
   setup() {
     let board = useBoardStore()
@@ -58,16 +62,21 @@ export default defineComponent({
     const leftMenu = reactive([
       {
         key: 1,
-        text: '组件',
+        text: '可用组件',
         icon: 'zujian',
       },
       {
         key: 2,
-        text: '项目设置',
+        text: '组件层级',
         icon: 'shezhi',
       },
       {
         key: 3,
+        text: '项目设置',
+        icon: 'shezhi',
+      },
+      {
+        key: 4,
         text: '模板市场',
         icon: 'fabuweimoban',
       },

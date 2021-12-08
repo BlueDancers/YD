@@ -75,6 +75,8 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   })
   // 点击空白,取消选中
   onClickOutside(mainTarget, (event) => {
-    core.activeCompIndex = -1
+    if ((event.target as Element).className == 'board_center') {
+      core.activeCompIndex = -1
+    }
   })
 }
