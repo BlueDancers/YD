@@ -20,11 +20,13 @@ export default defineComponent({
 		// 全局数据
 		const board = useBoardStore()
 		const core = useCoreStore()
-		const centerCore = ref(null)
+		const boardCore = ref(null)
 		const heightCore = ref(null)
+		const mainCore = ref(null)
 		useListen({
-			mainTarget: centerCore,
-			heightTarget: heightCore
+			boardTarget: boardCore,
+			mainTarget: mainCore,
+			heightTarget: heightCore,
 		})
 		function coreDrop(evt) {
 			console.log(evt);
@@ -41,14 +43,16 @@ export default defineComponent({
 			evt.preventDefault()
 		}
 		return () => (
-			<div id={c.center_core} ref={centerCore}>
-				<div class={c.core} style={{
-					left: `${board.left}%`,
-					top: `${board.top}px`,
-					height: `${board.height}px`,
-					transform: `translate(-50%, 0%) scale(${board.scale})`,
-					backgroundColor: board.pageDetail.backColor
-				}}
+			<div id={c.center_core} ref={boardCore}>
+				<div class={c.core}
+					ref={mainCore}
+					style={{
+						left: `${board.left}%`,
+						top: `${board.top}px`,
+						height: `${board.height}px`,
+						transform: `translate(-50%, 0%) scale(${board.scale})`,
+						backgroundColor: board.pageDetail.backColor
+					}}
 					onDrop={(evt) => coreDrop(evt)}
 					onDragover={(evt) => evt.preventDefault()}
 					onDragend={(evt) => evt.preventDefault()}

@@ -2,14 +2,14 @@ import { useBoardStore } from '@/stores/board'
 import { useCoreStore } from '@/stores/core'
 import { useMouseMove } from '@/utils/Hook/useMouseMove'
 import { useMouseWheel } from '@/utils/Hook/useMouseWheel'
-import { useKeyModifier, useMousePressed } from '@vueuse/core'
+import { useKeyModifier, useMousePressed, onClickOutside } from '@vueuse/core'
 import { watch } from 'vue'
 
-export default function useListen({ mainTarget, heightTarget }) {
+export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   const board = useBoardStore()
   const core = useCoreStore()
   // 滚轮监听 指定范围
-  const { wheelDelta } = useMouseWheel(mainTarget)
+  const { wheelDelta } = useMouseWheel(boardTarget)
   watch(wheelDelta, (value) => {
     if (core.isMeta) {
       if (board.scale > 0.1) {
@@ -24,16 +24,13 @@ export default function useListen({ mainTarget, heightTarget }) {
   })
 
   // 鼠标移动监听
-  const { moveData } = useMouseMove(mainTarget)
+  const { moveData } = useMouseMove(boardTarget)
   watch(moveData, (value) => {
-    console.log(core.moveIndex)
-
     switch (core.moveIndex) {
       case 1:
         console.log('坐标点')
         break
       case 8:
-        console.log('大小变化')
         core.pageData[core.acPageIndex][core.activeCompIndex].cssModule.width += value.x
         core.pageData[core.acPageIndex][core.activeCompIndex].cssModule.height += value.y
         break
@@ -51,7 +48,6 @@ export default function useListen({ mainTarget, heightTarget }) {
         break
     }
     if (core.downState) {
-      console.log('组件/坐标点,开始移动')
     }
   })
 
@@ -68,7 +64,7 @@ export default function useListen({ mainTarget, heightTarget }) {
     core.changeMoveIndex(value ? 9 : 0)
   })
   // 监听 模板点击
-  const coreState = useMousePressed({ target: mainTarget })
+  const coreState = useMousePressed({ target: boardTarget })
   watch(coreState.pressed, (value) => {
     core.downState = value
     // 放开鼠标,清除鼠标事件
@@ -76,5 +72,9 @@ export default function useListen({ mainTarget, heightTarget }) {
       console.log('清除事件')
       core.changeMoveIndex(0)
     }
+  })
+  // 点击空白,取消选中
+  onClickOutside(mainTarget, (event) => {
+    core.activeCompIndex = -1
   })
 }

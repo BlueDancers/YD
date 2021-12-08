@@ -23,6 +23,8 @@ export const useCoreStore = defineStore('core', {
         comp.cssModule.left = css.left - comp.cssModule.width / 2
       }
       this.pageData[0].push(comp)
+      // 默认选中新添加的组件
+      this.activeCompIndex = this.pageData[0].length - 1
     },
     toggleComp(index: number) {
       this.activeCompIndex = index
