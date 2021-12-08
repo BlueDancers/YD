@@ -5,7 +5,11 @@ export const useCoreStore = defineStore('core', {
   state: () => {
     return {
       acPageIndex: 0, // 当前选中的页面
+      activeCompIndex: 0, // 当前选中的组件下标
       pageData: [] as any[],
+      isMeta: false, // 是否按住command
+      moveIndex: 0, // 当前拖动类型 1-8 坐标点 9 底部高度条 10 按住元素
+      downState: false, // 当前是否按住了鼠标
     }
   },
   actions: {
@@ -19,6 +23,10 @@ export const useCoreStore = defineStore('core', {
         comp.cssModule.left = css.left - comp.cssModule.width / 2
       }
       this.pageData[0].push(comp)
+    },
+    toggleComp(index: number) {
+      this.activeCompIndex = index
+      this.moveIndex = 10
     },
   },
 })

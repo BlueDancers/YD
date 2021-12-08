@@ -10,10 +10,6 @@ export const useBoardStore = defineStore('board', {
       left: 50, // 具体左边距离
       scale: 1, // 缩放比例
       height: 560, // 页面高度
-      isMeta: false, // 是否按住command
-      lock: {
-        heightLink: false, // 当前是否在拖动高度
-      },
       pageDetail: {
         backColor: '#ffffff', // 背景色
         disp: '', // 描述
@@ -29,6 +25,10 @@ export const useBoardStore = defineStore('board', {
     }
   },
   actions: {
+    /**
+     * 获取页面数据
+     * @param id
+     */
     getPageData(id) {
       useCloud('pageList')
         .doc(id)

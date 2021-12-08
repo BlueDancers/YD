@@ -1,4 +1,4 @@
-import { resetCss } from '@/utils';
+import { compResetCss } from '@/utils';
 import { defineComponent, onMounted, ref } from 'vue';
 import css from './comp.module.scss';
 
@@ -9,7 +9,7 @@ export default defineComponent({
       console.log(props.compData);
     })
     return (props) => (
-      <div style={resetCss(props.compData.cssModule)}>{props.compData.aa}</div>
+      <div style={compResetCss(props.compData.cssModule)}>{props.compData.aa}</div>
     )
   }
 })

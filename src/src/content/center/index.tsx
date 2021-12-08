@@ -7,7 +7,7 @@ import useListen from './useListen';
 
 import { resetCss, contResetCss, compResetCss } from '@/utils/index'
 
-import auxiliaryPoint from '@/components/auxiliaryPoint.vue';
+import auxiliaryPoint from '../components/auxiliaryPoint.vue';
 import Ydiv from './component/Ydiv'
 
 
@@ -28,12 +28,17 @@ export default defineComponent({
 		})
 		function coreDrop(evt) {
 			console.log(evt);
-			
+
 			let name = evt.dataTransfer.getData('compIndex')
 			core.addComp(name, {
 				top: evt.offsetY,
 				left: evt.offsetX,
 			})
+			evt.preventDefault()
+		}
+		function mouseDown(evt, index) {
+			console.log(11);
+			core.toggleComp(index)
 			evt.preventDefault()
 		}
 		return () => (
@@ -53,18 +58,15 @@ export default defineComponent({
 					{/* 正式数据 */}
 					<div>
 						{
-							core.pageData.length && core.pageData[0].map(e => (
-								e.name == 'y-div' && <Ydiv compData={e}></Ydiv>
-							))
-						}
-					</div>
-					{/* 辅助数据 */}
-					<div class={c.core_assist}>
-						{
-							core.pageData.length && core.pageData[0].map(e => (
-								<div class={c.comp_line} style={contResetCss(e.cssModule)}>
-									<auxiliaryPoint></auxiliaryPoint>
-								</div>
+							core.pageData.length && core.pageData[0].map((e, i) => (
+								<auxiliaryPoint
+									style={contResetCss(e.cssModule)}
+									index={i}
+									activeCompIndex={core.activeCompIndex}
+									onMousedown={(evt) => mouseDown(evt, i)}
+								>
+									{e.name == 'y-div' && <Ydiv compData={e}></Ydiv>}
+								</auxiliaryPoint>
 							))
 						}
 					</div>
