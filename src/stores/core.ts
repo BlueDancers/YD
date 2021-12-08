@@ -26,7 +26,16 @@ export const useCoreStore = defineStore('core', {
     },
     toggleComp(index: number) {
       this.activeCompIndex = index
-      this.moveIndex = 10
+      this.changeMoveIndex(10)
+    },
+    // 切换拖动类型
+    changeMoveIndex(index: number) {
+      if (this.moveIndex == 0) {
+        this.moveIndex = index
+      }
+      if (index == 0) {
+        this.moveIndex = 0
+      }
     },
   },
 })

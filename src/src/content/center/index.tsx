@@ -37,7 +37,6 @@ export default defineComponent({
 			evt.preventDefault()
 		}
 		function mouseDown(evt, index) {
-			console.log(11);
 			core.toggleComp(index)
 			evt.preventDefault()
 		}

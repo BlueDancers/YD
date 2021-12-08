@@ -65,7 +65,7 @@ export default function useListen({ mainTarget, heightTarget }) {
   // 监听 改变页面长度div
   const heightState = useMousePressed({ target: heightTarget })
   watch(heightState.pressed, (value) => {
-    core.moveIndex = value ? 9 : 0
+    core.changeMoveIndex(value ? 9 : 0)
   })
   // 监听 模板点击
   const coreState = useMousePressed({ target: mainTarget })
@@ -74,7 +74,7 @@ export default function useListen({ mainTarget, heightTarget }) {
     // 放开鼠标,清除鼠标事件
     if (!value) {
       console.log('清除事件')
-      core.moveIndex = 0
+      core.changeMoveIndex(0)
     }
   })
 }

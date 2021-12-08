@@ -10,7 +10,7 @@
 
       <div class="point_item point_right_top" @mousedown="potintActive(6)"></div>
       <div class="point_item point_right_center" @mousedown="potintActive(7)"></div>
-      <div class="point_item point_right_buttom" @mousedown.stop="potintActive(8)"></div>
+      <div class="point_item point_right_buttom" @mousedown="potintActive(8)"></div>
     </template>
     <slot></slot>
   </div>
@@ -26,7 +26,7 @@ export default defineComponent({
     let core = useCoreStore()
     const potintActive = (type: number) => {
       console.log('类型', type)
-      core.moveIndex = type
+      core.changeMoveIndex(type)
     }
     function mouseup(e) {
       console.log(e)
