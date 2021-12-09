@@ -6,6 +6,10 @@ import { useKeyModifier, useMousePressed, onClickOutside } from '@vueuse/core'
 import { watch } from 'vue'
 
 export default function useListen({ boardTarget, mainTarget, heightTarget }) {
+  function _carrentCss() {
+    return core.pageData[core.acPageIndex][core.activeCompIndex].cssModule
+  }
+
   const board = useBoardStore()
   const core = useCoreStore()
   // 滚轮监听 指定范围
@@ -28,11 +32,38 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   watch(moveData, (value) => {
     switch (core.moveIndex) {
       case 1:
-        console.log('坐标点')
+        _carrentCss().left += value.x
+        _carrentCss().top += value.y
+        _carrentCss().width -= value.x
+        _carrentCss().height -= value.y
+        break
+      case 2:
+        _carrentCss().left += value.x
+        _carrentCss().width -= value.x
+        break
+      case 3:
+        _carrentCss().left += value.x
+        _carrentCss().width -= value.x
+        _carrentCss().height += value.y
+        break
+      case 4:
+        _carrentCss().top += value.y
+        _carrentCss().height -= value.y
+        break
+      case 5:
+        _carrentCss().height += value.y
+        break
+      case 6:
+        _carrentCss().top += value.y
+        _carrentCss().width += value.x
+        _carrentCss().height -= value.y
+        break
+      case 7:
+        _carrentCss().width += value.x
         break
       case 8:
-        core.pageData[core.acPageIndex][core.activeCompIndex].cssModule.width += value.x
-        core.pageData[core.acPageIndex][core.activeCompIndex].cssModule.height += value.y
+        _carrentCss().width += value.x
+        _carrentCss().height += value.y
         break
       case 9:
         // 修改页面高度
@@ -40,8 +71,8 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
         break
       case 10:
         // 移动元素
-        core.pageData[core.acPageIndex][core.activeCompIndex].cssModule.top += value.y
-        core.pageData[core.acPageIndex][core.activeCompIndex].cssModule.left += value.x
+        _carrentCss().top += value.y
+        _carrentCss().left += value.x
         break
 
       default:
@@ -77,6 +108,7 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   onClickOutside(mainTarget, (event) => {
     if ((event.target as Element).className == 'board_center') {
       core.activeCompIndex = -1
+      core.hoverCompIndex = -1
     }
   })
 }

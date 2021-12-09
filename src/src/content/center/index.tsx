@@ -46,9 +46,15 @@ export default defineComponent({
 			core.hoverCompIndex = index
 			evt.preventDefault()
 		}
+
+		function mouseOut(evt) {
+			core.hoverCompIndex = -1
+			evt.preventDefault()
+		}
 		return () => (
 			<div id={c.center_core} ref={boardCore} class="board_center">
-				<div class={c.core}
+				<div
+					class={[c.core, 'board_center_core']}
 					ref={mainCore}
 					style={{
 						left: `${board.left}%`,
@@ -74,6 +80,7 @@ export default defineComponent({
 									hoverCompIndex={core.hoverCompIndex}
 									onMousedown={(evt) => mouseDown(evt, i)}
 									onMouseover={evt => mouseOver(evt, i)}
+									onMouseout={evt => mouseOut(evt)}
 								>
 									{e.name == 'y-div' && <Ydiv compData={e}></Ydiv>}
 								</auxiliaryPoint>
