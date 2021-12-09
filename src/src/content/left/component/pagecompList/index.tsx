@@ -62,12 +62,12 @@ export default defineComponent({
                 >
                   <a-input class={css.item_left} v-model={[item.showTitle, 'value']}></a-input>
                   <div class={css.item_right}>
-                    <div onClick={() => core.deleteComp(i)}>删除</div>
-                    <div onClick={() => core.lockComp(item.id)}>锁定</div>
-                    <div>
-                      {item.show && <div onClick={() => core.switchShowComp(i, false)}>显示</div>}
-                      {!item.show && <div onClick={() => core.switchShowComp(i, true)}>不显示</div>}
-                    </div>
+                    <svg-icon class={css.svg_icon} onClick={() => core.deleteComp(i)} style={{ width: '18px', height: '18px' }} name="shanchu1" />
+                    {/* <div onClick={() => core.lockComp(item.id)}>锁定</div> */}
+                    <>
+                      {!item.show && <svg-icon class={css.svg_icon} onClick={() => core.switchShowComp(i, true)} style={{ width: '18px', height: '18px' }} name="yincang" />}
+                      {item.show && <svg-icon class={css.svg_icon} onClick={() => core.switchShowComp(i, false)} style={{ width: '18px', height: '18px' }} name="xianshi" />}
+                    </>
                   </div>
                 </div>
               ))

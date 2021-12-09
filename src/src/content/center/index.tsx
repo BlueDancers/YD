@@ -66,7 +66,7 @@ export default defineComponent({
 					<div>
 						{
 							core.pageData.length && core.pageData[0].map((e, i) => (
-								!e.show && <auxiliaryPoint
+								e.show && <auxiliaryPoint
 									style={contResetCss(e.cssModule)}
 									index={i}
 									activeCompIndex={core.activeCompIndex}

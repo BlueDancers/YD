@@ -17,7 +17,7 @@ import 'ant-design-vue/dist/antd.less'
 
 import SvgIcon from './components/SvgIcon.vue'
 
-import './iconfont'
+// import './iconfont'
 
 const app = createApp(App)
 

@@ -1,5 +1,7 @@
 .page_comp_list {
   width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 
   .list_item {
     background-color: #fff;
@@ -30,6 +32,10 @@
       .item_right {
         display: flex;
         align-items: center;
+
+        .svg_icon {
+          margin: 0 4px;
+        }
       }
     }
 
