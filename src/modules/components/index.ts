@@ -71,6 +71,8 @@ export function baseContList(name, carryLength) {
 export interface baseComponent {
   id: String
   name: string
+  showTitle: string
+  show: boolean
   cssModule: any
   staticData: any
   configuration: any
@@ -88,6 +90,8 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-div',
+      showTitle: `模块${zIndex}`, // 显示组件名称
+      show: true,
       cssModule: {
         ...absolute(zIndex),
         ...borderData(),
@@ -105,6 +109,8 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-button',
+      showTitle: `按钮${zIndex}`, // 显示组件名称
+      show: true,
       cssModule: {
         ...absolute(zIndex),
         ...borderData(),
@@ -126,6 +132,8 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-img',
+      showTitle: `图片${zIndex}`, // 显示组件名称
+      show: true,
       cssModule: {
         ...absolute(zIndex),
         ...borderData(),
@@ -164,6 +172,8 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-p',
+      showTitle: `文本${zIndex}`, // 显示组件名称
+      show: true,
       cssModule: {
         ...absolute(zIndex),
         ...borderData(),

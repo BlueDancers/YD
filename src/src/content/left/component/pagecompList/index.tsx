@@ -1,18 +1,27 @@
 import { compNameObj } from '@/modules/components';
 import { useCoreStore } from '@/stores/core';
-import { computed, defineComponent } from 'vue-demi';
+import { computed, defineComponent, Ref } from 'vue-demi';
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
 
 export default defineComponent({
+  components: {
+    draggable: VueDraggableNext
+  },
   setup() {
     let core = useCoreStore()
 
     function toggleComp(id) {
       core.activeCompIndex = _reverseIndex(id)
     }
+    // 设定浮动元素id
     function mouseOver(evt, id) {
       core.hoverCompIndex = _reverseIndex(id)
+      evt.preventDefault()
+    }
+    // 去除浮动元素
+    function mouseOut(evt) {
+      core.hoverCompIndex = -1
       evt.preventDefault()
     }
 
@@ -22,27 +31,51 @@ export default defineComponent({
     }
 
     // 将dom结构进行翻转
-    let reverseData = computed(() => {
-      return core.pageData[core.acPageIndex].slice().reverse()
+    let reverseData: Ref<any[]> = computed({
+      get: () => core.pageData[core.acPageIndex],
+      set: val => core.pageData[core.acPageIndex] = val
     })
 
+    function dragStart(evt) {
+      // 首先获取
+    }
+    // 排序层级
+    function dragEnd(evt) {
+      let carrentComp = core.pageData[core.acPageIndex]
+      let afterzIndex = carrentComp[evt.oldIndex].cssModule['z-index']
+      let berforzIndex = carrentComp[evt.newIndex].cssModule['z-index']
+      carrentComp[evt.oldIndex].cssModule['z-index'] = berforzIndex
+      carrentComp[evt.newIndex].cssModule['z-index'] = afterzIndex
+    }
+
     return () => (
-      <a-list
-        class={css.page_comp_list}
-        size="small"
-        bordered
-        data-source={reverseData.value}
-        renderItem={(item) => (
-          <a-list-item
-            class={[css.list_item, reverseData.value.length - item.index - 1 == core.activeCompIndex ? css.active_list_item : '']}
-            onClick={() => toggleComp(item.item.id)}
-            onMouseover={evt => mouseOver(evt, item.item.id)}
-          >
-            {compNameObj(item.item.name)}
-          </a-list-item>
-        )}
-      >
-      </a-list>
+      <div class={css.page_comp_list}>
+        <div class={css.page_comp}>
+          <draggable v-model={[reverseData.value]} animation={300} onStart={dragStart} onEnd={dragEnd}>
+            {
+              reverseData.value.map((item, i) => (
+                <div
+                  class={[css.age_comp_item, i == core.activeCompIndex ? css.active_list_item : '']}
+                  onClick={() => toggleComp(item.id)}
+                  onMouseover={evt => mouseOver(evt, item.id)}
+                  onMouseout={evt => mouseOut(evt)}
+                >
+                  <a-input class={css.item_left} v-model={[item.showTitle, 'value']}></a-input>
+                  <div class={css.item_right}>
+                    <div onClick={() => core.deleteComp(i)}>删除</div>
+                    <div onClick={() => core.lockComp(item.id)}>锁定</div>
+                    <div>
+                      {item.show && <div onClick={() => core.switchShowComp(i, false)}>显示</div>}
+                      {!item.show && <div onClick={() => core.switchShowComp(i, true)}>不显示</div>}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </draggable>
+
+        </div>
+      </div>
     )
   }
 })

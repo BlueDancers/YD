@@ -66,7 +66,7 @@ export default defineComponent({
 					<div>
 						{
 							core.pageData.length && core.pageData[0].map((e, i) => (
-								<auxiliaryPoint
+								!e.show && <auxiliaryPoint
 									style={contResetCss(e.cssModule)}
 									index={i}
 									activeCompIndex={core.activeCompIndex}
@@ -88,4 +88,12 @@ export default defineComponent({
 			</div >
 		)
 	},
+	// mousedown：鼠标的键钮被按下。
+	// mouseup：鼠标的键钮被释放弹起。
+	// click：单击鼠标的键钮。
+	// dblclick：鼠标的键钮被按下。
+	// contextmenu ：弹出右键菜单。
+	// mouseover：鼠标移到目标的上方。
+	// mouseout：鼠标移出目标的上方。
+	// mousemove：鼠标在目标的上方移动。
 })

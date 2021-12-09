@@ -7,10 +7,11 @@ export const useCoreStore = defineStore('core', {
       acPageIndex: 0, // 当前选中的页面
       activeCompIndex: 0, // 当前选中的组件下标
       hoverCompIndex: 0, // 当前hover的组件下标
-      pageData: [] as any[],
+      pageData: [] as any[][],
       isMeta: false, // 是否按住command
       moveIndex: 0, // 当前拖动类型 1-8 坐标点 9 底部高度条 10 按住元素
       downState: false, // 当前是否按住了鼠标
+      lockCompId: [] as string[], // 被锁定的组件(id)
     }
   },
   actions: {
@@ -26,6 +27,15 @@ export const useCoreStore = defineStore('core', {
       this.pageData[0].push(comp)
       // 默认选中新添加的组件
       this.activeCompIndex = this.pageData[0].length - 1
+    },
+    deleteComp(index) {
+      this.pageData[this.acPageIndex].splice(index, 1)
+    },
+    lockComp(id: string) {
+      this.lockCompId.push(id)
+    },
+    switchShowComp(index: number, type: boolean) {
+      this.pageData[this.acPageIndex][index].show = type
     },
     toggleComp(index: number) {
       this.activeCompIndex = index
