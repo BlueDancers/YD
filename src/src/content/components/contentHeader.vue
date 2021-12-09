@@ -32,6 +32,9 @@ import { message } from 'ant-design-vue'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useBoardStore } from '@/stores/board'
 import { useCoreStore } from '@/stores/core'
+import html2canvas from 'html2canvas'
+import { dataURLtoFile, getRandom } from '@/utils'
+import { uploadFile } from '@/modules/request'
 export default defineComponent({
   components: {
     QrcodeOutlined,
@@ -58,15 +61,32 @@ export default defineComponent({
     }
     function jsonProcessor() {}
     // 保存页面组件数据
-    function saveCarryPage() {
-      useCloud('pageDetails')
-        .doc(borad.pageDataId)
-        .update({
-          content: core.pageData,
-        })
-        .then((res) => {
-          console.log(res)
-        })
+    async function saveCarryPage() {
+      let thmbImg = await getThumbnail()
+      let updateDetail = useCloud('pageDetails').doc(borad.pageDataId).update({
+        content: core.pageData,
+      })
+      let updatePageData = useCloud('pageList').doc(borad.pageDetail._id).update({
+        tumbUrl: thmbImg,
+      })
+      Promise.all([updateDetail, updatePageData]).then((res) => {
+        console.log('保存成功', res)
+      })
+    }
+    async function getThumbnail() {
+      let boardCenterCore: any = document.querySelector('.board_center_core')
+      let photo = await html2canvas(boardCenterCore, {
+        useCORS: true,
+        scale: 1,
+        width: 320,
+        height: 560,
+      })
+      let file: any = dataURLtoFile(
+        photo.toDataURL('image/jpeg'),
+        `${borad.pageDataId}_${getRandom(1000, 1000000)}.jpg`
+      )
+      let url = await uploadFile(`pagePhoto/${file.name}`, file)
+      return url
     }
     return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }
   },

@@ -49,6 +49,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .auxiliary_point {
+  /* .core_item {
+    filter: invert(20%);
+  } */
 }
 .point_active {
   cursor: grab;

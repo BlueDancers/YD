@@ -133,3 +133,15 @@ export const throttle = (fn, delay = 500) => {
     _throttleRunning = false
   }, delay)
 }
+
+/**
+ * 生成指定随机数
+ * @param min 
+ * @param max 
+ * @returns 
+ */
+export function getRandom(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
+}
