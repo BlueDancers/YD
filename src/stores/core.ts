@@ -19,7 +19,11 @@ export const useCoreStore = defineStore('core', {
       this.pageData.push([])
     },
     addComp(name: string, css?) {
-      let comp = baseComList(name, this.pageData[0].length + 1)
+      let maxzIndex = 0
+      this.pageData[this.acPageIndex].map((res) => {
+        maxzIndex = res.cssModule['z-index'] > maxzIndex ? res.cssModule['z-index'] : maxzIndex
+      })
+      let comp = baseComList(name, maxzIndex + 1)
       if (comp && css) {
         comp.cssModule.top = css.top - comp.cssModule.height / 2
         comp.cssModule.left = css.left - comp.cssModule.width / 2
@@ -27,6 +31,7 @@ export const useCoreStore = defineStore('core', {
       this.pageData[0].push(comp)
       // 默认选中新添加的组件
       this.activeCompIndex = this.pageData[0].length - 1
+      this.hoverCompIndex = this.pageData[0].length - 1
     },
     deleteComp(index) {
       this.pageData[this.acPageIndex].splice(index, 1)

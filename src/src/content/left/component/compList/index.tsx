@@ -1,4 +1,3 @@
-import { baseComList } from '@/modules/components';
 import { useCoreStore } from '@/stores/core';
 import { defineComponent, ref, reactive } from 'vue'
 import css from './index.module.scss';

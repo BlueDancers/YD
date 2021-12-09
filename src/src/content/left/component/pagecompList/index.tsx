@@ -41,11 +41,15 @@ export default defineComponent({
     }
     // 排序层级
     function dragEnd(evt) {
-      let carrentComp = core.pageData[core.acPageIndex]
-      let afterzIndex = carrentComp[evt.oldIndex].cssModule['z-index']
-      let berforzIndex = carrentComp[evt.newIndex].cssModule['z-index']
-      carrentComp[evt.oldIndex].cssModule['z-index'] = berforzIndex
-      carrentComp[evt.newIndex].cssModule['z-index'] = afterzIndex
+      let addZindex = 0
+      if (evt.oldIndex > evt.newIndex) {
+        addZindex = -(evt.newIndex + 1)
+      } else {
+        addZindex = (evt.newIndex + 1)
+      }
+      core.pageData[core.acPageIndex][evt.newIndex].cssModule['z-index'] += addZindex
+      // 更新到最新的下标
+      core.activeCompIndex = evt.newIndex
     }
 
     function svgStyle(index) {

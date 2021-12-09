@@ -234,7 +234,7 @@ function borderData() {
 function absolute(zIndex) {
   return {
     position: 'absolute',
-    'z-index': 10 + zIndex,
+    'z-index': zIndex,
     top: 10 + zIndex * 5,
     left: 10 + zIndex * 5,
   }
