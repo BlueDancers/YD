@@ -48,6 +48,10 @@ export default defineComponent({
       carrentComp[evt.newIndex].cssModule['z-index'] = afterzIndex
     }
 
+    function svgStyle(index) {
+      return { width: '18px', height: '18px', color: index == core.activeCompIndex ? '#2970f6' : '' }
+    }
+
     return () => (
       <div class={css.page_comp_list}>
         <div class={css.page_comp}>
@@ -62,11 +66,14 @@ export default defineComponent({
                 >
                   <a-input class={css.item_left} v-model={[item.showTitle, 'value']}></a-input>
                   <div class={css.item_right}>
-                    <svg-icon class={css.svg_icon} onClick={() => core.deleteComp(i)} style={{ width: '18px', height: '18px' }} name="shanchu1" />
-                    {/* <div onClick={() => core.lockComp(item.id)}>锁定</div> */}
+                    <svg-icon class={css.svg_icon} onClick={() => core.deleteComp(i)} style={svgStyle(i)} name="shanchu1" />
                     <>
-                      {!item.show && <svg-icon class={css.svg_icon} onClick={() => core.switchShowComp(i, true)} style={{ width: '18px', height: '18px' }} name="yincang" />}
-                      {item.show && <svg-icon class={css.svg_icon} onClick={() => core.switchShowComp(i, false)} style={{ width: '18px', height: '18px' }} name="xianshi" />}
+                      {!core.lockCompId.includes(item.id) && <svg-icon class={css.svg_icon} onClick={() => core.lockComp(item.id, true)} style={svgStyle(i)} name="unlock" />}
+                      {core.lockCompId.includes(item.id) && <svg-icon class={css.svg_icon} onClick={() => core.lockComp(item.id, false)} style={svgStyle(i)} name="lock" />}
+                    </>
+                    <>
+                      {!item.show && <svg-icon class={css.svg_icon} onClick={() => core.switchShowComp(i, true)} style={svgStyle(i)} name="yincang" />}
+                      {item.show && <svg-icon class={css.svg_icon} onClick={() => core.switchShowComp(i, false)} style={svgStyle(i)} name="xianshi" />}
                     </>
                   </div>
                 </div>

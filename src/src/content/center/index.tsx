@@ -69,6 +69,7 @@ export default defineComponent({
 								e.show && <auxiliaryPoint
 									style={contResetCss(e.cssModule)}
 									index={i}
+									id={e.id}
 									activeCompIndex={core.activeCompIndex}
 									hoverCompIndex={core.hoverCompIndex}
 									onMousedown={(evt) => mouseDown(evt, i)}

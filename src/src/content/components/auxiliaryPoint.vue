@@ -1,11 +1,6 @@
 <template>
-  <div
-    class="auxiliary_point"
-    :class="[
-      props.index == props.hoverCompIndex || props.index == props.activeCompIndex ? 'auxiliary_point_active' : '',
-    ]"
-  >
-    <template v-if="props.index == props.activeCompIndex">
+  <div class="auxiliary_point" :class="pointStyle">
+    <template v-if="props.index == props.activeCompIndex && !lockCompId.includes(props.id)">
       <div class="point_item point_left_top" @mousedown="potintActive(1)"></div>
       <div class="point_item point_left_center" @mousedown="potintActive(2)"></div>
       <div class="point_item point_left_buttom" @mousedown="potintActive(3)"></div>
@@ -23,19 +18,30 @@
 
 <script lang="ts">
 import { useCoreStore } from '@/stores/core'
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 // 辅助点
 export default defineComponent({
-  props: ['index', 'activeCompIndex', 'hoverCompIndex'],
+  props: ['index', 'activeCompIndex', 'hoverCompIndex', 'id'],
   setup(props) {
     let core = useCoreStore()
     const potintActive = (type: number) => {
       console.log('类型', type)
       core.changeMoveIndex(type)
     }
+    const pointStyle = computed(() => {
+      if (props.index == props.hoverCompIndex || props.index == props.activeCompIndex) {
+        if (core.lockCompId.includes(props.id)) {
+          return 'point_active_lock'
+        } else {
+          return 'point_active'
+        }
+      }
+    })
     return {
       potintActive,
       props,
+      lockCompId: core.lockCompId,
+      pointStyle,
     }
   },
 })
@@ -43,19 +49,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .auxiliary_point {
-  &:hover {
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-      border: 1px solid #2970f6;
-    }
-  }
 }
-.auxiliary_point_active {
+.point_active {
+  cursor: grab;
   &::after {
     content: '';
     position: absolute;
@@ -64,6 +60,21 @@ export default defineComponent({
     right: 0px;
     bottom: 0px;
     border: 1px solid #2970f6;
+  }
+  &:active {
+    cursor: grabbing;
+  }
+}
+.point_active_lock {
+  cursor: not-allowed;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    border: 1px solid red;
   }
 }
 .point_item {

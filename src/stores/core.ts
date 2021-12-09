@@ -31,15 +31,26 @@ export const useCoreStore = defineStore('core', {
     deleteComp(index) {
       this.pageData[this.acPageIndex].splice(index, 1)
     },
-    lockComp(id: string) {
-      this.lockCompId.push(id)
+    lockComp(id: string, type) {
+      if (type) {
+        this.lockCompId.push(id)
+      } else {
+        let index = this.lockCompId.findIndex((e) => e == id)
+        this.lockCompId.splice(index, 1)
+      }
     },
     switchShowComp(index: number, type: boolean) {
       this.pageData[this.acPageIndex][index].show = type
     },
     toggleComp(index: number) {
       this.activeCompIndex = index
-      this.changeMoveIndex(10)
+      // 判断是否被锁
+      let id = this.pageData[this.acPageIndex][index].id
+      if (!this.lockCompId.includes(id)) {
+        this.changeMoveIndex(10)
+      } else {
+        console.log('被锁住')
+      }
     },
     // 切换拖动类型
     changeMoveIndex(index: number) {
