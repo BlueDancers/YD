@@ -6,7 +6,19 @@
     <!-- {{ status }} -->
     <!-- 具体数据 -->
     <div class="pagelist_main" v-if="listData.length > 0">
-      <div class="list_item" v-for="item in listData" :key="item._id">
+      <div class="list_item" v-for="item in listData" :key="item._id" @mouseover="mouseOver" @mouseout="mouseOut">
+        <!-- 右上角 -->
+        <!-- <div class="">⋯</div> -->
+        <a-dropdown class="right_icon" placement="bottomRight">
+          <a class="ant-dropdown-link" @click.prevent> ⋯ </a>
+          <template #overlay>
+            <a-menu>
+              <a-menu-item>
+                <div @click="gotoDelete(item)">删除</div>
+              </a-menu-item>
+            </a-menu>
+          </template>
+        </a-dropdown>
         <img class="item_img" v-if="item.tumbUrl" :src="item.tumbUrl" />
         <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
@@ -183,6 +195,14 @@ export default defineComponent({
         message.error('不可以删除别人创建的哦')
       }
     }
+
+    function mouseOver(evt) {
+      // console.log(evt)
+    }
+
+    function mouseOut(evt) {
+      // console.log(evt)
+    }
     return {
       newPage,
       listData: data,
@@ -194,6 +214,8 @@ export default defineComponent({
       newPageState,
       rules,
       newPageRef,
+      mouseOver,
+      mouseOut,
     }
   },
 })
@@ -219,6 +241,19 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: center;
+      .right_icon {
+        display: none;
+        position: absolute;
+        z-index: 100;
+        top: 10px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 5px;
+        background-color: #fff;
+        text-align: center;
+        line-height: 20px;
+      }
       .item_img {
         border-radius: 4px;
         height: 200px;
@@ -269,6 +304,9 @@ export default defineComponent({
       }
       &:hover {
         box-shadow: 4px 4px 8px #eee;
+        .right_icon {
+          display: block;
+        }
         .item_back {
           background-color: rgba(0, 0, 0, 0.5);
         }
