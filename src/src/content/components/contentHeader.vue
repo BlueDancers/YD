@@ -79,7 +79,7 @@ export default defineComponent({
         useCORS: true,
         scale: 1,
         width: 320,
-        height: 560,
+        height: 500,
       })
       let file: any = dataURLtoFile(
         photo.toDataURL('image/jpeg'),

@@ -6,23 +6,35 @@
     <!-- {{ status }} -->
     <!-- 具体数据 -->
     <div class="pagelist_main" v-if="listData.length > 0">
-      <div class="list_item" v-for="item in listData" :key="item._id" @click="gotoPage(item)">
+      <div class="list_item" v-for="item in listData" :key="item._id">
         <img class="item_img" v-if="item.tumbUrl" :src="item.tumbUrl" />
         <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
+        <!-- 未悬浮 -->
         <div class="item_data">
           <div class="data_item">
-            <div class="data_item_left">网页名称:</div>
             <div class="data_item_right">{{ item.routerName }}</div>
           </div>
-          <div class="data_item">
+          <!-- <div class="data_item">
             <div class="data_item_left">网页路由:</div>
             <div class="data_item_right">{{ item.router }}</div>
-          </div>
+          </div> -->
           <div class="data_item">
             <div class="data_item_left">网页类型:</div>
             <div class="data_item_right">{{ item.pageType == 1 ? '长页面' : '滚动页' }}</div>
           </div>
+        </div>
+        <!-- 已悬浮 -->
+        <div class="item_data_hover">
+          <div class="hover_item" @click="gotoPage(item)">
+            <svg-icon name="bianji" :style="{ width: '24px', height: '24px', color: '#000' }"></svg-icon>
+            <span class="hover_item_text">编辑</span>
+          </div>
+          <div class="hover_item">
+            <svg-icon name="chakan" :style="{ width: '24px', height: '24px', color: '#000' }"></svg-icon>
+            <span class="hover_item_text">查看</span>
+          </div>
+          <div>待定</div>
         </div>
       </div>
     </div>
@@ -65,8 +77,9 @@ import { message } from 'ant-design-vue'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useReq } from '@/utils/Hook/useRqe'
 import { log } from 'console'
+import SvgIcon from '@/components/SvgIcon.vue'
 export default defineComponent({
-  components: {},
+  components: { SvgIcon },
   setup() {
     onMounted(() => {
       init()
@@ -199,58 +212,77 @@ export default defineComponent({
       border: 1px solid #eee;
       margin-left: 14px;
       margin-bottom: 16px;
-      width: 270px;
-      height: 480px;
+      width: 210px;
+      height: 280px;
       box-shadow: 2px 2px 4px #eee;
       border-radius: 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
       .item_img {
-        padding: 6px;
         border-radius: 4px;
-        width: 100%;
-        height: 100%;
+        height: 200px;
+        margin: 4px 0;
         object-fit: cover;
       }
       .item_back {
-        border-radius: 6px;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
         position: absolute;
-        top: 0px;
         left: 0px;
         right: 0px;
-        bottom: 0px;
+        height: 210px;
         transition: all 0.3s;
       }
       .item_data {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        right: 0px;
+        border-top: 1px solid #eee;
+        padding: 0 4px;
+        width: 100%;
+        height: 60px;
         background-color: #fff;
         transition: all 0.3s;
-        opacity: 0;
-        padding: 10px;
-
+        padding-top: 6px;
         .data_item {
+          margin: 4px 0;
+          margin-left: 4px;
           display: flex;
           .data_item_left {
             text-align: right;
             width: 60px;
           }
           .data_item_right {
-            margin-left: 6px;
           }
+        }
+      }
+      .item_data_hover {
+        padding: 0 20px;
+        box-sizing: border-box;
+        width: 100%;
+        display: none;
+        height: 80px;
+        cursor: pointer;
+        .hover_item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
       }
       &:hover {
         box-shadow: 4px 4px 8px #eee;
         .item_back {
-          background-color: rgba(0, 0, 0, 0.4);
+          background-color: rgba(0, 0, 0, 0.5);
         }
         .item_data {
-          display: block;
-          opacity: 1;
+          display: none;
+        }
+        .item_data_hover {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          .hover_item_text {
+            margin-top: 4px;
+            font-size: 12px;
+          }
         }
       }
     }
