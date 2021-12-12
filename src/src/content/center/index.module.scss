@@ -10,9 +10,12 @@
 
         .add_height {
             position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 320px;
-            height: 10px;
-            background: #000;
+            height: 16px;
+            background: #fff;
             cursor: ns-resize;
         }
     }

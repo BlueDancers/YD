@@ -9,7 +9,7 @@ export default defineComponent({
       console.log(props.compData);
     })
     return (props) => (
-      <div style={compResetCss(props.compData.cssModule)}></div>
+      <input style={compResetCss(props.compData.cssModule)} placeholder={props.compData.staticData.placeholder} />
     )
   }
 })

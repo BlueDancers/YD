@@ -9,7 +9,7 @@ export default defineComponent({
       console.log(props.compData);
     })
     return (props) => (
-      <div style={compResetCss(props.compData.cssModule)}></div>
+      <p style={compResetCss(props.compData.cssModule)} v-html={props.compData.staticData.value}></p>
     )
   }
 })

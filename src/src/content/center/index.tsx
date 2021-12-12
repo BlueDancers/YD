@@ -9,12 +9,20 @@ import { resetCss, contResetCss, compResetCss } from '@/utils/index'
 
 import auxiliaryPoint from '../components/auxiliaryPoint.vue';
 import Ydiv from './component/Ydiv'
+import Ybutton from './component/Ybutton';
+import Yimg from './component/Yimg';
+import Yp from './component/Yp';
+import Yinput from './component/Yinput';
 
 
 export default defineComponent({
 	components: {
 		auxiliaryPoint,
-		Ydiv
+		Ydiv,
+		Ybutton,
+		Yimg,
+		Yp,
+		Yinput
 	},
 	setup() {
 		// 全局数据
@@ -82,7 +90,11 @@ export default defineComponent({
 									onMouseover={evt => mouseOver(evt, i)}
 									onMouseout={evt => mouseOut(evt)}
 								>
-									{e.name == 'y-div' && <Ydiv compData={e}></Ydiv>}
+									{e.name == 'y-div' && <Ydiv compData={e} />}
+									{e.name == 'y-button' && <Ybutton compData={e} />}
+									{e.name == 'y-img' && <Yimg compData={e} />}
+									{e.name == 'y-p' && <Yp compData={e} />}
+									{e.name == 'y-input' && <Yinput compData={e} />}
 								</auxiliaryPoint>
 							))
 						}
@@ -91,6 +103,7 @@ export default defineComponent({
 						top: `100%`,
 						left: `0`,
 					}}>
+						<svg-icon style={{ width: '20px', height: '12px' }} name="tuozhuaicaidandaohang"></svg-icon>
 					</div>
 				</div>
 			</div >

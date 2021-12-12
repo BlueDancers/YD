@@ -16,6 +16,10 @@ export default defineComponent({
         icon: 'button',
         name: 'y-button',
         title: '按钮',
+      }, {
+        icon: 'button',
+        name: 'y-input',
+        title: '输入框',
       },
       {
         icon: 'tupian',

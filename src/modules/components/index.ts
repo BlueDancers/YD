@@ -142,33 +142,35 @@ function baseComList(name: string, zIndex) {
         'background-color': '#ffffff00',
       }, // 样式
       staticData: {
-        src: 'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/2467230789@qq.com_1630595086742.png',
+        src: 'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/%E7%B4%A0%E6%9D%90.png?sign=25d2c8158d6163417af8608cca0ade96&t=1639301025',
       }, // 展示文字
       configuration: {
         externalUrl: '',
       }, // 行为
       function: {}, // 方法
     },
-    // {
-    //   id: guid(),
-    //   name: 'y-input',
-    //   cssModule: {
-    //     ...absolute(contName, zIndex),
-    //     ...borderData(),
-    //     ...padAndMar(),
-    //     ...compSize(contName, 100, 20),
-    //     'background-color': '#eeeeee',
-    //     'font-size': 14,
-    //     color: '#000000',
-    //     'font-weight': 'normal',
-    //   }, // 样式
-    //   staticData: {
-    //     type: 'text',
-    //     placeholder: '请输入文字',
-    //   }, // 展示文字
-    //   configuration: {}, // 行为
-    //   function: {}, // 方法
-    // },
+    {
+      id: guid(),
+      name: 'y-input',
+      showTitle: `输入框${zIndex}`, // 显示组件名称
+      show: true,
+      cssModule: {
+        ...absolute(zIndex),
+        ...borderData(),
+        ...padAndMar(),
+        ...compSize(100, 20),
+        'background-color': '#eeeeee',
+        'font-size': 14,
+        color: '#000000',
+        'font-weight': 'normal',
+      }, // 样式
+      staticData: {
+        type: 'text',
+        placeholder: '请输入文字',
+      }, // 展示文字
+      configuration: {}, // 行为
+      function: {}, // 方法
+    },
     {
       id: guid(),
       name: 'y-p',
@@ -186,7 +188,7 @@ function baseComList(name: string, zIndex) {
         color: '#000000',
       }, // 样式
       staticData: {
-        value: '点击点击文字',
+        value: '<p>一段文本</p>',
       }, // 展示文字
       configuration: {}, // 行为
       function: {}, // 方法
