@@ -33,6 +33,7 @@ import { useCloud } from '@/utils/Hook/useRequest'
 import { useBoardStore } from '@/stores/board'
 import { useCoreStore } from '@/stores/core'
 import html2canvas from 'html2canvas'
+import domtoimage from 'dom-to-image'
 import { dataURLtoFile, getRandom } from '@/utils'
 import { uploadFile } from '@/modules/request'
 export default defineComponent({
@@ -75,17 +76,24 @@ export default defineComponent({
     }
     async function getThumbnail() {
       let boardCenterCore: any = document.querySelector('.board_center_core')
-      let photo = await html2canvas(boardCenterCore, {
-        useCORS: true,
-        scale: 1,
+      console.log(boardCenterCore)
+
+      let dataUrl = await domtoimage.toJpeg(document.querySelector('.board_center_core'), {
+        cacheBust: true,
+        height: borad.height >= 560 ? 560 : borad.height,
         width: 320,
-        height: 500,
+        style: {
+          left: '0',
+          right: '0',
+          bottom: '0',
+          top: '0',
+          transform: 'translate(0%, 0%) scale(1)',
+        },
       })
-      let file: any = dataURLtoFile(
-        photo.toDataURL('image/jpeg'),
-        `${borad.pageDataId}_${getRandom(1000, 1000000)}.jpg`
-      )
+      let file: any = dataURLtoFile(dataUrl, `${borad.pageDataId}_${getRandom(1000, 1000000)}.jpg`)
       let url = await uploadFile(`pagePhoto/${file.name}`, file)
+      console.log(url)
+
       return url
     }
     return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }
