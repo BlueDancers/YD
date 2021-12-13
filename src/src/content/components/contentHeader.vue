@@ -4,7 +4,22 @@
       <img class="left_img" src="@/assets/logo.png" alt="" />
       <span>易动</span>
     </a-col>
-    <a-col class="header_centent" :span="10"> </a-col>
+    <a-col class="header_centent" :span="10">
+      <div class="content_item">
+        <svg-icon class="content_item_icon" name="chexiao2" />
+        <span class="content_item_title">撤销</span>
+      </div>
+      <div class="content_item">
+        <svg-icon class="content_item_icon flip" name="chexiao2" />
+        <span class="content_item_title">恢复</span>
+      </div>
+      <div class="content_line"></div>
+      <!-- <div class="content_zoom">
+        <svg-icon :style="{ width: '20px', height: '20px' }" name="jianquwubiankuang" />
+        <span class="zoom_num">{{ 1 }}</span>
+        <svg-icon :style="{ width: '20px', height: '20px' }" name="xinjianshujutianjia" />
+      </div> -->
+    </a-col>
     <a-col class="header_right" :span="9">
       <div class="right_item" @click="gotoDoc">
         <ReadOutlined :style="{ fontSize: '120%' }" />
@@ -76,9 +91,7 @@ export default defineComponent({
     }
     async function getThumbnail() {
       let boardCenterCore: any = document.querySelector('.board_center_core')
-      console.log(boardCenterCore)
-
-      let dataUrl = await domtoimage.toJpeg(document.querySelector('.board_center_core'), {
+      let dataUrl = await domtoimage.toJpeg(boardCenterCore, {
         cacheBust: true,
         height: borad.height >= 560 ? 560 : borad.height,
         width: 320,
@@ -107,7 +120,7 @@ export default defineComponent({
   z-index: 10;
   box-shadow: 0 2px 13px 0 rgb(0 0 0 / 10%);
   background-color: #f8f9fa;
-  height: 50px;
+  height: 56px;
   padding: 0 20px;
   .header_left {
     cursor: pointer;
@@ -118,11 +131,59 @@ export default defineComponent({
       width: 35px;
       height: 35px;
     }
+    span {
+    }
   }
   .header_centent {
     display: flex;
     align-items: center;
     justify-content: center;
+    .content_item {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      padding: 0 10px;
+      height: 100%;
+      cursor: pointer;
+      &:hover {
+        background-color: #2970f6;
+        .content_item_icon {
+          color: #fff !important;
+        }
+        .content_item_title {
+          color: #fff;
+        }
+      }
+      .content_item_icon {
+        text-align: center;
+        color: rgb(41, 112, 246);
+        width: 18px;
+        height: 18px;
+      }
+      .flip {
+        transform: rotateY(180deg);
+      }
+      .content_item_title {
+        margin-top: 4px;
+        font-size: 13px;
+        line-height: 13px;
+        height: 13px;
+      }
+    }
+    .content_line {
+      width: 1px;
+      height: 36px;
+      background-color: rgb(219, 219, 219);
+      margin: 0 10px;
+    }
+    .content_zoom {
+      display: flex;
+      align-items: center;
+      .zoom_num {
+        font-size: 14px;
+      }
+    }
   }
   .header_right {
     display: flex;
@@ -136,6 +197,14 @@ export default defineComponent({
       .right_item_text {
         margin-left: 6px;
         margin-right: 10px;
+      }
+    }
+    .right_item {
+      .right_item_text {
+      }
+    }
+    .right_item {
+      .right_item_text {
       }
     }
     .right_btn {
