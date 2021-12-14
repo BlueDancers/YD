@@ -34,10 +34,10 @@ export default defineComponent({
 		const board = useBoardStore()
 		const core = useCoreStore()
 		const line = useLineStore()
-		const boardCore = ref(null)
-		const heightCore = ref(null)
+		const boardCore = ref()
+		const heightCore = ref()
 
-		const mainCore = ref(null)
+		const mainCore = ref()
 		useListen({
 			boardTarget: boardCore,
 			mainTarget: mainCore,
@@ -59,7 +59,10 @@ export default defineComponent({
 		 */
 		function mouseDown(evt, index) {
 			core.toggleComp(index)
-			line.getLineList() // 全局按键松开初初始化辅助线信息
+			line.getLineList({
+				left: mainCore.value.offsetLeft - mainCore.value.offsetWidth / 2,
+				top: mainCore.value.offsetTop
+			}) // 全局按键松开初初始化辅助线信息
 			evt.preventDefault()
 		}
 		/**
@@ -78,6 +81,8 @@ export default defineComponent({
 		}
 		return () => (
 			<div id={c.center_core} ref={boardCore} class="board_center">
+				<lineX></lineX>
+				<lineY></lineY>
 				<div
 					class={[c.core, 'board_center_core']}
 					ref={mainCore}
@@ -93,8 +98,6 @@ export default defineComponent({
 					onDragend={(evt) => evt.preventDefault()}
 					onDragleave={(evt) => evt.preventDefault()}
 				>
-					<lineX></lineX>
-					<lineY></lineY>
 					{/* 正式数据 */}
 					<div>
 						{

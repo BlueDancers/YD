@@ -31,7 +31,7 @@ export default defineComponent({
 .x_line {
   position: absolute;
   width: 100%;
-  z-index: 0;
+  z-index: 1;
   height: 1px;
   background-color: rgba(41, 113, 246, 0.3);
   left: 0px;

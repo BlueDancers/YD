@@ -31,7 +31,7 @@ export default defineComponent({
 .y_line {
   position: absolute;
   height: 100%;
-  z-index: 0;
+  z-index: 1;
   width: 1px;
   background-color: rgba(41, 113, 246, 0.3);
   top: 0px;
