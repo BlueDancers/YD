@@ -8,11 +8,14 @@ import useListen from './useListen';
 import { resetCss, contResetCss, compResetCss } from '@/utils/index'
 
 import auxiliaryPoint from '../components/auxiliaryPoint.vue';
+import lineX from '../components/lineX.vue';
+import lineY from '../components/lineY.vue';
 import Ydiv from './component/Ydiv'
 import Ybutton from './component/Ybutton';
 import Yimg from './component/Yimg';
 import Yp from './component/Yp';
 import Yinput from './component/Yinput';
+import { useLineStore } from '@/stores/line';
 
 
 export default defineComponent({
@@ -22,14 +25,18 @@ export default defineComponent({
 		Ybutton,
 		Yimg,
 		Yp,
-		Yinput
+		Yinput,
+		lineX,
+		lineY
 	},
 	setup() {
 		// 全局数据
 		const board = useBoardStore()
 		const core = useCoreStore()
+		const line = useLineStore()
 		const boardCore = ref(null)
 		const heightCore = ref(null)
+
 		const mainCore = ref(null)
 		useListen({
 			boardTarget: boardCore,
@@ -38,7 +45,6 @@ export default defineComponent({
 		})
 		function coreDrop(evt) {
 			console.log(evt);
-
 			let name = evt.dataTransfer.getData('compIndex')
 			core.addComp(name, {
 				top: evt.offsetY,
@@ -46,10 +52,21 @@ export default defineComponent({
 			})
 			evt.preventDefault()
 		}
+		/**
+		 * 点击组件
+		 * @param evt 
+		 * @param index 
+		 */
 		function mouseDown(evt, index) {
 			core.toggleComp(index)
+			line.getLineList() // 全局按键松开初初始化辅助线信息
 			evt.preventDefault()
 		}
+		/**
+		 * 松开组件
+		 * @param evt 
+		 * @param index 
+		 */
 		function mouseOver(evt, index) {
 			core.hoverCompIndex = index
 			evt.preventDefault()
@@ -76,6 +93,8 @@ export default defineComponent({
 					onDragend={(evt) => evt.preventDefault()}
 					onDragleave={(evt) => evt.preventDefault()}
 				>
+					<lineX></lineX>
+					<lineY></lineY>
 					{/* 正式数据 */}
 					<div>
 						{

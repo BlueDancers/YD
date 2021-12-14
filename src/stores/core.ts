@@ -14,6 +14,11 @@ export const useCoreStore = defineStore('core', {
       lockCompId: [] as string[], // 被锁定的组件(id)
     }
   },
+  getters: {
+    carryPageComp: (state) => {
+      return state.pageData[state.acPageIndex]
+    },
+  },
   actions: {
     addPage() {
       this.pageData.push([])

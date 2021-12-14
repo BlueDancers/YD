@@ -1,5 +1,6 @@
 import { useBoardStore } from '@/stores/board'
 import { useCoreStore } from '@/stores/core'
+import { useLineStore } from '@/stores/line'
 import { useMouseMove } from '@/utils/Hook/useMouseMove'
 import { useMouseWheel } from '@/utils/Hook/useMouseWheel'
 import { useKeyModifier, useMousePressed, onClickOutside } from '@vueuse/core'
@@ -12,6 +13,7 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
 
   const board = useBoardStore()
   const core = useCoreStore()
+  const line = useLineStore()
   // 滚轮监听 指定范围
   const { wheelDelta } = useMouseWheel(boardTarget)
   watch(wheelDelta, (value) => {
@@ -73,6 +75,8 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
         // 移动元素
         _carrentCss().top += value.y
         _carrentCss().left += value.x
+        // 获取选中元素的辅助线点
+        line.listenEvent(_carrentCss())
         break
 
       default:
@@ -94,13 +98,14 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   watch(heightState.pressed, (value) => {
     core.changeMoveIndex(value ? 9 : 0)
   })
-  // 监听 模板点击
+  // 监听 模板鼠标按下
   const coreState = useMousePressed({ target: boardTarget })
   watch(coreState.pressed, (value) => {
     core.downState = value
     // 放开鼠标,清除鼠标事件
     if (!value) {
       console.log('清除事件')
+      line.resetLine()
       core.changeMoveIndex(0)
     }
   })

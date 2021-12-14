@@ -75,7 +75,6 @@ export function compResetCss(data: Object) {
   return newCss
 }
 
-
 /**
  * 是否是邮箱格式
  * @param {str} 判断的字符串
@@ -126,6 +125,15 @@ export function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值
 }
 
+/**
+ * clone对象
+ * @param obj 
+ * @returns 
+ */
+export function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 export function getBase64Image(img) {
   let canvas = document.createElement('canvas')
   canvas.width = img.width
@@ -142,7 +150,7 @@ export function getBase64Image(img) {
  * @param filename
  * @returns
  */
- export function dataURLtoFile(dataurl: string, filename: string) {
+export function dataURLtoFile(dataurl: string, filename: string) {
   // 获取到base64编码
   const arr = dataurl.split(',')
   // 将base64编码转为字符串
