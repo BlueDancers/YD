@@ -55,14 +55,15 @@ export function resetCss(data: Object): any {
  * @returns
  */
 export function contResetCss(data: Object) {
-  let newCss = resetCss(data)
+  let css = resetCss(data)
   return {
-    position: newCss.position,
-    'z-index': newCss['z-index'],
-    top: newCss.top,
-    left: newCss.left,
-    width: newCss.width,
-    height: newCss.height,
+    position: css.position,
+    'z-index': css['z-index'],
+    top: css.top,
+    left: css.left,
+    width: css.width,
+    height: css.height,
+    // padding: `${css['padding-top']} ${css['padding-left']} ${css['padding-bottom']} ${css['padding-right']}`,
   }
 }
 
@@ -127,8 +128,8 @@ export function getRandom(min, max) {
 
 /**
  * clone对象
- * @param obj 
- * @returns 
+ * @param obj
+ * @returns
  */
 export function deepClone(obj) {
   return JSON.parse(JSON.stringify(obj))

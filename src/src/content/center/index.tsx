@@ -99,9 +99,9 @@ export default defineComponent({
 					onDragleave={(evt) => evt.preventDefault()}
 				>
 					{/* 正式数据 */}
-					<div>
+					<>
 						{
-							core.pageData.length && core.pageData[0].map((e, i) => (
+							core.pageData.length && core.pageData[core.acPageIndex].map((e, i) => (
 								e.show && <auxiliaryPoint
 									style={contResetCss(e.cssModule)}
 									index={i}
@@ -120,7 +120,7 @@ export default defineComponent({
 								</auxiliaryPoint>
 							))
 						}
-					</div>
+					</>
 					<div ref={heightCore} class={c.add_height} style={{
 						top: `100%`,
 						left: `0`,

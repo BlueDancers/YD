@@ -1,9 +1,11 @@
 .right {
-	background-color: #f8f9fa;
+	background-color: #fff;
 	width: 400px;
 	height: calc(100vh - 50px);
 	box-shadow: -2px 0 13px 0 rgb(0 0 0 / 10%);
-	display: flex;
-
+	
+	.right_header {
+		width: 100%;
+	}
 
 }

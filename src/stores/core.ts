@@ -18,6 +18,12 @@ export const useCoreStore = defineStore('core', {
     carryPageComp: (state) => {
       return state.pageData[state.acPageIndex]
     },
+    carryComp: (state) => {
+      return state.pageData[state.acPageIndex][state.activeCompIndex]
+    },
+    carryCss: (state) => {
+      return state.pageData[state.acPageIndex][state.activeCompIndex].cssModule
+    },
   },
   actions: {
     addPage() {
@@ -33,13 +39,14 @@ export const useCoreStore = defineStore('core', {
         comp.cssModule.top = css.top - comp.cssModule.height / 2
         comp.cssModule.left = css.left - comp.cssModule.width / 2
       }
-      this.pageData[0].push(comp)
+      this.pageData[this.acPageIndex].push(comp)
       // 默认选中新添加的组件
-      this.activeCompIndex = this.pageData[0].length - 1
-      this.hoverCompIndex = this.pageData[0].length - 1
+      this.activeCompIndex = this.pageData[this.acPageIndex].length - 1
+      this.hoverCompIndex = this.pageData[this.acPageIndex].length - 1
     },
     deleteComp(index) {
       this.pageData[this.acPageIndex].splice(index, 1)
+      this.activeCompIndex = -1
     },
     lockComp(id: string, type) {
       if (type) {

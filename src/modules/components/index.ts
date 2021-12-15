@@ -97,7 +97,6 @@ function baseComList(name: string, zIndex) {
         ...borderData(),
         ...padAndMar(),
         ...compSize(50, 30),
-        color: '#000000',
         'background-color': '#eeeeee',
       }, // 样式
       staticData: {},
@@ -118,6 +117,7 @@ function baseComList(name: string, zIndex) {
         ...compSize(50, 30),
         color: '#000000',
         'font-weight': 'normal',
+        'text-align': 'center',
         'background-color': '#eeeeee',
         'font-size': 14,
       }, // 样式
@@ -160,6 +160,7 @@ function baseComList(name: string, zIndex) {
         ...padAndMar(),
         ...compSize(100, 20),
         'background-color': '#eeeeee',
+        'text-align': 'left',
         'font-size': 14,
         color: '#000000',
         'font-weight': 'normal',

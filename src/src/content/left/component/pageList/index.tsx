@@ -17,8 +17,13 @@ export default defineComponent({
     function addPage() {
       core.addPage()
     }
+    /**
+     * 切换页面
+     * @param index 
+     */
     function changePageIndex(index) {
       core.acPageIndex = index
+      core.activeCompIndex = -1
     }
     function dragStart(evt) {
 

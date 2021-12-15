@@ -67,4 +67,13 @@ export default defineComponent({
 * {
   user-select: none;
 }
+
+.default_input {
+  width: 100px !important;
+  margin: 0 2px !important;
+}
+.mini_input {
+  width: 50px !important;
+  margin: 0 2px !important;
+}
 </style>
