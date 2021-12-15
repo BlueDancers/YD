@@ -77,6 +77,7 @@ export interface baseComponent {
   staticData: any
   configuration: any
   function: any
+  animation?: any[]
 }
 
 /**
@@ -104,6 +105,7 @@ function baseComList(name: string, zIndex) {
         externalUrl: '',
       }, // 行为
       function: {}, // 方法
+      animation: [], // 动画
     },
     {
       id: guid(),
@@ -196,6 +198,20 @@ function baseComList(name: string, zIndex) {
     },
   ]
   return list.find((e) => e.name == name)
+}
+
+/**
+ * 动画基类
+ * @returns 
+ */
+export function baseAnimation() {
+  return {
+    animationName: '',
+    animationDuration: 1000, // 动画时间
+    animationDelay: 0, // 延迟时间
+    animationIterationCount: 1, // 动画执行次数
+    animationFillMode: 'both', // 动画停留最后一帧
+  }
 }
 
 /**

@@ -1,4 +1,4 @@
-import { baseComList, baseComponent } from '@/modules/components'
+import { baseAnimation, baseComList, baseComponent } from '@/modules/components'
 import { defineStore } from 'pinia'
 
 export const useCoreStore = defineStore('core', {
@@ -23,6 +23,9 @@ export const useCoreStore = defineStore('core', {
     },
     carryCss: (state) => {
       return state.pageData[state.acPageIndex][state.activeCompIndex].cssModule
+    },
+    carryAn: (state) => {
+      return state.pageData[state.acPageIndex][state.activeCompIndex].animation
     },
   },
   actions: {
@@ -77,6 +80,10 @@ export const useCoreStore = defineStore('core', {
       if (index == 0) {
         this.moveIndex = 0
       }
+    },
+    // 增加动画
+    addAnimation() {
+      this.carryAn.push(baseAnimation())
     },
   },
 })

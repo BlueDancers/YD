@@ -3,16 +3,38 @@ import { defineComponent, ref } from 'vue-demi';
 import { ElColorPicker } from 'element-plus'
 import css from './index.module.scss';
 import { borderStyleList, fontWeightList, fontAlignList } from '../../common/selectData';
-
+import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant-design/icons-vue'
+import { useBoardStore } from '@/stores/board';
 export default defineComponent({
   components: {
-    ElColorPicker
+    ElColorPicker,
+    AlignCenterOutlined,
+    AlignLeftOutlined,
+    AlignRightOutlined
   },
   setup() {
     const core = useCoreStore()
+    const board = useBoardStore()
     const activeKey = ref([1, 2, 3])
+
+    function fastLayout(type: string) {
+      if (type == 'left') {
+        core.carryCss.left = 0
+      } else if (type == 'center') {
+        core.carryCss.left = (board.width - core.carryCss.width) / 2
+      } else if (type == 'right') {
+        core.carryCss.left = board.width - core.carryCss.width
+      }
+    }
     return () => (
       <a-form class={css.comp_style} label-col={{ style: { width: '80px' } }}>
+        <a-form-item label="快捷布局">
+          <div class="fast_layout">
+            <AlignLeftOutlined class={css.layout_item} onClick={() => fastLayout('left')} />
+            <AlignCenterOutlined class={css.layout_item} onClick={() => fastLayout('center')} />
+            <AlignRightOutlined class={css.layout_item} onClick={() => fastLayout('right')} />
+          </div>
+        </a-form-item>
         <a-collapse v-model={[activeKey.value, 'activeKey']}>
           <a-collapse-panel key={1} header="布局设置" show-arrow={false}>
             <a-form-item label="尺寸">

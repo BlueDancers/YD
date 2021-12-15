@@ -9,6 +9,7 @@ export const useBoardStore = defineStore('board', {
       top: 60, // 具体顶部高度
       left: 50, // 具体左边距离
       scale: 1, // 缩放比例
+      width: 320, // 页面宽度
       height: 560, // 页面高度
       pageDetail: {
         backColor: '#ffffff', // 背景色

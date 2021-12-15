@@ -94,7 +94,7 @@ export default defineComponent({
       let dataUrl = await domtoimage.toJpeg(boardCenterCore, {
         cacheBust: true,
         height: borad.height >= 560 ? 560 : borad.height,
-        width: 320,
+        width: borad.width,
         style: {
           left: '0',
           right: '0',

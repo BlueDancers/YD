@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build --mode production",
+    "build": "vite build --mode production",
     "serve": "vite preview",
     "prepare": "husky install"
   },
@@ -12,6 +12,7 @@
     "@cloudbase/js-sdk": "^1.7.1",
     "@vitejs/plugin-vue-jsx": "^1.1.7",
     "@vueuse/core": "^6.9.1",
+    "animate.css": "^4.1.1",
     "ant-design-vue": "^2.2.5",
     "dom-to-image": "^2.6.0",
     "element-plus": "^1.2.0-beta.3",
