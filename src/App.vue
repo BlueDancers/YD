@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue'
+import { defineComponent } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { cloud } from './modules/request'
 export default defineComponent({

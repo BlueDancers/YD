@@ -1,4 +1,3 @@
-import { inject } from 'vue'
 import { Module } from 'vuex'
 
 const app: Module<any, any> = {

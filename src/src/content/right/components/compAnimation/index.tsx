@@ -1,20 +1,24 @@
 import { useCoreStore } from '@/stores/core';
 import { defineComponent, ref } from 'vue-demi';
+import animationView from './component/animation/index';
 import css from './index.module.scss';
 
 export default defineComponent({
-
+  components: {
+    animationView,
+  },
   setup() {
     const core = useCoreStore()
-    const activeKey = ref([])
+    const showAnima = ref(false)
     function addAn() {
-      core.addAnimation()
+      showAnima.value = true
+      // core.addAnimation()
       console.log(core.carryAn);
     }
     return () => (
       <div class={css.animation}>
         <a-button type="primary" onClick={addAn}>添加动画</a-button>
-        <a-collapse class={css.anima_list} v-model={[activeKey.value, 'activeKey']}>
+        <a-collapse class={css.anima_list}>
           {
             core.carryAn.map((item, index) => (
               <a-collapse-panel key={index} header={'动画' + (index + 1)} show-arrow={false}>
@@ -36,7 +40,7 @@ export default defineComponent({
             ))
           }
         </a-collapse>
-
+        <animationView showAnima={showAnima}></animationView>
       </div>
     )
   }

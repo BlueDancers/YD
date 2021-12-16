@@ -97,7 +97,6 @@ export const animationOptions = [
       }
     ]
   },
-
   {
     label: '渐显进入',
     value: 'Fading Entrances',

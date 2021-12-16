@@ -1,0 +1,22 @@
+.ac_img {
+  position: relative;
+  left: calc(50% - 75px);
+  margin: 10px;
+  width: 150px;
+}
+
+.an_cont {
+  border-top: 1px solid #eee;
+  height: calc(100vh - 260px);
+  overflow-y: scroll;
+
+  .ac_title {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px 0 6px 0px;
+  }
+
+  .ac_item {
+    margin: 4px 6px;
+  }
+}
