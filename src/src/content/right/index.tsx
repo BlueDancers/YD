@@ -19,7 +19,7 @@ export default defineComponent({
       <div class={css.right}>
         {
           (core.pageData.length && core.activeCompIndex != -1) &&
-          <a-tabs class={css.right_header} v-model={[activeKey.value, 'activeKey']} type="card">
+          <a-tabs  v-model={[activeKey.value, 'activeKey']} type="card" class={css.right_header}>
             <a-tab-pane key={1} tab="样式">
               {/* 样式管理 */}
               <compStyle></compStyle>
@@ -33,7 +33,6 @@ export default defineComponent({
               <compAnimation></compAnimation>
             </a-tab-pane>
           </a-tabs>
-
         }
       </div>
     )

@@ -8,15 +8,13 @@ export default defineComponent({
     const carrentClass = ref('')
     const setTime = ref()
     function changShowClass(item) {
-      console.log(item);
-      carrentClass.value = `animate__${item.value}`
+      carrentClass.value = `animate__${item.value.split('_')[1]}`
       clearTimeout(setTime.value)
       setTime.value = setTimeout(() => {
         carrentClass.value = ''
       }, 1500);
     }
     function activeClass(item) {
-      console.log(item);
       emit('setClassName',item.value)
     }
     return () => (
