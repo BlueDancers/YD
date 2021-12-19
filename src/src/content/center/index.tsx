@@ -5,7 +5,7 @@ import { defineComponent, ref } from 'vue'
 import c from './index.module.scss';
 import useListen from './useListen';
 
-import { resetCss, contResetCss, compResetCss } from '@/utils/index'
+import { resetCss, contResetCss, compResetCss, animationFun } from '@/utils/index'
 
 import auxiliaryPoint from '../components/auxiliaryPoint.vue';
 import lineX from '../components/lineX.vue';
@@ -103,7 +103,7 @@ export default defineComponent({
 						{
 							core.pageData.length && core.pageData[core.acPageIndex].map((e, i) => (
 								e.show && <auxiliaryPoint
-									style={contResetCss(e.cssModule)}
+									style={{ ...contResetCss(e.cssModule), ...animationFun(e.animation) }}
 									index={i}
 									id={e.id}
 									activeCompIndex={core.activeCompIndex}

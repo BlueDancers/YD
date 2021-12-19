@@ -67,7 +67,10 @@ export default defineComponent({
     }
     return () => (
       <div class={css.animation}>
-        <a-button type="primary" onClick={addAn}>添加动画</a-button>
+        <div>
+          <a-button type="primary" onClick={addAn}>添加动画</a-button>
+          <a-button type="primary" onClick={addAn}>演示动画</a-button>
+        </div>
         <a-collapse
           class={css.anima_list}
           v-model={[activeKey.value, 'activeKey']}
@@ -81,15 +84,22 @@ export default defineComponent({
                     <a-button onClick={() => toggleAnim(index)} type="primary">{getAminName(core.carryAn[index].animationName)}</a-button>
                   </a-form-item>
                   <a-form-item label="动画时间">
-                    <a-input-number v-model={[core.carryAn[index].animationDuration, 'value']} />
+                    <a-input
+                      class='default_input'
+                      v-model={[core.carryAn[index].animationDuration, 'value']}
+                      suffix={'ms'}
+                    />
                   </a-form-item>
                   <a-form-item label="延迟时间">
-                    <a-input-number v-model={[core.carryAn[index].animationDelay, 'value']} />
+                    <a-input
+                      class='default_input'
+                      v-model={[core.carryAn[index].animationDelay, 'value']}
+                      suffix={'ms'}
+                    />
                   </a-form-item>
-                  <a-form-item label="动画结果">
+                  <a-form-item label="动画次数">
                     <a-input-number v-model={[core.carryAn[index].animationIterationCount, 'value']} />
                   </a-form-item>
-
                 </a-form>
               </a-collapse-panel>
             ))

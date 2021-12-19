@@ -67,6 +67,11 @@ export function contResetCss(data: Object) {
   }
 }
 
+/**
+ * 元素本体样式
+ * @param data
+ * @returns
+ */
 export function compResetCss(data: Object) {
   let newCss = resetCss(data)
   delete newCss.position
@@ -74,6 +79,29 @@ export function compResetCss(data: Object) {
   delete newCss.top
   delete newCss.left
   return newCss
+}
+
+/**
+ * 关于元素的动画的相关计算
+ * @param animation : ;
+ * @returns
+ */
+export function animationFun(animation: any[]) {
+  let animationToDom1 = animation.reduce((item, data, index) => {
+    let datas = deepClone(data)
+    datas.animationName = datas.animationName.split('_')[1]
+    datas.animationDuration = String(datas.animationDuration + 'ms')
+    datas.animationDelay = String(datas.animationDelay + 'ms')
+    if (index != 0) {
+      item += ','
+    }
+    let animaText = `${datas.animationDuration} ease-in ${datas.animationDelay} ${datas.animationIterationCount} running ${datas.animationName}`
+    item += animaText
+    return item
+  }, '')
+  return {
+    animation: animationToDom1,
+  }
 }
 
 /**
