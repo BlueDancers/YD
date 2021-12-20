@@ -1,14 +1,16 @@
 import { useCoreStore } from '@/stores/core';
-import { CaretRightOutlined } from '@ant-design/icons-vue';
+import { deepClone } from '@/utils';
+import { CaretRightOutlined, CloseOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue-demi';
 import animationOptions from './component/animation/animation';
 import animationView from './component/animation/index';
+import { animationFillModeFun, animationTimingFunctionFun } from '../../common/selectData';
 import css from './index.module.scss';
 
 export default defineComponent({
   components: {
     animationView,
-    CaretRightOutlined
+    CaretRightOutlined,
   },
   setup() {
     const core = useCoreStore()
@@ -65,20 +67,42 @@ export default defineComponent({
       activeItem.value = index
       showAnima.value = true
     }
+    /**
+     * 演示动画
+     */
+    function resetAnima() {
+      let carryAn = deepClone(core.carryAn)
+      core.pageData[core.acPageIndex][core.activeCompIndex].animation = []
+      setTimeout(() => {
+        core.pageData[core.acPageIndex][core.activeCompIndex].animation = carryAn
+      }, 0);
+    }
+
+    /**
+     * 删除动画
+     * @param index 
+     */
+    function deleteAnima(event, index) {
+      core.pageData[core.acPageIndex][core.activeCompIndex].animation.splice(index, 1)
+      event.stopPropagation()
+    }
     return () => (
       <div class={css.animation}>
-        <div>
-          <a-button type="primary" onClick={addAn}>添加动画</a-button>
-          <a-button type="primary" onClick={addAn}>演示动画</a-button>
+        <div class={css.anima_btn_cont}>
+          <a-button class={css.anima_btn} type="primary" onClick={addAn}>添加动画</a-button>
+          <a-button class={css.anima_btn} type="primary" onClick={resetAnima}>演示动画</a-button>
         </div>
         <a-collapse
           class={css.anima_list}
           v-model={[activeKey.value, 'activeKey']}
-          expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
         >
           {
             core.carryAn.map((item, index) => (
-              <a-collapse-panel key={index} header={getAminName(core.carryAn[index].animationName)} show-arrow={false}>
+              <a-collapse-panel
+                key={index}
+                header={getAminName(core.carryAn[index].animationName)}
+                extra={<svg-icon onClick={(evt) => deleteAnima(evt, index)} name={'shanchu1'} style={{ width: '16px', height: '16px' }} />}
+              >
                 <a-form label-col={{ style: { width: '80px' } }}>
                   <a-form-item label="选择动画">
                     <a-button onClick={() => toggleAnim(index)} type="primary">{getAminName(core.carryAn[index].animationName)}</a-button>
@@ -99,6 +123,28 @@ export default defineComponent({
                   </a-form-item>
                   <a-form-item label="动画次数">
                     <a-input-number v-model={[core.carryAn[index].animationIterationCount, 'value']} />
+                  </a-form-item>
+                  <a-form-item label="动画模式">
+                    <a-select v-model={[core.carryAn[index].animationFillMode, 'value']} style="width: 120px">
+                      {
+                        animationFillModeFun.map(item => (
+                          <a-select-option key={item.key} value={item.key}>
+                            {item.value}
+                          </a-select-option>
+                        ))
+                      }
+                    </a-select>
+                  </a-form-item>
+                  <a-form-item label="运行速度">
+                    <a-select v-model={[core.carryAn[index].animationTimingFunction, 'value']} style="width: 120px">
+                      {
+                        animationTimingFunctionFun.map(item => (
+                          <a-select-option key={item.key} value={item.key}>
+                            {item.value}
+                          </a-select-option>
+                        ))
+                      }
+                    </a-select>
                   </a-form-item>
                 </a-form>
               </a-collapse-panel>

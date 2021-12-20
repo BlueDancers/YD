@@ -95,7 +95,7 @@ export function animationFun(animation: any[]) {
     if (index != 0) {
       item += ','
     }
-    let animaText = `${datas.animationDuration} ease-in ${datas.animationDelay} ${datas.animationIterationCount} running ${datas.animationName}`
+    let animaText = `${datas.animationName} ${datas.animationDuration} ease-in ${datas.animationDelay} ${datas.animationIterationCount} normal none`
     item += animaText
     return item
   }, '')

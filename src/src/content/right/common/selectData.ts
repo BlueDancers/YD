@@ -140,3 +140,45 @@ export const flexWrapList = [
     value: '不换行',
   },
 ]
+
+export const animationFillModeFun = [
+  {
+    key: 'none', // 正常
+    value: '默认',
+  },
+  {
+    key: 'forwards', // 动画结束后保持最后一帧
+    value: '保持最后一帧',
+  },
+  {
+    key: 'backwards', // 动画开始前保持第一帧
+    value: '保持第一帧',
+  },
+  // {
+  //   key: 'both', // 动画开始前保持第一帧 动画结束后保持最后一帧
+  //   value: 'both',
+  // },
+]
+
+export const animationTimingFunctionFun = [
+  {
+    key: 'linear',
+    value: '匀速',
+  },
+  {
+    key: 'ease',
+    value: '默认',
+  },
+  {
+    key: 'ease-in',
+    value: '逐渐加速',
+  },
+  {
+    key: 'linear',
+    value: '逐渐减速',
+  },
+  {
+    key: 'ease-in-out',
+    value: 'ease-in-out',
+  },
+]

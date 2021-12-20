@@ -202,7 +202,7 @@ function baseComList(name: string, zIndex) {
 
 /**
  * 动画基类
- * @returns 
+ * @returns
  */
 export function baseAnimation() {
   return {
@@ -210,7 +210,8 @@ export function baseAnimation() {
     animationDuration: 1000, // 动画时间
     animationDelay: 0, // 延迟时间
     animationIterationCount: 1, // 动画执行次数
-    animationFillMode: 'both', // 动画停留最后一帧
+    animationFillMode: 'forwards', // 动画停留最后一帧
+    animationTimingFunction: 'ease', // 动画曲线
   }
 }
 
