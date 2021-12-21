@@ -89,7 +89,7 @@ export default defineComponent({
 					style={{
 						left: `${board.left}%`,
 						top: `${board.top}px`,
-						height: `${board.height}px`,
+						height: `${board.pageDetail.height}px`,
 						transform: `translate(-50%, 0%) scale(${board.scale})`,
 						backgroundColor: board.pageDetail.backColor
 					}}

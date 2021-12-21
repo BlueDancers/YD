@@ -69,7 +69,7 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
         break
       case 9:
         // 修改页面高度
-        board.height = board.height + value.y
+        board.pageDetail.height = board.pageDetail.height + value.y
         break
       case 10:
         // 移动元素
@@ -92,6 +92,13 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
     core.isMeta = value || false
   })
   // 空格 按键监听 (未做)
+  document.addEventListener('keyup', (event) => {
+    // 快捷键删除元素
+    if (event.code == 'Delete' && core.activeCompIndex >= 0) {
+      core.pageData[core.acPageIndex].splice(core.activeCompIndex, 1)
+      core.activeCompIndex = -1
+    }
+  })
 
   // 监听 改变页面长度div
   const heightState = useMousePressed({ target: heightTarget })

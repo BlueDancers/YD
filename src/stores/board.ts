@@ -10,9 +10,10 @@ export const useBoardStore = defineStore('board', {
       left: 50, // 具体左边距离
       scale: 1, // 缩放比例
       width: 320, // 页面宽度
-      height: 560, // 页面高度
       pageDetail: {
+        // 非静态数据
         backColor: '#ffffff', // 背景色
+        height: 560, // 页面高度
         disp: '', // 描述
         organizeId: '', // 组织id
         pageType: 1, // 1 长列表 2 多页面

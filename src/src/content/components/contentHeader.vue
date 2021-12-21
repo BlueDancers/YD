@@ -84,6 +84,7 @@ export default defineComponent({
       })
       let updatePageData = useCloud('pageList').doc(borad.pageDetail._id).update({
         tumbUrl: thmbImg,
+        height: borad.pageDetail.height,
       })
       Promise.all([updateDetail, updatePageData]).then((res) => {
         console.log('保存成功', res)
@@ -93,7 +94,7 @@ export default defineComponent({
       let boardCenterCore: any = document.querySelector('.board_center_core')
       let dataUrl = await domtoimage.toJpeg(boardCenterCore, {
         cacheBust: true,
-        height: borad.height >= 560 ? 560 : borad.height,
+        height: borad.pageDetail.height >= 560 ? 560 : borad.pageDetail.height,
         width: borad.width,
         style: {
           left: '0',
