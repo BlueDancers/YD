@@ -27,6 +27,9 @@ export const useCoreStore = defineStore('core', {
     carryAn: (state): any[] => {
       return state.pageData[state.acPageIndex][state.activeCompIndex].animation
     },
+    carryConfig: (state) => {
+      return state.pageData[state.acPageIndex][state.activeCompIndex].staticData
+    },
   },
   actions: {
     addPage() {

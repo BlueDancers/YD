@@ -9,7 +9,7 @@ export default defineComponent({
       console.log(props.compData);
     })
     return (props) => (
-      <img style={compResetCss(props.compData.cssModule)} src={props.compData.staticData.src} />
+      <img style={compResetCss(props.compData.cssModule)} src={props.compData.staticData.imglUrl} />
     )
   }
 })

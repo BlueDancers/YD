@@ -90,7 +90,9 @@ export default defineComponent({
       <div class={css.animation}>
         <div class={css.anima_btn_cont}>
           <a-button class={css.anima_btn} type="primary" onClick={addAn}>添加动画</a-button>
-          <a-button class={css.anima_btn} type="primary" onClick={resetAnima}>演示动画</a-button>
+          {
+            core.carryAn.length > 0 && <a-button class={css.anima_btn} type="primary" onClick={resetAnima}>演示动画</a-button>
+          }
         </div>
         <a-collapse
           class={css.anima_list}

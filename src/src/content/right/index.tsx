@@ -24,7 +24,7 @@ export default defineComponent({
               {/* 样式管理 */}
               <compStyle></compStyle>
             </a-tab-pane>
-            <a-tab-pane key={2} tab="行为">
+            <a-tab-pane key={2} tab="设置">
               {/* 行为管理 */}
               <compAction></compAction>
             </a-tab-pane>

@@ -68,6 +68,11 @@ export default defineComponent({
   user-select: none;
 }
 
+.lang_input {
+  width: 200px !important;
+  margin: 0 2px !important;
+}
+
 .default_input {
   width: 100px !important;
   margin: 0 2px !important;

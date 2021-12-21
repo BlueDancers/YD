@@ -9,7 +9,7 @@ export default defineComponent({
       console.log(props.compData);
     })
     return (props) => (
-      <button style={compResetCss(props.compData.cssModule)}>{props.compData.staticData.value}</button>
+      <button style={compResetCss(props.compData.cssModule)}>{props.compData.staticData.btnValue}</button>
     )
   }
 })

@@ -9,7 +9,7 @@ export default defineComponent({
       console.log(props.compData);
     })
     return (props) => (
-      <p style={compResetCss(props.compData.cssModule)} v-html={props.compData.staticData.value}></p>
+      <p style={compResetCss(props.compData.cssModule)} v-html={props.compData.staticData.text.replace(/\n|\r\n/g, '<br>')}></p>
     )
   }
 })

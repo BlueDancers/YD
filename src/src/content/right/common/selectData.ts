@@ -182,3 +182,21 @@ export const animationTimingFunctionFun = [
     value: 'ease-in-out',
   },
 ]
+
+/**
+ * 链接选项
+ */
+export const linkDataFun = [
+  {
+    key: '0',
+    value: '无行为',
+  },
+  {
+    key: '1',
+    value: '链接地址',
+  },
+  {
+    key: '2',
+    value: '电话',
+  },
+]

@@ -75,9 +75,8 @@ export interface baseComponent {
   show: boolean
   cssModule: any
   staticData: any
-  configuration: any
   function: any
-  animation?: any[]
+  animation: any[]
 }
 
 /**
@@ -100,10 +99,9 @@ function baseComList(name: string, zIndex) {
         ...compSize(50, 30),
         'background-color': '#eeeeee',
       }, // 样式
-      staticData: {},
-      configuration: {
-        externalUrl: '',
-      }, // 行为
+      staticData: {
+        ...linkData(),
+      },
       function: {}, // 方法
       animation: [], // 动画
     },
@@ -124,12 +122,11 @@ function baseComList(name: string, zIndex) {
         'font-size': 14,
       }, // 样式
       staticData: {
-        value: '按钮',
-      }, // 展示文字
-      configuration: {
-        externalUrl: '',
-      }, // 行为
+        btnValue: '按钮',
+        ...linkData(),
+      }, // 静态配置
       function: {}, // 方法
+      animation: [], // 动画
     },
     {
       id: guid(),
@@ -144,12 +141,12 @@ function baseComList(name: string, zIndex) {
         'background-color': '#ffffff00',
       }, // 样式
       staticData: {
-        src: 'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/%E7%B4%A0%E6%9D%90.png?sign=25d2c8158d6163417af8608cca0ade96&t=1639301025',
-      }, // 展示文字
-      configuration: {
-        externalUrl: '',
+        imglUrl:
+          'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/%E7%B4%A0%E6%9D%90.png?sign=25d2c8158d6163417af8608cca0ade96&t=1639301025',
+        ...linkData(),
       }, // 行为
       function: {}, // 方法
+      animation: [], // 动画
     },
     {
       id: guid(),
@@ -171,8 +168,8 @@ function baseComList(name: string, zIndex) {
         type: 'text',
         placeholder: '请输入文字',
       }, // 展示文字
-      configuration: {}, // 行为
       function: {}, // 方法
+      animation: [], // 动画
     },
     {
       id: guid(),
@@ -185,16 +182,17 @@ function baseComList(name: string, zIndex) {
         ...padAndMar(),
         ...compSize(100, 20),
         'font-weight': 'normal',
-        'text-align': 'center',
+        'text-align': 'left',
         'background-color': '#ffffff',
         'font-size': 14,
+        'text-aligin': 'left',
         color: '#000000',
       }, // 样式
       staticData: {
-        value: '<p>一段文本</p>',
+        text: '一段文本',
       }, // 展示文字
-      configuration: {}, // 行为
       function: {}, // 方法
+      animation: [], // 动画
     },
   ]
   return list.find((e) => e.name == name)
@@ -242,6 +240,17 @@ function borderData() {
     'border-width': 0,
     'border-style': 'solid',
     'border-radius': 0,
+  }
+}
+/**
+ * 行为封装
+ * @returns
+ */
+function linkData() {
+  return {
+    linkType: '0', // 0 无行为 '1' 跳转链接 '2' 电话
+    link: '', // 链接地址
+    phone: '', // 电话地址
   }
 }
 
