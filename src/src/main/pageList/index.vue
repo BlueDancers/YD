@@ -181,17 +181,19 @@ export default defineComponent({
     }
     // 删除页面
     async function gotoDelete(data) {
+      console.log(data, store.userData)
+
+      await useCloud('pageList')
+        .where({ _id: data._id })
+        .remove()
+        .then(() => {
+          message.success('删除成功~')
+          init()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
       if (store.userData.uid == data._openid) {
-        await useCloud('pageList')
-          .where({ _id: data._id })
-          .remove()
-          .then(() => {
-            message.success('删除成功~')
-            init()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
       } else {
         message.error('不可以删除别人创建的哦')
       }

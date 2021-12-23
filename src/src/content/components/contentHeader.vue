@@ -82,9 +82,14 @@ export default defineComponent({
       let updateDetail = useCloud('pageDetails').doc(borad.pageDataId).update({
         content: core.pageData,
       })
+
       let updatePageData = useCloud('pageList').doc(borad.pageDetail._id).update({
         tumbUrl: thmbImg,
         height: borad.pageDetail.height,
+        router: borad.pageDetail.router,
+        routerName: borad.pageDetail.routerName,
+        disp: borad.pageDetail.disp,
+        backColor: borad.pageDetail.backColor,
       })
       Promise.all([updateDetail, updatePageData]).then((res) => {
         console.log('保存成功', res)

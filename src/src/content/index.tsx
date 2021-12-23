@@ -1,4 +1,4 @@
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, onUnmounted } from 'vue';
 
 import contentHeader from './components/contentHeader.vue'
 import contentLeft from './left/index.vue'
@@ -7,6 +7,8 @@ import contentCenter from './center/index'
 import './index.scss';
 import { useRoute } from 'vue-router';
 import { useBoardStore } from '@/stores/board';
+import { useCoreStore } from '@/stores/core';
+import { useLineStore } from '@/stores/line';
 
 export default defineComponent({
   components: {
@@ -16,8 +18,15 @@ export default defineComponent({
     // 监听键盘
     const route = useRoute()
     const board = useBoardStore()
+    const core = useCoreStore()
+    const line = useLineStore()
     onMounted(() => {
       board.getPageData(route.query.id)
+    })
+    onUnmounted(() => {
+      board.$reset()
+      core.$reset()
+      line.$reset()
     })
     return () => (
       <div class="content">
