@@ -48,7 +48,7 @@ import 'ant-design-vue/es/message/style/index'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useBoardStore } from '@/stores/board'
 import { useCoreStore } from '@/stores/core'
-import { imgToFile, imgToStorage } from '@/utils'
+import { deepClone, imgToFile, imgToStorage } from '@/utils'
 export default defineComponent({
   components: {
     QrcodeOutlined,
@@ -78,10 +78,14 @@ export default defineComponent({
     async function saveCarryPage() {
       let thmbImg
       if (board.pageDetail.pageType == 1) {
-        // 单页面动态生成
+        // 单页面动态生成当前页面
         thmbImg = [await getThumbnail()]
       } else {
-        // 多页面直接取值
+        // 多页面动态生成当前下标页面
+        let oldIndex = deepClone(core.acPageIndex)
+        let url = await getManyThmb()
+        board.pageDetail.tumbUrl[oldIndex] = url
+        
         thmbImg = board.pageDetail.tumbUrl
       }
 
@@ -105,6 +109,11 @@ export default defineComponent({
     async function getThumbnail() {
       let file = await imgToFile(board)
       let url = await imgToStorage(file, board.pageDataId, 'pagePhoto')
+      return url
+    }
+    async function getManyThmb() {
+      let file = await imgToFile(board)
+      let url = await imgToStorage(file, `${board.pageDataId}_thmb_${core.acPageIndex}`, 'thmbImg')
       return url
     }
     return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }

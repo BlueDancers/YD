@@ -58,7 +58,7 @@ export default defineComponent({
         }
       }
     )
-    const selectedKeys = ref(1)
+    const selectedKeys = ref(0)
     const leftMenu = reactive([
       {
         key: 0,

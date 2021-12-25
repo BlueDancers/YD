@@ -19,7 +19,7 @@
             </a-menu>
           </template>
         </a-dropdown>
-        <img class="item_img" v-if="item.tumbUrl" :src="`${item.tumbUrl}?t=${new Date().getTime()}`" />
+        <img class="item_img" v-if="item.tumbUrl.length" :src="`${item.tumbUrl[0]}?t=${new Date().getTime()}`" />
         <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
         <!-- 未悬浮 -->
@@ -154,7 +154,7 @@ export default defineComponent({
         organizeId: route.query.id, // 群组id
         tumbUrl: [], // 缩略图(存在多个)
         backColor: '#ffffff',
-        height: 720,
+        height: 700,
         ...newPageState,
       })
       console.log('页面数据填充完成')
