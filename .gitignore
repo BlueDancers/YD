@@ -4,5 +4,7 @@ dist
 dist-ssr
 *.local
 yc
+/build
+yd.upload.js
 
 comp.json

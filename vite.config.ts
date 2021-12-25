@@ -4,24 +4,35 @@ import path from 'path'
 import ElementPlus from 'unplugin-element-plus/vite'
 const prefix = `monaco-editor/esm/vs`
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import Components from 'unplugin-vue-components/vite'
+import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), ElementPlus(), vueJsx()],
+  plugins: [
+    vue(),
+    ElementPlus(),
+    vueJsx(),
+    Components({
+      resolvers: [AntDesignVueResolver(), ElementPlusResolver()],
+      include: [/\.vue$/, /\.vue\?vue/,/\.tsx$/],
+    }),
+  ],
   server: {
     host: '0.0.0.0',
   },
-  base: '/yc/',
+  // base: '/yc/',
   build: {
     outDir: 'yc',
     rollupOptions: {
-      output: {
-        manualChunks: {
-          jsonWorker: [`${prefix}/language/json/json.worker`],
-          htmlWorker: [`${prefix}/language/json/html.worker`],
-          cssWorker: [`${prefix}/language/json/css.worker`],
-          editorWorker: [`${prefix}/editor/editor.worker`],
-        },
-      },
+      // output: {
+      //   name: 'monacoBundle',
+      //   manualChunks: {
+      //     jsonWorker: [`${prefix}/language/json/json.worker`],
+      //     cssWorker: [`${prefix}/language/json/css.worker`],
+      //     editorWorker: [`${prefix}/editor/editor.worker`],
+      //   },
+      // },
     },
   },
   resolve: {
