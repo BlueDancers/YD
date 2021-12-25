@@ -103,7 +103,9 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   // 监听 改变页面长度div
   const heightState = useMousePressed({ target: heightTarget })
   watch(heightState.pressed, (value) => {
-    core.changeMoveIndex(value ? 9 : 0)
+    if (heightTarget.value) {
+      core.changeMoveIndex(value ? 9 : 0)
+    }
   })
   // 监听 模板鼠标按下
   const coreState = useMousePressed({ target: boardTarget })

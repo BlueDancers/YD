@@ -39,11 +39,11 @@ const routes: RouteRecordRaw[] = [
     name: 'content',
     component: () => import('../src/content/index'),
   },
-  {
-    path: '/content1',
-    name: 'content1',
-    component: () => import('../src/content1/index.vue'),
-  },
+  // {
+  //   path: '/content1',
+  //   name: 'content1',
+  //   component: () => import('../src/content1/index.vue'),
+  // },
 ]
 
 export const router = createRouter({

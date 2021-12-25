@@ -23,13 +23,17 @@ export default defineComponent({
      */
     function changePageIndex(index) {
       core.acPageIndex = index
-      core.activeCompIndex = -1
+      core.resetCompActive()
     }
     function dragStart(evt) {
-
+      core.resetCompActive()
     }
     function dragEnd(evt) {
-      core.acPageIndex = evt.newIndex
+      if (core.acPageIndex == evt.oldIndex) {
+        core.acPageIndex = evt.newIndex
+      } else if (core.acPageIndex == evt.newIndex) {
+        core.acPageIndex = evt.oldIndex
+      }
     }
     function deletePage(index) {
       core.pageData.splice(index, 1)

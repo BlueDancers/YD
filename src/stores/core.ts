@@ -33,7 +33,12 @@ export const useCoreStore = defineStore('core', {
   },
   actions: {
     addPage() {
+      this.resetCompActive()
       this.pageData.push([])
+    },
+    resetCompActive() {
+      this.activeCompIndex = -1
+      this.hoverCompIndex = -1
     },
     addComp(name: string, css?) {
       let maxzIndex = 0

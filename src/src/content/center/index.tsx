@@ -121,12 +121,17 @@ export default defineComponent({
 							))
 						}
 					</>
-					<div ref={heightCore} class={c.add_height} style={{
-						top: `100%`,
-						left: `0`,
-					}}>
-						<svg-icon style={{ width: '20px', height: '12px' }} name="tuozhuaicaidandaohang"></svg-icon>
-					</div>
+					{/* 底部拖动 */}
+					{
+						board.pageDetail.pageType == 1 && <div ref={heightCore} class={c.add_height} style={{
+							top: `100%`,
+							left: `0`,
+						}}>
+							<svg-icon style={{ width: '20px', height: '12px' }} name="tuozhuaicaidandaohang"></svg-icon>
+						</div>
+					}
+					{/* 滚动页面 高度提示 */}
+					<div class={c.assist_1}>全面屏</div>
 				</div>
 			</div >
 		)
