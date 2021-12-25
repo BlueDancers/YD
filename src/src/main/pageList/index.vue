@@ -19,7 +19,7 @@
             </a-menu>
           </template>
         </a-dropdown>
-        <img class="item_img" v-if="item.tumbUrl" :src="item.tumbUrl" />
+        <img class="item_img" v-if="item.tumbUrl" :src="`${item.tumbUrl}?t=${new Date().getTime()}`" />
         <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
         <!-- 未悬浮 -->
@@ -152,7 +152,7 @@ export default defineComponent({
       }
       let listRes: any = await useCloud('pageList').add({
         organizeId: route.query.id, // 群组id
-        tumbUrl: '', // 缩略图
+        tumbUrl: [], // 缩略图(存在多个)
         backColor: '#ffffff',
         height: 720,
         ...newPageState,
@@ -260,6 +260,7 @@ export default defineComponent({
       .item_img {
         border-radius: 4px;
         height: 200px;
+        max-width: 200px;
         margin: 4px 0;
         object-fit: cover;
       }

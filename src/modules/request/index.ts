@@ -10,7 +10,7 @@ const cloud = cloudbase.init({
  * @param filePath
  * @returns
  */
-function uploadFile(cloudPath, filePath) {
+function uploadFile(cloudPath, filePath): Promise<string> {
   return new Promise((resolve, reject) => {
     cloud
       .uploadFile({

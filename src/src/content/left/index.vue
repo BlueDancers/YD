@@ -16,10 +16,10 @@
         <span class="svg_text">{{ item.text }}</span>
       </div>
     </div>
-    <!-- 页面管理数据 -->
-    <page-list v-if="selectedKeys == 0"></page-list>
     <!-- 可用组件 -->
-    <comp-list v-if="selectedKeys == 1"></comp-list>
+    <comp-list v-if="selectedKeys == 0"></comp-list>
+    <!-- 页面管理数据 -->
+    <page-list v-if="selectedKeys == 1"></page-list>
     <!-- 组件层级 -->
     <page-comp-list v-if="selectedKeys == 2"></page-comp-list>
     <!-- 项目设置 -->
@@ -49,19 +49,19 @@ export default defineComponent({
       () => board.pageDetail.pageType,
       () => {
         if (board.pageDetail.pageType == 2) {
-          leftMenu.unshift({
-            key: 0,
+          leftMenu.splice(1, 0, {
+            key: 1,
             text: '页面管理',
             icon: 'luoji',
           })
-          selectedKeys.value = 0
+          selectedKeys.value = 1
         }
       }
     )
     const selectedKeys = ref(1)
     const leftMenu = reactive([
       {
-        key: 1,
+        key: 0,
         text: '可用组件',
         icon: 'zujian',
       },

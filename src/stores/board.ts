@@ -19,7 +19,7 @@ export const useBoardStore = defineStore('board', {
         pageType: 1, // 1 长列表 2 多页面
         router: '11', // 客户端路由
         routerName: '11', // 网页名称
-        tumbUrl: '', // 缩略图
+        tumbUrl: [] as string[], // 缩略图
         _id: '', // 当前页面合计id 合计中不包含数据
         _openid: '', // 用户openid
       },

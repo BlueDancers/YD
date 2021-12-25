@@ -1,3 +1,6 @@
+import { uploadFile } from '@/modules/request'
+import domtoimage from 'dom-to-image'
+
 /**
  * 生成随机id
  */
@@ -230,4 +233,39 @@ export function translateBase64ImgToBlob(base64, contentType) {
   blobImg.url = URL.createObjectURL(blob) //创建URL
   blobImg.name = new Date().getTime() + '.png'
   return blobImg
+}
+
+/**
+ *
+ * @param param0 borad 页面数据 fileName 图片名称 fileDir 存放位置
+ * @returns
+ */
+export async function imgToFile(board) {
+  let boardCenterCore: any = document.querySelector('.board_center_core')
+  let dataUrl = await domtoimage.toJpeg(boardCenterCore, {
+    cacheBust: true,
+    height: board.pageDetail.height >= 560 ? 560 : board.pageDetail.height,
+    width: board.width,
+    style: {
+      left: '0',
+      right: '0',
+      bottom: '0',
+      top: '0',
+      transform: 'translate(0%, 0%) scale(1)',
+    },
+  })
+  return dataUrl
+}
+
+/**
+ * 上传图片到服务端
+ * @param dataUrl 图片base64
+ * @param fileName 文件名称
+ * @param fileDir 文件存在文件夹
+ * @returns
+ */
+export async function imgToStorage(dataUrl, fileName, fileDir) {
+  let file: any = dataURLtoFile(dataUrl, `${fileName}.jpg`)
+  let url = await uploadFile(`${fileDir}/${file.name}`, file)
+  return url
 }

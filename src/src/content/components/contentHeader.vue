@@ -44,13 +44,11 @@ import { defineComponent } from 'vue'
 import { QrcodeOutlined, ReadOutlined, GithubOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
+import 'ant-design-vue/es/message/style/index'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useBoardStore } from '@/stores/board'
 import { useCoreStore } from '@/stores/core'
-import html2canvas from 'html2canvas'
-import domtoimage from 'dom-to-image'
-import { dataURLtoFile, getRandom } from '@/utils'
-import { uploadFile } from '@/modules/request'
+import { imgToFile, imgToStorage } from '@/utils'
 export default defineComponent({
   components: {
     QrcodeOutlined,
@@ -59,7 +57,7 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-    let borad = useBoardStore()
+    let board = useBoardStore()
     let core = useCoreStore()
     function gotoHome() {
       router.replace({
@@ -78,41 +76,35 @@ export default defineComponent({
     function jsonProcessor() {}
     // 保存页面组件数据
     async function saveCarryPage() {
-      let thmbImg = await getThumbnail()
-      let updateDetail = useCloud('pageDetails').doc(borad.pageDataId).update({
+      let thmbImg
+      if (board.pageDetail.pageType == 1) {
+        // 单页面动态生成
+        thmbImg = [await getThumbnail()]
+      } else {
+        // 多页面直接取值
+        thmbImg = board.pageDetail.tumbUrl
+      }
+
+      let updateDetail = useCloud('pageDetails').doc(board.pageDataId).update({
         content: core.pageData,
       })
 
-      let updatePageData = useCloud('pageList').doc(borad.pageDetail._id).update({
+      let updatePageData = useCloud('pageList').doc(board.pageDetail._id).update({
         tumbUrl: thmbImg,
-        height: borad.pageDetail.height,
-        router: borad.pageDetail.router,
-        routerName: borad.pageDetail.routerName,
-        disp: borad.pageDetail.disp,
-        backColor: borad.pageDetail.backColor,
+        height: board.pageDetail.height,
+        router: board.pageDetail.router,
+        routerName: board.pageDetail.routerName,
+        disp: board.pageDetail.disp,
+        backColor: board.pageDetail.backColor,
       })
       Promise.all([updateDetail, updatePageData]).then((res) => {
-        console.log('保存成功', res)
+        console.log(res)
+        message.success('保存成功')
       })
     }
     async function getThumbnail() {
-      let boardCenterCore: any = document.querySelector('.board_center_core')
-      let dataUrl = await domtoimage.toJpeg(boardCenterCore, {
-        cacheBust: true,
-        height: borad.pageDetail.height >= 560 ? 560 : borad.pageDetail.height,
-        width: borad.width,
-        style: {
-          left: '0',
-          right: '0',
-          bottom: '0',
-          top: '0',
-          transform: 'translate(0%, 0%) scale(1)',
-        },
-      })
-      let file: any = dataURLtoFile(dataUrl, `${borad.pageDataId}_${getRandom(1000, 1000000)}.jpg`)
-      let url = await uploadFile(`pagePhoto/${file.name}`, file)
-      console.log(url)
-
+      let file = await imgToFile(board)
+      let url = await imgToStorage(file, board.pageDataId, 'pagePhoto')
       return url
     }
     return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }
