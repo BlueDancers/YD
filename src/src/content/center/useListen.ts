@@ -8,7 +8,7 @@ import { watch } from 'vue'
 
 export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   function _carrentCss() {
-    return core.pageData[core.acPageIndex][core.activeCompIndex].cssModule
+    return core.pageData[core.acPageIndex].dom[core.activeCompIndex].cssModule
   }
 
   const board = useBoardStore()
@@ -95,7 +95,7 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   document.addEventListener('keyup', (event) => {
     // 快捷键删除元素
     if (event.code == 'Delete' && core.activeCompIndex >= 0) {
-      core.pageData[core.acPageIndex].splice(core.activeCompIndex, 1)
+      core.pageData[core.acPageIndex].dom.splice(core.activeCompIndex, 1)
       core.activeCompIndex = -1
     }
   })

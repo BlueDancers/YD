@@ -27,13 +27,13 @@ export default defineComponent({
 
     // 获取被翻转后的下标
     function _reverseIndex(id) {
-      return core.pageData[core.acPageIndex].findIndex(e => e.id == id)
+      return core.pageData[core.acPageIndex].dom.findIndex(e => e.id == id)
     }
 
     // 将dom结构进行翻转
     let reverseData: Ref<any[]> = computed({
-      get: () => core.pageData[core.acPageIndex],
-      set: val => core.pageData[core.acPageIndex] = val
+      get: () => core.pageData[core.acPageIndex].dom,
+      set: val => core.pageData[core.acPageIndex].dom = val
     })
 
     function dragStart(evt) {

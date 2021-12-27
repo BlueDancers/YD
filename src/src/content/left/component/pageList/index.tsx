@@ -1,4 +1,4 @@
-import { useCoreStore } from '@/stores/core';
+import { pageDataItem, useCoreStore } from '@/stores/core';
 import { defineComponent, onMounted } from 'vue'
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
@@ -23,16 +23,21 @@ export default defineComponent({
      * 切换页面
      * @param index 
      */
-    async function changePageIndex(index) {
+    async function changePageIndex(item, index) {
+      console.log('触发了切换页面?', item);
       if (core.acPageIndex != index) {
         // 存储当前要生成缩略图的下标
-        let oldIndex = deepClone(core.acPageIndex)
+        // let oldIndex = deepClone(core.acPageIndex)
+        // core.resetCompActive()
+        // let file = await imgToFile(board)
+        // core.acPageIndex = index
+        // let url = await imgToStorage(file, `${board.pageDataId}_thmb&${item.id}&`, 'thmbImg')
+        // board.pageDetail.tumbUrl[oldIndex] = url
+        // console.log(board.pageDetail.tumbUrl);
+
+
         core.resetCompActive()
-        let file = await imgToFile(board)
         core.acPageIndex = index
-        let url = await imgToStorage(file, `${board.pageDataId}_thmb_${core.acPageIndex}`, 'thmbImg')
-        board.pageDetail.tumbUrl[oldIndex] = url
-        console.log(board.pageDetail.tumbUrl);
       }
     }
     function dragStart(evt) {
@@ -49,7 +54,7 @@ export default defineComponent({
       core.pageData.splice(index, 1)
     }
     function insertPage(index) {
-      core.pageData.splice(index, 0, [])
+      core.pageData.splice(index, 0, pageDataItem())
     }
     return () => (
       <div class={css.page_list}>
@@ -61,10 +66,13 @@ export default defineComponent({
         <draggable class={css.page_main} v-model={[core.pageData]} animation={300} onStart={dragStart} onEnd={dragEnd}>
           {
             core.pageData.map((item, index) => (
-              <div class={[css.page_item, index == core.acPageIndex ? css.active_item : '']} onClick={() => changePageIndex(index)}>
+              <div
+                class={[css.page_item, index == core.acPageIndex ? css.active_item : '']}
+                onClick={() => changePageIndex(item, index)}
+              >
                 <div class={css.item_index}>{index + 1}</div>
                 {
-                  board.pageDetail.tumbUrl[index] ? (
+                  board.pageDetail.tumbUrl.filter(e => e.split('&')[1] == item.id).length > 0 ? (
                     <img class={css.item_core} src={`${board.pageDetail.tumbUrl[index]}?t=${new Date().getTime()}`} />
                   ) : (
                     <div class={[css.item_core, index == core.acPageIndex ? css.active_core : '']} > </div>

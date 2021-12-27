@@ -82,11 +82,12 @@ export default defineComponent({
         thmbImg = [await getThumbnail()]
       } else {
         // 多页面动态生成当前下标页面
-        let oldIndex = deepClone(core.acPageIndex)
-        let url = await getManyThmb()
-        board.pageDetail.tumbUrl[oldIndex] = url
-        
-        thmbImg = board.pageDetail.tumbUrl
+        // let oldIndex = deepClone(core.acPageIndex)
+        // let url = await getManyThmb()
+        // board.pageDetail.tumbUrl[oldIndex] = url
+        // console.log(board.pageDetail.tumbUrl);
+        // thmbImg = board.pageDetail.tumbUrl
+        thmbImg = [await getThumbnail()]
       }
 
       let updateDetail = useCloud('pageDetails').doc(board.pageDataId).update({
@@ -113,7 +114,7 @@ export default defineComponent({
     }
     async function getManyThmb() {
       let file = await imgToFile(board)
-      let url = await imgToStorage(file, `${board.pageDataId}_thmb_${core.acPageIndex}`, 'thmbImg')
+      let url = await imgToStorage(file, `${board.pageDataId}_thmb&${core.carryPageComp.id}&`, 'thmbImg')
       return url
     }
     return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }

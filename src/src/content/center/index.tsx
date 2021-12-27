@@ -101,7 +101,7 @@ export default defineComponent({
 					{/* 正式数据 */}
 					<>
 						{
-							core.pageData.length && core.pageData[core.acPageIndex].map((e, i) => (
+							core.pageData.length && core.pageData[core.acPageIndex].dom.map((e, i) => (
 								e.show && <auxiliaryPoint
 									style={{ ...contResetCss(e.cssModule), ...animationFun(e.animation) }}
 									index={i}

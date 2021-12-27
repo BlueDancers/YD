@@ -16,7 +16,7 @@ export default defineComponent({
       const hideMessage = message.loading('上传中...', 0);
       let file = event.target.files[0]
       let url = await uploadFile(`imgPhoto/${file.name}_${Date.now()}`, file)
-      core.pageData[core.acPageIndex][core.activeCompIndex].staticData.imglUrl = url
+      core.pageData[core.acPageIndex].dom[core.activeCompIndex].staticData.imglUrl = url
       hideMessage()
     }
     return () => (

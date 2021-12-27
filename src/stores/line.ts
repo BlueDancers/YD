@@ -22,11 +22,11 @@ export const useLineStore = defineStore('line', {
       this.offestY = left
       this.offestX = top
       // 获取全部元素(去除自己)
-      let list: any[] = deepClone(core.carryPageComp)
-      list.splice(core.activeCompIndex, 1)
+      let list: any = deepClone(core.carryPageComp)
+      list.dom.splice(core.activeCompIndex, 1)
       let lineXList: number[] = []
       let lineYList: number[] = []
-      list.map((res) => {
+      list.dom.map((res) => {
         lineXList.push(res.cssModule.top)
         lineXList.push(res.cssModule.top + res.cssModule.height)
         lineXList.push(res.cssModule.top + res.cssModule.height / 2)

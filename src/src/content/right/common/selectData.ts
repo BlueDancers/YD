@@ -144,20 +144,20 @@ export const flexWrapList = [
 export const animationFillModeFun = [
   {
     key: 'none', // 正常
-    value: '默认',
-  },
-  {
-    key: 'forwards', // 动画结束后保持最后一帧
-    value: '保持最后一帧',
+    value: '仅过程生效',
   },
   {
     key: 'backwards', // 动画开始前保持第一帧
-    value: '保持第一帧',
+    value: '动画初始生效',
   },
-  // {
-  //   key: 'both', // 动画开始前保持第一帧 动画结束后保持最后一帧
-  //   value: 'both',
-  // },
+  {
+    key: 'forwards', // 动画结束后保持最后一帧
+    value: '动画结束生效',
+  },
+  {
+    key: 'both', // 动画开始前保持第一帧 动画结束后保持最后一帧
+    value: '动画全程生效',
+  },
 ]
 
 export const animationTimingFunctionFun = [
