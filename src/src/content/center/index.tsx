@@ -5,7 +5,7 @@ import { defineComponent, ref } from 'vue'
 import c from './index.module.scss';
 import useListen from './useListen';
 
-import { resetCss, contResetCss, compResetCss, animationFun } from '@/utils/index'
+import { contResetCss, animationFun } from '@/utils/index'
 
 import auxiliaryPoint from '../components/auxiliaryPoint.vue';
 import lineX from '../components/lineX.vue';
@@ -16,6 +16,7 @@ import Yimg from './component/Yimg';
 import Yp from './component/Yp';
 import Yinput from './component/Yinput';
 import { useLineStore } from '@/stores/line';
+import { useOtherStore } from '@/stores/other';
 
 
 export default defineComponent({
@@ -34,6 +35,7 @@ export default defineComponent({
 		const board = useBoardStore()
 		const core = useCoreStore()
 		const line = useLineStore()
+		const other = useOtherStore()
 		const boardCore = ref()
 		const heightCore = ref()
 
@@ -79,6 +81,13 @@ export default defineComponent({
 			core.hoverCompIndex = -1
 			evt.preventDefault()
 		}
+
+		function handleLeft(data) {
+			console.log(data.key);
+			rightHandleFun(data.key, { core, other })
+
+
+		}
 		return () => (
 			<div id={c.center_core} ref={boardCore} class="board_center">
 				<lineX></lineX>
@@ -102,22 +111,28 @@ export default defineComponent({
 					<>
 						{
 							core.pageData.length && core.pageData[core.acPageIndex].dom.map((e, i) => (
-								e.show && <auxiliaryPoint
-									style={{ ...contResetCss(e.cssModule), ...animationFun(e.animation) }}
-									index={i}
-									id={e.id}
-									activeCompIndex={core.activeCompIndex}
-									hoverCompIndex={core.hoverCompIndex}
-									onMousedown={(evt) => mouseDown(evt, i)}
-									onMouseover={evt => mouseOver(evt, i)}
-									onMouseout={evt => mouseOut(evt)}
+								e.show &&
+								<a-dropdown
+									trigger={"['contextmenu']"}
+									overlay={rightHandle(handleLeft)}
 								>
-									{e.name == 'y-div' && <Ydiv compData={e} />}
-									{e.name == 'y-button' && <Ybutton compData={e} />}
-									{e.name == 'y-img' && <Yimg compData={e} />}
-									{e.name == 'y-p' && <Yp compData={e} />}
-									{e.name == 'y-input' && <Yinput compData={e} />}
-								</auxiliaryPoint>
+									<auxiliaryPoint
+										style={{ ...contResetCss(e.cssModule), ...animationFun(e.animation) }}
+										index={i}
+										id={e.id}
+										activeCompIndex={core.activeCompIndex}
+										hoverCompIndex={core.hoverCompIndex}
+										onMousedown={(evt) => mouseDown(evt, i)}
+										onMouseover={evt => mouseOver(evt, i)}
+										onMouseout={evt => mouseOut(evt)}
+									>
+										{e.name == 'y-div' && <Ydiv compData={e} />}
+										{e.name == 'y-button' && <Ybutton compData={e} />}
+										{e.name == 'y-img' && <Yimg compData={e} />}
+										{e.name == 'y-p' && <Yp compData={e} />}
+										{e.name == 'y-input' && <Yinput compData={e} />}
+									</auxiliaryPoint>
+								</a-dropdown>
 							))
 						}
 					</>
@@ -145,3 +160,77 @@ export default defineComponent({
 	// mouseout：鼠标移出目标的上方。
 	// mousemove：鼠标在目标的上方移动。
 })
+
+/**
+ * 右击菜单
+ * @param callback 
+ * @returns 
+ */
+function rightHandle(callback) {
+	return (
+		<a-menu onClick={callback}>
+			<a-menu-item key={1}>
+				复制
+			</a-menu-item>
+			<a-menu-item key={2}>
+				粘贴
+			</a-menu-item>
+			<a-menu-item key={3}>
+				锁定
+			</a-menu-item>
+			<a-menu-item key={4}>
+				删除
+			</a-menu-item>
+			<a-menu-item key={5}>
+				样式
+			</a-menu-item>
+			<a-menu-item key={6}>
+				事件
+			</a-menu-item>
+			<a-menu-item key={7}>
+				动画
+			</a-menu-item>
+
+		</a-menu>
+	)
+}
+
+/**
+ * 右击事件
+ * @param key 
+ * @param param1 
+ */
+function rightHandleFun(key, { core, other }) {
+	switch (key) {
+		case 1:
+			let activeComp = core.carryPageComp.dom.filter((e, i) => i == core.activeCompIndex)
+			other.pushData(activeComp)
+			break;
+		case 2:
+			console.log('粘贴');
+			other.pasteComp()
+			break;
+		case 3:
+			console.log('锁定');
+			core.lockComp(core.carryPageComp.dom[core.activeCompIndex].id, true)
+			break;
+		case 4:
+			console.log('删除');
+			core.deleteComp(core.activeCompIndex)
+			break;
+		case 5:
+			console.log('样式');
+			other.rightKey = 1
+			break;
+		case 6:
+			console.log('事件');
+			other.rightKey = 2
+			break;
+		case 7:
+			console.log('动画');
+			other.rightKey = 3
+			break;
+		default:
+			break;
+	}
+}
