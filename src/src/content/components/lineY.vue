@@ -33,7 +33,7 @@ export default defineComponent({
   height: 100%;
   z-index: 1;
   width: 1px;
-  background-color: rgba(41, 113, 246, 0.3);
+  background-color: rgba(41, 113, 246, 0.8);
   top: 0px;
 }
 </style>

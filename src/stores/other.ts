@@ -1,4 +1,4 @@
-import { guid } from '@/utils'
+import { deepClone, guid } from '@/utils'
 import { defineStore } from 'pinia'
 import { useCoreStore } from './core'
 
@@ -24,10 +24,10 @@ export const useOtherStore = defineStore('other', {
     // 粘贴组件
     pasteComp() {
       console.log('粘贴逻辑')
-      this.copyData.map((e) => {
-        core.carryPageComp.dom.push(e)
-      })
-      // 粘贴逻辑之后存在卡顿问题,目前未找到原因
+      if (this.copyData.length == 0) {
+        return
+      }
+      core.carryPageComp.dom = deepClone(core.carryPageComp.dom.concat(this.copyData))
     },
   },
 })

@@ -10,13 +10,17 @@ import { contResetCss, animationFun } from '@/utils/index'
 import auxiliaryPoint from '../components/auxiliaryPoint.vue';
 import lineX from '../components/lineX.vue';
 import lineY from '../components/lineY.vue';
-import Ydiv from './component/Ydiv'
-import Ybutton from './component/Ybutton';
-import Yimg from './component/Yimg';
-import Yp from './component/Yp';
-import Yinput from './component/Yinput';
+import Ydiv from './component/Dom/Ydiv'
+import Ybutton from './component/Dom/Ybutton';
+import Yimg from './component/Dom/Yimg';
+import Yp from './component/Dom/Yp';
+import Yinput from './component/Dom/Yinput';
+import pluginModal from './component/pluginModal/index';
 import { useLineStore } from '@/stores/line';
 import { useOtherStore } from '@/stores/other';
+import { useCloud } from '@/utils/Hook/useRequest';
+import { message } from 'ant-design-vue';
+
 
 
 export default defineComponent({
@@ -28,7 +32,8 @@ export default defineComponent({
 		Yp,
 		Yinput,
 		lineX,
-		lineY
+		lineY,
+		pluginModal
 	},
 	setup() {
 		// 全局数据
@@ -36,15 +41,22 @@ export default defineComponent({
 		const core = useCoreStore()
 		const line = useLineStore()
 		const other = useOtherStore()
+		// dom
 		const boardCore = ref()
 		const heightCore = ref()
-
 		const mainCore = ref()
+
+		// 变量
+		const pluginVisible = ref(false)
+
+		// 鼠标监控
 		useListen({
 			boardTarget: boardCore,
 			mainTarget: mainCore,
 			heightTarget: heightCore,
 		})
+
+
 		function coreDrop(evt) {
 			console.log(evt);
 			let name = evt.dataTransfer.getData('compIndex')
@@ -84,7 +96,7 @@ export default defineComponent({
 
 		function handleLeft(data) {
 			console.log(data.key);
-			rightHandleFun(data.key, { core, other })
+			rightHandleFun(data.key, { core, other, pluginVisible })
 
 
 		}
@@ -148,6 +160,8 @@ export default defineComponent({
 					{/* 滚动页面 高度提示 */}
 					<div class={c.assist_1}>全面屏</div>
 				</div>
+				{/* 保存组件到组件市场 */}
+				<plugin-modal pluginVisible={pluginVisible.value} onChangeVisible={(params) => pluginVisible.value = params}></plugin-modal>
 			</div >
 		)
 	},
@@ -182,15 +196,17 @@ function rightHandle(callback) {
 				删除
 			</a-menu-item>
 			<a-menu-item key={5}>
-				样式
+				上传到插件市场
 			</a-menu-item>
 			<a-menu-item key={6}>
-				事件
+				样式
 			</a-menu-item>
 			<a-menu-item key={7}>
+				事件
+			</a-menu-item>
+			<a-menu-item key={8}>
 				动画
 			</a-menu-item>
-
 		</a-menu>
 	)
 }
@@ -200,7 +216,7 @@ function rightHandle(callback) {
  * @param key 
  * @param param1 
  */
-function rightHandleFun(key, { core, other }) {
+function rightHandleFun(key, { core, other, pluginVisible }) {
 	switch (key) {
 		case 1:
 			let activeComp = core.carryPageComp.dom.filter((e, i) => i == core.activeCompIndex)
@@ -219,14 +235,18 @@ function rightHandleFun(key, { core, other }) {
 			core.deleteComp(core.activeCompIndex)
 			break;
 		case 5:
+			console.log('上传到组件市场');
+			pluginVisible.value = true
+			break;
+		case 6:
 			console.log('样式');
 			other.rightKey = 1
 			break;
-		case 6:
+		case 7:
 			console.log('事件');
 			other.rightKey = 2
 			break;
-		case 7:
+		case 8:
 			console.log('动画');
 			other.rightKey = 3
 			break;

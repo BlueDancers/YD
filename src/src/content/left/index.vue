@@ -24,7 +24,10 @@
     <page-comp-list v-if="selectedKeys == 2"></page-comp-list>
     <!-- 项目设置 -->
     <object-data v-if="selectedKeys == 3"></object-data>
+    <!-- 插件市场 -->
+    <plugin-list v-if="selectedKeys == 4"></plugin-list>
     <!-- 模板市场 -->
+    <template-list v-if="selectedKeys == 5"></template-list>
   </div>
 </template>
 
@@ -35,6 +38,8 @@ import compList from './component/compList/index'
 import pageList from './component/pageList/index'
 import objectData from './component/objectData/index'
 import pageCompList from './component/pagecompList/index'
+import pluginList from './component/pluginList/index'
+import templateList from './component/templateList/index'
 import { useBoardStore } from '@/stores/board'
 export default defineComponent({
   components: {
@@ -42,6 +47,8 @@ export default defineComponent({
     pageList,
     objectData,
     pageCompList,
+    pluginList,
+    templateList,
   },
   setup() {
     let board = useBoardStore()
@@ -77,6 +84,11 @@ export default defineComponent({
       },
       {
         key: 4,
+        text: '插件市场',
+        icon: 'fabuweimoban',
+      },
+      {
+        key: 5,
         text: '模板市场',
         icon: 'fabuweimoban',
       },
