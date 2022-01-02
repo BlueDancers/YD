@@ -42,10 +42,7 @@ export const useCoreStore = defineStore('core', {
       this.hoverCompIndex = -1
     },
     addComp(name: string, css?) {
-      let maxzIndex = 0
-      this.pageData[this.acPageIndex].dom.map((res) => {
-        maxzIndex = res.cssModule['z-index'] > maxzIndex ? res.cssModule['z-index'] : maxzIndex
-      })
+      let maxzIndex = getMaxzIndex(this.pageData, this.acPageIndex)
       let comp = baseComList(name, maxzIndex + 1)
       if (comp && css) {
         comp.cssModule.top = css.top - comp.cssModule.height / 2
@@ -94,6 +91,16 @@ export const useCoreStore = defineStore('core', {
     addAnimation() {
       this.carryAn.push(baseAnimation())
     },
+    // 从组件市场增加组件
+    usePlugin(data) {
+      console.log(data)
+      let maxzIndex = getMaxzIndex(this.pageData, this.acPageIndex)
+      data.cssModule.top = 20
+      data.cssModule.left = 20
+      data.cssModule['z-index'] = maxzIndex
+      data.id = guid()
+      this.pageData[this.acPageIndex].dom.push(data)
+    },
   },
 })
 
@@ -102,4 +109,15 @@ export function pageDataItem() {
     id: guid(),
     dom: [],
   }
+}
+
+/**
+ * 获取最高层级
+ */
+function getMaxzIndex(pageData, acPageIndex) {
+  let maxzIndex = 0
+  pageData[acPageIndex].dom.map((res) => {
+    maxzIndex = res.cssModule['z-index'] > maxzIndex ? res.cssModule['z-index'] : maxzIndex
+  })
+  return maxzIndex
 }

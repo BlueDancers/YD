@@ -138,11 +138,11 @@ export default defineComponent({
 										onMouseover={evt => mouseOver(evt, i)}
 										onMouseout={evt => mouseOut(evt)}
 									>
-										{e.name == 'y-div' && <Ydiv compData={e} />}
-										{e.name == 'y-button' && <Ybutton compData={e} />}
-										{e.name == 'y-img' && <Yimg compData={e} />}
-										{e.name == 'y-p' && <Yp compData={e} />}
-										{e.name == 'y-input' && <Yinput compData={e} />}
+										{e.name == 'y-div' && <Ydiv class={`comp_${e.id}`} compData={e} />}
+										{e.name == 'y-button' && <Ybutton class={`comp_${e.id}`} compData={e} />}
+										{e.name == 'y-img' && <Yimg class={`comp_${e.id}`} compData={e} />}
+										{e.name == 'y-p' && <Yp class={`comp_${e.id}`} compData={e} />}
+										{e.name == 'y-input' && <Yinput class={`comp_${e.id}`} compData={e} />}
 									</auxiliaryPoint>
 								</a-dropdown>
 							))
@@ -196,7 +196,7 @@ function rightHandle(callback) {
 				删除
 			</a-menu-item>
 			<a-menu-item key={5}>
-				上传到插件市场
+				上传到组件市场
 			</a-menu-item>
 			<a-menu-item key={6}>
 				样式

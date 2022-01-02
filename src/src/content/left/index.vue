@@ -84,7 +84,7 @@ export default defineComponent({
       },
       {
         key: 4,
-        text: '插件市场',
+        text: '组件市场',
         icon: 'fabuweimoban',
       },
       {
