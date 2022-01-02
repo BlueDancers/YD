@@ -10,7 +10,7 @@ const cloud = cloudbase.init({
  * @param filePath
  * @returns
  */
-function uploadFile(cloudPath, filePath): Promise<string> {
+function uploadFile(cloudPath, filePath): Promise<{ tempFileURL: string; fileID: string }> {
   return new Promise((resolve, reject) => {
     cloud
       .uploadFile({
@@ -27,7 +27,10 @@ function uploadFile(cloudPath, filePath): Promise<string> {
           .then((result: any) => {
             result.fileList.forEach((el) => {
               if (el.code === 'SUCCESS') {
-                resolve(el.tempFileURL)
+                resolve({
+                  tempFileURL: el.tempFileURL,
+                  fileID: el.fileID,
+                })
               } else {
                 console.log('获取地址失败') //获取地址失败
               }

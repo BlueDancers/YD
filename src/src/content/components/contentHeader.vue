@@ -79,7 +79,7 @@ export default defineComponent({
       let thmbImg
       if (board.pageDetail.pageType == 1) {
         // 单页面动态生成当前页面
-        thmbImg = [await getThumbnail()]
+        thmbImg = [(await getThumbnail()).tempFileURL]
       } else {
         // 多页面动态生成当前下标页面
         // let oldIndex = deepClone(core.acPageIndex)
@@ -87,7 +87,7 @@ export default defineComponent({
         // board.pageDetail.tumbUrl[oldIndex] = url
         // console.log(board.pageDetail.tumbUrl);
         // thmbImg = board.pageDetail.tumbUrl
-        thmbImg = [await getThumbnail()]
+        thmbImg = [(await getThumbnail()).tempFileURL]
       }
 
       let updateDetail = useCloud('pageDetails').doc(board.pageDataId).update({
