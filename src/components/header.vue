@@ -1,7 +1,10 @@
 <template>
   <div class="page_header">
     <div class="header_left" @click="gotoHome">
-      <img class="left_img" src="@/assets/logo.png" />
+      <img
+        class="left_img"
+        src="https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/base/logo.png?sign=69a6a365519b1e9c658ad876aa6997a1&t=1641198047"
+      />
     </div>
     <div class="header_right">
       <a-dropdown :trigger="['click']">

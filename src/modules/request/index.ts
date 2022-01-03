@@ -4,6 +4,8 @@ const cloud = cloudbase.init({
   env: 'mall-2gdgzk540aab98cd',
 })
 
+const clientUrl = 'http://39.103.198.52:3006/i'
+
 /**
  * 上传图片
  * @param cloudPath
@@ -40,4 +42,4 @@ function uploadFile(cloudPath, filePath): Promise<{ tempFileURL: string; fileID:
   })
 }
 
-export { cloud, uploadFile }
+export { cloud, uploadFile, clientUrl }

@@ -1,7 +1,7 @@
 <template>
   <a-row class="content_header">
     <a-col class="header_left" :span="5" @click="gotoHome">
-      <img class="left_img" src="@/assets/logo.png" alt="" />
+      <img class="left_img" src="https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/base/logo.png?sign=1d3f62f4b382ac6a77868e47f709c089&t=1641199933" alt="" />
       <span>易动</span>
     </a-col>
     <a-col class="header_centent" :span="10">

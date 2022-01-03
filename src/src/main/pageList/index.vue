@@ -7,9 +7,26 @@
     <!-- 具体数据 -->
     <div class="pagelist_main" v-if="listData.length > 0">
       <div class="list_item" v-for="item in listData" :key="item._id" @mouseover="mouseOver" @mouseout="mouseOut">
-        <img class="item_img" v-if="item.tumbUrl.length" :src="`${item.tumbUrl[0]}?t=${new Date().getTime()}`" />
-        <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
+        <div class="item_content">
+          <img
+            v-if="showQrCode != item._id"
+            class="item_img"
+            :src="
+              item.tumbUrl.length
+                ? `${item.tumbUrl[0]}?t=${new Date().getTime()}`
+                : `https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/base/logo.png?sign=69a6a365519b1e9c658ad876aa6997a1&t=1641198047`
+            "
+          />
+          <!-- 跳转二维码 -->
+          <qrcode-vue
+            v-else
+            class="item_qrcode"
+            :size="130"
+            :value="`${clientUrl}/${parentName}/${item.router}`"
+          ></qrcode-vue>
+        </div>
+
         <!-- 默认 -->
         <div class="item_data">
           <div class="data_item">
@@ -26,7 +43,7 @@
             <svg-icon name="bianji" :style="{ width: '24px', height: '24px', color: '#000' }"></svg-icon>
             <span class="hover_item_text">编辑</span>
           </div>
-          <div class="hover_item">
+          <div class="hover_item" @click="showItemQrcode(item._id)">
             <svg-icon name="chakan" :style="{ width: '24px', height: '24px', color: '#000' }"></svg-icon>
             <span class="hover_item_text">查看</span>
           </div>
@@ -65,16 +82,21 @@ import { message } from 'ant-design-vue'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useReq } from '@/utils/Hook/useRqe'
 import newModal from './component/newModal'
+import QrcodeVue from 'qrcode.vue'
+import { clientUrl } from '@/modules/request'
 export default defineComponent({
   components: {
     newModal,
+    QrcodeVue,
   },
   setup() {
     const route = useRoute()
     const router = useRouter()
     const store = useAppStore()
     const { run, data, status } = useReq<any>()
-    const showNewModal = ref(false)
+    const showNewModal = ref(false) // 新建页面弹窗
+    const parentName = ref('') // 父级组织路径
+    const showQrCode = ref('') // 查看指定的二维码
     onMounted(() => {
       init()
     })
@@ -86,6 +108,16 @@ export default defineComponent({
           })
           .get()
       )
+      useCloud('organize')
+        .where({
+          _id: route.query.id,
+        })
+        .field({ routerCode: true })
+        .get()
+        .then((res) => {
+          console.log(res)
+          parentName.value = res.data[0].routerCode
+        })
     }
     // 切换页面弹窗
     function toggleModal() {
@@ -125,6 +157,10 @@ export default defineComponent({
     function mouseOut(evt) {
       // console.log(evt)
     }
+    // 查看当前二维码
+    function showItemQrcode(id) {
+      showQrCode.value = showQrCode.value == id ? '' : id
+    }
     return {
       listData: data,
       status,
@@ -132,8 +168,12 @@ export default defineComponent({
       gotoDelete,
       showNewModal,
       toggleModal,
+      parentName,
       mouseOver,
       mouseOut,
+      clientUrl,
+      showQrCode,
+      showItemQrcode,
     }
   },
 })
@@ -172,13 +212,23 @@ export default defineComponent({
         text-align: center;
         line-height: 20px;
       }
-      .item_img {
+      .item_content {
         border-radius: 4px;
         height: 200px;
         max-width: 200px;
         margin: 4px 0;
         object-fit: cover;
+        .item_img {
+          height: 100%;
+          max-width: 100%;
+        }
+        .item_qrcode {
+          top: 30px;
+          position: relative;
+          z-index: inherit;
+        }
       }
+
       .item_back {
         border-top-left-radius: 6px;
         border-top-right-radius: 6px;
