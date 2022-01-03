@@ -1,15 +1,17 @@
 <template>
   <div>
     <div class="padd">
-      <a-button @click="newGroup">新建组织</a-button>
+      <a-button @click="newGroup" type="primary">新建组织</a-button>
     </div>
-    <a-table row-key="_id" :columns="columns" :data-source="listData" bordered class="marg">
-      <template #name="{ text }">
-        <a>{{ text }}</a>
-      </template>
-      <template #action="{ record }">
-        <a-button type="primary" v-if="record.founderUser.includes(userId)" @click="gotoRoom(record)">进入</a-button>
-        <a-button v-else @click="joinRoom(record)">加入组织</a-button>
+    <a-table :rowKey="'_id'" bordered :columns="columns" :data-source="listData" class="marg">
+      <template #bodyCell="{ column, text, record }">
+        <template v-if="column.dataIndex !== 'address'">
+          <span>{{ text }}</span>
+        </template>
+        <template v-if="column.dataIndex == 'address'">
+          <a-button type="primary" v-if="record.founderUser.includes(userId)" @click="gotoRoom(record)">进入</a-button>
+          <a-button type="primary" v-else @click="joinRoom(record)">加入组织</a-button>
+        </template>
       </template>
     </a-table>
     <!-- 创建组织 -->
@@ -25,10 +27,11 @@
           <a-input v-model:value="formState.disp" placeholder="请输入组织描述" />
         </a-form-item>
         <a-form-item label="组织密码">
-          <a-input v-model:value="formState.password" placeholder="请输入组织密码" />
+          <a-input v-model:value="formState.password" placeholder="其他成员需要密码才能加入" />
         </a-form-item>
       </a-form>
     </a-modal>
+    <!-- 加入 -->
     <a-modal :visible="joinVisible" title="创建组织" @cancel="handleJoinCancel" @ok="handleJoinOk">
       <a-form>
         <a-form-item label="加入密码">
@@ -78,20 +81,19 @@ export default defineComponent({
       {
         title: '操作',
         dataIndex: 'address',
-        key: 'address',
-        slots: { customRender: 'action' },
       },
     ]
     const listData: Ref<any[]> = ref([]) // 表格数据
     const visible = ref(false) // 新建组织
-    const joinVisible: Ref<Boolean> = ref(false) // 加入组织
+    const joinVisible = ref(false) // 加入组织
+
     const joinData = ref({
       // 加入组织密码
       id: '',
       password: '',
     })
 
-    onMounted(async () => {
+    onMounted(() => {
       initTable()
     })
 
@@ -119,7 +121,7 @@ export default defineComponent({
     function handleJoinCancel() {
       joinVisible.value = false
     }
-
+    // 加入组织
     async function handleJoinOk() {
       console.log(joinData.value)
       // 改变数据

@@ -1,42 +1,26 @@
 <template>
   <div class="page_list">
     <div class="padd">
-      <a-button type="primary" @click="openNewModal">新建页面</a-button>
+      <a-button type="primary" @click="toggleModal">新建页面</a-button>
     </div>
     <!-- {{ status }} -->
     <!-- 具体数据 -->
     <div class="pagelist_main" v-if="listData.length > 0">
       <div class="list_item" v-for="item in listData" :key="item._id" @mouseover="mouseOver" @mouseout="mouseOut">
-        <!-- 右上角 -->
-        <!-- <div class="">⋯</div> -->
-        <a-dropdown class="right_icon" placement="bottomRight">
-          <a class="ant-dropdown-link" @click.prevent> ⋯ </a>
-          <template #overlay>
-            <a-menu>
-              <a-menu-item>
-                <div @click="gotoDelete(item)">删除</div>
-              </a-menu-item>
-            </a-menu>
-          </template>
-        </a-dropdown>
         <img class="item_img" v-if="item.tumbUrl.length" :src="`${item.tumbUrl[0]}?t=${new Date().getTime()}`" />
         <img class="item_img" v-else src="@/assets/error-img.png" />
         <div class="item_back"></div>
-        <!-- 未悬浮 -->
+        <!-- 默认 -->
         <div class="item_data">
           <div class="data_item">
             <div class="data_item_right">{{ item.routerName }}</div>
           </div>
-          <!-- <div class="data_item">
-            <div class="data_item_left">网页路由:</div>
-            <div class="data_item_right">{{ item.router }}</div>
-          </div> -->
           <div class="data_item">
             <div class="data_item_left">网页类型:</div>
             <div class="data_item_right">{{ item.pageType == 1 ? '长页面' : '滚动页' }}</div>
           </div>
         </div>
-        <!-- 已悬浮 -->
+        <!-- 选中 -->
         <div class="item_data_hover">
           <div class="hover_item" @click="gotoPage(item)">
             <svg-icon name="bianji" :style="{ width: '24px', height: '24px', color: '#000' }"></svg-icon>
@@ -46,10 +30,21 @@
             <svg-icon name="chakan" :style="{ width: '24px', height: '24px', color: '#000' }"></svg-icon>
             <span class="hover_item_text">查看</span>
           </div>
-          <div>待定</div>
+          <a-dropdown placement="bottomLeft">
+            <div>其他</div>
+            <template #overlay>
+              <a-menu>
+                <a-menu-item>
+                  <div @click="gotoDelete(item)">删除页面</div>
+                </a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
         </div>
       </div>
     </div>
+    <!-- 新建页面 -->
+    <new-modal :showNewModal="showNewModal" @closeModal="toggleModal"></new-modal>
     <!-- 其他状态 -->
     <div>
       <!-- 加载中 -->
@@ -59,64 +54,30 @@
       <!-- 加载状态 -->
       <a-spin class="none_cont" size="large" v-if="status == 'loading'" />
     </div>
-    <a-modal v-model:visible="showNewModal" title="新建页面" @ok="newPage" :rules="rules">
-      <a-form :ref="newPageRef" :model="newPageState" name="routerName">
-        <a-form-item label="页面名称">
-          <a-input placeholder="请输入页面名称" v-model:value="newPageState.routerName" />
-        </a-form-item>
-        <a-form-item label="页面路径" name="router">
-          <a-input addon-before="/" placeholder="请输入页面路径" v-model:value="newPageState.router" />
-        </a-form-item>
-        <a-form-item label="页面类型" name="pageType">
-          <a-radio-group v-model:value="newPageState.pageType">
-            <a-radio :value="1">长页面</a-radio>
-            <a-radio :value="2">滚动页</a-radio>
-          </a-radio-group>
-        </a-form-item>
-        <a-form-item label="页面描述" name="disp">
-          <a-textarea placeholder="请输入页面描述" v-model:value="newPageState.disp" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
+import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { message } from 'ant-design-vue'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { useReq } from '@/utils/Hook/useRqe'
-import { log } from 'console'
-import SvgIcon from '@/components/SvgIcon.vue'
+import newModal from './component/newModal'
 export default defineComponent({
-  components: { SvgIcon },
+  components: {
+    newModal,
+  },
   setup() {
-    onMounted(() => {
-      init()
-    })
-
-    // 统一依赖
     const route = useRoute()
     const router = useRouter()
     const store = useAppStore()
     const { run, data, status } = useReq<any>()
     const showNewModal = ref(false)
-    const newPageRef = ref()
-    const newPageState = reactive({
-      router: '', // 自定义路由名称
-      routerName: '', // 自定义网页名称
-      disp: '', // 描述字段
-      pageType: 1, // 1 长单页模式 2 滑动页模式
+    onMounted(() => {
+      init()
     })
-    const rules = {
-      router: [{ required: true, message: '请输入页面路径', trigger: 'blur' }],
-      routerName: [{ required: true, message: '请输入页面名称', trigger: 'blur' }],
-      disp: [{ required: true, message: '请输入页面详情', trigger: 'blur' }],
-      pageType: [{ required: true, message: '请选择页面类型', trigger: 'blur' }],
-    }
-    // 请求数据
     async function init() {
       run(
         useCloud('pageList')
@@ -126,49 +87,9 @@ export default defineComponent({
           .get()
       )
     }
-    // 打开新建页面弹窗
-    function openNewModal() {
-      showNewModal.value = true
-    }
-    /**
-     * 新建页面
-     */
-    const newPage = async () => {
-      // newPageRef.value
-      //   .validate()
-      //   .then(() => {
-      //     console.log('values')
-      //   })
-      //   .catch((error) => {
-      //     console.log('error', error)
-      //   })
-      if (newPageState.router == '') {
-        message.error('请输入页面路由')
-        return
-      }
-      if (newPageState.routerName == '') {
-        message.error('请输入页面名称')
-        return
-      }
-      let listRes: any = await useCloud('pageList').add({
-        organizeId: route.query.id, // 群组id
-        tumbUrl: [], // 缩略图(存在多个)
-        backColor: '#ffffff',
-        height: 700,
-        ...newPageState,
-      })
-      console.log('页面数据填充完成')
-      await useCloud('pageDetails').add({
-        pageId: listRes.id,
-        content: [],
-      })
-      console.log('装修数据填充完成')
-      router.push({
-        name: 'content',
-        query: {
-          id: listRes.id,
-        },
-      })
+    // 切换页面弹窗
+    function toggleModal() {
+      showNewModal.value = !showNewModal.value
     }
     // 前往编辑
     function gotoPage(data) {
@@ -181,8 +102,6 @@ export default defineComponent({
     }
     // 删除页面
     async function gotoDelete(data) {
-      console.log(data, store.userData)
-
       await useCloud('pageList')
         .where({ _id: data._id })
         .remove()
@@ -207,16 +126,12 @@ export default defineComponent({
       // console.log(evt)
     }
     return {
-      newPage,
       listData: data,
       status,
       gotoPage,
       gotoDelete,
       showNewModal,
-      openNewModal,
-      newPageState,
-      rules,
-      newPageRef,
+      toggleModal,
       mouseOver,
       mouseOut,
     }

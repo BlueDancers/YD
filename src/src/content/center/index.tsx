@@ -123,7 +123,7 @@ export default defineComponent({
 					{/* 正式数据 */}
 					<>
 						{
-							core.pageData.length && core.pageData[core.acPageIndex].dom.map((e, i) => (
+							core.pageData.length ? core.pageData[core.acPageIndex].dom.map((e, i) => (
 								e.show &&
 								<a-dropdown
 									trigger={"['contextmenu']"}
@@ -146,7 +146,7 @@ export default defineComponent({
 										{e.name == 'y-input' && <Yinput class={`comp_${e.id}`} compData={e} />}
 									</auxiliaryPoint>
 								</a-dropdown>
-							))
+							)) : <span></span>
 						}
 					</>
 					{/* 底部拖动 */}

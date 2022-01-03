@@ -1,17 +1,28 @@
 <template>
-  <router-view></router-view>
+  <a-config-provider :locale="locale">
+    <router-view></router-view>
+  </a-config-provider>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useAppStore } from '@/stores/app'
 import { cloud } from './modules/request'
+
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+// import dayjs from 'dayjs'
+// import 'dayjs/locale/zh-cn'
+// dayjs.locale('zh-cn')
+
 export default defineComponent({
   name: 'App',
   components: {},
   setup() {
     const store = useAppStore()
     store.updateUserData(cloud)
+    return {
+      locale: zhCN,
+    }
   },
 })
 </script>
