@@ -1,6 +1,11 @@
 import { baseAnimation, baseComList, baseComponent } from '@/modules/components'
 import { guid } from '@/utils'
 import { defineStore } from 'pinia'
+import { watch } from 'vue-demi'
+import History from './plugin/History'
+
+// 时间旅行
+let history = new History()
 
 export const useCoreStore = defineStore('core', {
   state: () => {
@@ -101,6 +106,14 @@ export const useCoreStore = defineStore('core', {
       data.id = guid()
       this.pageData[this.acPageIndex].dom.push(data)
     },
+    // 撤销
+    revoke() {
+      core.pageData = history.replaceState()
+    },
+    // 恢复
+    recovery() {
+      core.pageData = history.unReplaceState()
+    },
   },
 })
 
@@ -121,3 +134,13 @@ function getMaxzIndex(pageData, acPageIndex) {
   })
   return maxzIndex
 }
+
+// 时间旅行功能
+const core = useCoreStore()
+watch(
+  () => core.pageData,
+  (state) => {
+    history.setState(state)
+  },
+  { deep: true }
+)

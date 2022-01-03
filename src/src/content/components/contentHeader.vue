@@ -5,11 +5,11 @@
       <span>易动</span>
     </a-col>
     <a-col class="header_centent" :span="10">
-      <div class="content_item">
+      <div class="content_item" @click="core.revoke">
         <svg-icon class="content_item_icon" name="chexiao2" />
         <span class="content_item_title">撤销</span>
       </div>
-      <div class="content_item">
+      <div class="content_item" @click="core.recovery()">
         <svg-icon class="content_item_icon flip" name="chexiao2" />
         <span class="content_item_title">恢复</span>
       </div>
@@ -117,7 +117,7 @@ export default defineComponent({
       let url = await imgToStorage(file, `${board.pageDataId}_thmb&${core.carryPageComp.id}&`, 'thmbImg')
       return url
     }
-    return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage }
+    return { gotoHome, gotoDoc, gotoGithub, gotoIM, jsonProcessor, saveCarryPage, core }
   },
 })
 </script>

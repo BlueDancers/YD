@@ -11,7 +11,8 @@ export const useOtherStore = defineStore('other', {
     }
   },
   actions: {
-    pushData(comp) {
+    pushData() {
+      let comp = core.carryPageComp.dom.filter((e, i) => i == core.activeCompIndex)
       this.copyData = JSON.parse(JSON.stringify(comp))
       this.copyData.map((e: any) => {
         console.log(e)

@@ -36,7 +36,6 @@ export const useLineStore = defineStore('line', {
       })
       this.baseYpoint.map((e) => lineYList.push(left + e))
       this.baseXpoint.map((e) => lineXList.push(top + e))
-      console.log(this.baseYpoint)
 
       this.lineXList = Array.from(new Set([...lineXList]))
       this.lineYList = Array.from(new Set([...lineYList]))

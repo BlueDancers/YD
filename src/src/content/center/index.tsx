@@ -58,12 +58,13 @@ export default defineComponent({
 
 
 		function coreDrop(evt) {
-			console.log(evt);
 			let name = evt.dataTransfer.getData('compIndex')
-			core.addComp(name, {
-				top: evt.offsetY,
-				left: evt.offsetX,
-			})
+			if (name) {
+				core.addComp(name, {
+					top: evt.offsetY,
+					left: evt.offsetX,
+				})
+			}
 			evt.preventDefault()
 		}
 		/**
@@ -219,8 +220,7 @@ function rightHandle(callback) {
 function rightHandleFun(key, { core, other, pluginVisible }) {
 	switch (key) {
 		case 1:
-			let activeComp = core.carryPageComp.dom.filter((e, i) => i == core.activeCompIndex)
-			other.pushData(activeComp)
+			other.pushData()
 			break;
 		case 2:
 			console.log('粘贴');
