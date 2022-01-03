@@ -24,7 +24,6 @@
     "vue": "^3.2.22",
     "vue-draggable-next": "^2.0.1",
     "vue-router": "^4.0.11",
-    "vuex": "^4.0.2",
     "wangeditor": "^4.7.10"
   },
   "devDependencies": {

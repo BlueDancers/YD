@@ -1,12 +1,22 @@
-import { defineComponent, onMounted } from 'vue-demi';
+import { defineComponent, onMounted, ref } from 'vue-demi';
 
 export default defineComponent({
   setup() {
+    const plugleList = ref([])
     onMounted(() => {
-      // 获取插件市场数据
+      // 获取组件市场数据
     })
     return () => (
-      <div>2</div>
+      <div>
+        {
+          plugleList.value.map(e => (
+            <div class>
+
+            </div>
+          ))
+        }
+
+      </div>
     )
   }
 })
