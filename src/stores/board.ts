@@ -10,6 +10,7 @@ export const useBoardStore = defineStore('board', {
       left: 50, // 具体左边距离
       scale: 1, // 缩放比例
       width: 320, // 页面宽度
+      parentRouter: '', // 父级路由
       pageDetail: {
         // 非静态数据
         backColor: '#ffffff', // 背景色
@@ -31,14 +32,20 @@ export const useBoardStore = defineStore('board', {
      * 获取页面数据
      * @param id
      */
-    getPageData(id) {
-      useCloud('pageList')
-        .doc(id)
-        .get()
-        .then((res) => {
-          this.pageDetail = res.data[0]
-          console.log(this.pageDetail)
+    async getPageData(id) {
+      let pageDetail = await useCloud('pageList').doc(id).get()
+      if (!pageDetail.data.length) {
+        return
+      }
+      this.pageDetail = pageDetail.data[0]
+      let organize = await useCloud('organize')
+        .where({
+          _id: this.pageDetail.organizeId,
         })
+        .field({ routerCode: true })
+        .get()
+      this.parentRouter = organize.data[0].routerCode
+
       // 根据id 获取装修数据
       useCloud('pageDetails')
         .where({
