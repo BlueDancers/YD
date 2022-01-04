@@ -19,12 +19,11 @@
   </div>
 </template>
 
-<script>
-import { ref, reactive } from 'vue'
-import { message, Form } from 'ant-design-vue'
-import 'ant-design-vue/es/message/style/index'
+<script lang="ts">
+import { ref, reactive, defineComponent } from 'vue'
+import { Form } from 'ant-design-vue'
 const useForm = Form.useForm
-export default {
+export default defineComponent({
   props: {
     visible: {
       default: false,
@@ -60,9 +59,9 @@ export default {
           console.log('error', err)
         })
     }
-    return { formState, handleCancel, handleOk, formRef, validateInfos, resetFields }
+    return { formState, handleCancel, handleOk, formRef, validateInfos, resetFields, ...props }
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

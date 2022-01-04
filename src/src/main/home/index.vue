@@ -15,14 +15,19 @@
       </template>
     </a-table>
     <!-- 创建组织 -->
-    <establish-organization :visible="visible" @handleCancel="handleCancel" @handleOk="handleOk" />
+    <establish-organ :visible="visible" @handleCancel="handleCancel" @handleOk="handleOk" />
     <!-- 加入 -->
-    <join-organization :joinVisible="joinVisible" @handleJoinCancel="handleJoinCancel" @handleJoinOk="handleJoinOk" />
+    <join-organ
+      :joinData="joinData"
+      :joinVisible="joinVisible"
+      @handleJoinCancel="handleJoinCancel"
+      @handleJoinOk="handleJoinOk"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, Ref, ref } from 'vue'
+import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
@@ -31,19 +36,12 @@ import JoinOrganization from './components/joinOrganization.vue'
 import EstablishOrganization from './components/establishOrganization.vue'
 export default defineComponent({
   components: {
-    JoinOrganization,
-    EstablishOrganization,
+    EstablishOrgan: EstablishOrganization,
+    JoinOrgan: JoinOrganization,
   },
   setup() {
     const store = useAppStore()
     const router = useRouter()
-    // 新建组织表单
-    const formState = ref({
-      name: '',
-      disp: '',
-      password: '',
-      routerCode: '',
-    })
     // 表格声明
     const columns = [
       {
@@ -71,18 +69,27 @@ export default defineComponent({
     const visible = ref(false) // 新建组织
     const joinVisible = ref(false) // 加入组织
 
-    const joinData = ref({
-      // 加入组织密码
-      id: '',
-      password: '',
+    const joinData = reactive({
+      // 加入组织
+      founderName: '',
+      organizeName: '',
+      routerCode: '',
+      _id: '',
     })
 
-    onMounted(() => {
-      initTable()
-    })
+    onMounted(() => initTable())
 
     async function initTable() {
-      const groupData = await useCloud('organize').get()
+      const groupData = await useCloud('organize')
+        .field({
+          founderName: true,
+          organizeDisp: true,
+          organizeName: true,
+          routerCode: true,
+          founderUser: true,
+          _id: true,
+        })
+        .get()
       listData.value = groupData.data
     }
     // 进入房间
@@ -97,9 +104,13 @@ export default defineComponent({
 
     // 加入房间
     async function joinRoom(data) {
+      console.log(data)
       // 输入群组密码
       joinVisible.value = true
-      joinData.value = { id: data._id, password: '' }
+      joinData._id = data._id
+      joinData.founderName = data.founderName
+      joinData.organizeName = data.organizeName
+      joinData.routerCode = data.routerCode
     }
 
     function handleJoinCancel() {
@@ -107,12 +118,11 @@ export default defineComponent({
     }
     // 加入组织
     async function handleJoinOk(value) {
-      joinData.value.password = value
       // 改变数据
       let currentData = await useCloud('organize')
         .where({
-          _id: joinData.value.id,
-          password: joinData.value.password,
+          _id: joinData._id,
+          password: value,
         })
         .get()
       console.log(currentData)
@@ -121,7 +131,7 @@ export default defineComponent({
         founderUser.push(store.userData.uid)
         await useCloud('organize')
           .where({
-            _id: joinData.value.id,
+            _id: joinData._id,
           })
           .update({
             founderUser: founderUser,
@@ -167,7 +177,6 @@ export default defineComponent({
 
     return {
       userData: store.userData,
-      formState,
       columns,
       listData,
       visible,
