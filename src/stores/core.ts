@@ -109,10 +109,12 @@ export const useCoreStore = defineStore('core', {
     // 撤销
     revoke() {
       core.pageData = history.replaceState()
+      this.resetCompActive()
     },
     // 恢复
     recovery() {
       core.pageData = history.unReplaceState()
+      this.resetCompActive()
     },
   },
 })

@@ -10,7 +10,7 @@
         </template>
         <template v-if="column.dataIndex == 'address'">
           <a-button type="primary" v-if="record.founderUser.includes(userId)" @click="gotoRoom(record)">进入</a-button>
-          <a-button type="primary" v-else @click="joinRoom(record)">加入组织</a-button>
+          <a-button v-else @click="joinRoom(record)">加入组织</a-button>
         </template>
       </template>
     </a-table>

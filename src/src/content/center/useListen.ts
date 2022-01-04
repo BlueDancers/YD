@@ -124,7 +124,6 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
     core.downState = value
     // 放开鼠标,清除鼠标事件
     if (!value) {
-      console.log('清除事件')
       line.resetLine()
       core.changeMoveIndex(0)
     }

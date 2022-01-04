@@ -43,6 +43,7 @@ export default defineComponent({
     }
 
     function deleteItem(data, index) {
+
       useCloud('pluginList').doc(data._id).remove().then(res => {
         plugleList.value.splice(index, 1)
       })
@@ -80,7 +81,14 @@ function pluginItem({
           <div class={css.list_item}>
             {
               // 删除
-              isMy && <svg-icon class={css.delete_item} name="shanchu1" onClick={() => deleteItem(e, index)} />
+              isMy && <a-popconfirm
+                title="删除该组件后,将会从组件市场消失"
+                ok-text="确认"
+                cancel-text="取消"
+                onConfirm={() => deleteItem(e, index)}
+              >
+                <svg-icon class={css.delete_item} name="shanchu1" />
+              </a-popconfirm>
             }
             {/* 主体 */}
             <a-image class={css.list_thmb} src={e.thmbImg} />

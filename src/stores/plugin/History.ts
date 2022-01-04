@@ -24,7 +24,6 @@ class History {
       }
       this.state.push(deepClone(state))
       this.index = this.state.length - 1 // 方便下标的计算 都从0开始计算
-      console.log('记录', this.state, this.index)
     }, 200)
   }
   /**
@@ -55,7 +54,7 @@ class History {
       let state = deepClone(this.state[this.index])
       return state
     } else {
-      message.warn('已经无法再进行操作')
+      message.warn('已经无法再进行恢复')
       return deepClone(this.state[this.index])
     }
   }
