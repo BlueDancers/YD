@@ -24,7 +24,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, Ref, ref } from 'vue'
 import { message } from 'ant-design-vue'
-import 'ant-design-vue/es/message/style/index'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { useCloud } from '@/utils/Hook/useRequest'

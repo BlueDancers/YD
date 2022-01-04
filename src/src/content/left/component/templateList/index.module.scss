@@ -1,0 +1,21 @@
+.template_list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+
+  .plugin_list_cont {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 124px 124px;
+    grid-template-rows: repeat(auto-fill, 124px);
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+  }
+
+  .more_btn {
+    width: 80%;
+    margin-top: 10px;
+  }
+}

@@ -47,7 +47,8 @@ const routes: RouteRecordRaw[] = [
 ]
 
 export const router = createRouter({
-  history: createWebHistory('/yc/'),
+  // history: createWebHistory('/yc/'),
+  history: createWebHistory('/'),
   routes: routes,
 })
 
