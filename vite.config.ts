@@ -7,6 +7,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+function _resolve(dir: string) {
+  return path.resolve(__dirname, dir)
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -15,7 +19,7 @@ export default defineConfig({
     vueJsx(),
     Components({
       resolvers: [AntDesignVueResolver(), ElementPlusResolver()],
-      include: [/\.vue$/, /\.vue\?vue/,/\.tsx$/],
+      include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
     }),
   ],
   server: {
@@ -37,7 +41,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '/src'),
+      // '@': path.resolve(__dirname, '/src'),
+      '@': _resolve('src'),
     },
   },
   css: {
