@@ -15,41 +15,26 @@
       </template>
     </a-table>
     <!-- 创建组织 -->
-    <a-modal :visible="visible" title="创建组织" @cancel="handleCancel" @ok="handleOk">
-      <a-form>
-        <a-form-item label="组织名称">
-          <a-input v-model:value="formState.name" placeholder="请输入组织名称" />
-        </a-form-item>
-        <a-form-item label="路由前缀">
-          <a-input addon-before="/" v-model:value="formState.routerCode" placeholder="请输入路由前缀" />
-        </a-form-item>
-        <a-form-item label="组织描述">
-          <a-input v-model:value="formState.disp" placeholder="请输入组织描述" />
-        </a-form-item>
-        <a-form-item label="组织密码">
-          <a-input v-model:value="formState.password" placeholder="其他成员需要密码才能加入" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
+    <establish-organization :visible="visible" @handleCancel="handleCancel" @handleOk="handleOk" />
     <!-- 加入 -->
-    <a-modal :visible="joinVisible" title="创建组织" @cancel="handleJoinCancel" @ok="handleJoinOk">
-      <a-form>
-        <a-form-item label="加入密码">
-          <a-input v-model:value="joinData.password" placeholder="请输入密码" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
+    <join-organization :joinVisible="joinVisible" @handleJoinCancel="handleJoinCancel" @handleJoinOk="handleJoinOk" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, Ref, ref } from 'vue'
 import { message } from 'ant-design-vue'
+import 'ant-design-vue/es/message/style/index'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { useCloud } from '@/utils/Hook/useRequest'
+import JoinOrganization from './components/joinOrganization.vue'
+import EstablishOrganization from './components/establishOrganization.vue'
 export default defineComponent({
-  components: {},
+  components: {
+    JoinOrganization,
+    EstablishOrganization,
+  },
   setup() {
     const store = useAppStore()
     const router = useRouter()
@@ -122,8 +107,8 @@ export default defineComponent({
       joinVisible.value = false
     }
     // 加入组织
-    async function handleJoinOk() {
-      console.log(joinData.value)
+    async function handleJoinOk(value) {
+      joinData.value.password = value
       // 改变数据
       let currentData = await useCloud('organize')
         .where({
@@ -158,8 +143,8 @@ export default defineComponent({
       visible.value = true
     }
 
-    async function handleOk() {
-      let { name, disp, password, routerCode } = formState.value
+    async function handleOk(data) {
+      let { name, disp, password, routerCode } = data
       let { uid, email } = store.userData
       await useCloud('organize')
         .add({
@@ -197,6 +182,8 @@ export default defineComponent({
       newGroup,
       handleOk,
       handleCancel,
+      EstablishOrganization,
+      JoinOrganization,
     }
   },
 })
