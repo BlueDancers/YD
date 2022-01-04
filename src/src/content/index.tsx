@@ -1,6 +1,6 @@
 import { defineComponent, onMounted, onUnmounted } from 'vue';
 
-import contentHeader from './components/contentHeader.vue'
+import contentHeader from './components/contentHeader/index'
 import contentLeft from './left/index.vue'
 import contentRight from './right/index'
 import contentCenter from './center/index'

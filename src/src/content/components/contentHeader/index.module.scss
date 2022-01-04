@@ -1,0 +1,126 @@
+.content_header {
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 2px 13px 0 rgb(0 0 0 / 10%);
+  background-color: #f8f9fa;
+  height: 56px;
+  padding: 0 20px;
+
+  .header_left {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .left_img {
+      width: 35px;
+      height: 35px;
+    }
+
+    span {}
+  }
+
+  .header_centent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content_item {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      padding: 0 10px;
+      height: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #2970f6;
+
+        .content_item_icon {
+          color: #fff !important;
+        }
+
+        .content_item_title {
+          color: #fff;
+        }
+      }
+
+      .content_item_icon {
+        text-align: center;
+        color: rgb(41, 112, 246);
+        width: 18px;
+        height: 18px;
+      }
+
+      .flip {
+        transform: rotateY(180deg);
+      }
+
+      .content_item_title {
+        margin-top: 4px;
+        font-size: 13px;
+        line-height: 13px;
+        height: 13px;
+      }
+    }
+
+    .content_line {
+      width: 1px;
+      height: 36px;
+      background-color: rgb(219, 219, 219);
+      margin: 0 10px;
+    }
+
+    .content_zoom {
+      display: flex;
+      align-items: center;
+
+      .zoom_num {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .header_right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .right_item {
+      cursor: pointer;
+      width: 80px;
+      display: flex;
+      align-items: center;
+
+      .right_item_text {
+        margin-left: 6px;
+        margin-right: 10px;
+      }
+    }
+
+    .right_item {
+      .right_item_text {}
+    }
+
+    .right_item {
+      .right_item_text {}
+    }
+
+    .right_btn {
+      margin: 0 10px;
+    }
+  }
+
+  .save_modal {
+    display: flex;
+    flex: 2;
+    .modal_left {
+      flex: 1;
+    }
+
+    .modal_right {
+      flex: 1;
+    }
+  }
+}

@@ -57,9 +57,6 @@ export default defineComponent({
           </a-tab-pane>
           <a-tab-pane key={2} tab={"我的组件"}>
             {pluginItem({ plugleList, core, isMore, isMy: true }, { deleteItem })}
-            {
-              isMore.value && <a-button class={css.more_btn}>加载更多</a-button>
-            }
           </a-tab-pane>
         </a-tabs>
       </div>
