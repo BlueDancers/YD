@@ -15,36 +15,9 @@
       </template>
     </a-table>
     <!-- 创建组织 -->
-    <establish-organization :visible="visible" @handleCancel="handleCancel" @handleOk="handleOk"></establish-organization>
-    <!-- <a-modal :visible="visible" title="创建组织" @cancel="handleCancel" @ok="handleOk">
-      <a-form>
-        <a-form-item label="组织名称">
-          <a-input v-model:value="formState.name" placeholder="请输入组织名称" />
-        </a-form-item>
-        <a-form-item label="路由前缀">
-          <a-input addon-before="/" v-model:value="formState.routerCode" placeholder="请输入路由前缀" />
-        </a-form-item>
-        <a-form-item label="组织描述">
-          <a-input v-model:value="formState.disp" placeholder="请输入组织描述" />
-        </a-form-item>
-        <a-form-item label="组织密码">
-          <a-input v-model:value="formState.password" placeholder="其他成员需要密码才能加入" />
-        </a-form-item>
-      </a-form>
-    </a-modal> -->
+    <establish-organization :visible="visible" @handleCancel="handleCancel" @handleOk="handleOk" />
     <!-- 加入 -->
-    <join-organization
-      :joinVisible="joinVisible"
-      @handleJoinCancel="handleJoinCancel"
-      @handleJoinOk="handleJoinOk"
-    ></join-organization>
-    <!-- <a-modal :visible="joinVisible" title="创建组织" @cancel="handleJoinCancel" @ok="handleJoinOk">
-      <a-form>
-        <a-form-item label="加入密码">
-          <a-input v-model:value="joinData.password" placeholder="请输入密码" />
-        </a-form-item>
-      </a-form>
-    </a-modal> -->
+    <join-organization :joinVisible="joinVisible" @handleJoinCancel="handleJoinCancel" @handleJoinOk="handleJoinOk" />
   </div>
 </template>
 
@@ -134,8 +107,8 @@ export default defineComponent({
       joinVisible.value = false
     }
     // 加入组织
-    async function handleJoinOk(e) {
-      joinData.value.password = e 
+    async function handleJoinOk(value) {
+      joinData.value.password = value
       // 改变数据
       let currentData = await useCloud('organize')
         .where({
@@ -170,8 +143,8 @@ export default defineComponent({
       visible.value = true
     }
 
-    async function handleOk(e) {
-      let { name, disp, password, routerCode } = e
+    async function handleOk(data) {
+      let { name, disp, password, routerCode } = data
       let { uid, email } = store.userData
       await useCloud('organize')
         .add({
