@@ -125,7 +125,8 @@
       display: flex;
       justify-content: center;
       .modal_iframe{
-        height: 500px;
+        border: 1px solid #3a71ee;
+        height: 600px;
         width: 280px;
       }
       border-right: 1px solid #eee;

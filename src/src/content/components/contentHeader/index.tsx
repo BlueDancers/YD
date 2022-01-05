@@ -38,6 +38,7 @@ export default defineComponent({
     }
     // 保存逻辑
     async function saveCarryPage() {
+      core.resetCompActive()
       saveLoading.value = true
       let thmbImg
       if (board.pageDetail.pageType == 1) {
@@ -130,33 +131,36 @@ export default defineComponent({
           onOk={handleSave}
           footer=""
         >
-          <div class={css.save_modal_cont}>
-            <div class={css.modal_left}>
-              <iframe class={css.modal_iframe} src={`${clientUrl}/cs/312`}></iframe>
+          {
+            showSave.value && <div class={css.save_modal_cont}>
+              <div class={css.modal_left}>
+                <iframe class={css.modal_iframe} src={`${clientUrl}/cs/312`}></iframe>
+              </div>
+              <div class={css.modal_right}>
+                <a-form>
+                  <a-form-item label="页面名称" name={pageRules.routerName}>
+                    {/* <a-input class="lang_input" v-model={[board.pageDetail.routerName, 'value']} /> */}
+                    <span>{board.pageDetail.routerName}</span>
+                  </a-form-item>
+                  <a-form-item label="页面路由" name={pageRules.routerName}>
+                    {/* <a-input class="lang_input" v-model={[board.pageDetail.router, 'value']} /> */}
+                    <span>{board.pageDetail.router}</span>
+                  </a-form-item>
+                  <a-form-item label="请求地址">
+                    <a href={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`} target={'_blank'}>{`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}</a>
+                  </a-form-item>
+                  <a-form-item label="扫码进入">
+                    <qrcode-vue
+                      class="item_qrcode"
+                      size={130}
+                      value={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}
+                    ></qrcode-vue>
+                  </a-form-item>
+                </a-form>
+              </div>
             </div>
-            <div class={css.modal_right}>
-              <a-form>
-                <a-form-item label="页面名称" name={pageRules.routerName}>
-                  {/* <a-input class="lang_input" v-model={[board.pageDetail.routerName, 'value']} /> */}
-                  <span>{board.pageDetail.routerName}</span>
-                </a-form-item>
-                <a-form-item label="页面路由" name={pageRules.routerName}>
-                  {/* <a-input class="lang_input" v-model={[board.pageDetail.router, 'value']} /> */}
-                  <span>{board.pageDetail.router}</span>
-                </a-form-item>
-                <a-form-item label="请求地址">
-                  <a href={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`} target={'_blank'}>{`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}</a>
-                </a-form-item>
-                <a-form-item label="扫码进入">
-                  <qrcode-vue
-                    class="item_qrcode"
-                    size={130}
-                    value={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}
-                  ></qrcode-vue>
-                </a-form-item>
-              </a-form>
-            </div>
-          </div>
+          }
+
         </a-modal>
       </div>
     )

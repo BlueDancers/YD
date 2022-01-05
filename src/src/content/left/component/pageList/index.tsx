@@ -1,18 +1,22 @@
 import { pageDataItem, useCoreStore } from '@/stores/core';
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useBoardStore } from '@/stores/board';
 import domtoimage from 'dom-to-image'
 import { deepClone, imgToFile, imgToStorage } from '@/utils';
 
+import templateModal from './components/templateModal';
+
 export default defineComponent({
   components: {
     draggable: VueDraggableNext,
+    templateModal
   },
   setup() {
     const board = useBoardStore()
     const core = useCoreStore()
+    const tempVisible = ref(false)
     onMounted(() => {
       console.log(core.pageData);
     })
@@ -50,11 +54,18 @@ export default defineComponent({
         core.acPageIndex = evt.oldIndex
       }
     }
+    // 删除页面
     function deletePage(index) {
       core.pageData.splice(index, 1)
     }
+    // 增加页面
     function insertPage(index) {
       core.pageData.splice(index, 0, pageDataItem())
+    }
+    // 保存到模板市场
+    function saveToTempLate(index) {
+      console.log(11, core.carryPageComp[index]);
+      tempVisible.value = true
     }
     return () => (
       <div class={css.page_list}>
@@ -73,26 +84,49 @@ export default defineComponent({
                 <div class={css.item_index}>{index + 1}</div>
                 {
                   board.pageDetail.tumbUrl.filter(e => e.split('&')[1] == item.id).length > 0 ? (
-                    <img class={css.item_core} src={`${board.pageDetail.tumbUrl[index]}?t=${new Date().getTime()}`} />
+                    <img class={css.item_core} src={board.pageDetail.tumbUrl[index]} />
                   ) : (
                     <div class={[css.item_core, index == core.acPageIndex ? css.active_core : '']} > </div>
                   )
                 }
-                <div class={css.item_action}>
-                  {/* <div class={css.action_active}>1</div>
+                {
+                  index == core.acPageIndex && <div class={css.item_action}>
+                    {/* <div class={css.action_active}>1</div>
                   <div class={css.action_active}>1</div>
                   <div class={css.action_active}>1</div> */}
-                  <div class={css.action_active} onClick={() => deletePage(index)}>
-                    <svg-icon class={css.svg_icon} color={'#2970f6'} name="shanchu" />
+                    <a-popover
+                      title=""
+                      trigger="hover"
+                      placement="right"
+                      content={<>
+                        <span>删除页面</span>
+                      </>}>
+                      <div class={css.action_active} onClick={() => deletePage(index)}>
+                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="shanchu" />
+                      </div>
+                    </a-popover>
+                    <a-popover title="" trigger="hover" placement="right" content={<>
+                      <span>插入新页面</span>
+                    </>}>
+                      <div class={css.action_active} onClick={() => insertPage(index)}>
+                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
+                      </div>
+                    </a-popover>
+                    <a-popover title="" trigger="hover" placement="right" content={<>
+                      <span>上传到插件市场</span>
+                    </>}>
+                      <div class={css.action_active} onClick={() => saveToTempLate(index)}>
+                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
+                      </div>
+                    </a-popover>
                   </div>
-                  <div class={css.action_active} onClick={() => insertPage(index)}>
-                    <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
-                  </div>
-                </div>
+                }
               </div>
             ))
           }
         </draggable>
+        {/* 上传到模板市场 */}
+        <template-modal tempVisible={tempVisible.value} onChangeVisible={(params) => tempVisible.value = params}></template-modal>
       </div>
     )
   }

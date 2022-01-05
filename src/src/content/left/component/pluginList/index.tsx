@@ -53,7 +53,6 @@ export default defineComponent({
         <a-tabs v-model={[activeKey.value, 'activeKey']} onChange={changeTab}>
           <a-tab-pane key={1} tab={"全部组件"}>
             {pluginItem({ plugleList, core, isMore, isMy: false }, { deleteItem })}
-
           </a-tab-pane>
           <a-tab-pane key={2} tab={"我的组件"}>
             {pluginItem({ plugleList, core, isMore, isMy: true }, { deleteItem })}

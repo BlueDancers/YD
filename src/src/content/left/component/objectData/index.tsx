@@ -45,7 +45,7 @@ export default defineComponent({
       <div class={css.object_data}>
         <a-form ref={(ref) => { pageRef.value = ref }} model={[pageDetail]} rules={pageRules} label-col={{ style: { width: '80px' } }}>
           <a-form-item label="页面名称" name={pageRules.routerName}>
-            <a-input class={css.page_set_input} v-model={[pageDetail.routerName, 'value']} />
+            <a-input class={css.page_set_input} v-model={[pageDetail.routerName, 'value',['trim']]} />
           </a-form-item>
           <a-form-item label="页面路由" name={pageRules.router}>
             <a-input addon-before="/" class={css.page_set_input} v-model={[pageDetail.router, 'value']} />

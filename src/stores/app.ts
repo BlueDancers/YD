@@ -15,6 +15,8 @@ export const useAppStore = defineStore('app', {
         .getCurrenUser()
         .then((user) => {
           if (user) {
+            console.log('用户信息', user)
+
             this.userData = user
           } else {
             console.log('未登录')

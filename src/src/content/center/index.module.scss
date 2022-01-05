@@ -20,7 +20,7 @@
             cursor: ns-resize;
         }
 
-        .assist_1 {
+        .assist {
             position: absolute;
             right: -45px;
             padding-left: 10px;
@@ -28,6 +28,16 @@
             border-top: 1px dashed #3a71ee;
             color: #3a71ee;
             font-size: 12px;
+        }
+
+        .assist_1 {
+            right: -45px;
+            top: 699px;
+        }
+
+        .assist_2 {
+            right: -65px;
+            top: 570px;
         }
     }
 }

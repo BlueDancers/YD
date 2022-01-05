@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent } from 'vue'
+import { ref, reactive, defineComponent, toRefs } from 'vue'
 import { Form } from 'ant-design-vue'
 const useForm = Form.useForm
 export default defineComponent({
@@ -59,7 +59,7 @@ export default defineComponent({
           console.log('error', err)
         })
     }
-    return { formState, handleCancel, handleOk, formRef, validateInfos, resetFields, ...props }
+    return { formState, handleCancel, handleOk, formRef, validateInfos, resetFields }
   },
 })
 </script>
