@@ -6,65 +6,74 @@
   background-color: #fff;
 
   .plugin_list_cont {
-    padding-top: 10px;
-    display: grid;
-    grid-template-columns: 124px 124px;
-    grid-template-rows: repeat(auto-fill, 124px);
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
+    overflow-y: scroll;
+    height: 85vh;
 
-    .list_item {
-      position: relative;
-      border: 1px solid rgba(0, 0, 0, 0);
-      background-color: #f2f5f9;
+    .plugin_list_grid {
+      padding-top: 10px;
+      display: grid;
+      grid-template-columns: 124px 124px;
+      grid-template-rows: repeat(auto-fill, 124px);
+      grid-row-gap: 10px;
+      grid-column-gap: 10px;
 
-      height: 124px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      .list_item {
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0);
+        background-color: #f2f5f9;
 
-      &:hover {
-        border: 1px solid #3a71ee;
+        height: 124px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          border: 1px solid #3a71ee;
+
+          .delete_item {
+            display: block;
+          }
+
+          .plugin_btn {
+            display: block;
+          }
+        }
+
 
         .delete_item {
-          display: block;
+          display: none;
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          cursor: pointer;
+        }
+
+        .list_thmb {
+          margin-left: 10%;
+          width: 80%;
+          max-height: 100%;
         }
 
         .plugin_btn {
-          display: block;
+          display: none;
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          color: #3a71ee;
+          background-color: rgba(212, 212, 212, 0.6);
+          text-align: center;
+          cursor: pointer;
         }
       }
+    }
 
-
-      .delete_item {
-        display: none;
-        position: absolute;
-        right: 5px;
-        top: 5px;
-        cursor: pointer;
-      }
-
-      .list_thmb {
-        margin-left: 10%;
-        width: 80%;
-        max-height: 100%;
-      }
-
-      .plugin_btn {
-        display: none;
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        color: #3a71ee;
-        background-color: rgba(212, 212, 212, 0.6);
-        text-align: center;
-        cursor: pointer;
-      }
+    .more_btn {
+      margin-left: 10%;
+      width: 80%;
+      text-align: center;
+      margin-top: 10px;
     }
   }
 
-  .more_btn {
-    width: 80%;
-    margin-top: 10px;
-  }
+
 }

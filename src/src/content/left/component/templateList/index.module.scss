@@ -5,17 +5,72 @@
   align-items: center;
   background-color: #fff;
 
-  .plugin_list_cont {
-    padding-top: 10px;
-    display: grid;
-    grid-template-columns: 124px 124px;
-    grid-template-rows: repeat(auto-fill, 124px);
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
+  .temp_list_cont {
+    overflow-y: scroll;
+    height: 85vh;
+
+    .temp_list {
+      padding-top: 10px;
+      display: grid;
+      grid-template-columns: 124px 124px;
+      grid-template-rows: repeat(auto-fill, 230px);
+      grid-row-gap: 10px;
+      grid-column-gap: 10px;
+
+      .cont_item {
+        position: relative;
+        background-color: #eee;
+        height: 230px;
+
+        &:hover {
+          border: 1px solid #3a71ee;
+
+          .delete_item_con {
+            display: block;
+          }
+
+          .temp_btn {
+            display: block;
+          }
+        }
+
+        .delete_item_con {
+          display: none;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          padding: 0px 4px;
+          cursor: pointer;
+          background-color: #fff;
+        }
+
+
+        .item_img {
+          width: 100%;
+          height: 100%;
+        }
+
+        .temp_btn {
+          display: none;
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          color: #3a71ee;
+          border-top: 1px solid #3a71ee;
+          background-color: rgb(255, 255, 255);
+          text-align: center;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .more_btn {
+      margin-left: 10%;
+      width: 80%;
+      text-align: center;
+      margin-top: 10px;
+    }
   }
 
-  .more_btn {
-    width: 80%;
-    margin-top: 10px;
-  }
+
 }

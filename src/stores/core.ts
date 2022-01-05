@@ -1,5 +1,6 @@
 import { baseAnimation, baseComList, baseComponent } from '@/modules/components'
 import { guid } from '@/utils'
+import { message } from 'ant-design-vue'
 import { defineStore } from 'pinia'
 import { watch } from 'vue-demi'
 import History from './plugin/History'
@@ -105,6 +106,18 @@ export const useCoreStore = defineStore('core', {
       data.cssModule['z-index'] = maxzIndex
       data.id = guid()
       this.pageData[this.acPageIndex].dom.push(data)
+      message.success('组件导入成功~')
+    },
+    // 从模板市场增加页面
+    useTemplate(data) {
+      console.log(data)
+      this.pageData.push({
+        id: guid(),
+        dom: data,
+      })
+      this.acPageIndex = this.pageData.length -1
+      this.resetCompActive()
+      message.success('页面导入成功~')
     },
     // 撤销
     revoke() {
