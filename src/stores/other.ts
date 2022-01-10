@@ -1,4 +1,5 @@
 import { deepClone, guid } from '@/utils'
+import { message } from 'ant-design-vue'
 import { defineStore } from 'pinia'
 import { useCoreStore } from './core'
 
@@ -12,6 +13,10 @@ export const useOtherStore = defineStore('other', {
   },
   actions: {
     pushData() {
+      if (core.activeCompIndex == -1) {
+        message.error('请选中组件')
+        return false
+      }
       let comp = core.carryPageComp.dom.filter((e, i) => i == core.activeCompIndex)
       this.copyData = JSON.parse(JSON.stringify(comp))
       this.copyData.map((e: any) => {
@@ -24,8 +29,8 @@ export const useOtherStore = defineStore('other', {
     },
     // 粘贴组件
     pasteComp() {
-      console.log('粘贴逻辑')
       if (this.copyData.length == 0) {
+        message.error('粘贴板内无数据')
         return
       }
       core.carryPageComp.dom = deepClone(core.carryPageComp.dom.concat(this.copyData))

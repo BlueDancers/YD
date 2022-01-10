@@ -1,3 +1,4 @@
+import { numberFun } from '@/utils'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { defineStore } from 'pinia'
 import { useCoreStore } from './core'
@@ -61,6 +62,13 @@ export const useBoardStore = defineStore('board', {
             core.addPage()
           }
         })
+    },
+    zoomScale(type) {
+      if (type == '+') {
+        this.scale = numberFun(this.scale, 1) + 0.1
+      } else {
+        this.scale = numberFun(this.scale, 1) - 0.1
+      }
     },
   },
 })

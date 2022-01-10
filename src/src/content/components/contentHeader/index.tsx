@@ -8,6 +8,7 @@ import { imgToFile, imgToStorage } from '@/utils';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { clientUrl } from '@/modules/request';
 import QrcodeVue from 'qrcode.vue'
+import { router } from '@/router';
 
 export default defineComponent({
   components: {
@@ -25,7 +26,9 @@ export default defineComponent({
     }
     // 
     function gotoHome() {
-
+      router.replace({
+        name: 'home'
+      })
     }
     function gotoDoc() {
       message.info('开发中,敬请期待👨‍💻🧑‍💻👩‍💻')

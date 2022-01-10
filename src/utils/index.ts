@@ -269,3 +269,20 @@ export async function imgToStorage(dataUrl, fileName, fileDir) {
   let url = await uploadFile(`${fileDir}/${file.name}`, file)
   return url
 }
+
+/**
+ * 格式化数组
+ * @param price 未格式化文字
+ * @param minNum 小数位数
+ */
+export function numberFun(price, minNum) {
+  if (price > 0) {
+    if (String(price).includes('.')) {
+      return Number(price.toFixed(minNum))
+    } else {
+      return price
+    }
+  } else {
+    return 0
+  }
+}

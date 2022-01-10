@@ -1,5 +1,5 @@
 import { baseAnimation, baseComList, baseComponent } from '@/modules/components'
-import { guid } from '@/utils'
+import { deepClone, guid } from '@/utils'
 import { message } from 'ant-design-vue'
 import { defineStore } from 'pinia'
 import { watch } from 'vue-demi'
@@ -60,8 +60,12 @@ export const useCoreStore = defineStore('core', {
       this.hoverCompIndex = this.pageData[this.acPageIndex].dom.length - 1
     },
     deleteComp(index) {
-      this.pageData[this.acPageIndex].dom.splice(index, 1)
-      this.activeCompIndex = -1
+      if (index == -1) {
+        message.error('当前未选中组件')
+      } else {
+        this.pageData[this.acPageIndex].dom.splice(index, 1)
+        this.activeCompIndex = -1
+      }
     },
     lockComp(id: string, type) {
       if (type) {
@@ -105,7 +109,7 @@ export const useCoreStore = defineStore('core', {
       data.cssModule.left = 20
       data.cssModule['z-index'] = maxzIndex
       data.id = guid()
-      this.pageData[this.acPageIndex].dom.push(data)
+      this.pageData[this.acPageIndex].dom.push(deepClone(data))
       message.success('组件导入成功~')
     },
     // 从模板市场增加页面
@@ -115,7 +119,7 @@ export const useCoreStore = defineStore('core', {
         id: guid(),
         dom: data,
       })
-      this.acPageIndex = this.pageData.length -1
+      this.acPageIndex = this.pageData.length - 1
       this.resetCompActive()
       message.success('页面导入成功~')
     },

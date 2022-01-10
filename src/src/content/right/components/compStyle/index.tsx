@@ -36,7 +36,7 @@ export default defineComponent({
           </div>
         </a-form-item>
         <a-collapse v-model={[activeKey.value, 'activeKey']}>
-          <a-collapse-panel key={1} header="布局设置" show-arrow={false}>
+          <a-collapse-panel key={1} header="布局设置">
             <a-form-item label="尺寸">
               <a-input-number min={0} class="default_input" addon-before="宽" v-model={[core.carryCss.width, 'value']} />
               <a-input-number min={0} class="default_input" addon-before="高" v-model={[core.carryCss.height, 'value']} />
@@ -54,7 +54,7 @@ export default defineComponent({
               <a-input-number min={0} class="default_input" addon-before="右" v-model={[core.carryCss['padding-right'], 'value']} />
             </a-form-item> */}
           </a-collapse-panel>
-          <a-collapse-panel key={2} header="样式设置" show-arrow={false}>
+          <a-collapse-panel key={2} header="样式设置">
             {
               core.carryCss['background-color'] != null && <a-form-item label="背景颜色">
                 <el-color-picker show-alpha v-model={core.carryCss['background-color']} />
@@ -84,7 +84,7 @@ export default defineComponent({
             }
           </a-collapse-panel>
           {
-            core.carryCss.color != null && <a-collapse-panel key={3} header="文字设置" show-arrow={false}>
+            core.carryCss.color != null && <a-collapse-panel key={3} header="文字设置">
               <a-form-item label="字体颜色">
                 <el-color-picker show-alpha v-model={[core.carryCss.color]} />
               </a-form-item>

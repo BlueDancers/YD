@@ -4,6 +4,7 @@ import css from './index.module.scss';
 import compStyle from './components/compStyle/index';
 import compAction from './components/compAction';
 import compAnimation from './components/compAnimation';
+import fastActive from './components/fastActive';
 import { useCoreStore } from '@/stores/core';
 import { useOtherStore } from '@/stores/other';
 
@@ -11,13 +12,15 @@ export default defineComponent({
   components: {
     compStyle,
     compAction,
-    compAnimation
+    compAnimation,
+    fastActive
   },
   setup() {
     const core = useCoreStore()
     const other = useOtherStore()
     return () => (
       <div class={css.right}>
+        <fastActive></fastActive>
         {
           (core.pageData.length && core.activeCompIndex != -1) &&
           <a-tabs v-model={[other.rightKey, 'activeKey']} type="card" class={css.right_header}>
