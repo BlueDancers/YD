@@ -1,4 +1,4 @@
-import { deepClone, guid } from '@/utils'
+import { deepClone, guid } from '@/utils/index'
 import { message } from 'ant-design-vue'
 import { defineStore } from 'pinia'
 import { useCoreStore } from './core'

@@ -1,4 +1,4 @@
-import { numberFun } from '@/utils'
+import { numberFun } from '@/utils/index'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { defineStore } from 'pinia'
 import { useCoreStore } from './core'

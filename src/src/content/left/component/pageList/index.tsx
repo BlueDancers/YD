@@ -112,9 +112,15 @@ export default defineComponent({
                         <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
                       </div>
                     </a-popover>
-                    <a-popover title="" trigger="hover" placement="right" content={<>
-                      <span>上传到插件市场</span>
-                    </>}>
+                    <a-popover
+                      title=""
+                      trigger="hover"
+                      placement="right"
+                      content={
+                        <>
+                          <span>上传到插件市场</span>
+                        </>
+                      }>
                       <div class={css.action_active} onClick={() => saveToTempLate(index)}>
                         <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
                       </div>
