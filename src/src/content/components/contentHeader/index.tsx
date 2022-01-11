@@ -8,7 +8,7 @@ import { imgToFile, imgToStorage } from '@/utils/index';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { clientUrl } from '@/modules/request';
 import QrcodeVue from 'qrcode.vue'
-import { router } from '@/router';
+import { router } from '@/router/index';
 
 export default defineComponent({
   components: {
@@ -137,7 +137,9 @@ export default defineComponent({
           {
             showSave.value && <div class={css.save_modal_cont}>
               <div class={css.modal_left}>
-                <iframe class={css.modal_iframe} src={`${clientUrl}/cs/312`}></iframe>
+                <iframe
+                  class={css.modal_iframe}
+                  src={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}></iframe>
               </div>
               <div class={css.modal_right}>
                 <a-form>
@@ -150,7 +152,12 @@ export default defineComponent({
                     <span>{board.pageDetail.router}</span>
                   </a-form-item>
                   <a-form-item label="请求地址">
-                    <a href={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`} target={'_blank'}>{`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}</a>
+                    <a
+                      href={`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}
+                      target={'_blank'}
+                    >
+                      {`${clientUrl}/${board.parentRouter}/${board.pageDetail.router}`}
+                    </a>
                   </a-form-item>
                   <a-form-item label="扫码进入">
                     <qrcode-vue

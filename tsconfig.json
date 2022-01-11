@@ -20,6 +20,9 @@
       "@/stores*": [
         "./src/stores*"
       ],
+      "@/router*": [
+        "./src/router*"
+      ],
       "@/components*": [
         "./src/components*"
       ],
