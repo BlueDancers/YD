@@ -18,22 +18,27 @@
 
     .page_item {
       border-top: 1px solid #eee;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-left: 40px;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      padding-left: 20px;
       width: 100%;
       position: relative;
       display: flex;
       align-items: center;
+
+      .item_input {
+        width: 100px;
+      }
+
       .item_index {
         margin-right: 20px;
-        width: 20px;
-        height: 20px;
+        // width: 20px;
+        // height: 20px;
         text-align: center;
         line-height: 20px;
-        background-color: #3a71ee;
-        border-radius: 100%;
-        color: #fff;
+        // background-color: #3a71ee;
+        // border-radius: 100%;
+        color: #000;
       }
 
       .item_core {
@@ -48,14 +53,13 @@
       }
 
       .item_action {
-        margin-left: 20px;
-
+        display: flex;
+        margin-left: 66px;
 
         .action_active {
           cursor: pointer;
           margin: 10px 0;
           border-radius: 10%;
-          background-color: #fff;
           color: #3a71ee;
           width: 24px;
           height: 24px;
@@ -64,8 +68,9 @@
           justify-content: center;
 
           .svg_icon {
-            width: 18px;
-            height: 18px;
+            width: 19px;
+            height: 19px;
+            color: #000 !important;
           }
         }
       }
@@ -73,8 +78,16 @@
 
     .active_item {
       background-color: rgb(242, 242, 242);
-    }
 
+      .item_action {
+        .action_active {
+          .svg_icon {
+            color: #2970f6 !important;
+          }
+        }
+      }
+
+    }
   }
 
   .add_page_cont {

@@ -6,7 +6,7 @@ export default defineComponent({
   props: ['compData'],
   setup(props) {
     onMounted(() => {
-      console.log(props.compData);
+      // console.log(props.compData);
     })
     return (props) => (
       <p style={compResetCss(props.compData.cssModule)} v-html={props.compData.staticData.text.replace(/\n|\r\n/g, '<br>')}></p>

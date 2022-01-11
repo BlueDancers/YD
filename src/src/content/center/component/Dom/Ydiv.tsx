@@ -6,7 +6,7 @@ export default defineComponent({
   props: ['compData'],
   setup(props) {
     onMounted(() => {
-      console.log(props.compData);
+      // console.log(props.compData);
     })
     return () => (
       <div style={compResetCss(props.compData.cssModule)}></div>

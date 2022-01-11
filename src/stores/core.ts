@@ -14,7 +14,7 @@ export const useCoreStore = defineStore('core', {
       acPageIndex: 0, // 当前选中的页面
       activeCompIndex: -1, // 当前选中的组件下标
       hoverCompIndex: -1, // 当前hover的组件下标
-      pageData: [] as { id: string; dom: any[] }[],
+      pageData: [] as { name: string; id: string; dom: any[] }[],
       isMeta: false, // 是否按住command
       moveIndex: 0, // 当前拖动类型 1-8 坐标点 9 底部高度条 10 按住元素
       downState: false, // 当前是否按住了鼠标
@@ -41,7 +41,11 @@ export const useCoreStore = defineStore('core', {
   actions: {
     addPage() {
       this.resetCompActive()
-      this.pageData.push(pageDataItem())
+      this.pageData.push(this.pageDataItem())
+      this.acPageIndex = this.pageData.length - 1
+    },
+    pageDataItem() {
+      return pageDataItem(this.pageData.length)
     },
     resetCompActive() {
       this.activeCompIndex = -1
@@ -116,7 +120,7 @@ export const useCoreStore = defineStore('core', {
     useTemplate(data) {
       console.log(data)
       this.pageData.push({
-        id: guid(),
+        ...this.pageDataItem(),
         dom: data,
       })
       this.acPageIndex = this.pageData.length - 1
@@ -136,8 +140,9 @@ export const useCoreStore = defineStore('core', {
   },
 })
 
-export function pageDataItem() {
+export function pageDataItem(num) {
   return {
+    name: '页面' + (num + 1),
     id: guid(),
     dom: [],
   }
