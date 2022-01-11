@@ -1,4 +1,4 @@
-import { cssTopx, guid } from '@/utils'
+import { cssTopx, guid } from '@/utils/index'
 
 export function baseContList(name, carryLength) {
   const list = [

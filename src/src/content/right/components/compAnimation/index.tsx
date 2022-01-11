@@ -1,5 +1,5 @@
 import { useCoreStore } from '@/stores/core';
-import { deepClone } from '@/utils';
+import { deepClone } from '@/utils/index';
 import { CaretRightOutlined, CloseOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue-demi';
 import animationOptions from './component/animation/animation';
@@ -83,7 +83,7 @@ export default defineComponent({
      * @param index 
      */
     function deleteAnima(event, index) {
-      core.pageData[core.acPageIndex][core.activeCompIndex].animation.splice(index, 1)
+      core.pageData[core.acPageIndex].dom[core.activeCompIndex].animation.splice(index, 1)
       event.stopPropagation()
     }
     return () => (

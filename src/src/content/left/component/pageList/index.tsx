@@ -3,8 +3,6 @@ import { defineComponent, onMounted, ref } from 'vue'
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useBoardStore } from '@/stores/board';
-import domtoimage from 'dom-to-image'
-import { deepClone, imgToFile, imgToStorage } from '@/utils';
 
 import templateModal from './components/templateModal';
 
@@ -60,7 +58,7 @@ export default defineComponent({
     }
     // 增加页面
     function insertPage(index) {
-      core.pageData.splice(index, 0, pageDataItem())
+      core.pageData.splice(index + 1, 0, pageDataItem())
     }
     // 保存到模板市场
     function saveToTempLate(index) {
@@ -91,27 +89,27 @@ export default defineComponent({
                 }
                 {
                   index == core.acPageIndex && <div class={css.item_action}>
-                    {/* <div class={css.action_active}>1</div>
-                  <div class={css.action_active}>1</div>
-                  <div class={css.action_active}>1</div> */}
-                    <a-popover
-                      title=""
-                      trigger="hover"
-                      placement="right"
-                      content={<>
-                        <span>删除页面</span>
-                      </>}>
-                      <div class={css.action_active} onClick={() => deletePage(index)}>
-                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="shanchu" />
+                    <a-popconfirm
+                      title="确定删除该页面吗?"
+                      ok-text="确认"
+                      cancel-text="取消"
+                      onConfirm={() => deletePage(index)}
+                    >
+                      <div class={css.action_active}>
+                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="shanchu2" />
                       </div>
-                    </a-popover>
-                    <a-popover title="" trigger="hover" placement="right" content={<>
-                      <span>插入新页面</span>
-                    </>}>
-                      <div class={css.action_active} onClick={() => insertPage(index)}>
+                    </a-popconfirm>
+
+                    <a-popconfirm
+                      title="在当前页面下方增加空白页面"
+                      ok-text="确认"
+                      cancel-text="取消"
+                      onConfirm={() => insertPage(index)}
+                    >
+                      <div class={css.action_active}>
                         <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
                       </div>
-                    </a-popover>
+                    </a-popconfirm>
                     <a-popover
                       title=""
                       trigger="hover"
@@ -122,7 +120,7 @@ export default defineComponent({
                         </>
                       }>
                       <div class={css.action_active} onClick={() => saveToTempLate(index)}>
-                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="plus" />
+                        <svg-icon class={css.svg_icon} color={'#2970f6'} name="yunshangchuan" />
                       </div>
                     </a-popover>
                   </div>

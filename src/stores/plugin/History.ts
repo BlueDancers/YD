@@ -1,4 +1,4 @@
-import { debounce, deepClone } from '@/utils'
+import { debounce, deepClone } from '@/utils/index'
 import { message } from 'ant-design-vue'
 
 class History {

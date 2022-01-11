@@ -4,7 +4,7 @@ import { QrcodeOutlined, ReadOutlined, GithubOutlined } from '@ant-design/icons-
 import css from './index.module.scss';
 import { message } from 'ant-design-vue';
 import { useBoardStore } from '@/stores/board';
-import { imgToFile, imgToStorage } from '@/utils';
+import { imgToFile, imgToStorage } from '@/utils/index';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { clientUrl } from '@/modules/request';
 import QrcodeVue from 'qrcode.vue'

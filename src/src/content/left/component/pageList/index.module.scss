@@ -54,17 +54,18 @@
         .action_active {
           cursor: pointer;
           margin: 10px 0;
-          border-radius: 100%;
+          border-radius: 10%;
           background-color: #fff;
           color: #3a71ee;
           width: 24px;
           height: 24px;
-          text-align: center;
-          line-height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           .svg_icon {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
           }
         }
       }

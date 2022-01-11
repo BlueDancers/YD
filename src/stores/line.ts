@@ -1,4 +1,4 @@
-import { deepClone } from '@/utils'
+import { deepClone } from '@/utils/index'
 import { defineStore } from 'pinia'
 import { Vue } from 'vue-demi'
 import { useCoreStore } from './core'

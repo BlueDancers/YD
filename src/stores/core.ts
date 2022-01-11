@@ -1,5 +1,5 @@
 import { baseAnimation, baseComList, baseComponent } from '@/modules/components'
-import { deepClone, guid } from '@/utils'
+import { deepClone, guid } from '@/utils/index'
 import { message } from 'ant-design-vue'
 import { defineStore } from 'pinia'
 import { watch } from 'vue-demi'

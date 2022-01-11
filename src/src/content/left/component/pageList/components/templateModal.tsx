@@ -2,8 +2,7 @@ import { useCoreStore } from '@/stores/core';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { message } from 'ant-design-vue';
 import { defineComponent, ref } from 'vue-demi';
-import domtoimage from 'dom-to-image'
-import { deepClone, imgToFile, imgToStorage } from '@/utils';
+import { deepClone, imgToFile, imgToStorage } from '@/utils/index';
 import { useBoardStore } from '@/stores/board';
 import { useAppStore } from '@/stores/app';
 
@@ -41,7 +40,7 @@ export default defineComponent({
       <a-modal
         v-model={[props.tempVisible, 'visible']}
         width={"400px"}
-        title={"设置页面名称"}
+        title={"上传到模板市场"}
         onOk={(evt) => handleOk(evt)}
         onCancel={(evt) => handleCancel(evt)}
       >

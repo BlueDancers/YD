@@ -3,7 +3,7 @@ import { useCloud } from '@/utils/Hook/useRequest';
 import { message } from 'ant-design-vue';
 import { defineComponent, ref } from 'vue-demi';
 import domtoimage from 'dom-to-image'
-import { deepClone, imgToStorage } from '@/utils';
+import { deepClone, imgToStorage } from '@/utils/index';
 export default defineComponent({
   props: ['pluginVisible'],
   setup(props, { emit }) {

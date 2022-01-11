@@ -1,4 +1,4 @@
-import { cssTopx } from '@/utils'
+import { cssTopx } from '@/utils/index'
 import store from '@/store/index'
 
 const pTab = '\n      '
