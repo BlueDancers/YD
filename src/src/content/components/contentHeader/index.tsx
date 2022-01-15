@@ -1,9 +1,9 @@
-import { useCoreStore } from 'src/store/core';
+import { useCoreStore } from '@/store/core';
 import { defineComponent, ref } from 'vue-demi';
 import { QrcodeOutlined, ReadOutlined, GithubOutlined } from '@ant-design/icons-vue'
 import css from './index.module.scss';
 import { message } from 'ant-design-vue';
-import { useBoardStore } from 'src/store/board';
+import { useBoardStore } from '@/store/board';
 import { imgToFile, imgToStorage } from '@/utils/index';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { clientUrl } from '@/modules/request';

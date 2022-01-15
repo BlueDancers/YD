@@ -1,73 +1,5 @@
 import { cssTopx, guid } from '@/utils/index'
 
-export function baseContList(name, carryLength) {
-  const list = [
-    {
-      id: guid(),
-      name: 'default',
-      cssModule: {
-        width: 375,
-        height: 300,
-        position: 'relative',
-        top: 0,
-        left: 0,
-        'background-color': '#ffffff',
-        'z-index': 100 - carryLength,
-        ...borderData(),
-        ...padAndMar(),
-        'box-shadow': '0px 0px 0px #333',
-        display: 'block',
-      },
-      components: [], // 当前页面数据
-    },
-    {
-      id: guid(),
-      name: 'grid',
-      cssModule: {
-        width: 375,
-        height: '100%',
-        position: 'relative',
-        top: 0,
-        left: 0,
-        'background-color': '#ffffff',
-        'z-index': 100 - carryLength,
-        ...borderData(),
-        ...padAndMar(),
-        'box-shadow': '0px 0px 0px #333',
-        display: 'grid',
-        'grid-template-columns': '1fr 1fr 1fr', // 行
-        'grid-template-rows': '1fr 1fr 1fr', // 列
-        'grid-row-gap': 10, // 列之间间距
-        'grid-column-gap': 10, // 行之间间距
-      },
-      components: [], // 当前页面数据
-    },
-    {
-      id: guid(),
-      name: 'flex',
-      cssModule: {
-        width: 375,
-        height: 300,
-        position: 'relative',
-        top: 0,
-        left: 0,
-        'background-color': '#ffffff',
-        'z-index': 100 - carryLength,
-        ...borderData(),
-        ...padAndMar(),
-        'box-shadow': '0px 0px 0px #333',
-        display: 'flex',
-        'flex-direction': 'row',
-        'flex-wrap': 'wrap',
-        'align-items': 'center',
-        'justify-content': 'center',
-      },
-      components: [], // 当前页面数据
-    },
-  ]
-  return list.find((e) => e.name == name)
-}
-
 export interface baseComponent {
   id: String
   name: string
@@ -194,6 +126,26 @@ function baseComList(name: string, zIndex) {
       function: {}, // 方法
       animation: [], // 动画
     },
+    // 业务组件
+    {
+      id: guid(),
+      name: 'y-swiper',
+      showTitle: `轮播图${zIndex}`, // 显示组件名称
+      show: true,
+      cssModule: {
+        ...absolute(zIndex),
+        ...borderData(),
+        ...padAndMar(),
+        ...compSize(200, 60),
+      }, // 样式
+      staticData: {
+        // 轮播图数据
+        data: [baseSwiper()],
+      }, // 展示文字
+      function: {}, // 方法
+      animation: [], // 动画
+    },
+    // 图标组件
   ]
   return list.find((e) => e.name == name)
 }
@@ -242,6 +194,15 @@ function borderData() {
     'border-radius': 0,
   }
 }
+
+export function baseSwiper() {
+  return {
+    imglUrl:
+      'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/%E7%B4%A0%E6%9D%90.png?sign=25d2c8158d6163417af8608cca0ade96&t=1639301025',
+    ...linkData(),
+  }
+}
+
 /**
  * 行为封装
  * @returns

@@ -1,6 +1,6 @@
 
-import { useBoardStore } from 'src/store/board';
-import { useCoreStore } from 'src/store/core';
+import { useBoardStore } from '@/store/board';
+import { useCoreStore } from '@/store/core';
 import { defineComponent, ref } from 'vue'
 import c from './index.module.scss';
 import useListen from './useListen';
@@ -15,9 +15,11 @@ import Ybutton from './component/Dom/Ybutton';
 import Yimg from './component/Dom/Yimg';
 import Yp from './component/Dom/Yp';
 import Yinput from './component/Dom/Yinput';
+import Yswiper from './component/Dom/ySwiper';
+
 import pluginModal from './component/pluginModal/index';
-import { useLineStore } from 'src/store/line';
-import { useOtherStore } from 'src/store/other';
+import { useLineStore } from '@/store/line';
+import { useOtherStore } from '@/store/other';
 
 export default defineComponent({
 	components: {
@@ -27,6 +29,7 @@ export default defineComponent({
 		Yimg,
 		Yp,
 		Yinput,
+		Yswiper,
 		lineX,
 		lineY,
 		pluginModal
@@ -140,6 +143,7 @@ export default defineComponent({
 										{e.name == 'y-img' && <Yimg class={`comp_${e.id}`} compData={e} />}
 										{e.name == 'y-p' && <Yp class={`comp_${e.id}`} compData={e} />}
 										{e.name == 'y-input' && <Yinput class={`comp_${e.id}`} compData={e} />}
+										{e.name == 'y-swiper' && <Yswiper class={`comp_${e.id}`} compData={e} />}
 									</auxiliaryPoint>
 								</a-dropdown>
 							)) : <span></span>

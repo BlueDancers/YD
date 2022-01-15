@@ -1,8 +1,8 @@
-import { pageDataItem, useCoreStore } from 'src/store/core';
+import { pageDataItem, useCoreStore } from '@/store/core';
 import { defineComponent, onMounted, ref } from 'vue'
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
-import { useBoardStore } from 'src/store/board';
+import { useBoardStore } from '@/store/board';
 
 import templateModal from './components/templateModal';
 import { deepClone, imgToFile, imgToStorage } from '@/utils/index';

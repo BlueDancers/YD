@@ -1,5 +1,5 @@
-import { useAppStore } from 'src/store/app';
-import { useCoreStore } from 'src/store/core';
+import { useAppStore } from '@/store/app';
+import { useCoreStore } from '@/store/core';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { defineComponent, onMounted, Ref, ref } from 'vue-demi';
 import css from './index.module.scss';

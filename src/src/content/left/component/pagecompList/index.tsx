@@ -1,5 +1,5 @@
 import { compNameObj } from '@/modules/components';
-import { useCoreStore } from 'src/store/core';
+import { useCoreStore } from '@/store/core';
 import { computed, defineComponent, Ref } from 'vue-demi';
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'

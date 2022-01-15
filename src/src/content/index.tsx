@@ -6,9 +6,9 @@ import contentRight from './right/index'
 import contentCenter from './center/index'
 import './index.scss';
 import { useRoute } from 'vue-router';
-import { useBoardStore } from 'src/store/board';
-import { useCoreStore } from 'src/store/core';
-import { useLineStore } from 'src/store/line';
+import { useBoardStore } from '@/store/board';
+import { useCoreStore } from '@/store/core';
+import { useLineStore } from '@/store/line';
 
 export default defineComponent({
   components: {

@@ -1,4 +1,4 @@
-import { useCoreStore } from 'src/store/core';
+import { useCoreStore } from '@/store/core';
 import { defineComponent, ref, reactive } from 'vue'
 import css from './index.module.scss';
 
@@ -35,7 +35,7 @@ export default defineComponent({
     const compPlusList = ref([
       {
         icon: 'wenben',
-        name: 'y-div',
+        name: 'y-swiper',
         title: '轮播图',
       },
     ])

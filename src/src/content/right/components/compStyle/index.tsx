@@ -1,10 +1,11 @@
-import { useCoreStore } from 'src/store/core';
+import { useCoreStore } from '@/store/core';
 import { defineComponent, ref } from 'vue-demi';
 import { ElColorPicker } from 'element-plus'
 import css from './index.module.scss';
 import { borderStyleList, fontWeightList, fontAlignList } from '../../common/selectData';
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant-design/icons-vue'
-import { useBoardStore } from 'src/store/board';
+import { useBoardStore } from '@/store/board';
+
 export default defineComponent({
   components: {
     ElColorPicker,
@@ -90,18 +91,6 @@ export default defineComponent({
               </a-form-item>
               <a-form-item label="字号">
                 <a-input-number class="default_input" min={0} v-model={[core.carryCss['font-size'], 'value']} />
-              </a-form-item>
-              <a-form-item label="字重">
-                <a-select v-model={[core.carryCss['font-weight'], 'value']} style="width: 120px">
-                  {
-                    fontWeightList.map(item => (
-                      <a-select-option key={item.key} value={item.key}>
-                        {item.value}
-                      </a-select-option>
-                    ))
-                  }
-
-                </a-select>
               </a-form-item>
               <a-form-item label="字重">
                 <a-select v-model={[core.carryCss['font-weight'], 'value']} style="width: 120px">
