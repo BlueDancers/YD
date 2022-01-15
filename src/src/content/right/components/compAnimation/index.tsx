@@ -1,4 +1,4 @@
-import { useCoreStore } from '@/stores/core';
+import { useCoreStore } from 'src/store/core';
 import { deepClone } from '@/utils/index';
 import { CaretRightOutlined, CloseOutlined } from '@ant-design/icons-vue';
 import { defineComponent, ref } from 'vue-demi';

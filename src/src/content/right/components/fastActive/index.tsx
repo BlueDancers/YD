@@ -1,6 +1,6 @@
-import { useBoardStore } from '@/stores/board';
-import { useCoreStore } from '@/stores/core';
-import { useOtherStore } from '@/stores/other';
+import { useBoardStore } from 'src/store/board';
+import { useCoreStore } from 'src/store/core';
+import { useOtherStore } from 'src/store/other';
 import { numberFun } from '@/utils/index';
 import { defineComponent, reactive, ref } from 'vue-demi';
 import css from './index.module.scss';

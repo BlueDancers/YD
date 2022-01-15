@@ -31,7 +31,7 @@
 import { computed, defineComponent } from 'vue'
 import { DownOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/app'
 export default defineComponent({
   components: {
     DownOutlined,

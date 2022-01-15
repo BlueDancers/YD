@@ -17,8 +17,8 @@
       "dom"
     ],
     "paths": {
-      "@/stores*": [
-        "./src/stores*"
+      "@/store*": [
+        "./src/store*"
       ],
       "@/router*": [
         "./src/router*"

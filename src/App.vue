@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/app'
 import { cloud } from './modules/request'
 
 import zhCN from 'ant-design-vue/es/locale/zh_CN'

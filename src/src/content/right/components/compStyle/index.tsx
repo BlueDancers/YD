@@ -1,10 +1,10 @@
-import { useCoreStore } from '@/stores/core';
+import { useCoreStore } from 'src/store/core';
 import { defineComponent, ref } from 'vue-demi';
 import { ElColorPicker } from 'element-plus'
 import css from './index.module.scss';
 import { borderStyleList, fontWeightList, fontAlignList } from '../../common/selectData';
 import { AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined } from '@ant-design/icons-vue'
-import { useBoardStore } from '@/stores/board';
+import { useBoardStore } from 'src/store/board';
 export default defineComponent({
   components: {
     ElColorPicker,

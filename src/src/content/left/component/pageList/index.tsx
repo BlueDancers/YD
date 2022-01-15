@@ -1,8 +1,8 @@
-import { pageDataItem, useCoreStore } from '@/stores/core';
+import { pageDataItem, useCoreStore } from 'src/store/core';
 import { defineComponent, onMounted, ref } from 'vue'
 import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
-import { useBoardStore } from '@/stores/board';
+import { useBoardStore } from 'src/store/board';
 
 import templateModal from './components/templateModal';
 import { deepClone, imgToFile, imgToStorage } from '@/utils/index';
@@ -122,7 +122,7 @@ export default defineComponent({
                     placement="right"
                     content={
                       <>
-                        <span>上传到插件市场</span>
+                        <span>上传到模板市场</span>
                       </>
                     }>
                     <div class={css.action_active} onClick={() => saveToTempLate(index)}>

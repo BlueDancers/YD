@@ -1,4 +1,4 @@
-import { useCoreStore } from '@/stores/core';
+import { useCoreStore } from 'src/store/core';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { message } from 'ant-design-vue';
 import { defineComponent, ref } from 'vue-demi';

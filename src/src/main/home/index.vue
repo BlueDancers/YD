@@ -30,7 +30,7 @@
 import { defineComponent, onMounted, reactive, Ref, ref } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/app'
 import { useCloud } from '@/utils/Hook/useRequest'
 import JoinOrganization from './components/joinOrganization.vue'
 import EstablishOrganization from './components/establishOrganization.vue'

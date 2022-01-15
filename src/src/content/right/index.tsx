@@ -5,8 +5,8 @@ import compStyle from './components/compStyle/index';
 import compAction from './components/compAction';
 import compAnimation from './components/compAnimation';
 import fastActive from './components/fastActive';
-import { useCoreStore } from '@/stores/core';
-import { useOtherStore } from '@/stores/other';
+import { useCoreStore } from 'src/store/core';
+import { useOtherStore } from 'src/store/other';
 
 export default defineComponent({
   components: {

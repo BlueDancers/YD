@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { useLineStore } from '@/stores/line'
+import { useLineStore } from '@/store/line'
 import { computed, defineComponent, watch } from 'vue'
 
 export default defineComponent({

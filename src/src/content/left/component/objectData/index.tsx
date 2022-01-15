@@ -1,7 +1,7 @@
 import { defineComponent, ref } from 'vue';
 import { ElColorPicker } from 'element-plus'
 import css from './index.module.scss';
-import { useBoardStore } from '@/stores/board';
+import { useBoardStore } from 'src/store/board';
 import { message } from 'ant-design-vue';
 import { useCloud } from '@/utils/Hook/useRequest';
 

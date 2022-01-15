@@ -40,7 +40,7 @@ import objectData from './component/objectData/index'
 import pageCompList from './component/pagecompList/index'
 import pluginList from './component/pluginList/index'
 import templateList from './component/templateList/index'
-import { useBoardStore } from '@/stores/board'
+import { useBoardStore } from '@/store/board'
 export default defineComponent({
   components: {
     compList,

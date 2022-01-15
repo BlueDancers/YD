@@ -35,7 +35,7 @@ import { defineComponent, inject, onMounted } from 'vue'
 import { message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { isEmail } from '@/utils/index'
-import { useAppStore } from '@/stores/app'
+import { useAppStore } from '@/store/app'
 import { cloud } from '@/modules/request'
 export default defineComponent({
   components: {

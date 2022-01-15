@@ -1,6 +1,6 @@
 
-import { useBoardStore } from '@/stores/board';
-import { useCoreStore } from '@/stores/core';
+import { useBoardStore } from 'src/store/board';
+import { useCoreStore } from 'src/store/core';
 import { defineComponent, ref } from 'vue'
 import c from './index.module.scss';
 import useListen from './useListen';
@@ -16,8 +16,8 @@ import Yimg from './component/Dom/Yimg';
 import Yp from './component/Dom/Yp';
 import Yinput from './component/Dom/Yinput';
 import pluginModal from './component/pluginModal/index';
-import { useLineStore } from '@/stores/line';
-import { useOtherStore } from '@/stores/other';
+import { useLineStore } from 'src/store/line';
+import { useOtherStore } from 'src/store/other';
 
 export default defineComponent({
 	components: {

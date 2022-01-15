@@ -1,5 +1,5 @@
 import { uploadFile } from '@/modules/request';
-import { useCoreStore } from '@/stores/core';
+import { useCoreStore } from 'src/store/core';
 import { message } from 'ant-design-vue';
 import { defineComponent } from 'vue-demi';
 import { linkDataFun } from '../../common/selectData';

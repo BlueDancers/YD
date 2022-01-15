@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { useCoreStore } from '@/stores/core'
+import { useCoreStore } from '@/store/core'
 import { computed, defineComponent } from 'vue'
 // 辅助点
 export default defineComponent({

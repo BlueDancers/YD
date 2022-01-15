@@ -1,10 +1,10 @@
-import { useCoreStore } from '@/stores/core';
+import { useCoreStore } from 'src/store/core';
 import { useCloud } from '@/utils/Hook/useRequest';
 import { message } from 'ant-design-vue';
 import { defineComponent, ref } from 'vue-demi';
 import { deepClone, imgToFile, imgToStorage } from '@/utils/index';
-import { useBoardStore } from '@/stores/board';
-import { useAppStore } from '@/stores/app';
+import { useBoardStore } from 'src/store/board';
+import { useAppStore } from 'src/store/app';
 
 export default defineComponent({
   props: ['tempVisible'],

@@ -1,11 +1,11 @@
-import { useCoreStore } from '@/stores/core';
+import { useCoreStore } from 'src/store/core';
 import { defineComponent, ref, reactive } from 'vue'
 import css from './index.module.scss';
 
 export default defineComponent({
   setup() {
     let core = useCoreStore()
-    const activeKey = ref([2])
+    const activeKey = ref([1, 2, 3, 4, 5, 6])
     const compList = ref([
       {
         icon: 'wenben',
@@ -32,6 +32,13 @@ export default defineComponent({
         title: '文字',
       },
     ])
+    const compPlusList = ref([
+      {
+        icon: 'wenben',
+        name: 'y-div',
+        title: '轮播图',
+      },
+    ])
     /**
      * 增加元素
      * @param name 组件名称
@@ -52,20 +59,12 @@ export default defineComponent({
         <a-collapse class={css['ant-collapse']} v-model={[activeKey.value, 'activeKey']} bordered={false}>
           <a-collapse-panel key={2} header="基础组件">
             <div class={css.add_div_list}>
-              {
-                compList.value.map((item) => (
-                  <div
-                    class={css.list_item}
-                    key={item.name}
-                    onClick={() => addComp(item.name)}
-                    draggable={true}
-                    onDragstart={(event) => dragstart(event, item.name)}
-                  >
-                    <svg-icon class={css.item_svg} name={item.icon}></svg-icon>
-                    <span class={css.item_text}>{item.title}</span>
-                  </div>
-                ))
-              }
+              {panelItem({ compList, addComp, dragstart })}
+            </div>
+          </a-collapse-panel>
+          <a-collapse-panel key={3} header="业务组件">
+            <div class={css.add_div_list}>
+              {panelItem({ compList: compPlusList, addComp, dragstart })}
             </div>
           </a-collapse-panel>
         </a-collapse>
@@ -73,3 +72,27 @@ export default defineComponent({
     )
   },
 })
+
+/**
+ * 组件列表里面的循环
+ * @param param0 
+ * @returns 
+ */
+function panelItem({
+  compList, addComp, dragstart
+}) {
+  return (
+    compList.value.map((item) => (
+      <div
+        class={css.list_item}
+        key={item.name}
+        onClick={() => addComp(item.name)}
+        draggable={true}
+        onDragstart={(event) => dragstart(event, item.name)}
+      >
+        <svg-icon class={css.item_svg} name={item.icon}></svg-icon>
+        <span class={css.item_text}>{item.title}</span>
+      </div>
+    ))
+  )
+}
