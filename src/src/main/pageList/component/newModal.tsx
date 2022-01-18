@@ -31,7 +31,7 @@ export default defineComponent({
             organizeId: route.query.id, // 群组id
             tumbUrl: [], // 缩略图(存在多个)
             backColor: '#ffffff',
-            height: 700,
+            height: 570,
             ...newPageState,
           })
           console.log('页面数据填充完成')

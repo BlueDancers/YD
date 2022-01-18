@@ -15,7 +15,7 @@ export const useBoardStore = defineStore('board', {
       pageDetail: {
         // 非静态数据
         backColor: '#ffffff', // 背景色
-        height: 700, // 页面高度
+        height: 570, // 页面高度
         disp: '', // 描述
         organizeId: '', // 组织id
         pageType: 1, // 1 长列表 2 多页面
