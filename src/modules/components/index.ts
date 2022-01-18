@@ -140,7 +140,13 @@ function baseComList(name: string, zIndex) {
       }, // 样式
       staticData: {
         // 轮播图数据
-        data: [baseSwiper()],
+        data: [baseSwiper()], // 轮播图数据
+        props: {
+          autoplay: 2000, // 自动轮播间隔
+          showIndicators: true, // 是否显示指示器
+          vertical: false, //	是否为纵向滚动
+          indicatorColor: '#1989fa', // 指示器颜色
+        },
       }, // 展示文字
       function: {}, // 方法
       animation: [], // 动画

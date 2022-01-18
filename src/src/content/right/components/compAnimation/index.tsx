@@ -72,9 +72,9 @@ export default defineComponent({
      */
     function resetAnima() {
       let carryAn = deepClone(core.carryAn)
-      core.pageData[core.acPageIndex][core.activeCompIndex].animation = []
+      core.pageData[core.acPageIndex].dom[core.activeCompIndex].animation = []
       setTimeout(() => {
-        core.pageData[core.acPageIndex][core.activeCompIndex].animation = carryAn
+        core.pageData[core.acPageIndex].dom[core.activeCompIndex].animation = carryAn
       }, 0);
     }
 
@@ -123,9 +123,11 @@ export default defineComponent({
                       suffix={'ms'}
                     />
                   </a-form-item>
-                  <a-form-item label="动画次数">
+
+                  <a-form-item label="动画次数" extra="无限可以设置为99999">
                     <a-input-number v-model={[core.carryAn[index].animationIterationCount, 'value']} />
                   </a-form-item>
+
                   <a-form-item label="动画模式">
                     <a-select v-model={[core.carryAn[index].animationFillMode, 'value']} style="width: 120px">
                       {

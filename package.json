@@ -23,6 +23,7 @@
     "monaco-editor": "^0.30.1",
     "pinia": "^2.0.4",
     "qrcode.vue": "^3.3.3",
+    "vant": "3",
     "vue": "^3.2.22",
     "vue-draggable-next": "^2.0.1",
     "vue-router": "^4.0.11",

@@ -5,7 +5,7 @@ import ElementPlus from 'unplugin-element-plus/vite'
 const prefix = `monaco-editor/esm/vs`
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
-import { AntDesignVueResolver, ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { AntDesignVueResolver, ElementPlusResolver, VantResolver } from 'unplugin-vue-components/resolvers'
 
 function _resolve(dir: string) {
   return path.resolve(__dirname, dir)
@@ -18,7 +18,7 @@ export default defineConfig({
     ElementPlus(),
     vueJsx(),
     Components({
-      resolvers: [AntDesignVueResolver(), ElementPlusResolver()],
+      resolvers: [AntDesignVueResolver(), ElementPlusResolver(), VantResolver()],
       include: [/\.vue$/, /\.vue\?vue/, /\.tsx$/],
     }),
   ],

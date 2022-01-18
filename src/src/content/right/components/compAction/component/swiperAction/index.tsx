@@ -5,14 +5,16 @@ import css from './index.module.scss';
 
 import uploadImg from '@/components/uploadImg.vue';
 import { baseSwiper } from '@/modules/components';
+import { ElColorPicker } from 'element-plus'
 
 export default defineComponent({
   components: {
-    uploadImg
+    uploadImg,
+    ElColorPicker
   },
   setup() {
     const core = useCoreStore()
-    const activeKey = ref([])
+    const activeKey = ref([]) // 
 
     function addSwiper() {
       console.log('增加轮播图');
@@ -30,6 +32,21 @@ export default defineComponent({
 
     return () => (
       <div class={css.swiper_cont}>
+        <a-form size='small' label-col={{ style: { width: '90px' } }}>
+          <a-form-item label="轮播间隔">
+            <a-input-number v-model={[core.carryConfig.props.autoplay, 'value']} />
+          </a-form-item>
+          <a-form-item label="纵向滚动">
+            <a-switch v-model={[core.carryConfig.props.vertical, 'checked']} />
+          </a-form-item>
+          <a-form-item label="指示器">
+            <a-switch v-model={[core.carryConfig.props.showIndicators, 'checked']} />
+          </a-form-item>
+          <a-form-item label="指示颜色">
+            <el-color-picker show-alpha v-model={[core.carryConfig.props.indicatorColor]} />
+          </a-form-item>
+        </a-form>
+
         <a-button class={css.add_swiper_btn} type="primary" onClick={addSwiper}>添加轮播图</a-button>
         <a-collapse
           class={css.swiper_list}

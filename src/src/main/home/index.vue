@@ -3,7 +3,15 @@
     <div class="padd">
       <a-button @click="newGroup" type="primary">新建组织</a-button>
     </div>
-    <a-table :rowKey="'_id'" bordered :columns="columns" :data-source="listData" class="marg">
+    <a-table
+      :rowKey="'_id'"
+      bordered
+      :columns="columns"
+      :data-source="listData"
+      class="marg"
+      :pagination="pagination"
+      @change="handleTable"
+    >
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex !== 'address'">
           <span>{{ text }}</span>
@@ -34,6 +42,7 @@ import { useAppStore } from '@/store/app'
 import { useCloud } from '@/utils/Hook/useRequest'
 import JoinOrganization from './components/joinOrganization.vue'
 import EstablishOrganization from './components/establishOrganization.vue'
+
 export default defineComponent({
   components: {
     EstablishOrgan: EstablishOrganization,
@@ -68,6 +77,11 @@ export default defineComponent({
     const listData: Ref<any[]> = ref([]) // 表格数据
     const visible = ref(false) // 新建组织
     const joinVisible = ref(false) // 加入组织
+    const pagination = reactive({
+      total: 100,
+      current: 1,
+      pageSize: 10,
+    })
 
     const joinData = reactive({
       // 加入组织
@@ -78,8 +92,12 @@ export default defineComponent({
     })
 
     onMounted(() => initTable())
-
+    // 获取表格数据
     async function initTable() {
+      // 获取页面长度
+      const pageTotal = await useCloud('organize').count()
+      pagination.total = pageTotal.total
+      // 获取当前页面数据
       const groupData = await useCloud('organize')
         .field({
           founderName: true,
@@ -89,8 +107,16 @@ export default defineComponent({
           founderUser: true,
           _id: true,
         })
+        .skip((pagination.current - 1) * 10)
+        .limit(10)
         .get()
+      console.log(groupData)
+
       listData.value = groupData.data
+    }
+    function handleTable(pag) {
+      pagination.current = pag.current
+      initTable()
     }
     // 进入房间
     function gotoRoom(data) {
@@ -146,9 +172,8 @@ export default defineComponent({
         message.error('密码错误')
       }
     }
-
+    // 打开弹窗
     function newGroup() {
-      // 打开弹窗
       visible.value = true
     }
 
@@ -190,8 +215,8 @@ export default defineComponent({
       newGroup,
       handleOk,
       handleCancel,
-      EstablishOrganization,
-      JoinOrganization,
+      pagination,
+      handleTable,
     }
   },
 })
