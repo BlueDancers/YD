@@ -77,7 +77,7 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
         // 移动元素
         _carrentCss().top += value.y
         _carrentCss().left += value.x
-        // 获取选中元素的辅助线点
+        //实时获取当前元素位置(用于辅助线)
         line.listenEvent(_carrentCss())
         break
 

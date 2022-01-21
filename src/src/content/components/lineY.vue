@@ -1,6 +1,6 @@
 <template>
   <div class="y_line_cont">
-    <div v-for="item in line" :key="item" class="y_line" :style="{ left: item + 'px' }"></div>
+    <div v-for="item in line.showY" :key="item" class="y_line" :style="{ left: item + 'px' }"></div>
   </div>
 </template>
 
@@ -11,19 +11,8 @@ import { computed, defineComponent } from 'vue'
 export default defineComponent({
   setup() {
     const line = useLineStore()
-    let carrentList = computed(() => {
-      let duplicates: any[] = []
-      const tempArray: any = [...line.lineYList, ...line.calineY].sort()
-      for (let i = 0; i < tempArray.length; i++) {
-        if (tempArray[i + 1] === tempArray[i]) {
-          duplicates.push(tempArray[i])
-        }
-      }
-      return duplicates
-    })
     return {
-      line: carrentList,
-    }
+      line: line    }
   },
 })
 </script>

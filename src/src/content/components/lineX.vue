@@ -1,28 +1,18 @@
 <template>
   <div class="x_line_cont">
-    <div v-for="item in line" :key="item" class="x_line" :style="{ top: item + 'px' }"></div>
+    <div v-for="item in line.showX" :key="item" class="x_line" :style="{ top: item + 'px' }"></div>
   </div>
 </template>
 
 <script lang="ts">
 import { useLineStore } from '@/store/line'
-import { computed, defineComponent, watch } from 'vue'
+import { computed, defineComponent, watch, watchEffect } from 'vue'
 
 export default defineComponent({
   setup() {
     const line = useLineStore()
-    let carrentList = computed(() => {
-      let duplicates: number[] = []
-      const tempArray: number[] = [...line.lineXList, ...line.calineX].sort()
-      for (let i = 0; i < tempArray.length; i++) {
-        if (tempArray[i + 1] === tempArray[i]) {
-          duplicates.push(tempArray[i])
-        }
-      }
-      return duplicates
-    })
     return {
-      line: carrentList,
+      line: line,
     }
   },
 })
