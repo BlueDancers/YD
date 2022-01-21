@@ -1,6 +1,8 @@
 import { useAppStore } from '@/store/app';
+import { useBoardStore } from '@/store/board';
 import { useCoreStore } from '@/store/core';
 import { useCloud } from '@/utils/Hook/useRequest';
+import { Modal } from 'ant-design-vue';
 import { defineComponent, onMounted, Ref, ref } from 'vue-demi';
 import css from './index.module.scss';
 
@@ -8,6 +10,7 @@ export default defineComponent({
   setup() {
     const core = useCoreStore()
     const app = useAppStore()
+    let board = useBoardStore()
     const activeKey = ref(1)
     const currentPage = ref(1)
     const tempList: Ref<any[]> = ref([]) // 列表数据
@@ -57,14 +60,32 @@ export default defineComponent({
       })
     }
 
+    function useTemplate(content) {
+      console.log(content);
+
+      if (board.pageDetail.pageType == 1) {
+        Modal.confirm({
+          title: '温馨提示',
+          content: '点击确认会替换你当前的页面',
+          onOk() {
+            core.useTemplate(content)
+          },
+          onCancel() { },
+        });
+
+      } else {
+        core.useTemplate(content)
+      }
+    }
+
     return () => (
       <div class={css.template_list}>
         <a-tabs v-model={[activeKey.value, 'activeKey']} onChange={changeTab}>
           <a-tab-pane key={1} tab={"全部页面"}>
-            {pluginItem({ tempList, core, isMore, isMy: false }, { deleteItem, nextInit })}
+            {pluginItem({ tempList, core, isMore, isMy: false }, { deleteItem, nextInit, useTemplate })}
           </a-tab-pane>
           <a-tab-pane key={2} tab={"我的页面"}>
-            {pluginItem({ tempList, core, isMore, isMy: true }, { deleteItem, nextInit })}
+            {pluginItem({ tempList, core, isMore, isMy: true }, { deleteItem, nextInit, useTemplate })}
           </a-tab-pane>
         </a-tabs>
 
@@ -74,7 +95,7 @@ export default defineComponent({
 })
 
 // 列表数据
-function pluginItem({ tempList, core, isMore, isMy }, { deleteItem, nextInit }) {
+function pluginItem({ tempList, core, isMore, isMy }, { deleteItem, nextInit, useTemplate }) {
   return (
     <div class={css.temp_list_cont}>
       <div class={css.temp_list}>
@@ -95,8 +116,8 @@ function pluginItem({ tempList, core, isMore, isMy }, { deleteItem, nextInit }) 
                 </a-popconfirm>
               }
               <img class={css.item_img} src={e.thmbImg}></img>
-              <div class={css.temp_btn} onClick={() => core.useTemplate(e.content)}>
-                使用组件
+              <div class={css.temp_btn} onClick={() => useTemplate(e.content)}>
+                使用页面
               </div>
             </div>
           ))

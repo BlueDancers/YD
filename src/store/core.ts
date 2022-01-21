@@ -58,10 +58,13 @@ export const useCoreStore = defineStore('core', {
         comp.cssModule.top = css.top - comp.cssModule.height / 2
         comp.cssModule.left = css.left - comp.cssModule.width / 2
       }
-      this.pageData[this.acPageIndex].dom.push(comp)
-      // 默认选中新添加的组件
-      this.activeCompIndex = this.pageData[this.acPageIndex].dom.length - 1
-      this.hoverCompIndex = this.pageData[this.acPageIndex].dom.length - 1
+      this.addCompCore(comp)
+    },
+    addCompCore(comp) {
+      this.pageData[this.acPageIndex].dom.unshift(comp)
+      // 新元素都在头部
+      this.activeCompIndex = 0
+      this.hoverCompIndex = 0
     },
     deleteComp(index) {
       if (index == -1) {
@@ -79,9 +82,19 @@ export const useCoreStore = defineStore('core', {
         this.lockCompId.splice(index, 1)
       }
     },
+    // 刷新当前排序
+    updateCompzIndex(newIndex) {
+      let domList = this.pageData[this.acPageIndex].dom.length
+      this.pageData[this.acPageIndex].dom.map((res, index) => {
+        res.cssModule['z-index'] = domList - index
+      })
+      this.activeCompIndex = newIndex
+    },
+    // 切换页面显示
     switchShowComp(index: number, type: boolean) {
       this.pageData[this.acPageIndex][index].show = type
     },
+    // 切换当前选中页面
     toggleComp(index: number) {
       this.activeCompIndex = index
       // 判断是否被锁
@@ -113,29 +126,32 @@ export const useCoreStore = defineStore('core', {
       data.cssModule.left = 20
       data.cssModule['z-index'] = maxzIndex
       data.id = guid()
-      this.pageData[this.acPageIndex].dom.push(deepClone(data))
+      this.addCompCore(deepClone(data))
       message.success('组件导入成功~')
     },
     // 从模板市场增加页面
     useTemplate(data) {
-      console.log(data)
+      this.resetCompActive()
       this.pageData.push({
         ...this.pageDataItem(),
         dom: data,
       })
       this.acPageIndex = this.pageData.length - 1
-      this.resetCompActive()
       message.success('页面导入成功~')
     },
     // 撤销
     revoke() {
-      core.pageData = history.replaceState()
+      // if (this.acPageIndex >= this.pageData.length - 1) {
+      //   this.acPageIndex = this.pageData.length - 1
+      // }
+      this.acPageIndex = 0
       this.resetCompActive()
+      core.pageData = history.replaceState()
     },
     // 恢复
     recovery() {
-      core.pageData = history.unReplaceState()
       this.resetCompActive()
+      core.pageData = history.unReplaceState()
     },
   },
 })

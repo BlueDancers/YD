@@ -17,7 +17,7 @@ import Yp from './component/Dom/Yp';
 import Yinput from './component/Dom/Yinput';
 import Yswiper from './component/Dom/ySwiper';
 
-import pluginModal from './component/pluginModal/index';
+import pluginModal from '../components/pluginModal/index';
 import { useLineStore } from '@/store/line';
 import { useOtherStore } from '@/store/other';
 
@@ -122,7 +122,7 @@ export default defineComponent({
 					{/* 正式数据 */}
 					<>
 						{
-							core.pageData.length ? core.pageData[core.acPageIndex].dom.map((e, i) => (
+							(core.pageData.length && core.acPageIndex >= 0) ? core.pageData[core.acPageIndex].dom.map((e, i) => (
 								e.show &&
 								<a-dropdown
 									trigger={"['contextmenu']"}

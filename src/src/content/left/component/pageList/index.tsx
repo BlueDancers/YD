@@ -4,7 +4,7 @@ import css from './index.module.scss';
 import { VueDraggableNext } from 'vue-draggable-next'
 import { useBoardStore } from '@/store/board';
 
-import templateModal from './components/templateModal';
+import templateModal from '../../../components/templateModal';
 import { deepClone, imgToFile, imgToStorage } from '@/utils/index';
 
 export default defineComponent({

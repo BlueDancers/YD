@@ -11,9 +11,10 @@ class History {
     // 因为pinia的$subscribe无法监听我想监听到的字段,所以使用了watch来做
     // 每次撤销的时候都会重新赋值,就再次触发watch,就会触发问题
     debounce(() => {
-      if (!this.isSet) {
-        return
-      }
+      // if (!this.isSet) {
+      //   this.isSet = true
+      //   return false
+      // }
       // 限制长度
       if (this.state.length >= this.maxState) {
         this.state.shift()
@@ -39,6 +40,8 @@ class History {
       this.isSet = false
       this.index--
       let state = deepClone(this.state[this.index])
+      console.log(state)
+
       return state
     } else {
       message.warn('已经无法再进行撤回')
