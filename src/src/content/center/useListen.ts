@@ -5,17 +5,19 @@ import { useOtherStore } from '@/store/other'
 import { useMouseMove } from '@/utils/Hook/useMouseMove'
 import { useMouseWheel } from '@/utils/Hook/useMouseWheel'
 import { useKeyModifier, useMousePressed, onClickOutside } from '@vueuse/core'
+import exp from 'constants'
 import { watch } from 'vue'
+
+const board = useBoardStore()
+const core = useCoreStore()
+const line = useLineStore()
+const other = useOtherStore()
 
 export default function useListen({ boardTarget, mainTarget, heightTarget }) {
   function _carrentCss() {
     return core.pageData[core.acPageIndex].dom[core.activeCompIndex].cssModule
   }
 
-  const board = useBoardStore()
-  const core = useCoreStore()
-  const line = useLineStore()
-  const other = useOtherStore()
   // 滚轮监听 指定范围
   const { wheelDelta } = useMouseWheel(boardTarget)
   watch(wheelDelta, (value) => {
@@ -94,22 +96,7 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
     core.isMeta = value || false
   })
   // 空格 按键监听 (未做)
-  document.addEventListener('keydown', (event) => {
-    // 快捷键删除元素
-    if (event.code == 'Delete' && core.activeCompIndex >= 0) {
-      core.pageData[core.acPageIndex].dom.splice(core.activeCompIndex, 1)
-      core.activeCompIndex = -1
-    }
-    if (event.metaKey || event.ctrlKey) {
-      if (event.code == 'KeyZ') {
-        core.revoke()
-      } else if (event.code == 'KeyC') {
-        other.pushData()
-      } else if (event.code == 'KeyV') {
-        other.pasteComp()
-      }
-    }
-  })
+  document.addEventListener('keydown', useKeyDown)
 
   // 监听 改变页面长度div
   const heightState = useMousePressed({ target: heightTarget })
@@ -135,4 +122,27 @@ export default function useListen({ boardTarget, mainTarget, heightTarget }) {
       core.hoverCompIndex = -1
     }
   })
+}
+
+// 卸载快捷键
+export function unInstallKey() {
+  document.removeEventListener('keydown', useKeyDown)
+}
+
+// 快捷键监听函数
+function useKeyDown(event) {
+  // 快捷键删除元素
+  if (event.code == 'Delete' && core.activeCompIndex >= 0) {
+    core.pageData[core.acPageIndex].dom.splice(core.activeCompIndex, 1)
+    core.activeCompIndex = -1
+  }
+  if (event.metaKey || event.ctrlKey) {
+    if (event.code == 'KeyZ') {
+      core.revoke()
+    } else if (event.code == 'KeyC') {
+      other.pushData()
+    } else if (event.code == 'KeyV') {
+      other.pasteComp()
+    }
+  }
 }

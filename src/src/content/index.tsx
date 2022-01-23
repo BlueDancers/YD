@@ -9,6 +9,7 @@ import { useRoute } from 'vue-router';
 import { useBoardStore } from '@/store/board';
 import { useCoreStore } from '@/store/core';
 import { useLineStore } from '@/store/line';
+import { unInstallKey } from '../content/center/useListen';
 
 export default defineComponent({
   components: {
@@ -27,6 +28,7 @@ export default defineComponent({
       board.$reset()
       core.$reset()
       line.$reset()
+      unInstallKey()
     })
     return () => (
       <div class="content">

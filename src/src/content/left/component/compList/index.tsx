@@ -56,7 +56,7 @@ export default defineComponent({
     }
     return () => (
       <div class={css.add_components}>
-        <a-collapse class={css['ant-collapse']} v-model={[activeKey.value, 'activeKey']} bordered={false}>
+        <a-collapse class={css['ant-collapse']} v-model={[activeKey.value, 'activeKey']} bordered={true}>
           <a-collapse-panel key={2} header="基础组件">
             <div class={css.add_div_list}>
               {panelItem({ compList, addComp, dragstart })}
