@@ -94,7 +94,7 @@ function pluginItem({
                   cancel-text="取消"
                   onConfirm={() => deleteItem(e, index)}
                 >
-                  <svg-icon class={css.delete_item} name="shanchu1" />
+                  <svg-icon class={css.delete_item} name="shanchu3" />
                 </a-popconfirm>
               }
               {/* 主体 */}

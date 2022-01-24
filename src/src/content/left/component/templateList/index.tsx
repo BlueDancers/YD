@@ -111,7 +111,7 @@ function pluginItem({ tempList, core, isMore, isMy }, { deleteItem, nextInit, us
                   onConfirm={() => deleteItem(e, index)}
                 >
                   <div class={css.delete_item_con}>
-                    <svg-icon name="shanchu1" />
+                    <svg-icon name="shanchu3" />
                   </div>
                 </a-popconfirm>
               }

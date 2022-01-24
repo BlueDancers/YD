@@ -103,7 +103,7 @@ export default defineComponent({
               <a-collapse-panel
                 key={index}
                 header={getAminName(core.carryAn[index].animationName)}
-                extra={<svg-icon onClick={(evt) => deleteAnima(evt, index)} name={'shanchu1'} style={{ width: '16px', height: '16px' }} />}
+                extra={<svg-icon onClick={(evt) => deleteAnima(evt, index)} name={'shanchu3'} style={{ width: '16px', height: '16px' }} />}
               >
                 <a-form label-col={{ style: { width: '80px' } }}>
                   <a-form-item label="选择动画">

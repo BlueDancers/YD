@@ -8,28 +8,33 @@ export default defineComponent({
     const activeKey = ref([1, 2, 3, 4, 5, 6])
     const compList = ref([
       {
-        icon: 'wenben',
+        icon: 'absolute',
         name: 'y-div',
         title: '模块',
       },
       {
-        icon: 'button',
+        icon: 'anniu',
         name: 'y-button',
         title: '按钮',
       }, {
-        icon: 'button',
+        icon: 'danhangshurukuang',
         name: 'y-input',
         title: '输入框',
       },
       {
-        icon: 'tupian',
+        icon: 'tupian1',
         name: 'y-img',
         title: '图片',
       },
       {
-        icon: 'wenben',
+        icon: 'wenben1',
         name: 'y-p',
         title: '文字',
+      },
+      {
+        icon: 'fuwenben',
+        name: 'y-p',
+        title: '富文本',
       },
     ])
     const compPlusList = ref([

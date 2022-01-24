@@ -15,8 +15,8 @@
     margin-top: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-row-gap: 5px; // 行与行之间的间距
-    grid-column-gap: 5px; // 列与列之间的间距
+    grid-row-gap: 8px; // 行与行之间的间距
+    grid-column-gap: 8px; // 列与列之间的间距
 
     .list_item {
       cursor: pointer;
@@ -25,9 +25,7 @@
       align-items: center;
       justify-content: center;
       border: 1px solid rgb(206, 206, 206);
-      border-radius: 10px;
-      background-color: #fff;
-      width: 64px;
+      border-radius: 8px;
       height: 64px;
 
       &:hover {

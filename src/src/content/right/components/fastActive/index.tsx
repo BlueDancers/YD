@@ -32,7 +32,7 @@ export default defineComponent({
         fun: () => core.recovery()
       },
       {
-        icon: 'shanchu2',
+        icon: 'shanchu3',
         labelValue: '删除组件',
         fun: () => core.deleteComp(core.activeCompIndex)
       },
@@ -47,12 +47,12 @@ export default defineComponent({
         fun: () => other.pasteComp()
       },
       {
-        icon: 'yunshangchuan',
+        icon: 'shangchuan',
         labelValue: '上传组件到组件市场',
         fun: () => pluginVisible.value = true
       },
       {
-        icon: 'yunshangchuan',
+        icon: 'shangchuan',
         labelValue: '上传页面到模板市场',
         fun: () => tempVisible.value = true
       },

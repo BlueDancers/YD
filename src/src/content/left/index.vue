@@ -70,12 +70,12 @@ export default defineComponent({
       {
         key: 0,
         text: '可用组件',
-        icon: 'zujian',
+        icon: 'yuanshuju',
       },
       {
         key: 2,
         text: '组件层级',
-        icon: 'shezhi',
+        icon: 'fuhao-tuceng',
       },
       {
         key: 3,
@@ -85,7 +85,7 @@ export default defineComponent({
       {
         key: 4,
         text: '组件市场',
-        icon: 'fabuweimoban',
+        icon: 'moban',
       },
       {
         key: 5,

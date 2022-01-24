@@ -61,7 +61,7 @@ export default defineComponent({
                 >
                   <a-input class={css.item_left} v-model={[item.showTitle, 'value']}></a-input>
                   <div class={css.item_right}>
-                    <svg-icon class={css.svg_icon} onClick={() => core.deleteComp(i)} style={svgStyle(i)} name="shanchu1" />
+                    <svg-icon class={css.svg_icon} onClick={() => core.deleteComp(i)} style={svgStyle(i)} name="shanchu3" />
                     <>
                       {!core.lockCompId.includes(item.id) && <svg-icon class={css.svg_icon} onClick={() => core.lockComp(item.id, true)} style={svgStyle(i)} name="unlock" />}
                       {core.lockCompId.includes(item.id) && <svg-icon class={css.svg_icon} onClick={() => core.lockComp(item.id, false)} style={svgStyle(i)} name="lock" />}

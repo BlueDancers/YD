@@ -57,7 +57,7 @@ export default defineComponent({
               <a-collapse-panel
                 key={index}
                 header={'轮播图'}
-                extra={<svg-icon onClick={(evt) => deleteSwiperItem(evt, index)} name={'shanchu1'} style={{ width: '16px', height: '16px' }} />}
+                extra={<svg-icon onClick={(evt) => deleteSwiperItem(evt, index)} name={'shanchu3'} style={{ width: '16px', height: '16px' }} />}
               >
                 <a-form label-col={{ style: { width: '80px' } }}>
                   <a-form-item label="图片">

@@ -102,7 +102,7 @@ export default defineComponent({
                     onConfirm={() => deletePage(index)}
                   >
                     <div class={css.action_active}>
-                      <svg-icon class={css.svg_icon} name="shanchu1" />
+                      <svg-icon class={css.svg_icon} name="shanchu3" />
                     </div>
                   </a-popconfirm>
 
