@@ -159,8 +159,8 @@ export default defineComponent({
 						</div>
 					}
 					{/* 滚动页面 高度提示 */}
+					<div class={[c.assist, c.assist_2]}>默认屏</div>
 					<div class={[c.assist, c.assist_1]}>全面屏</div>
-					<div class={[c.assist, c.assist_2]}>iphone8屏</div>
 				</div>
 				{/* 保存组件到组件市场 */}
 				<plugin-modal pluginVisible={pluginVisible.value} onChangeVisible={(params) => pluginVisible.value = params}></plugin-modal>

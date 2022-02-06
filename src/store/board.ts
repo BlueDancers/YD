@@ -2,6 +2,7 @@ import { numberFun } from '@/utils/index'
 import { useCloud } from '@/utils/Hook/useRequest'
 import { defineStore } from 'pinia'
 import { useCoreStore } from './core'
+import { baseHeight } from '@/common/index'
 
 let core = useCoreStore()
 export const useBoardStore = defineStore('board', {
@@ -15,7 +16,7 @@ export const useBoardStore = defineStore('board', {
       pageDetail: {
         // 非静态数据
         backColor: '#ffffff', // 背景色
-        height: 570, // 页面高度
+        height: baseHeight, // 页面高度
         disp: '', // 描述
         organizeId: '', // 组织id
         pageType: 1, // 1 长列表 2 多页面

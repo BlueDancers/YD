@@ -106,7 +106,18 @@ export const useLineStore = defineStore('line', {
             let cYkey = key - this.offestY
             let { left, width } = core.carryCss
             if (cY == left) {
-              console.log('左边')
+              // console.log('左边', cYkey)
+              // if (core.carryCss.left + 1 == cYkey) {
+              //   console.log('拦截')
+              //   return
+              // }
+              // if (core.carryCss.left - 1 == cYkey) {
+              //   console.log('拦截')
+              //   return
+              // }
+              // if (cYkey < core.carryCss.left) {
+              // } else {
+              // }
               core.carryCss.left = cYkey
             } else if (cY == left + width) {
               console.log('右边')

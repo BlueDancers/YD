@@ -1,4 +1,5 @@
 import { useCloud } from '@/utils/Hook/useRequest'
+import { baseHeight } from '@/common/index'
 import { defineComponent, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -31,7 +32,7 @@ export default defineComponent({
             organizeId: route.query.id, // 群组id
             tumbUrl: [], // 缩略图(存在多个)
             backColor: '#ffffff',
-            height: 570,
+            height: baseHeight,
             ...newPageState,
           })
           console.log('页面数据填充完成')

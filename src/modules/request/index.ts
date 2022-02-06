@@ -1,10 +1,11 @@
 import cloudbase from '@cloudbase/js-sdk'
+import { baseUrl, cloudId } from '@/common/index'
 
 const cloud = cloudbase.init({
-  env: 'mall-2gdgzk540aab98cd',
+  env: cloudId,
 })
 
-const clientUrl = 'http://39.103.198.52:3006/i'
+const clientUrl = baseUrl
 
 /**
  * 上传图片

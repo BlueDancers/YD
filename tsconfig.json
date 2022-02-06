@@ -35,6 +35,9 @@
       "@/utils*": [
         "./src/utils*"
       ],
+      "@/common*": [
+        "./src/common*"
+      ],
     },
     "types": [
       "element-plus/global"
