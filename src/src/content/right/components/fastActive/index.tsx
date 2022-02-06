@@ -6,6 +6,7 @@ import { defineComponent, reactive, ref } from 'vue-demi';
 import css from './index.module.scss';
 import pluginModal from '@/src/content/components/pluginModal/index';
 import templateModal from '@/src/content/components/templateModal';
+import { message } from 'ant-design-vue';
 
 export default defineComponent({
   components: {
@@ -48,15 +49,34 @@ export default defineComponent({
       },
       {
         icon: 'shangchuan',
-        labelValue: '上传组件到组件市场',
-        fun: () => pluginVisible.value = true
+        labelValue: '上传选中组件到组件市场',
+        fun: () => openPlugin()
       },
       {
         icon: 'shangchuan',
-        labelValue: '上传页面到模板市场',
-        fun: () => tempVisible.value = true
+        labelValue: '上传当前页面到模板市场',
+        fun: () => openTemp()
       },
     ])
+
+    /**
+     * 打开组件市场弹窗
+     */
+    function openPlugin() {
+      console.log(core.activeCompIndex);
+      if (core.activeCompIndex == -1) {
+        message.warn('请选择组件')
+        return
+      }
+      pluginVisible.value = true
+    }
+    /**
+    * 打开组件市场弹窗
+    */
+    function openTemp() {
+      tempVisible.value = true
+    }
+
     return () => (
       <div class={css.fast_active}>
         {/* 撤销 */}
