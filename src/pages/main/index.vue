@@ -4,7 +4,6 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue-demi'
-import { parseTime } from '../../utils'
 
 onMounted(() => {})
 </script>

@@ -6,36 +6,28 @@
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
+    "noImplicitAny": false,
     "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noImplicitAny": false,
+    "importHelpers": true,
+    // "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "lib": ["esnext", "dom"],
     "types": [
       "element-plus/global"
     ],
+    "paths": {
+      "@/pages*": ["./src/pages*"],
+      "@/store*": ["./src/store*"],
+      "@/router*": ["./src/router*"],
+      "@/components*": ["./src/components*"],
+      "@/modules*": ["./src/modules*"],
+      "@/utils*": ["./src/utils*"],
+    },
   },
-  "paths": {
-    "@/pages*": [
-      "./src/pages*"
-    ],
-    "@/store*": [
-      "./src/store*"
-    ],
-    "@/router*": [
-      "./src/router*"
-    ],
-    "@/components*": [
-      "./src/components*"
-    ],
-    "@/modules*": [
-      "./src/modules*"
-    ],
-    "@/utils*": [
-      "./src/utils*"
-    ],
-  },
+ 
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
