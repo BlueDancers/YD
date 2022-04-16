@@ -16,6 +16,26 @@
       "element-plus/global"
     ],
   },
+  "paths": {
+    "@/pages*": [
+      "./src/pages*"
+    ],
+    "@/store*": [
+      "./src/store*"
+    ],
+    "@/router*": [
+      "./src/router*"
+    ],
+    "@/components*": [
+      "./src/components*"
+    ],
+    "@/modules*": [
+      "./src/modules*"
+    ],
+    "@/utils*": [
+      "./src/utils*"
+    ],
+  },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
