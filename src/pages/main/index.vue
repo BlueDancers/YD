@@ -3,9 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue-demi'
-
-onMounted(() => {})
+import { onMounted } from 'vue'
 </script>
 
 <style scoped lang="less"></style>
