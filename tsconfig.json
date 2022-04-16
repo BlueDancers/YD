@@ -9,7 +9,7 @@
     "noImplicitAny": false,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    // "isolatedModules": true,
     "esModuleInterop": true,
     "importHelpers": true,
     // "allowSyntheticDefaultImports": true,
