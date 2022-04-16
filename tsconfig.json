@@ -1,63 +1,21 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
-    "noImplicitAny": false,
     "sourceMap": true,
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "esModuleInterop": true,
-    "importHelpers": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "paths": {
-      "@/src*": [
-        "./src/src*"
-      ],
-      "@/store*": [
-        "./src/store*"
-      ],
-      "@/router*": [
-        "./src/router*"
-      ],
-      "@/components*": [
-        "./src/components*"
-      ],
-      "@/modules*": [
-        "./src/modules*"
-      ],
-      "@/utils*": [
-        "./src/utils*"
-      ],
-      "@/common*": [
-        "./src/common*"
-      ],
-    },
+    "noImplicitAny": false,
+    "lib": ["esnext", "dom"],
     "types": [
       "element-plus/global"
     ],
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules"
-      }
-    ]
-    // module.scss 配置文章 https://www.jianshu.com/p/be1778a76763
   },
-  "exclude": [
-    "node_modules",
-  ],
-  "include": [
-    "src/*",
-    "src/**/*.vue",
-    "src/**/*.tsx",
-    "src/**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.js"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

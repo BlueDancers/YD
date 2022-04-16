@@ -1,3 +1,10 @@
 # Ignore artifacts:
+dist
 build
 coverage
+common
+babel.config.js
+postcss.config.js
+tsconfig.json
+README.md
+vue.config.js
