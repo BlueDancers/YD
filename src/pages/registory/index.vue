@@ -1,5 +1,5 @@
 <template>
-  <div>登录</div>
+  <div>注册</div>
 </template>
 
 <script setup lang="ts"></script>
