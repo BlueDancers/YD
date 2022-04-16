@@ -2,19 +2,24 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { ElMessage } from 'element-plus'
 
 const routes: RouteRecordRaw[] = [
-  //   {
-  //     path: '/',
-  //     redirect: '/app/home',
-  //   },
+  {
+    path: '/',
+    redirect: '/main',
+  },
   {
     path: '/login',
     name: 'login',
-    component: () => import('../pages/login/index.vue'),
+    component: () => import('@/pages/login/index.vue'),
   },
   {
     path: '/registory',
     name: 'registory',
-    component: () => import('../pages/registory/index.vue'),
+    component: () => import('@/pages/registory/index.vue'),
+  },
+  {
+    path: '/main',
+    name: 'main',
+    component: () => import('@/pages/main/index.vue'),
   },
 ]
 
