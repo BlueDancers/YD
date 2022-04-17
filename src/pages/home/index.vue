@@ -14,7 +14,23 @@
             <el-button v-if="scope.row.founderUser.includes(userData.uid)" type="primary" size="small">
               查看页面
             </el-button>
-            <el-button v-else type="info" size="small">加入组织</el-button>
+            <el-popover v-else placement="top" :width="300" trigger="click">
+              <template #reference>
+                <el-button type="info" size="small">加入组织</el-button>
+              </template>
+              <div class="flex_center">
+                <el-input placeholder="请输入密码" v-model="groupPass"></el-input>
+                <el-button
+                  :style="{
+                    'margin-left': '10px',
+                  }"
+                  :disabled="groupPass == ''"
+                  @click="joinGroup(scope.row._id)"
+                >
+                  确定
+                </el-button>
+              </div>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>
@@ -27,6 +43,7 @@
 
 <script setup lang="ts">
 import { getStorageSync } from '@/modules/storage'
+import { ElMessage } from 'element-plus'
 import { onMounted, reactive, Ref, ref } from 'vue'
 import { useCloud } from '../../utils/request'
 
@@ -37,6 +54,8 @@ const pagination = reactive({
   current: 1,
   pageSize: 10,
 })
+
+const groupPass = ref('') // 加入组织密码
 
 onMounted(async () => {
   // 获取页面长度
@@ -60,6 +79,37 @@ onMounted(async () => {
 })
 
 function addGroup() {}
+
+/**
+ * 加入群组
+ */
+async function joinGroup(id) {
+  // 查询密码是否正确
+  let currentData = await useCloud('organize')
+    .where({
+      _id: id,
+      password: groupPass.value,
+    })
+    .get()
+  if (currentData.data.length == 1) {
+    // 密码正确 加入组织
+    let { founderUser } = currentData.data[0]
+    founderUser.push(userData.uid)
+    await useCloud('organize')
+      .where({
+        _id: id,
+      })
+      .update({
+        founderUser: founderUser,
+      })
+      .then((res) => {
+        console.log(res)
+        ElMessage.success('加入成功~')
+      })
+  } else {
+    ElMessage.error('密码错误')
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -73,6 +123,7 @@ function addGroup() {}
     margin: 10px;
     padding: 10px;
     background-color: #fff;
+
     .table_pagin {
       margin-top: 20px;
       display: flex;

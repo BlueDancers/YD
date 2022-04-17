@@ -8,6 +8,11 @@
 html {
   background-color: #f7f8fa;
 }
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
