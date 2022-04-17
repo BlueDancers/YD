@@ -16,12 +16,11 @@ import { useUserStore } from '@/store/user'
 
 const store = useUserStore()
 const router = useRouter()
-const username = ref('')
-const password = ref('')
+const username = ref('2467230789@qq.com')
+const password = ref('79715712242aA')
 
 onMounted(() => {
-  const loginState = (cloud as any).auth().hasLoginState()
-
+  const loginState = auth.hasLoginState()
   if (loginState) {
     router.replace({
       name: 'home',
@@ -37,11 +36,10 @@ function login() {
     .signInWithEmailAndPassword(username.value, password.value)
     .then((res) => {
       console.log(res)
-
-      localStorage.setItem('loginStatus', 'true')
-      store.updateUserData()
-      router.replace({
-        name: 'home',
+      store.updateUserData().then(() => {
+        router.replace({
+          name: 'home',
+        })
       })
     })
     .catch((err) => {

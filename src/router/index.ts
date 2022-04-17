@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/main',
+    redirect: '/app/home',
   },
   {
     path: '/login',
@@ -17,9 +17,21 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/pages/registory/index.vue'),
   },
   {
-    path: '/main',
-    name: 'main',
-    component: () => import('@/pages/main/index.vue'),
+    path: '/app',
+    redirect: '/app/home',
+    component: () => import('@/layout/index.vue'),
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('@/pages/home/index.vue'),
+      },
+      // {
+      //   path: 'pageList',
+      //   name: 'pageList',
+      //   component: () => import('../src/main/pageList/index.vue'),
+      // },
+    ],
   },
 ]
 
@@ -36,7 +48,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    if (to.name == 'login' || to.name == 'registory') {
+    if (to.name == 'login') {
       next()
     } else {
       ElMessage({
