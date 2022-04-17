@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-input v-model="username"></el-input>
-    <el-input v-model="password"></el-input>
+    <el-input v-model="username" placeholder="请输入用户名"></el-input>
+    <el-input v-model="password" placeholder="请输入密码"></el-input>
     <el-button @click="login">登录</el-button>
     <el-button @click="registory">注册</el-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { cloud } from '@/utils/request'
+import { auth, cloud } from '@/utils/request'
 import { ElMessage } from 'element-plus'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -33,16 +33,13 @@ onMounted(() => {
 })
 
 function login() {
-  const auth = cloud.auth({
-    persistence: 'local',
-  })
   auth
     .signInWithEmailAndPassword(username.value, password.value)
     .then((res) => {
       console.log(res)
 
       localStorage.setItem('loginStatus', 'true')
-      store.updateUserData(cloud)
+      store.updateUserData()
       router.replace({
         name: 'home',
       })

@@ -1,11 +1,25 @@
 import cloudbase from '@cloudbase/js-sdk'
 import { cloudId } from '@/config/index'
 
+/**
+ * 链接serverless
+ */
 const cloud = cloudbase.init({
   env: cloudId,
 })
 
+/**
+ * 身份校验实例
+ */
+const auth = cloud.auth({
+  persistence: 'local',
+})
+
+/**
+ * 链接数据库
+ */
 const db = cloud.database()
+
 /**
  * 链接数据库
  * @param tableName 表名称
@@ -51,4 +65,4 @@ function uploadFile(cloudPath, filePath): Promise<{ tempFileURL: string; fileID:
   })
 }
 
-export { cloud, uploadFile }
+export { cloud, uploadFile, auth }
