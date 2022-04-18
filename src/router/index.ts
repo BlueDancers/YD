@@ -48,7 +48,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    if (to.name == 'login') {
+    if (to.name == 'login' || to.name == 'registory') {
       next()
     } else {
       ElMessage({
