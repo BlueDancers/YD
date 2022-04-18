@@ -51,10 +51,6 @@ router.beforeEach((to, from, next) => {
     if (to.name == 'login' || to.name == 'registory') {
       next()
     } else {
-      ElMessage({
-        message: '登录失效,请重新登录',
-        type: 'warning',
-      })
       next('/login')
     }
   }

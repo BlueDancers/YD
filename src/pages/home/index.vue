@@ -45,7 +45,7 @@
 import { getStorageSync } from '@/modules/storage'
 import { ElMessage } from 'element-plus'
 import { onMounted, reactive, Ref, ref } from 'vue'
-import { useCloud } from '../../utils/request'
+import { useCloud } from '@/utils/request'
 
 let userData = getStorageSync('userData')
 let tableData: Ref<any[]> = ref([])
