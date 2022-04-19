@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="isDialog" title="创建组织" width="27%">
+  <el-dialog v-model="isDialog" title="创建组织" width="500px">
     <el-form class="team_form" :model="formState" :rules="rules" label-width="120px" ref="ruleFormRef">
       <el-form-item label="组织名称" prop="name">
         <el-input v-model="formState.name" placeholder="请输入组织名称" />

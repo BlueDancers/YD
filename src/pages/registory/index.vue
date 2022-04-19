@@ -11,7 +11,9 @@
       type="password"
     >
     </el-input>
-    <el-button class="reg_input reg_btn" @click="registory" :disabled="!isDisabled">注册</el-button>
+    <el-button class="reg_input reg_btn" @click="registory" type="primary" :disabled="!isDisabled"
+      >注册</el-button
+    >
     <el-button class="reg_input reg_login" @click="login">回到登录</el-button>
   </div>
 </template>
@@ -93,11 +95,8 @@ function login() {
   }
   .reg_btn {
     margin-top: 16px;
-    color: #409eff;
-    background: #ecf5ff;
   }
   .reg_login {
-    color: #131314;
     margin-top: 16px;
     margin-left: 0;
   }

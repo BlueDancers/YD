@@ -4,7 +4,9 @@
     <el-input class="login_input login_name" v-model="username" placeholder="请输入用户名"></el-input>
     <el-input class="login_input login_pass" v-model="password" placeholder="请输入密码" type="password">
     </el-input>
-    <el-button class="login_input login_lgbtn" @click="login" :disabled="!isDisabled">登录</el-button>
+    <el-button class="login_input login_lgbtn" type="primary" @click="login" :disabled="!isDisabled"
+      >登录</el-button
+    >
     <el-button class="login_input login_resbtn" @click="registory">注册</el-button>
   </div>
 </template>
@@ -93,7 +95,6 @@ function registory() {
   .login_lgbtn {
     margin-top: 15px;
     text-align: center;
-    background: #409eff;
     color: #fff;
     border-radius: 4px 4px 4px 4px;
   }
@@ -101,7 +102,6 @@ function registory() {
     margin-left: 0;
     margin-top: 15px;
     text-align: center;
-    background: #ecf5ff;
     color: #409eff;
     border-radius: 4px 4px 4px 4px;
   }
