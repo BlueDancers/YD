@@ -1,0 +1,7 @@
+:root {
+  --primary: #2970f6;
+  --primary-hover: rgb(70, 132, 249);
+  --el-color-primary: var(--primary);
+  --el-color-primary-light-3: var(--primary-hover);
+  --el-border-radius-base: 2px;
+}

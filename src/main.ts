@@ -3,6 +3,8 @@ import App from './App.vue'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import '@/style/reset.css'
+import '@/style/index.css'
 
 import { createPinia } from 'pinia'
 
