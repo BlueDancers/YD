@@ -11,12 +11,17 @@
         <el-table-column prop="routerCode" label="父级路由" />
         <el-table-column prop="date" label="操作">
           <template #default="scope">
-            <el-button v-if="scope.row.founderUser.includes(userData.uid)" type="primary" size="small">
+            <el-button
+              v-if="scope.row.founderUser.includes(userData.uid)"
+              type="primary"
+              size="default"
+              @click="showPageList(scope.row)"
+            >
               查看页面
             </el-button>
             <el-popover v-else placement="top" :width="300" trigger="click">
               <template #reference>
-                <el-button type="info" size="small">加入组织</el-button>
+                <el-button type="info" size="default">加入组织</el-button>
               </template>
               <div class="flex_center">
                 <el-input placeholder="请输入密码" v-model="groupPass"></el-input>
@@ -68,6 +73,7 @@ import { ElMessage } from 'element-plus'
 import { onMounted, reactive, Ref, ref } from 'vue'
 import { useCloud } from '@/utils/request'
 import createTeam from './components/createTeam.vue'
+import { router } from '@/router'
 
 let userData = getStorageSync('userData')
 let tableData: Ref<any[]> = ref([])
@@ -164,6 +170,12 @@ async function del(id) {
   } else {
     ElMessage.error('密码错误')
   }
+}
+// 查看组织类页面
+function showPageList(data) {
+  router.push({
+    name: 'pageList',
+  })
 }
 </script>
 

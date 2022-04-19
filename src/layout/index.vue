@@ -1,6 +1,6 @@
 <template>
   <div class="yd_header">
-    <div class="header_left">易动3</div>
+    <div class="header_left" @click="gotoHome">易动3</div>
     <div class="header_right">
       <el-dropdown trigger="click">
         <span class="right_text"> {{ userData.email }} </span>
@@ -29,6 +29,12 @@ function logout() {
   removeStorageSync('loginStatus')
   router.replace({
     path: 'login',
+  })
+}
+
+function gotoHome() {
+  router.push({
+    name: 'home',
   })
 }
 </script>

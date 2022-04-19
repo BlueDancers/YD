@@ -26,12 +26,17 @@ const routes: RouteRecordRaw[] = [
         name: 'home',
         component: () => import('@/pages/home/index.vue'),
       },
-      // {
-      //   path: 'pageList',
-      //   name: 'pageList',
-      //   component: () => import('../src/main/pageList/index.vue'),
-      // },
+      {
+        path: 'pageList',
+        name: 'pageList',
+        component: () => import('@/pages/pageList/index.vue'),
+      },
     ],
+  },
+  {
+    path: '/main/:id',
+    name: 'main',
+    component: () => import('@/pages/main/index.vue'),
   },
 ]
 
