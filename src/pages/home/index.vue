@@ -6,9 +6,14 @@
     </div>
     <!-- 表格区域 -->
     <div class="home_table">
-      <el-table :data="tableData" :border="true" :stripe="true">
+      <el-table :data="tableData" :border="true" :stripe="true" max-height="800px">
         <el-table-column prop="organizeName" label="组织名称" />
-        <el-table-column prop="routerCode" label="父级路由" />
+        <el-table-column prop="routerCode" label="父级路由">
+          <template #default="scope">
+            <span>/{{ scope.row.routerCode }}</span>
+          </template>
+        </el-table-column>
+
         <el-table-column prop="date" label="操作">
           <template #default="scope">
             <el-button
@@ -36,7 +41,12 @@
                 </el-button>
               </div>
             </el-popover>
-            <el-popover placement="top" :width="300" trigger="click">
+            <el-popover
+              placement="top"
+              :width="300"
+              trigger="click"
+              v-if="scope.row.founderUser[0] == userData.uid"
+            >
               <template #reference>
                 <el-button type="info" size="default">删除组织</el-button>
               </template>
@@ -47,7 +57,6 @@
                     'margin-left': '10px',
                   }"
                   :disabled="delPass == ''"
-                  v-if="scope.row.founderUser.includes(userData.uid)"
                   type="danger"
                   @click="del(scope.row._id)"
                 >

@@ -56,7 +56,7 @@ function onSubmit() {
       useCloud('organize')
         .add({
           founderName: userData.email,
-          founderUser: userData.uid,
+          founderUser: [userData.uid],
           organizeName: formState.value.name,
           organizeDisp: formState.value.disp,
           routerCode: formState.value.routerCode,
