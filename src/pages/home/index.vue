@@ -48,7 +48,7 @@
               v-if="scope.row.founderUser[0] == userData.uid"
             >
               <template #reference>
-                <el-button type="info" size="default">删除组织</el-button>
+                <el-button type="danger" size="default">删除组织</el-button>
               </template>
               <div class="flex_center">
                 <el-input placeholder="请输入密码" v-model="delPass"></el-input>

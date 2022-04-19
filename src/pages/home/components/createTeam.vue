@@ -1,16 +1,18 @@
 <template>
-  <el-dialog v-model="isDialog" title="创建组织" width="50%">
+  <el-dialog v-model="isDialog" title="创建组织" width="27%">
     <el-form class="team_form" :model="formState" :rules="rules" label-width="120px" ref="ruleFormRef">
       <el-form-item label="组织名称" prop="name">
         <el-input v-model="formState.name" placeholder="请输入组织名称" />
       </el-form-item>
       <el-form-item label="路由前缀" prop="disp">
-        <el-input v-model="formState.disp" placeholder="请输入路由前缀" />
+        <el-input v-model="formState.disp" placeholder="请输入路由前缀">
+          <template #prepend>/</template>
+        </el-input>
       </el-form-item>
       <el-form-item label="组织描述" prop="routerCode">
         <el-input v-model="formState.routerCode" placeholder="请输入组织描述" />
       </el-form-item>
-      <el-form-item label="组织密码" prop="routerCode">
+      <el-form-item label="组织密码" prop="password">
         <el-input v-model="formState.password" placeholder="其他成员需要密码才能加入" />
       </el-form-item>
       <el-form-item>
@@ -82,6 +84,7 @@ function open() {
 
 //关闭
 function close() {
+  ruleFormRef.value.resetFields()
   isDialog.value = false
 }
 
