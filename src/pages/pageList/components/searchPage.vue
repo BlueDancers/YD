@@ -26,6 +26,8 @@ function subSearch() {
   align-items: center;
 
   .search_input {
+    border-radius: 4px;
+    margin-left: 7px;
     width: 200px;
   }
   .search_btn {

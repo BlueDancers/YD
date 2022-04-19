@@ -1,6 +1,6 @@
 <template>
   <div class="main_page">
-    <div class="page_title">全部页面(4)</div>
+    <div class="page_title">全部页面({{ mainList.length }})</div>
     <div class="page_cont">
       <div class="page_box" v-for="(item, index) in mainList" :key="index">
         <div class="box_top flex_center">
@@ -38,15 +38,16 @@ const props = withDefaults(defineProps<Props>(), {
 <style lang="less" scoped>
 .main_page {
   .page_title {
+    padding: 20px 0 0 20px;
     font-size: 14px;
     font-weight: 400;
     color: #409eff;
     line-height: 24px;
   }
   .page_cont {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    display: flex;
     .page_box {
+      margin-left: 20px;
       margin-top: 20px;
       width: 170px;
       box-shadow: 0px 2px 6px 1px #9292924d;

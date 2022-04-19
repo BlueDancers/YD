@@ -103,6 +103,7 @@ function searchVal(e) {
     background: #ffffff;
   }
   .page_main {
+    padding: 0;
     margin: 7px 36px 0 7px;
     height: 768px;
     flex: none;
