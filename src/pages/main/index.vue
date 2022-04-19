@@ -1,27 +1,38 @@
 <template>
-  <div>222</div>
+  <div class="main_cont">
+    <main-header></main-header>
+    <div class="main_board">
+      <main-left></main-left>
+      <main-core></main-core>
+      <main-right></main-right>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useCloud } from '@/utils/request'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useMain } from '@/store/main'
+
+import mainHeader from './components/mainHeader.vue'
+import mainLeft from './components/mainLeft.vue'
+import mainRight from './components/mainRight.vue'
+import mainCore from './components/mainCore.vue'
 
 const router = useRouter()
 const route = useRoute()
-const pageId = ref('')
+const main = useMain()
 
 onMounted(() => {
-  pageId.value = String(route.params.id)
-  useCloud('pageDetails')
-    .where({
-      pageId: pageId.value,
-    })
-    .get()
-    .then((res) => {
-      console.log(res)
-    })
+  main.pageId = String(route.params.id)
+  main.getTempData()
 })
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+.main_cont {
+  .main_board {
+    display: flex;
+  }
+}
+</style>
