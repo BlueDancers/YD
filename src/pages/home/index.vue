@@ -184,6 +184,9 @@ async function del(id) {
 function showPageList(data) {
   router.push({
     name: 'pageList',
+    params: {
+      groupId: data._id,
+    },
   })
 }
 </script>

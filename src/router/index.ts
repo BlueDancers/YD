@@ -27,7 +27,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/pages/home/index.vue'),
       },
       {
-        path: 'pageList',
+        path: 'pageList/:groupId',
         name: 'pageList',
         component: () => import('@/pages/pageList/index.vue'),
       },
