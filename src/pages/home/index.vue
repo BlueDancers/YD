@@ -31,6 +31,25 @@
                 </el-button>
               </div>
             </el-popover>
+            <el-popover placement="top" :width="300" trigger="click">
+              <template #reference>
+                <el-button type="info" size="small">删除组织</el-button>
+              </template>
+              <div class="flex_center">
+                <el-input placeholder="请输入密码" v-model="delPass"></el-input>
+                <el-button
+                  :style="{
+                    'margin-left': '10px',
+                  }"
+                  :disabled="delPass == ''"
+                  v-if="scope.row.founderUser.includes(userData.uid)"
+                  type="danger"
+                  @click="del(scope.row._id)"
+                >
+                  删除
+                </el-button>
+              </div>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>
@@ -38,6 +57,8 @@
         <el-pagination background layout="prev, pager, next" :total="pagination.total" />
       </div>
     </div>
+    <!-- 创建组织 -->
+    <create-team ref="createOrg" @createInit="init"></create-team>
   </div>
 </template>
 
@@ -46,6 +67,7 @@ import { getStorageSync } from '@/modules/storage'
 import { ElMessage } from 'element-plus'
 import { onMounted, reactive, Ref, ref } from 'vue'
 import { useCloud } from '@/utils/request'
+import createTeam from './components/createTeam.vue'
 
 let userData = getStorageSync('userData')
 let tableData: Ref<any[]> = ref([])
@@ -54,10 +76,15 @@ const pagination = reactive({
   current: 1,
   pageSize: 10,
 })
-
 const groupPass = ref('') // 加入组织密码
+const delPass = ref('') //删除组织密码
+const createOrg = ref()
 
-onMounted(async () => {
+onMounted(() => {
+  init()
+})
+
+async function init() {
   // 获取页面长度
   const pageTotal = await useCloud('organize').count()
   pagination.total = pageTotal.total
@@ -76,9 +103,12 @@ onMounted(async () => {
     .get()
   console.log(groupData)
   tableData.value = groupData.data
-})
+}
 
-function addGroup() {}
+//新建组织
+function addGroup() {
+  createOrg.value.open()
+}
 
 /**
  * 加入群组
@@ -105,6 +135,31 @@ async function joinGroup(id) {
       .then((res) => {
         console.log(res)
         ElMessage.success('加入成功~')
+      })
+  } else {
+    ElMessage.error('密码错误')
+  }
+}
+
+//删除
+async function del(id) {
+  // 查询密码是否正确
+  let currentData = await useCloud('organize')
+    .where({
+      _id: id,
+      password: delPass.value,
+    })
+    .get()
+  console.log(currentData)
+  if (currentData.data.length == 1) {
+    // 密码正确 加入组织
+    await useCloud('organize')
+      .doc(id)
+      .remove()
+      .then((res) => {
+        ElMessage.success('删除成功~')
+        console.log(res)
+        init()
       })
   } else {
     ElMessage.error('密码错误')
