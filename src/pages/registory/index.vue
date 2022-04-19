@@ -98,7 +98,8 @@ function login() {
   }
   .reg_login {
     margin-top: 16px;
-    margin-left: 0;
+    margin-left: 0px;
+    color: #409eff;
   }
   .reg_input {
     width: 308px;

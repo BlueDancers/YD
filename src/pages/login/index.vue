@@ -94,16 +94,12 @@ function registory() {
   }
   .login_lgbtn {
     margin-top: 15px;
-    text-align: center;
     color: #fff;
-    border-radius: 4px 4px 4px 4px;
   }
   .login_resbtn {
-    margin-left: 0;
+    margin-left: 0px;
     margin-top: 15px;
-    text-align: center;
     color: #409eff;
-    border-radius: 4px 4px 4px 4px;
   }
   .login_input {
     width: 308px;
