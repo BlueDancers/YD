@@ -38,7 +38,7 @@
             </el-popover>
             <el-popover placement="top" :width="300" trigger="click">
               <template #reference>
-                <el-button type="info" size="small">删除组织</el-button>
+                <el-button type="info" size="default">删除组织</el-button>
               </template>
               <div class="flex_center">
                 <el-input placeholder="请输入密码" v-model="delPass"></el-input>
