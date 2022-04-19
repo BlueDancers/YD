@@ -6,13 +6,9 @@ import { uploadFile } from "./request";
  * @param config
  * @returns
  */
-export function parseTime(
-  time,
-  config: { cFormat?; isZero? } = {
-    cFormat: '{y}-{m}-{d} {h}:{i}:{s}',
-    isZero: true,
-  }
-) {
+ export function parseTime(time, config: { cFormat?; isZero? }) {
+  config.isZero = config.isZero == undefined ? true : config.isZero
+  config.cFormat = config.cFormat == undefined ? '{y}-{m}-{d} {h}:{i}:{s}' : config.cFormat
   if (arguments.length === 0) {
     return null
   }
