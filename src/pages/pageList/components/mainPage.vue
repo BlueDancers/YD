@@ -13,18 +13,16 @@
           </div>
           <div class="mid_select">
             <div class="select_itme">
-              <svg-icon class="item_icon" name="bianji" :color="'#666'"> </svg-icon>
+              <svg-icon class="item_icon" name="bianji"> </svg-icon>
               <div class="item_text">编辑</div>
             </div>
             <div class="select_itme">
-              <svg-icon class="item_icon" name="zhexiantu" :color="'#666'"> </svg-icon>
+              <svg-icon class="item_icon" name="zhexiantu"> </svg-icon>
               <div class="item_text">数据</div>
             </div>
             <div class="select_itme">
-              <!-- <svg-icon class="item_icon" name="gengduo" :color="'#666'"> </svg-icon>
-                <div class="item_text">更多</div> -->
               <el-dropdown class="item_dropdown">
-                <svg-icon class="item_icon" name="gengduo" :color="'#666'"> </svg-icon>
+                <svg-icon class="item_icon" name="gengduo"> </svg-icon>
                 <div class="item_text">更多</div>
                 <template #dropdown>
                   <el-dropdown-menu>
@@ -45,7 +43,7 @@
             <text class="left_color">访客</text>
           </div>
 
-          <svg-icon name="xiala" class="box_right" :color="'#666'"> </svg-icon>
+          <svg-icon name="xiala" class="box_right"> </svg-icon>
         </div>
       </div>
     </div>
@@ -125,6 +123,7 @@ const props = withDefaults(defineProps<Props>(), {
             background: #f3f3f3;
             border-radius: 3px 3px 3px 3px;
             .item_icon {
+              fill: #666;
               margin-top: 4px;
               width: 17px;
               height: 17px;
@@ -143,6 +142,7 @@ const props = withDefaults(defineProps<Props>(), {
               align-items: center;
               flex-direction: column;
               .item_icon {
+                fill: #666;
                 margin-left: 2px;
                 width: 17px;
                 height: 17px;
@@ -181,6 +181,7 @@ const props = withDefaults(defineProps<Props>(), {
           }
         }
         .box_right {
+          fill: #666;
           transform: rotate(270deg);
           width: 15px;
           height: 15px;
