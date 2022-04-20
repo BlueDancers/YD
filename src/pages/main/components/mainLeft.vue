@@ -34,7 +34,7 @@ const menu = [
   },
 ]
 
-const activeMenu = ref(1)
+const activeMenu = ref(0)
 
 function changeItem(index) {
   activeMenu.value = index
@@ -67,7 +67,7 @@ function changeItem(index) {
       }
     }
     .item_active {
-      background-color: #409eff;
+      background-color: var(--el-color-primary);
       .item_icon {
         fill: #fff;
       }

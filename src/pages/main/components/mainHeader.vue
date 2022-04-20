@@ -1,6 +1,6 @@
 <template>
   <div class="main_header">
-    <div class="header_left">易动</div>
+    <div class="header_left" @click="gotoHome">易动</div>
     <div class="header_right">
       <div class="header_menu">
         <div class="menu_item">
@@ -21,7 +21,17 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function gotoHome() {
+  router.replace({
+    name: 'home',
+  })
+}
+</script>
 
 <style lang="less" scoped>
 .main_header {
@@ -35,6 +45,7 @@
   box-sizing: border-box;
   padding: 0 20px;
   .header_left {
+    cursor: pointer;
   }
   .header_right {
     display: flex;

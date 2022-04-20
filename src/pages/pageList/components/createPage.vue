@@ -51,8 +51,9 @@ function onSubmit() {
           title: formPage.value.title,
           organizeId: String(route.params.groupId),
           createTime: new Date().getTime(),
+          template: [],
         })
-        .then((res) => {
+        .then(() => {
           ElMessage.success('创建成功~')
           emit('pageInit')
           createPageRef.value.resetFields()

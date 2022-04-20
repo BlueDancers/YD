@@ -1,15 +1,22 @@
 <template>
   <div class="main_right">
     <div class="right_active">
-      <div
-        class="active_item flex_center"
-        :class="hoverMenu == index ? 'item_active' : ''"
+      <el-tooltip
+        class="box-item"
+        effect="dark"
+        :content="item.text"
+        placement="left"
         v-for="(item, index) in activeMenu"
         :key="item.icon"
-        @click="activeItem(item.type)"
       >
-        <svg-icon class="item_icon" :name="item.icon"></svg-icon>
-      </div>
+        <div
+          class="active_item flex_center"
+          :class="hoverMenu == index ? 'item_active' : ''"
+          @click="activeItem(item.type)"
+        >
+          <svg-icon class="item_icon" :name="item.icon"></svg-icon>
+        </div>
+      </el-tooltip>
     </div>
     <div class="right_cont"></div>
   </div>
@@ -23,22 +30,27 @@ const activeMenu = reactive([
   {
     icon: 'chehui',
     type: '',
+    text: '撤销',
   },
   {
     icon: 'fanchexiao-copy-copy',
     type: '',
+    text: '反撤销',
   },
   {
     icon: 'shanchu2',
     type: '',
+    text: '删除',
   },
   {
     icon: 'fuzhi1',
     type: '',
+    text: '复制',
   },
   {
     icon: 'niantie1',
     type: '',
+    text: '粘贴',
   },
 ])
 
@@ -50,22 +62,22 @@ function activeItem(type) {}
   display: flex;
   .right_active {
     height: calc(100vh - 50px);
-    width: 45px;
+    width: 40px;
     background-color: #fff;
     border-right: 1px solid #e2e2e2;
     .active_item {
       cursor: pointer;
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       &:hover {
-        background-color: #409eff;
+        background-color: var(--el-color-primary);
         .item_icon {
           fill: #fff;
         }
       }
       .item_icon {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         fill: #000;
       }
     }

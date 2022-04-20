@@ -12,23 +12,21 @@
             <div class="mid_time">{{ item.createTime }}更新</div>
           </div>
           <div class="mid_select">
-            <div class="select_itme">
+            <div class="select_itme" @click="togoMain(item._id)">
               <svg-icon class="item_icon" name="bianji"> </svg-icon>
               <div class="item_text">编辑</div>
             </div>
-            <div class="select_itme">
+            <div class="select_itme" @click="togoAnalysis">
               <svg-icon class="item_icon" name="zhexiantu"> </svg-icon>
               <div class="item_text">数据</div>
             </div>
             <div class="select_itme">
-              <el-dropdown class="item_dropdown">
+              <el-dropdown class="item_dropdown" placement="top">
                 <svg-icon class="item_icon" name="gengduo"> </svg-icon>
                 <div class="item_text">更多</div>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <el-dropdown-item>Action 1</el-dropdown-item>
-                    <el-dropdown-item>Action 2</el-dropdown-item>
-                    <el-dropdown-item>Action 3</el-dropdown-item>
+                    <el-dropdown-item @click="deleteItem(item._id)">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -37,10 +35,10 @@
         </div>
         <div class="box_bottom">
           <div class="box_left">
-            <text>14</text>
-            <text class="left_color">浏览</text>
-            <text>3</text>
-            <text class="left_color">访客</text>
+            <text class="left_num">0</text>
+            <text class="left_title">浏览</text>
+            <text class="left_num">0</text>
+            <text class="left_title">访客</text>
           </div>
 
           <svg-icon name="xiala" class="box_right"> </svg-icon>
@@ -51,12 +49,54 @@
 </template>
 
 <script setup lang="ts">
+import { useCloud } from '@/utils/request'
+import { Action, ElMessage, ElMessageBox } from 'element-plus'
+import { useRouter } from 'vue-router'
+
+const emit = defineEmits(['init'])
+const router = useRouter()
 interface Props {
   mainList: any[]
 }
 const props = withDefaults(defineProps<Props>(), {
   mainList: () => [],
 })
+
+function togoMain(id) {
+  router.push({
+    name: 'main',
+    params: {
+      id,
+    },
+  })
+}
+
+function togoAnalysis() {
+  ElMessage.info('开发中')
+  return
+  router.replace({
+    name: 'home',
+  })
+}
+
+function deleteItem(id) {
+  ElMessageBox.alert('确定删除吗', '温馨提示', {
+    confirmButtonText: '确定',
+    showCancelButton: true,
+    cancelButtonText: '取消',
+    callback: (action: Action) => {
+      if (action == 'confirm') {
+        useCloud('pageList')
+          .doc(id)
+          .remove()
+          .then(() => {
+            ElMessage.success('删除成功')
+            emit('init')
+          })
+      }
+    },
+  })
+}
 </script>
 
 <style lang="less" scoped>
@@ -115,6 +155,8 @@ const props = withDefaults(defineProps<Props>(), {
           align-items: center;
           justify-content: space-between;
           .select_itme {
+            cursor: pointer;
+            user-select: none;
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -155,14 +197,6 @@ const props = withDefaults(defineProps<Props>(), {
             }
           }
         }
-        &:hover {
-          .mid_cont {
-            display: none;
-          }
-          .mid_select {
-            display: flex;
-          }
-        }
       }
       .box_bottom {
         display: flex;
@@ -175,8 +209,13 @@ const props = withDefaults(defineProps<Props>(), {
         border-top: 1px solid #ededed80;
         background: #ffffff;
         .box_left {
+          display: flex;
+          align-items: center;
           color: #409eff;
-          .left_color {
+          .left_num {
+            margin: 0 2px;
+          }
+          .left_title {
             color: #666666;
           }
         }
@@ -185,6 +224,14 @@ const props = withDefaults(defineProps<Props>(), {
           transform: rotate(270deg);
           width: 15px;
           height: 15px;
+        }
+      }
+      &:hover {
+        .mid_cont {
+          display: none;
+        }
+        .mid_select {
+          display: flex;
         }
       }
     }

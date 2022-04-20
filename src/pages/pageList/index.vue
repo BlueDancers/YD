@@ -16,7 +16,7 @@
         <search-page @searchVal="searchVal"></search-page>
       </div>
       <div class="right_container">
-        <main-page :mainList="mainList"></main-page>
+        <main-page :mainList="mainList" @init="init"></main-page>
       </div>
     </div>
     <create-page ref="establishPage" @pageInit="init"></create-page>
