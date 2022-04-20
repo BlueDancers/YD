@@ -3,17 +3,13 @@
     <el-container>
       <el-aside class="page_aside">
         <el-button class="page_aside_btn" type="primary" @click="openCreatepage"> 创建页面 </el-button>
-        <el-menu :default-openeds="['1']" default-active="1-1" class="page_menu">
-          <el-sub-menu index="1">
-            <template #title>
-              <el-icon><message /></el-icon>内容管理
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="1-1" class="page_menu_item">页面</el-menu-item>
-              <el-menu-item index="1-2" class="page_menu_item">素材</el-menu-item>
-              <el-menu-item index="1-3" class="page_menu_item">模板</el-menu-item>
-            </el-menu-item-group>
-          </el-sub-menu>
+        <el-menu default-active="1" class="page_menu">
+          <el-menu-item index="1">
+            <template #title>页面管理</template>
+          </el-menu-item>
+          <el-menu-item index="2">
+            <template #title>组件管理</template>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container class="page_cont">
@@ -80,21 +76,17 @@ function searchVal(e) {
 .page_layout {
   display: flex;
   .page_aside {
-    padding: 0 12px;
     box-sizing: border-box;
     width: 186px;
     min-height: calc(100vh - 50px);
-    background: #ffffff;
+    background-color: #fff;
     .page_aside_btn {
-      margin-top: 20px;
-      width: 100%;
+      box-sizing: border-box;
+      width: 146px;
+      margin: 20px;
     }
     .page_menu {
-      margin-top: 20px;
       border: none;
-    }
-    .page_menu_item {
-      min-width: 0;
     }
   }
   .page_header {

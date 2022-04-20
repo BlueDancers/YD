@@ -1,5 +1,5 @@
 <template>
-  <svg class="icon" aria-hidden="true" :style="{ color: color }">
+  <svg class="icon" aria-hidden="true">
     <use :xlink:href="`#icon-${name}`"></use>
   </svg>
 </template>
@@ -14,12 +14,15 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    color: {
-      type: String,
-      default: '#262626',
-    },
   },
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+  overflow: hidden;
+}
+</style>

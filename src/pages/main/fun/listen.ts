@@ -22,7 +22,6 @@ export default function useListen(coreRef) {
    * 与主页面相关的元素位置反应
    */
   const { elementX, elementY, isOutside } = useMouseInElement(coreRef)
-  console.log('监听对象', coreRef)
   watch(elementX, (value) => {
     // console.log(value)
   })
