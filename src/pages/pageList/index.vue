@@ -1,26 +1,24 @@
 <template>
   <div class="page_layout">
-    <el-container>
-      <el-aside class="page_aside">
-        <el-button class="page_aside_btn" type="primary" @click="openCreatepage"> 创建页面 </el-button>
-        <el-menu default-active="1" class="page_menu">
-          <el-menu-item index="1">
-            <template #title>页面管理</template>
-          </el-menu-item>
-          <el-menu-item index="2">
-            <template #title>组件管理</template>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
-      <el-container class="page_cont">
-        <el-header class="page_header">
-          <search-page @searchVal="searchVal"></search-page>
-        </el-header>
-        <el-main class="page_main">
-          <main-page :mainList="mainList"></main-page>
-        </el-main>
-      </el-container>
-    </el-container>
+    <div class="layout_left">
+      <el-button class="page_aside_btn" type="primary" @click="openCreatepage"> 创建页面 </el-button>
+      <el-menu default-active="1" class="page_menu">
+        <el-menu-item index="1">
+          <template #title>页面管理</template>
+        </el-menu-item>
+        <el-menu-item index="2">
+          <template #title>组件管理</template>
+        </el-menu-item>
+      </el-menu>
+    </div>
+    <div class="layout_right">
+      <div class="right_header">
+        <search-page @searchVal="searchVal"></search-page>
+      </div>
+      <div class="right_container">
+        <main-page :mainList="mainList"></main-page>
+      </div>
+    </div>
     <create-page ref="establishPage" @pageInit="init"></create-page>
   </div>
 </template>
@@ -74,11 +72,14 @@ function searchVal(e) {
 <style lang="less" scoped>
 .page_layout {
   display: flex;
-  .page_aside {
+  height: calc(100vh - 50px);
+  .layout_left {
+    padding: 0 12px;
     box-sizing: border-box;
-    width: 186px;
-    min-height: calc(100vh - 50px);
-    background-color: #fff;
+    width: 240px;
+    min-height: 850px;
+    height: 100%;
+    background: #ffffff;
     .page_aside_btn {
       box-sizing: border-box;
       width: 146px;
@@ -88,17 +89,21 @@ function searchVal(e) {
       border: none;
     }
   }
-  .page_header {
-    margin: 7px 36px 0 7px;
-    height: 56px;
-    background: #ffffff;
-  }
-  .page_main {
-    padding: 0;
-    margin: 7px 36px 0 7px;
-    height: 768px;
-    flex: none;
-    background: #ffffff;
+  .layout_right {
+    .right_header {
+      min-width: 600px;
+      margin: 7px 36px 0 7px;
+      width: calc(100vw - 276px);
+      height: 56px;
+      background: #ffffff;
+    }
+    .right_container {
+      margin: 7px 36px 0 7px;
+      min-width: 600px;
+      width: calc(100vw - 276px);
+      height: 768px;
+      background: #ffffff;
+    }
   }
 }
 </style>
