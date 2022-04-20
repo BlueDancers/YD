@@ -29,7 +29,6 @@
 import { useCloud } from '@/utils/request'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { ElContainer } from 'element-plus'
 import createPage from './components/createPage.vue'
 import mainPage from './components/mainPage.vue'
 import searchPage from './components/searchPage.vue'
