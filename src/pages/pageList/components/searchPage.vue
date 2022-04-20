@@ -1,6 +1,6 @@
 <template>
   <div class="search_page">
-    <div>页面名称:</div>
+    <div class="search_title">页面名称:</div>
     <el-input class="search_input" v-model="searchValue" placeholder="请输入页面名称" />
     <el-button type="primary" class="search_btn" @click="subSearch">搜索</el-button>
   </div>
@@ -24,7 +24,14 @@ function subSearch() {
   height: 100%;
   display: flex;
   align-items: center;
-
+  flex-wrap: wrap;
+  .search_title {
+    margin-left: 22px;
+    width: 51px;
+    font-size: 12px;
+    color: #3d3d3d;
+    line-height: 20px;
+  }
   .search_input {
     border-radius: 4px;
     margin-left: 7px;
