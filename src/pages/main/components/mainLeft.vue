@@ -12,13 +12,32 @@
         <span class="item_text">{{ item.text }}</span>
       </div>
     </div>
-    <div class="main_left_cont"></div>
+    <div class="main_left_cont">
+      <!-- 可用组件 -->
+      <div class="">
+        <el-collapse v-model="activeLeft">
+          <el-collapse-item title="Consistency" :name="1">
+            <template #title>
+              <span class="collapse_title">基础组件</span>
+            </template>
+            <div>1</div>
+          </el-collapse-item>
+          <el-collapse-item title="Feedback" :name="2">
+            <template #title>
+              <span class="collapse_title">业务组件</span>
+            </template>
+            <div>1</div></el-collapse-item
+          >
+        </el-collapse>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
+const activeMenu = ref(0)
 const menu = [
   {
     icon: 'yuanshuju',
@@ -34,7 +53,7 @@ const menu = [
   },
 ]
 
-const activeMenu = ref(0)
+const activeLeft = ref(1) //
 
 function changeItem(index) {
   activeMenu.value = index
@@ -77,9 +96,15 @@ function changeItem(index) {
     }
   }
   .main_left_cont {
+    box-sizing: border-box;
     height: calc(100vh - 50px);
     width: 347px;
     background-color: #fff;
+    padding: 10px 0;
+    .collapse_title {
+      margin-left: 10px;
+      font-weight: bold;
+    }
   }
 }
 </style>

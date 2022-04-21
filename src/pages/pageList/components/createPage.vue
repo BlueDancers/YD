@@ -53,11 +53,23 @@ function onSubmit() {
           createTime: new Date().getTime(),
           template: [],
         })
-        .then(() => {
+        .then((res) => {
           ElMessage.success('创建成功~')
           emit('pageInit')
           createPageRef.value.resetFields()
           close()
+          return res
+        })
+        .then((res: any) => {
+          console.log('新建页面id', res)
+          return useCloud('pageDetails').add({
+            pageId: res.id, // 页面id
+            template: [], // 组件数据
+            height: 650, // 页面高度
+          })
+        })
+        .then((res) => {
+          console.log('页面创建成功', res)
         })
     } else {
       console.log('error submit!')
