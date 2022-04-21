@@ -17,9 +17,4 @@ html {
   align-items: center;
   justify-content: center;
 }
-
-/* @font-face {
-  font-family: mFont;
-  src: url('../src/assets/DIN-MEDIUM.OTF');
-} */
 </style>

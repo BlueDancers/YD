@@ -15,7 +15,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useMain } from '@/store/main'
 
 import mainHeader from './components/mainHeader.vue'
-import mainLeft from './components/mainLeft.vue'
+import mainLeft from './components/mainLeft/index.vue'
 import mainRight from './components/mainRight.vue'
 import mainCore from './components/mainCore.vue'
 
@@ -33,6 +33,18 @@ onMounted(() => {
 .main_cont {
   .main_board {
     display: flex;
+  }
+}
+</style>
+
+<style lang="less">
+.main_cont {
+  .collapse_title {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  .el-collapse-item__content {
+    padding: 0px 10px;
   }
 }
 </style>
