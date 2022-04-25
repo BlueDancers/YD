@@ -17,7 +17,7 @@ import { useMain } from '@/store/main'
 import mainHeader from './components/mainHeader.vue'
 import mainLeft from './components/mainLeft/index.vue'
 import mainRight from './components/mainRight.vue'
-import mainCore from './components/mainCore.vue'
+import mainCore from './components/mainCore/index.vue'
 
 const router = useRouter()
 const route = useRoute()

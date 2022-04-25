@@ -27,7 +27,6 @@ function subSearch() {
   flex-wrap: wrap;
   .search_title {
     margin-left: 22px;
-    width: 51px;
     font-size: 12px;
     color: #3d3d3d;
     line-height: 20px;

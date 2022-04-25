@@ -1,4 +1,4 @@
-import { uploadFile } from "./request";
+import { uploadFile } from './request'
 
 /**
  * 格式化时间
@@ -6,7 +6,7 @@ import { uploadFile } from "./request";
  * @param config
  * @returns
  */
- export function parseTime(time, config: { cFormat?; isZero? }) {
+export function parseTime(time, config: { cFormat?; isZero? }) {
   config.isZero = config.isZero == undefined ? true : config.isZero
   config.cFormat = config.cFormat == undefined ? '{y}-{m}-{d} {h}:{i}:{s}' : config.cFormat
   if (arguments.length === 0) {
@@ -143,4 +143,80 @@ export function numberFun(price, minNum) {
   } else {
     return 0
   }
+}
+
+/**
+ * 容器用
+ * @param data
+ * @returns
+ */
+export function contResetCss(data: Object) {
+  let css = resetCss(data)
+  return {
+    position: css.position,
+    'z-index': css['z-index'],
+    top: css.top,
+    left: css.left,
+    width: css.width,
+    height: css.height,
+    // padding: `${css['padding-top']} ${css['padding-left']} ${css['padding-bottom']} ${css['padding-right']}`,
+  }
+}
+
+/**
+ * 元素本体样式
+ * @param data
+ * @returns
+ */
+export function compResetCss(data: Object) {
+  let newCss = resetCss(data)
+  delete newCss.position
+  delete newCss['z-index']
+  delete newCss.top
+  delete newCss.left
+  return newCss
+}
+
+/**
+ * 格式化
+ */
+export function resetCss(data: Object): any {
+  const cssData = {}
+  for (const key in data) {
+    if (cssTopx(key) && !String(data[key]).includes('%')) {
+      cssData[key] = `${data[key]}px`
+    } else {
+      cssData[key] = data[key]
+    }
+  }
+  return cssData
+}
+
+/**
+ * 当前css数据是否需要增加单位
+ * @param name css属性名称
+ * @returns
+ */
+export function cssTopx(name) {
+  return [
+    'width',
+    'height',
+    'x',
+    'y',
+    'top',
+    'left',
+    'border-width',
+    'font-size',
+    'border-radius',
+    'margin-top',
+    'margin-bottom',
+    'margin-left',
+    'margin-right',
+    'padding-top',
+    'padding-bottom',
+    'padding-left',
+    'padding-right',
+    'grid-row-gap',
+    'grid-column-gap',
+  ].includes(name)
 }

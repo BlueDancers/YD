@@ -1,5 +1,5 @@
 <template>
-  <button :style="compResetCss(props.compData.cssModule)">{{ props.compData.staticData.btnValue }}</button>
+  <img :style="compResetCss(props.compData.cssModule)" :src="props.compData.staticData.imglUrl" />
 </template>
 
 <script setup lang="ts">
