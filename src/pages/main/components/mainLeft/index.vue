@@ -15,6 +15,7 @@
     <div class="main_left_cont">
       <!-- 可用组件 -->
       <component-data v-if="activeMenu == 0"></component-data>
+      <page-data v-if="activeMenu == 3"></page-data>
     </div>
   </div>
 </template>
@@ -22,6 +23,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import componentData from './components/componentData.vue'
+import PageData from './components/pageData.vue'
 
 const activeMenu = ref(0)
 const menu = [
@@ -36,6 +38,10 @@ const menu = [
   {
     icon: 'moban',
     text: '组件市场',
+  },
+  {
+    icon: 'moban',
+    text: '页面设置',
   },
 ]
 

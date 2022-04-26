@@ -1,12 +1,15 @@
 <template>
   <div class="main_core" @click="handleCore">
+    <div class="main_core_header flex_center">
+      <div class="header_title">{{ main.pageTitle }}</div>
+    </div>
     <div
       class="core_temp"
       @drop="drop"
       @dragover="(evt) => evt.preventDefault()"
       @dragend="(evt) => evt.preventDefault()"
       @dragleave="(evt) => evt.preventDefault()"
-      :style="{ height: `${main.pageHeight + 1000}px` }"
+      :style="{ height: `${main.pageHeight}px`, backgroundColor: main.backColor }"
       ref="coreRef"
     >
       <!-- <component v-for="item in main.template" :key="item.id" :is="item.name" :compData="item" /> -->
@@ -17,6 +20,7 @@
           @mouseover="mouseOver($event, index)"
           @mouseout="mouseOut"
           @mousedown="mouseDown($event, index)"
+          @contextmenu="contextmenu"
         >
           <y-button v-if="item.name == 'y-button'" :compData="item"></y-button>
           <y-div v-else-if="item.name == 'y-div'" :compData="item"></y-div>
@@ -25,6 +29,7 @@
         </point>
       </template>
     </div>
+    <right-menu ref="rightMenuRef"></right-menu>
   </div>
 </template>
 
@@ -38,6 +43,8 @@ import { contResetCss } from '@/utils/index'
 import YDiv from '../../dragComp/yDiv.vue'
 import YImg from '../../dragComp/yImg.vue'
 import YEdit from '../../dragComp/yEdit.vue'
+import rightMenu from './components/rightMenu.vue'
+import RightMenu from './components/rightMenu.vue'
 
 const main = useMain()
 
@@ -45,7 +52,8 @@ onMounted(() => {
   useListen(coreRef.value)
 })
 
-const coreRef = ref(null)
+const coreRef = ref()
+const rightMenuRef = ref()
 
 function drop(evt) {
   console.log(evt)
@@ -104,24 +112,45 @@ function handleCore(evt) {
     main.hoverCompIndex = -1
   }
 }
+
+function contextmenu(evt) {
+  // 获取xy轴
+  // 打开组件 传入xy轴
+  rightMenuRef.value.open(evt.clientX, evt.clientY)
+  evt.preventDefault()
+}
 </script>
 
 <style lang="less" scoped>
 .main_core {
+  position: relative;
   flex: 1;
   display: flex;
-
   justify-content: center;
   overflow-y: scroll;
   height: calc(100vh - 50px);
 
+  .main_core_header {
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 325px;
+    height: 70px;
+    background-size: 100% 100%;
+    background-image: url('@/assets/header.png');
+    .header_title {
+      position: relative;
+      top: 17px;
+      font-size: 15px;
+    }
+  }
   .core_temp {
-    position: relative;
+    box-shadow: 0px 6px 10px 1px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     width: 325px;
     height: 650px;
-    box-shadow: 0px 3px 8px 1px rgba(0, 0, 0, 0.2);
-    margin-top: 40px;
+    margin-top: 100px;
     margin-bottom: 100px;
   }
 }

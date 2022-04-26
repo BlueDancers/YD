@@ -6,6 +6,9 @@ export const useMain = defineStore('main', {
   state: () => {
     return {
       pageId: '', // 页面id
+      pageTitle: '', // 网页名称
+      pageRouter: '', // 网页地址
+      backColor: '#fff', // 页面背景颜色
       pageHeight: 650, // 页面高度
       template: [] as baseComponent[], // 组件数组
       moveIndex: 0, // 当前拖动类型 1-8 坐标点 9 底部高度条 10 按住元素
@@ -18,8 +21,19 @@ export const useMain = defineStore('main', {
     }
   },
   actions: {
-    // 获取页面数据
     getTempData() {
+      // 获取页面大致数据
+      useCloud('pageList')
+        .doc(this.pageId)
+        .get()
+        .then((res) => {
+          console.log(res)
+          if (res.data.length == 1) {
+            this.pageTitle = res.data[0].title
+            this.pageRouter = res.data[0].router
+          }
+        })
+      // 获取页面装修数据信息
       useCloud('pageDetails')
         .where({
           pageId: this.pageId,
@@ -46,6 +60,9 @@ export const useMain = defineStore('main', {
         }
         this.template.push({ ...dom })
       }
+    },
+    deleteComp(index) {
+      this.template.splice(index, 1)
     },
     toggleComp(index: number) {
       this.activeCompIndex = index
