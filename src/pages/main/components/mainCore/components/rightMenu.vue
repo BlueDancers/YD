@@ -2,7 +2,7 @@
   <div
     ref="rightMenu"
     class="right_menu"
-    :style="{ top: `${menuY - 2}px`, left: `${menuX - 2}px` }"
+    :style="{ top: `${menuY}px`, left: `${menuX}px` }"
     v-if="showMenu"
     @contextmenu="(evt) => evt.preventDefault()"
     @click="close"

@@ -1,4 +1,5 @@
 import { useMain } from '@/store/main'
+import { numberFun } from '@/utils'
 import { onClickOutside, useMagicKeys, useMouseInElement, useMousePressed } from '@vueuse/core'
 import { computed, watch, watchEffect } from 'vue'
 
@@ -68,6 +69,15 @@ export default function useListen(coreRef) {
       case 8:
         bottom()
         right()
+        break
+      case 9:
+        if (numberFun(elementY.value, 0) > 3000) {
+          main.pageHeight = 3000
+        } else if (numberFun(elementY.value, 0) < 650) {
+          main.pageHeight = 650
+        } else {
+          main.pageHeight = numberFun(elementY.value, 0)
+        }
         break
       case 10:
         moveDom()

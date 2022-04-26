@@ -28,9 +28,13 @@
           <y-edit v-else-if="item.name == 'y-edit'" :compData="item"></y-edit>
         </point>
       </template>
+      <div class="main_add_height" @mousedown="changeHeight">
+        <span v-if="main.moveIndex == 9">页面高度：{{ main.pageHeight }}px</span>
+        <span v-else>↕</span>
+      </div>
     </div>
-    <right-menu ref="rightMenuRef"></right-menu>
   </div>
+  <right-menu ref="rightMenuRef"></right-menu>
 </template>
 
 <script setup lang="ts">
@@ -39,7 +43,7 @@ import useListen from '../../fun/listen'
 import { useMain } from '@/store/main'
 import yButton from '@/pages/main/dragComp/yButton.vue'
 import Point from './components/point.vue'
-import { contResetCss } from '@/utils/index'
+import { contResetCss, numberFun } from '@/utils/index'
 import YDiv from '../../dragComp/yDiv.vue'
 import YImg from '../../dragComp/yImg.vue'
 import YEdit from '../../dragComp/yEdit.vue'
@@ -94,7 +98,6 @@ function mouseOut(evt) {
 
 // 按下鼠标
 function mouseDown(evt, index) {
-  // console.log(evt)
   main.domOffsetX = evt.offsetX
   main.domOffsetY = evt.offsetY
   main.toggleComp(index)
@@ -113,11 +116,17 @@ function handleCore(evt) {
   }
 }
 
+// 右击事件
 function contextmenu(evt) {
   // 获取xy轴
   // 打开组件 传入xy轴
   rightMenuRef.value.open(evt.clientX, evt.clientY)
   evt.preventDefault()
+}
+
+// 修改页面高度
+function changeHeight() {
+  main.changeMoveIndex(9)
 }
 </script>
 
@@ -146,12 +155,29 @@ function contextmenu(evt) {
     }
   }
   .core_temp {
+    position: relative;
     box-shadow: 0px 6px 10px 1px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     width: 325px;
     height: 650px;
     margin-top: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 200px;
+
+    .main_add_height {
+      border-top: 1px solid #eee;
+      background-color: #fff;
+      position: absolute;
+      height: 20px;
+      width: 325px;
+      bottom: -20px;
+      left: 50%;
+      transform: translate(-50%, 0%);
+      cursor: ns-resize;
+      user-select: none;
+      text-align: center;
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 }
 </style>
