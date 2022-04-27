@@ -123,7 +123,7 @@ export function dataURLtoFile(dataurl: string, filename: string) {
  * @returns
  */
 export async function imgToStorage(dataUrl, fileName, fileDir) {
-  let file: any = dataURLtoFile(dataUrl, `${fileName}.png`)
+  let file: any = dataURLtoFile(dataUrl, `${fileName}`)
   let url = await uploadFile(`${fileDir}/${file.name}`, file)
   return url
 }

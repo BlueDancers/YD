@@ -6,7 +6,9 @@
         <el-tab-pane label="样式" :name="1">
           <style-data v-if="main.activeCompIndex !== -1"></style-data>
         </el-tab-pane>
-        <el-tab-pane label="配置" :name="2"> </el-tab-pane>
+        <el-tab-pane label="配置" :name="2">
+          <config-data v-if="main.activeCompIndex !== -1"></config-data>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -17,6 +19,7 @@ import { useMain } from '@/store/main'
 import { reactive, ref } from 'vue'
 import LeftMenu from './components/leftMenu.vue'
 import StyleData from './components/styleData.vue'
+import ConfigData from './components/configData.vue'
 const main = useMain()
 
 const activeName = ref(1)

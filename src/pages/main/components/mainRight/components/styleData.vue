@@ -1,22 +1,22 @@
 <template>
   <el-form class="style_data" label-width="90px">
     <el-form-item label="宽高：">
-      <el-input-number class="mini_input" v-model="main.acTemp.width" :controls-position="'right'" />
+      <el-input-number class="mini_input" v-model="main.acTempCss.width" :controls-position="'right'" />
       &nbsp &nbsp
-      <el-input-number class="mini_input" v-model="main.acTemp.height" :controls-position="'right'" />
+      <el-input-number class="mini_input" v-model="main.acTempCss.height" :controls-position="'right'" />
     </el-form-item>
     <el-form-item label="坐标：">
-      <el-input-number class="mini_input" v-model="main.acTemp.left" :controls-position="'right'" />
+      <el-input-number class="mini_input" v-model="main.acTempCss.left" :controls-position="'right'" />
       &nbsp &nbsp
-      <el-input-number class="mini_input" v-model="main.acTemp.top" :controls-position="'right'" />
+      <el-input-number class="mini_input" v-model="main.acTempCss.top" :controls-position="'right'" />
     </el-form-item>
     <el-form-item label="背景色：">
-      <el-color-picker v-model="main.acTemp['background-color']"></el-color-picker>
+      <el-color-picker v-model="main.acTempCss['background-color']"></el-color-picker>
     </el-form-item>
     <el-form-item label="圆角：">
       <el-input-number
         class="mini_input"
-        v-model="main.acTemp['border-radius']"
+        v-model="main.acTempCss['border-radius']"
         :controls-position="'right'"
       />
     </el-form-item>
@@ -24,23 +24,27 @@
       <el-input-number
         :min="0"
         class="mini_input"
-        v-model="main.acTemp['border-width']"
+        v-model="main.acTempCss['border-width']"
         :controls-position="'right'"
       />
       &nbsp &nbsp
-      <el-select :style="{ width: '80px' }" v-model="main.acTemp['border-style']">
+      <el-select :style="{ width: '80px' }" v-model="main.acTempCss['border-style']">
         <el-option v-for="item in borderStyleList" :key="item.key" :label="item.value" :value="item.key">
         </el-option>
       </el-select>
       &nbsp &nbsp
-      <el-color-picker v-model="main.acTemp['border-color']"></el-color-picker>
+      <el-color-picker v-model="main.acTempCss['border-color']"></el-color-picker>
     </el-form-item>
 
-    <el-form-item label="文字大小：" v-if="main.acTemp['font-size']">
-      <el-input-number class="mini_input" v-model="main.acTemp['font-size']" :controls-position="'right'" />
+    <el-form-item label="文字大小：" v-if="main.acTempCss['font-size']">
+      <el-input-number
+        class="mini_input"
+        v-model="main.acTempCss['font-size']"
+        :controls-position="'right'"
+      />
     </el-form-item>
-    <el-form-item label="文字色：" v-if="main.acTemp['color']">
-      <el-color-picker v-model="main.acTemp['color']"></el-color-picker>
+    <el-form-item label="文字色：" v-if="main.acTempCss['color']">
+      <el-color-picker v-model="main.acTempCss['color']"></el-color-picker>
     </el-form-item>
   </el-form>
 </template>
@@ -56,7 +60,6 @@ const main = useMain()
 .style_data {
   .mini_input {
     width: 80px;
-    // text-align: left;
   }
 }
 </style>

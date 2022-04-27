@@ -13,31 +13,7 @@ export const borderStyleList = [
   },
 ]
 
-export const positionSelect = [
-  {
-    key: 'relative',
-    value: '正常布局',
-  },
-  {
-    key: 'absolute',
-    value: '自由布局',
-  },
-  {
-    key: 'fixed',
-    value: '固定布局',
-  },
-]
 
-export const inputTypeSelect = [
-  {
-    key: 'text',
-    value: '汉字',
-  },
-  {
-    key: 'number',
-    value: '数字',
-  },
-]
 
 export const fontWeightList = [
   {
@@ -65,16 +41,6 @@ export const fontAlignList = [
   },
 ]
 
-export const flexDirectionList = [
-  {
-    key: 'row',
-    value: '水平排列',
-  },
-  {
-    key: 'column',
-    value: '上下排列',
-  },
-]
 
 export const alignItemsList = [
   {
@@ -91,28 +57,6 @@ export const alignItemsList = [
   },
 ]
 
-export const justifyContentList = [
-  {
-    key: 'start',
-    value: '左对齐',
-  },
-  {
-    key: 'center',
-    value: '居中',
-  },
-  {
-    key: 'end',
-    value: '右对齐',
-  },
-  {
-    key: 'space-between',
-    value: '左右对齐',
-  },
-  {
-    key: 'space-around',
-    value: '等分对齐',
-  },
-]
 
 export const flexWrapList = [
   {

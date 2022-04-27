@@ -22,9 +22,19 @@ export const useMain = defineStore('main', {
     }
   },
   getters: {
-    acTemp(state) {
+    acTEmpName(state) {
+      return state.template[state.activeCompIndex].name
+    },
+    acTempCss(state) {
       if (state.activeCompIndex != -1) {
         return state.template[state.activeCompIndex].cssModule
+      } else {
+        return {}
+      }
+    },
+    acTempData(state) {
+      if (state.activeCompIndex != -1) {
+        return state.template[state.activeCompIndex].staticData
       } else {
         return {}
       }

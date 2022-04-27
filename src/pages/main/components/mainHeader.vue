@@ -73,7 +73,7 @@ async function savePage() {
   await deleteF()
   // 开始保存逻辑
   let img = await imgToFile()
-  let url = await imgToStorage(img, `${main.pageId}_${new Date().getTime()}`, 'pagePhoto')
+  let url = await imgToStorage(img, `${main.pageId}_${new Date().getTime()}.png`, 'pagePhoto')
   const res = await main.savePage(url.tempFileURL, url.fileID)
   console.log(res)
   ElMessage.success('保存成功~')
