@@ -27,7 +27,6 @@ function baseComList(name: string, tempLen) {
       cssModule: {
         ...absolute(tempLen),
         ...borderData(),
-        ...padAndMar(),
         ...compSize(50, 30),
         'background-color': '#eeeeee',
       }, // 样式
@@ -45,7 +44,6 @@ function baseComList(name: string, tempLen) {
       cssModule: {
         ...absolute(tempLen),
         ...borderData(),
-        ...padAndMar(),
         ...compSize(50, 30),
         color: '#000000',
         'font-weight': 'normal',
@@ -68,7 +66,6 @@ function baseComList(name: string, tempLen) {
       cssModule: {
         ...absolute(tempLen),
         ...borderData(),
-        ...padAndMar(),
         ...compSize(100, 60),
         'background-color': '#ffffff00',
       }, // 样式
@@ -88,7 +85,6 @@ function baseComList(name: string, tempLen) {
       cssModule: {
         ...absolute(tempLen),
         ...borderData(),
-        ...padAndMar(),
         ...compSize(100, 20),
         'font-weight': 'normal',
         'text-align': 'left',

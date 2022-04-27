@@ -94,9 +94,9 @@ defineExpose({
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .team_form {
-  ::v-deep .el-input {
+  .el-input {
     width: 300px;
   }
 }

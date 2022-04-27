@@ -94,28 +94,28 @@ export default function useListen(coreRef) {
 
   // 单个坐标点事件
   function top() {
-    acDom.value.top = elementY.value
-    acDom.value.height = acDom.value.height - (elementY.value - initY)
-    // 刷新操作前坐标
+    acDom.value.top = numberFun(elementY.value, 0)
+    acDom.value.height = numberFun(acDom.value.height - (elementY.value - initY), 0)
+    // 刷新操作前坐
     initY = elementY.value
   }
   function left() {
-    acDom.value.left = elementX.value
-    acDom.value.width = acDom.value.width - (elementX.value - initX)
+    acDom.value.left = numberFun(elementX.value, 0)
+    acDom.value.width = numberFun(acDom.value.width - (elementX.value - initX), 0)
     // 刷新操作前坐标
     initX = elementX.value
   }
   function right() {
-    acDom.value.width = elementX.value - acDom.value.left
+    acDom.value.width = numberFun(elementX.value - acDom.value.left, 0)
   }
 
   function bottom() {
-    acDom.value.height = elementY.value - acDom.value.top
+    acDom.value.height = numberFun(elementY.value - acDom.value.top, 0)
   }
 
   function moveDom() {
     // 移动距离为相对于页面左上角减去抓手距离元素左上角位置
-    acDom.value.top = elementY.value - main.domOffsetY
-    acDom.value.left = elementX.value - main.domOffsetX
+    acDom.value.top = numberFun(elementY.value - main.domOffsetY, 0)
+    acDom.value.left = numberFun(elementX.value - main.domOffsetX, 0)
   }
 }

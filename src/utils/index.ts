@@ -134,14 +134,10 @@ export async function imgToStorage(dataUrl, fileName, fileDir) {
  * @param minNum 小数位数
  */
 export function numberFun(price, minNum) {
-  if (price > 0) {
-    if (String(price).includes('.')) {
-      return Number(price.toFixed(minNum))
-    } else {
-      return price
-    }
+  if (String(price).includes('.')) {
+    return Number(price.toFixed(minNum))
   } else {
-    return 0
+    return price
   }
 }
 
@@ -207,15 +203,15 @@ export function cssTopx(name) {
     'border-width',
     'font-size',
     'border-radius',
-    'margin-top',
-    'margin-bottom',
-    'margin-left',
-    'margin-right',
-    'padding-top',
-    'padding-bottom',
-    'padding-left',
-    'padding-right',
-    'grid-row-gap',
-    'grid-column-gap',
+    // 'margin-top',
+    // 'margin-bottom',
+    // 'margin-left',
+    // 'margin-right',
+    // 'padding-top',
+    // 'padding-bottom',
+    // 'padding-left',
+    // 'padding-right',
+    // 'grid-row-gap',
+    // 'grid-column-gap',
   ].includes(name)
 }

@@ -21,6 +21,15 @@ export const useMain = defineStore('main', {
       domOffsetY: 0,
     }
   },
+  getters: {
+    acTemp(state) {
+      if (state.activeCompIndex != -1) {
+        return state.template[state.activeCompIndex].cssModule
+      } else {
+        return {}
+      }
+    },
+  },
   actions: {
     getTempData() {
       // 获取页面大致数据

@@ -3,7 +3,7 @@
     <!--   -->
     <div
       class="data_item"
-      :class="index == realIdx(main.hoverCompIndex) ? 'active_item' : ''"
+      :class="index == realIdx(main.activeCompIndex) ? 'active_item' : ''"
       v-for="(item, index) in template"
       @click="acElement(index)"
     >

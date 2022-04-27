@@ -14,12 +14,11 @@ import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMain } from '@/store/main'
 
-import mainHeader from './components/mainHeader.vue'
-import mainLeft from './components/mainLeft/index.vue'
-import mainRight from './components/mainRight.vue'
-import mainCore from './components/mainCore/index.vue'
+import MainHeader from './components/mainHeader.vue'
+import MainLeft from './components/mainLeft/index.vue'
+import MainRight from './components/mainRight/index.vue'
+import MainCore from './components/mainCore/index.vue'
 
-const router = useRouter()
 const route = useRoute()
 const main = useMain()
 
