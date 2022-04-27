@@ -15,6 +15,7 @@
     <div class="main_left_cont">
       <!-- 可用组件 -->
       <component-data v-if="activeMenu == 0"></component-data>
+      <z-index-data v-if="activeMenu == 1"></z-index-data>
       <page-data v-if="activeMenu == 3"></page-data>
     </div>
   </div>
@@ -24,6 +25,7 @@
 import { ref } from 'vue'
 import componentData from './components/componentData.vue'
 import PageData from './components/pageData.vue'
+import ZIndexData from './components/zIndexData.vue'
 
 const activeMenu = ref(0)
 const menu = [
@@ -90,7 +92,7 @@ function changeItem(index) {
     height: calc(100vh - 50px);
     width: 288px;
     background-color: #fff;
-    padding: 10px 0;
+    // padding: 10px 0;
   }
 }
 </style>

@@ -34,11 +34,8 @@ const rules = reactive({
 })
 
 const formPage = ref({
-  thmbImg: '', // 缩略图
   router: '', // 路由
   title: '', // 网页名称
-  organizeId: '', // 组织id
-  createTime: '', // 创建时间
 })
 
 function onSubmit() {
@@ -46,18 +43,12 @@ function onSubmit() {
     if (valid) {
       useCloud('pageList')
         .add({
-          thmbImg: formPage.value.thmbImg,
-          router: formPage.value.router,
-          title: formPage.value.title,
+          thmbImg: '',
+          thmbImgFileId: '',
           organizeId: String(route.params.groupId),
           createTime: new Date().getTime(),
-        })
-        .then((res) => {
-          ElMessage.success('创建成功~')
-          emit('pageInit')
-          createPageRef.value.resetFields()
-          close()
-          return res
+          router: formPage.value.router,
+          title: formPage.value.title,
         })
         .then((res: any) => {
           console.log('新建页面id', res)
@@ -69,7 +60,10 @@ function onSubmit() {
           })
         })
         .then((res) => {
-          console.log('页面创建成功', res)
+          ElMessage.success('创建成功~')
+          emit('pageInit')
+          createPageRef.value.resetFields()
+          close()
         })
     } else {
       console.log('error submit!')

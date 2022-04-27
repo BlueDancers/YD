@@ -16,7 +16,7 @@
       <template v-for="(item, index) in main.template" :key="item.id">
         <point
           :index="index"
-          :style="{ ...contResetCss(item.cssModule) }"
+          :style="{ ...contResetCss(item.cssModule), 'z-index': index }"
           @mouseover="mouseOver($event, index)"
           @mouseout="mouseOut"
           @mousedown="mouseDown($event, index)"

@@ -154,7 +154,6 @@ export function contResetCss(data: Object) {
   let css = resetCss(data)
   return {
     position: css.position,
-    'z-index': css['z-index'],
     top: css.top,
     left: css.left,
     width: css.width,

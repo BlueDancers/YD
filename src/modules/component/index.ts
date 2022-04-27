@@ -14,18 +14,18 @@ interface baseComponent {
 /**
  *
  * @param name 组件名称
- * @param zIndex 本次层级
+ * @param tempLen 本次层级
  * @returns
  */
-function baseComList(name: string, zIndex) {
+function baseComList(name: string, tempLen) {
   const list: baseComponent[] = [
     {
       id: guid(),
       name: 'y-div',
-      showTitle: `模块${zIndex}`, // 显示组件名称
+      showTitle: `模块${tempLen}`, // 显示组件名称
       show: true,
       cssModule: {
-        ...absolute(zIndex),
+        ...absolute(tempLen),
         ...borderData(),
         ...padAndMar(),
         ...compSize(50, 30),
@@ -40,10 +40,10 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-button',
-      showTitle: `按钮${zIndex}`, // 显示组件名称
+      showTitle: `按钮${tempLen}`, // 显示组件名称
       show: true,
       cssModule: {
-        ...absolute(zIndex),
+        ...absolute(tempLen),
         ...borderData(),
         ...padAndMar(),
         ...compSize(50, 30),
@@ -63,10 +63,10 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-img',
-      showTitle: `图片${zIndex}`, // 显示组件名称
+      showTitle: `图片${tempLen}`, // 显示组件名称
       show: true,
       cssModule: {
-        ...absolute(zIndex),
+        ...absolute(tempLen),
         ...borderData(),
         ...padAndMar(),
         ...compSize(100, 60),
@@ -83,10 +83,10 @@ function baseComList(name: string, zIndex) {
     {
       id: guid(),
       name: 'y-edit',
-      showTitle: `文本${zIndex}`, // 显示组件名称
+      showTitle: `文本${tempLen}`, // 显示组件名称
       show: true,
       cssModule: {
-        ...absolute(zIndex),
+        ...absolute(tempLen),
         ...borderData(),
         ...padAndMar(),
         ...compSize(100, 20),
@@ -107,10 +107,10 @@ function baseComList(name: string, zIndex) {
     // {
     //   id: guid(),
     //   name: 'y-swiper',
-    //   showTitle: `轮播图${zIndex}`, // 显示组件名称
+    //   showTitle: `轮播图${tempLen}`, // 显示组件名称
     //   show: true,
     //   cssModule: {
-    //     ...absolute(zIndex),
+    //     ...absolute(tempLen),
     //     ...borderData(),
     //     ...padAndMar(),
     //     ...compSize(200, 60),
@@ -201,15 +201,14 @@ function linkData() {
 /**
  * 子组件根据容器修改定义状态
  * @param contName
- * @param zIndex
+ * @param tempLen
  * @returns
  */
-function absolute(zIndex) {
+function absolute(tempLen) {
   return {
     position: 'absolute',
-    'z-index': zIndex,
-    top: 10 + zIndex * 5,
-    left: 10 + zIndex * 5,
+    top: 10 + tempLen * 5,
+    left: 10 + tempLen * 5,
   }
 }
 

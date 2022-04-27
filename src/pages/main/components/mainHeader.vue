@@ -62,8 +62,15 @@ async function imgToFile() {
 async function savePage() {
   main.hoverCompIndex = -1
   main.activeCompIndex = -1
+
   // 删除原本缩略图
-  await deleteFile([main.thmbImgFileId])
+  let deleteF
+  if (main.thmbImgFileId) {
+    deleteF = () => deleteFile([main.thmbImgFileId])
+  } else {
+    deleteF = () => Promise.resolve()
+  }
+  await deleteF()
   // 开始保存逻辑
   let img = await imgToFile()
   let url = await imgToStorage(img, `${main.pageId}_${new Date().getTime()}`, 'pagePhoto')
