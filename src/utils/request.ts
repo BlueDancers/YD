@@ -62,7 +62,30 @@ function uploadFile(cloudPath, filePath): Promise<{ tempFileURL: string; fileID:
             })
           })
       })
+      .catch((err) => {
+        console.log(err)
+      })
   })
 }
 
-export { cloud, uploadFile, auth }
+/**
+ * 删除文件
+ * @param ids
+ */
+function deleteFile(ids: string[]) {
+  new Promise((resolve, reject) => {
+    cloud
+      .deleteFile({
+        fileList: [...ids],
+      })
+      .then((res) => {
+        if (res.fileList.find((e) => e.code != 'SUCCESS')) {
+          reject('图片删除失败')
+        } else {
+          resolve('图片删除成功')
+        }
+      })
+  })
+}
+
+export { cloud, uploadFile, deleteFile, auth }

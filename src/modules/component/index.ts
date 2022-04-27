@@ -74,7 +74,7 @@ function baseComList(name: string, zIndex) {
       }, // 样式
       staticData: {
         imglUrl:
-          'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/%E7%B4%A0%E6%9D%90.png?sign=25d2c8158d6163417af8608cca0ade96&t=1639301025',
+          'https://6d61-mall-2gdgzk540aab98cd-1257324019.tcb.qcloud.la/staticImg/%E7%B4%A0%E6%9D%90.png',
         ...linkData(),
       }, // 行为
       function: {}, // 方法

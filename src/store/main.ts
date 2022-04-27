@@ -6,6 +6,7 @@ export const useMain = defineStore('main', {
   state: () => {
     return {
       pageId: '', // 页面id
+      thmbImgFileId: '', // 页面缩略图id
       pageTitle: '', // 网页名称
       pageRouter: '', // 网页地址
       backColor: '#fff', // 页面背景颜色
@@ -31,6 +32,7 @@ export const useMain = defineStore('main', {
           if (res.data.length == 1) {
             this.pageTitle = res.data[0].title
             this.pageRouter = res.data[0].router
+            this.thmbImgFileId = res.data[0].thmbImgFileId
           }
         })
       // 获取页面装修数据信息
@@ -40,11 +42,12 @@ export const useMain = defineStore('main', {
         })
         .get()
         .then((res) => {
-          console.log(res.data)
+          console.log('详细数据', res.data)
           if (res.data.length == 1) {
-            let { template, height } = res.data[0]
+            let { template, height, backColor } = res.data[0]
             this.template = template
             this.pageHeight = height
+            this.backColor = backColor
           } else {
             console.log('数据异常')
           }
@@ -81,6 +84,26 @@ export const useMain = defineStore('main', {
       if (index == 0) {
         this.moveIndex = 0
       }
+    },
+    savePage(thmbImg, fileID) {
+      // 更新页面信息
+      let updatePageList = useCloud('pageList').doc(this.pageId).update({
+        title: this.pageTitle,
+        thmbImg: thmbImg,
+        thmbImgFileId: fileID,
+      })
+      // 保存模板信息
+      let updatePageDetails = useCloud('pageDetails')
+        .where({
+          pageId: this.pageId,
+        })
+        .update({
+          height: this.pageHeight,
+          backColor: this.backColor,
+          template: this.template,
+        })
+
+      return Promise.all([updatePageList, updatePageDetails])
     },
   },
 })

@@ -4,7 +4,7 @@
     <div class="page_cont">
       <div class="page_box" v-for="(item, index) in mainList" :key="index">
         <div class="box_top flex_center">
-          <div class="top_img"></div>
+          <img class="top_img" :src="item.thmbImg" />
         </div>
         <div class="box_mid">
           <div class="mid_cont">

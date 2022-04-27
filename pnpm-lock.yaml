@@ -6,6 +6,8 @@ specifiers:
   '@commitlint/config-conventional': ^16.2.1
   '@types/node': ^17.0.24
   '@vitejs/plugin-vue': ^2.3.0
+  '@vueuse/core': ^8.2.6
+  dom-to-image: ^2.6.0
   element-plus: ^2.1.9
   husky: ^7.0.4
   less: ^4.1.2
@@ -20,6 +22,8 @@ specifiers:
 
 dependencies:
   '@cloudbase/js-sdk': 1.7.2
+  '@vueuse/core': 8.3.1_vue@3.2.32
+  dom-to-image: 2.6.0
   element-plus: 2.1.9_vue@3.2.32
   less: 4.1.2
   pinia: 2.0.13_typescript@4.6.3+vue@3.2.32
@@ -572,8 +576,8 @@ packages:
   /@vue/shared/3.2.32:
     resolution: {integrity: sha512-bjcixPErUsAnTQRQX4Z5IQnICYjIfNCyCl8p29v1M6kfVzvwOICPw+dz48nNuWlTOOx2RHhzHdazJibE8GSnsw==}
 
-  /@vueuse/core/8.2.5_vue@3.2.32:
-    resolution: {integrity: sha512-5prZAA1Ji2ltwNUnzreu6WIXYqHYP/9U2BiY5mD/650VYLpVcwVlYznJDFcLCmEWI3o3Vd34oS1FUf+6Mh68GQ==}
+  /@vueuse/core/8.3.1_vue@3.2.32:
+    resolution: {integrity: sha512-WiXUgVyPG9elGx3G8UV8g+zqbEJ2hYacrPICogAxDdW6hnxxcUFdF7FtvDroJ/DxWmo2pg8XNNz07ybfnZyJbw==}
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -583,18 +587,18 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@vueuse/metadata': 8.2.5
-      '@vueuse/shared': 8.2.5_vue@3.2.32
+      '@vueuse/metadata': 8.3.1
+      '@vueuse/shared': 8.3.1_vue@3.2.32
       vue: 3.2.32
       vue-demi: 0.12.5_vue@3.2.32
     dev: false
 
-  /@vueuse/metadata/8.2.5:
-    resolution: {integrity: sha512-Lk9plJjh9cIdiRdcj16dau+2LANxIdFCiTgdfzwYXbflxq0QnMBeOD2qHgKDE7fuVrtPcVWj8VSuZEx1HRfNQA==}
+  /@vueuse/metadata/8.3.1:
+    resolution: {integrity: sha512-1aZaFL44HzXXkfN6Q7KMDOXBFKTHDClHlOJBxtN8rTBXIIScoGOrJCpxWiQ4kuVg95MzG/pHrd3P4wd8poL9XQ==}
     dev: false
 
-  /@vueuse/shared/8.2.5_vue@3.2.32:
-    resolution: {integrity: sha512-lNWo+7sk6JCuOj4AiYM+6HZ6fq4xAuVq1sVckMQKgfCJZpZRe4i8es+ZULO5bYTKP+VrOCtqrLR2GzEfrbr3YQ==}
+  /@vueuse/shared/8.3.1_vue@3.2.32:
+    resolution: {integrity: sha512-7HKLCcxp4dtONq6QSSoavblo9riYgqzw7jhqiC0/VUYMXKzqj1G/GznOzTmY8Wi8uKKT197JqjKQ1DKt2j/0+A==}
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -1026,6 +1030,10 @@ packages:
       entities: 2.2.0
     dev: true
 
+  /dom-to-image/2.6.0:
+    resolution: {integrity: sha1-ilA2CAiMh7HCL5A0rgMuGJiVWGc=}
+    dev: false
+
   /domelementtype/2.3.0:
     resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==}
     dev: true
@@ -1067,7 +1075,7 @@ packages:
       '@popperjs/core': 2.11.5
       '@types/lodash': 4.14.181
       '@types/lodash-es': 4.17.6
-      '@vueuse/core': 8.2.5_vue@3.2.32
+      '@vueuse/core': 8.3.1_vue@3.2.32
       async-validator: 4.0.7
       dayjs: 1.11.0
       escape-html: 1.0.3
@@ -1531,7 +1539,7 @@ packages:
     dev: false
 
   /image-size/0.5.5:
-    resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
+    resolution: {integrity: sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=}
     engines: {node: '>=0.10.0'}
     hasBin: true
     requiresBuild: true

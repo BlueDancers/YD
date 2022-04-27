@@ -16,20 +16,60 @@
           <span class="item_text">交流群</span>
         </div>
       </div>
-      <el-button type="primary">保存</el-button>
+      <el-button type="primary" @click="savePage">保存</el-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useMain } from '@/store/main'
 import { useRouter } from 'vue-router'
+import domtoimage from 'dom-to-image'
+import { imgToStorage } from '@/utils/index'
+import { deleteFile } from '@/utils/request'
+import { ElMessage } from 'element-plus'
 
 const router = useRouter()
+const main = useMain()
 
 function gotoHome() {
   router.replace({
     name: 'home',
   })
+}
+
+/**
+ * 将装修操作太转化为base64图片
+ */
+async function imgToFile() {
+  let boardCenterCore: any = document.querySelector('.core_temp')
+  let dataUrl = await domtoimage.toPng(boardCenterCore, {
+    cacheBust: true,
+    height: main.pageHeight >= 650 ? 650 : main.pageHeight,
+    width: 325,
+    style: {
+      left: '0',
+      right: '0',
+      bottom: '0',
+      top: '-100px', // 去除头部状态栏
+      transform: 'translate(0%, 0%) scale(1)',
+    },
+  })
+  return dataUrl
+}
+
+// 保存页面
+async function savePage() {
+  main.hoverCompIndex = -1
+  main.activeCompIndex = -1
+  // 删除原本缩略图
+  await deleteFile([main.thmbImgFileId])
+  // 开始保存逻辑
+  let img = await imgToFile()
+  let url = await imgToStorage(img, `${main.pageId}_${new Date().getTime()}`, 'pagePhoto')
+  const res = await main.savePage(url.tempFileURL, url.fileID)
+  console.log(res)
+  ElMessage.success('保存成功~')
 }
 </script>
 

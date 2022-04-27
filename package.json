@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudbase/js-sdk": "^1.7.2",
     "@vueuse/core": "^8.2.6",
+    "dom-to-image": "^2.6.0",
     "element-plus": "^2.1.9",
     "less": "^4.1.2",
     "pinia": "^2.0.13",
