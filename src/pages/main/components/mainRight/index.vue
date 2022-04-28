@@ -4,10 +4,10 @@
     <div class="right_cont">
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane label="样式" :name="1">
-          <style-data v-if="main.activeCompIndex !== -1"></style-data>
+          <style-data v-if="main.acIdx.length == 1"></style-data>
         </el-tab-pane>
         <el-tab-pane label="配置" :name="2">
-          <config-data v-if="main.activeCompIndex !== -1"></config-data>
+          <config-data v-if="main.acIdx.length == 1"></config-data>
         </el-tab-pane>
       </el-tabs>
     </div>

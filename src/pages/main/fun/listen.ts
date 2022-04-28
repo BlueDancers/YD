@@ -10,7 +10,7 @@ export default function useListen(coreRef) {
   const main = useMain()
   let initX = 0 // 保存操作前的坐标
   let initY = 0
-  const { ctrl, c, v, z, Delete } = useMagicKeys()
+  const { ctrl, c, v, z, Delete, ControlLeft } = useMagicKeys()
   watchEffect(() => {
     if (ctrl.value && c.value) {
       console.log('复制')
@@ -18,10 +18,14 @@ export default function useListen(coreRef) {
       console.log('粘贴')
     } else if (ctrl.value && z.value) {
       console.log('撤回')
-    } else if(Delete.value) {
-      main.deleteComp(main.activeCompIndex)
+    } else if (Delete.value) {
+      main.deleteComp(main.acIdx)
     }
-    
+  })
+
+  // 监听ctrl键
+  watch(ControlLeft, (value) => {
+    main.isCtrl = value
   })
 
   // 监听鼠标松开
@@ -37,8 +41,8 @@ export default function useListen(coreRef) {
    */
   const { elementX, elementY } = useMouseInElement(coreRef)
   const acDom = computed(() => {
-    if (main.activeCompIndex != -1) {
-      return main.template[main.activeCompIndex].cssModule
+    if (main.acIdx.length == 1) {
+      return main.template[main.acIdx[0]].cssModule
     } else {
       return {}
     }
@@ -118,7 +122,11 @@ export default function useListen(coreRef) {
 
   function moveDom() {
     // 移动距离为相对于页面左上角减去抓手距离元素左上角位置
-    acDom.value.top = numberFun(elementY.value - main.domOffsetY, 0)
-    acDom.value.left = numberFun(elementX.value - main.domOffsetX, 0)
+    main.acIdx.map((e) => {
+      main.template[e].cssModule.top = numberFun(main.template[e].cssModule.top + (elementY.value - initY), 0)
+      main.template[e].cssModule.left = numberFun(main.template[e].cssModule.left + (elementX.value - initX), 0)
+    })
+    initX = elementX.value
+    initY = elementY.value
   }
 }

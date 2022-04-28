@@ -61,7 +61,7 @@ async function imgToFile() {
 // 保存页面
 async function savePage() {
   main.hoverCompIndex = -1
-  main.activeCompIndex = -1
+  main.acIdx = []
 
   // 删除原本缩略图
   let deleteF

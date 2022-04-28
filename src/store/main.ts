@@ -14,27 +14,30 @@ export const useMain = defineStore('main', {
       template: [] as baseComponent[], // 组件数组
       moveIndex: 0, // 当前拖动类型 1-8 坐标点 9 底部高度条 10 按住元素
       hoverCompIndex: -1, //
-      activeCompIndex: -1, //
-      lockCompId: [] as any[],
+      acIdx: [] as number[], //
+      lockCompId: [] as string[], // 锁住的元素id
 
-      domOffsetX: 0, // 元素距离左上角距离
-      domOffsetY: 0,
+      isCtrl: false, // 当前是否按下ctrl键
     }
   },
   getters: {
     acTEmpName(state) {
-      return state.template[state.activeCompIndex].name
+      if (state.acIdx.length == 1) {
+        return state.template[state.acIdx[0]].name
+      } else {
+        return ''
+      }
     },
     acTempCss(state) {
-      if (state.activeCompIndex != -1) {
-        return state.template[state.activeCompIndex].cssModule
+      if (state.acIdx.length == 1) {
+        return state.template[state.acIdx[0]].cssModule
       } else {
         return {}
       }
     },
     acTempData(state) {
-      if (state.activeCompIndex != -1) {
-        return state.template[state.activeCompIndex].staticData
+      if (state.acIdx.length == 1) {
+        return state.template[state.acIdx[0]].staticData
       } else {
         return {}
       }
@@ -84,13 +87,28 @@ export const useMain = defineStore('main', {
       }
     },
     deleteComp(index) {
-      this.template.splice(index, 1)
+      if (this.acIdx.length == 1) {
+        this.template.splice(index, 1)
+        this.acIdx = []
+        this.hoverCompIndex = -1
+      }
+    },
+    updateLockComp(id) {
+      if (!this.lockCompId.includes(id)) {
+        this.lockCompId.push(id)
+      }
     },
     toggleComp(index: number) {
-      this.activeCompIndex = index
-      // 判断是否被锁
       let id = this.template[index].id
+      // 判断是否被锁
       if (!this.lockCompId.includes(id)) {
+        if (!this.isCtrl) {
+          this.acIdx = [index]
+        } else {
+          if (!this.acIdx.includes(index)) {
+            this.acIdx.push(index)
+          }
+        }
         this.changeMoveIndex(10)
       } else {
         console.log('被锁住')

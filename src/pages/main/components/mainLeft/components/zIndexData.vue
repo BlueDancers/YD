@@ -3,7 +3,7 @@
     <!--   -->
     <div
       class="data_item"
-      :class="index == realIdx(main.activeCompIndex) ? 'active_item' : ''"
+      :class="main.acIdx.find((e) => realIdx(e) == index) != null ? 'active_item' : ''"
       v-for="(item, index) in template"
       @click="acElement(index)"
     >
@@ -55,7 +55,7 @@ const template = computed(() => {
 // 选择元素
 function acElement(index) {
   main.hoverCompIndex = realIdx(index)
-  main.activeCompIndex = realIdx(index)
+  main.acIdx = [realIdx(index)]
 }
 
 // 层级移动
@@ -66,7 +66,7 @@ function changeZ(oldIndex, newIndex) {
   let newI = realIdx(newIndex)
   main.template[oldI] = main.template.splice(newI, 1, main.template[oldI])[0]
   main.hoverCompIndex = newI
-  main.activeCompIndex = newI
+  main.acIdx = [newI]
 }
 
 function realIdx(index) {

@@ -16,6 +16,7 @@
       <template v-for="(item, index) in main.template" :key="item.id">
         <point
           :index="index"
+          :id="item.id"
           :style="{ ...contResetCss(item.cssModule), 'z-index': index }"
           @mouseover="mouseOver($event, index)"
           @mouseout="mouseOut"
@@ -98,8 +99,6 @@ function mouseOut(evt) {
 
 // 按下鼠标
 function mouseDown(evt, index) {
-  main.domOffsetX = evt.offsetX
-  main.domOffsetY = evt.offsetY
   main.toggleComp(index)
   // line.getLineList({
   //   left: mainCore.value.offsetLeft - mainCore.value.offsetWidth / 2,
@@ -111,7 +110,7 @@ function mouseDown(evt, index) {
 // 取消选中
 function handleCore(evt) {
   if (evt.target.className.includes('core_temp') || evt.target.className.includes('main_core')) {
-    main.activeCompIndex = -1
+    main.acIdx = []
     main.hoverCompIndex = -1
   }
 }

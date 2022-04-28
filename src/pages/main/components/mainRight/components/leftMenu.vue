@@ -11,7 +11,7 @@
       <div
         class="active_item flex_center"
         :class="hoverMenu == index ? 'item_active' : ''"
-        @click="activeItem(item.type)"
+        @click="activeItem(item.fun)"
       >
         <svg-icon class="item_icon" :name="item.icon"></svg-icon>
       </div>
@@ -20,38 +20,43 @@
 </template>
 
 <script setup lang="ts">
+import { useMain } from '@/store/main'
 import { reactive, ref } from 'vue'
+
+const main = useMain()
 
 const hoverMenu = ref(0)
 const activeMenu = reactive([
   {
     icon: 'chehui',
-    type: '',
+    fun: () => {},
     text: '撤销',
   },
   {
     icon: 'fanchexiao-copy-copy',
-    type: '',
+    type: () => {},
     text: '反撤销',
   },
   {
     icon: 'shanchu2',
-    type: '',
+    fun: () => main.deleteComp(main.acIdx),
     text: '删除',
   },
   {
     icon: 'fuzhi1',
-    type: '',
+    fun: () => {},
     text: '复制',
   },
   {
     icon: 'niantie1',
-    type: '',
+    fun: () => {},
     text: '粘贴',
   },
 ])
 
-function activeItem(type) {}
+function activeItem(fun) {
+  fun()
+}
 </script>
 
 <style lang="less" scoped>

@@ -1,7 +1,7 @@
 import { guid } from '@/utils/index'
 
 interface baseComponent {
-  id: String
+  id: string
   name: string
   showTitle: string
   show: boolean

@@ -68,12 +68,6 @@ const main = useMain()
 
 const editorRef = shallowRef()
 
-onMounted(() => {
-  nextTick(() => {
-    console.log(editorRef.value.getAllMenuKeys())
-  })
-})
-
 const toolbarConfig: Partial<IToolbarConfig> = {
   toolbarKeys: [
     // 菜单 key  '|',

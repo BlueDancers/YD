@@ -1,6 +1,8 @@
 <template>
   <div class="auxiliary_point" :class="pointStyle">
-    <template v-if="props.index == main.activeCompIndex && !lockCompId.includes(props.id)">
+    <template
+      v-if="main.acIdx.length == 1 && main.acIdx.includes(props.index) && !lockCompId.includes(props.id)"
+    >
       <div class="point_item point_left_top" @mousedown="potintActive(1)"></div>
       <div class="point_item point_left_center" @mousedown="potintActive(2)"></div>
       <div class="point_item point_left_buttom" @mousedown="potintActive(3)"></div>
@@ -25,11 +27,10 @@ export default defineComponent({
   setup(props) {
     let main = useMain()
     const potintActive = (type: number) => {
-      console.log('类型', type)
       main.changeMoveIndex(type)
     }
     const pointStyle = computed(() => {
-      if (props.index == main.hoverCompIndex || props.index == main.activeCompIndex) {
+      if (props.index == main.hoverCompIndex || main.acIdx.includes(props.index)) {
         if (main.lockCompId.includes(props.id)) {
           return 'point_active_lock'
         } else {
@@ -41,7 +42,7 @@ export default defineComponent({
       potintActive,
       main,
       props,
-      lockCompId: [], // main.lockCompId
+      lockCompId: main.lockCompId,
       pointStyle,
     }
   },

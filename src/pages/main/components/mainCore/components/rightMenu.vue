@@ -59,19 +59,21 @@ function changeItem(index) {
   switch (index) {
     case 1:
       // 获取当前元素最大层级 在此基础上+1
-      main.template[main.activeCompIndex].cssModule['z-index'] = 10
+      // main.template[main.acIdx].cssModule['z-index'] = 10
       break
     case 2:
-      main.template[main.activeCompIndex].cssModule['z-index'] = 1
+      // main.template[main.acIdx].cssModule['z-index'] = 1
       break
     case 3:
       console.log('开发中')
       break
     case 4:
-      main.deleteComp(main.activeCompIndex)
+      main.deleteComp(main.acIdx)
       break
     case 5:
-      console.log('开发中')
+      if (main.acIdx.length == 1) {
+        main.updateLockComp(main.template[main.acIdx[0]].id)
+      }
       break
     default:
       break
