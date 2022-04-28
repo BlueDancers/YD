@@ -121,11 +121,11 @@ export default function useListen(coreRef) {
   }
 
   function moveDom() {
-    // 移动距离为相对于页面左上角减去抓手距离元素左上角位置
     main.acIdx.map((e) => {
       main.template[e].cssModule.top = numberFun(main.template[e].cssModule.top + (elementY.value - initY), 0)
       main.template[e].cssModule.left = numberFun(main.template[e].cssModule.left + (elementX.value - initX), 0)
     })
+    // 移动距离为相对于页面左上角减去抓手距离元素左上角位置
     initX = elementX.value
     initY = elementY.value
   }

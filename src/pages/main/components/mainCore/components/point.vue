@@ -3,16 +3,16 @@
     <template
       v-if="main.acIdx.length == 1 && main.acIdx.includes(props.index) && !lockCompId.includes(props.id)"
     >
-      <div class="point_item point_left_top" @mousedown="potintActive(1)"></div>
-      <div class="point_item point_left_center" @mousedown="potintActive(2)"></div>
-      <div class="point_item point_left_buttom" @mousedown="potintActive(3)"></div>
+      <div class="point_item point_left_top" @mousedown="main.changeMoveIndex(1)"></div>
+      <div class="point_item point_left_center" @mousedown="main.changeMoveIndex(2)"></div>
+      <div class="point_item point_left_buttom" @mousedown="main.changeMoveIndex(3)"></div>
 
-      <div class="point_item point_center_top" @mousedown="potintActive(4)"></div>
-      <div class="point_item point_center_buttom" @mousedown="potintActive(5)"></div>
+      <div class="point_item point_center_top" @mousedown="main.changeMoveIndex(4)"></div>
+      <div class="point_item point_center_buttom" @mousedown="main.changeMoveIndex(5)"></div>
 
-      <div class="point_item point_right_top" @mousedown="potintActive(6)"></div>
-      <div class="point_item point_right_center" @mousedown="potintActive(7)"></div>
-      <div class="point_item point_right_buttom" @mousedown="potintActive(8)"></div>
+      <div class="point_item point_right_top" @mousedown="main.changeMoveIndex(6)"></div>
+      <div class="point_item point_right_center" @mousedown="main.changeMoveIndex(7)"></div>
+      <div class="point_item point_right_buttom" @mousedown="main.changeMoveIndex(8)"></div>
     </template>
     <slot></slot>
   </div>
@@ -26,9 +26,6 @@ export default defineComponent({
   props: ['index', 'id'],
   setup(props) {
     let main = useMain()
-    const potintActive = (type: number) => {
-      main.changeMoveIndex(type)
-    }
     const pointStyle = computed(() => {
       if (props.index == main.hoverCompIndex || main.acIdx.includes(props.index)) {
         if (main.lockCompId.includes(props.id)) {
@@ -39,7 +36,6 @@ export default defineComponent({
       }
     })
     return {
-      potintActive,
       main,
       props,
       lockCompId: main.lockCompId,

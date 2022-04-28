@@ -1,5 +1,6 @@
 import { baseComList, baseComponent } from '@/modules/component'
 import { useCloud } from '@/utils/request'
+import { ElMessage, ElNotification } from 'element-plus'
 import { defineStore } from 'pinia'
 
 export const useMain = defineStore('main', {
@@ -22,25 +23,15 @@ export const useMain = defineStore('main', {
   },
   getters: {
     acTEmpName(state) {
-      if (state.acIdx.length == 1) {
-        return state.template[state.acIdx[0]].name
-      } else {
-        return ''
-      }
+      return state.acIdx.length == 1 ? state.template[state.acIdx[0]].name : ''
     },
     acTempCss(state) {
-      if (state.acIdx.length == 1) {
-        return state.template[state.acIdx[0]].cssModule
-      } else {
-        return {}
-      }
+      console.log(1111, state.acIdx)
+
+      return state.acIdx.length == 1 ? state.template[state.acIdx[0]].cssModule : {}
     },
     acTempData(state) {
-      if (state.acIdx.length == 1) {
-        return state.template[state.acIdx[0]].staticData
-      } else {
-        return {}
-      }
+      return state.acIdx.length == 1 ? state.template[state.acIdx[0]].staticData : {}
     },
   },
   actions: {
@@ -87,33 +78,47 @@ export const useMain = defineStore('main', {
       }
     },
     deleteComp(index) {
-      if (this.acIdx.length == 1) {
-        this.template.splice(index, 1)
-        this.acIdx = []
-        this.hoverCompIndex = -1
-      }
+      console.log(index);
+      
+      // if (this.acIdx.length == 0) {
+      //   ElMessage.warning('请选择元素')
+      // } else if (this.acIdx.length != 1) {
+      //   ElNotification.warning('该操作暂不支持多选')
+      // } else {
+      // }
+      this.template.splice(index, 1)
+      this.acIdx = []
+      this.hoverCompIndex = -1
+
+      console.log(this.acIdx)
     },
     updateLockComp(id) {
-      if (!this.lockCompId.includes(id)) {
+      let idx = this.lockCompId.findIndex((e) => e == id)
+      if (idx == -1) {
         this.lockCompId.push(id)
+      } else {
+        this.lockCompId.splice(idx, 1)
       }
     },
     toggleComp(index: number) {
+      console.log('切换元素')
+
       let id = this.template[index].id
+
+      // 按住ctrl就是多选
+      if (!this.isCtrl) {
+        this.acIdx = [index]
+      } else {
+        if (!this.acIdx.includes(index)) {
+          this.acIdx.push(index)
+        }
+      }
       // 判断是否被锁
       if (!this.lockCompId.includes(id)) {
-        if (!this.isCtrl) {
-          this.acIdx = [index]
-        } else {
-          if (!this.acIdx.includes(index)) {
-            this.acIdx.push(index)
-          }
-        }
         this.changeMoveIndex(10)
-      } else {
-        console.log('被锁住')
       }
     },
+    // 切换
     changeMoveIndex(index: number) {
       if (this.moveIndex == 0) {
         this.moveIndex = index
@@ -121,6 +126,12 @@ export const useMain = defineStore('main', {
       if (index == 0) {
         this.moveIndex = 0
       }
+    },
+    // 层级互换逻辑
+    exchangeComp(oldIdx, newIdx) {
+      this.template[oldIdx] = this.template.splice(newIdx, 1, this.template[oldIdx])[0]
+      this.hoverCompIndex = newIdx
+      this.acIdx = [newIdx]
     },
     savePage(thmbImg, fileID) {
       // 更新页面信息
