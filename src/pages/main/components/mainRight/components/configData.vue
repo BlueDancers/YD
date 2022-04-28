@@ -1,8 +1,22 @@
 <template>
   <div class="config_data">
+    <!-- 富文本独有 -->
+    <div class="config_edit" v-if="main.acTEmpName == 'y-edit'">
+      <Toolbar
+        style="border-bottom: 1px solid #ccc"
+        :editor="editorRef"
+        :defaultConfig="toolbarConfig"
+        :mode="'default'"
+      />
+      <Editor
+        style="height: 500px; overflow-y: hidden"
+        v-model="main.acTempData.html"
+        :defaultConfig="editorConfig"
+        :mode="'default'"
+        @onCreated="handleCreated"
+      />
+    </div>
     <el-form label-width="90px">
-      <!-- 富文本独有 -->
-      <el-form-item label="富文本：" v-if="main.acTEmpName == 'y-edit'"> 富文本 </el-form-item>
       <!-- 图片独有 -->
       <el-form-item label="图片：" v-if="main.acTEmpName == 'y-img'">
         <div class="upload_img">
@@ -44,8 +58,46 @@ import { useMain } from '@/store/main'
 import { imgToStorage } from '@/utils'
 import { uploadFile } from '@/utils/request'
 import { linkDataFun } from '@/utils/styleData'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+
+import { IToolbarConfig, DomEditor } from '@wangeditor/editor'
 
 const main = useMain()
+
+const editorRef = shallowRef()
+
+onMounted(() => {
+  nextTick(() => {
+    console.log(editorRef.value.getAllMenuKeys())
+  })
+})
+
+const toolbarConfig: Partial<IToolbarConfig> = {
+  toolbarKeys: [
+    // 菜单 key  '|',
+    'fontSize',
+    'bold',
+    'italic',
+    'color',
+    'bgColor',
+    'lineHeight',
+    'emotion',
+    'insertLink',
+    {
+      key: 'group-more-style',
+      title: '对齐',
+      menuKeys: ['justifyLeft', 'justifyRight', 'justifyCenter', 'justifyJustify'],
+    },
+    // 继续配置其他菜单...
+  ],
+}
+const editorConfig = { placeholder: '请输入内容...' }
+
+function handleCreated(editor) {
+  editorRef.value = editor // 记录 editor 实例
+}
 
 function uploadImg(evt) {
   let file = evt.target.files[0]
@@ -53,10 +105,23 @@ function uploadImg(evt) {
     main.acTempData.imglUrl = res.tempFileURL
   })
 }
+
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  console.log('卸载')
+
+  const editor = editorRef.value
+  if (editor == null) return
+  editor.destroy()
+})
 </script>
 
 <style lang="less" scoped>
 .config_data {
+  .config_edit {
+    border: 1px solid #eee;
+    margin: 5px;
+  }
   .upload_img {
     position: relative;
     height: 100px;
@@ -76,5 +141,11 @@ function uploadImg(evt) {
   .mini_input {
     width: 140px;
   }
+}
+</style>
+
+<style lang="less">
+.w-e-text-container [data-slate-editor] p {
+  margin: 0px;
 }
 </style>

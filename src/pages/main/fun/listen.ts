@@ -10,7 +10,7 @@ export default function useListen(coreRef) {
   const main = useMain()
   let initX = 0 // 保存操作前的坐标
   let initY = 0
-  const { ctrl, c, v, z } = useMagicKeys()
+  const { ctrl, c, v, z, Delete } = useMagicKeys()
   watchEffect(() => {
     if (ctrl.value && c.value) {
       console.log('复制')
@@ -18,7 +18,10 @@ export default function useListen(coreRef) {
       console.log('粘贴')
     } else if (ctrl.value && z.value) {
       console.log('撤回')
+    } else if(Delete.value) {
+      main.deleteComp(main.activeCompIndex)
     }
+    
   })
 
   // 监听鼠标松开

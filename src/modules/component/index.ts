@@ -94,7 +94,7 @@ function baseComList(name: string, tempLen) {
         color: '#000000',
       }, // 样式
       staticData: {
-        text: '一段文本',
+        html: '<p>一段文本</p>',
       }, // 展示文字
       function: {}, // 方法
       animation: [], // 动画
