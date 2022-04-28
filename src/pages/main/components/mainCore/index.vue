@@ -21,7 +21,7 @@
           @mouseover="mouseOver($event, index)"
           @mouseout="mouseOut"
           @mousedown="mouseDown($event, index)"
-          @contextmenu="contextmenu"
+          @contextmenu="contextmenu($event, index)"
         >
           <y-button v-if="item.name == 'y-button'" :compData="item"></y-button>
           <y-div v-else-if="item.name == 'y-div'" :compData="item"></y-div>
@@ -116,10 +116,10 @@ function handleCore(evt) {
 }
 
 // 右击事件
-function contextmenu(evt) {
+function contextmenu(evt, index) {
   // 获取xy轴
   // 打开组件 传入xy轴
-  rightMenuRef.value.open(evt.clientX, evt.clientY)
+  rightMenuRef.value.open(evt.clientX, evt.clientY, index)
   evt.preventDefault()
 }
 

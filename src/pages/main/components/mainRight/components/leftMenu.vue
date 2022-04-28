@@ -37,21 +37,21 @@ const activeMenu = reactive([
     type: () => {},
     text: '反撤销',
   },
-  {
-    icon: 'shanchu2',
-    fun: () => main.deleteComp(main.acIdx),
-    text: '删除',
-  },
-  {
-    icon: 'fuzhi1',
-    fun: () => {},
-    text: '复制',
-  },
-  {
-    icon: 'niantie1',
-    fun: () => {},
-    text: '粘贴',
-  },
+  // {
+  //   icon: 'shanchu2',
+  //   fun: () => main.deleteComp(main.acIdx),
+  //   text: '删除',
+  // },
+  // {
+  //   icon: 'fuzhi1',
+  //   fun: () => {},
+  //   text: '复制',
+  // },
+  // {
+  //   icon: 'niantie1',
+  //   fun: () => {},
+  //   text: '粘贴',
+  // },
 ])
 
 function activeItem(fun) {
