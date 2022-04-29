@@ -11,12 +11,15 @@
       {{ item.value }}
     </div>
   </div>
+  <!-- 上传组件  -->
+  <update-comp ref="updateComp"></update-comp>
 </template>
 
 <script setup lang="ts">
 import { useMain } from '@/store/main'
 import { onClickOutside } from '@vueuse/core'
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import UpdateComp from './updateComp.vue'
 
 const main = useMain()
 
@@ -25,6 +28,8 @@ const menuX = ref(0)
 const menuY = ref(0)
 const acTeIdx = ref(0) // 当前选中元素
 const rightMenu = ref()
+
+const updateComp = ref() //
 
 const menu = ref([
   {
@@ -42,6 +47,10 @@ const menu = ref([
   {
     key: 5,
     value: '锁定/解锁',
+  },
+  {
+    key: 6,
+    value: '上传组件',
   },
 ])
 
@@ -67,6 +76,10 @@ function changeItem(index) {
       break
     case 5:
       main.updateLockComp(main.template[acTeIdx.value].id)
+      break
+    case 6:
+      console.log('打开弹窗')
+      // updateComp.value.open()
       break
     default:
       break

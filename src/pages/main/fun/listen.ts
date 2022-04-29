@@ -17,7 +17,7 @@ export default function useListen(coreRef) {
     } else if (ctrl.value && v.value) {
       console.log('粘贴')
     } else if (ctrl.value && z.value) {
-      console.log('撤回')
+      main.revoke()
     } else if (Delete.value) {
       main.deleteComp(main.acIdx)
     }
