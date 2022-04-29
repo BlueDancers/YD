@@ -1,4 +1,4 @@
-import { deepClone } from '@/utils'
+import { debounce, deepClone } from '@/utils'
 import { Ref, ref } from 'vue'
 
 /**
@@ -11,18 +11,19 @@ export function stateHistory() {
   const hisIdx = ref(0) // 下标
 
   function addHis(item) {
-    // 防止爆栈
-    if (hisList.value.length > 10) {
-      hisList.value.splice(0, 1)
-    }
-    // 如果不是指向最后一位,则干掉当前下标后面的所有数据
-    // TODO 移除存在bug,在撤回过程中,一旦开始操作就会导致前一个数据异常
-    if (hisList.value.length != 0 && hisIdx.value != hisList.value.length - 1) {
-      console.log(hisIdx.value)
-      hisList.value = hisList.value.slice(0, hisIdx.value + 1)
-    }
-    hisList.value.push(deepClone(item))
-    hisIdx.value = hisList.value.length - 1
+    debounce(() => {
+      // 防止爆栈
+      if (hisList.value.length > 10) {
+        hisList.value.shift()
+      }
+      // 如果不是指向最后一位,则干掉当前下标后面的所有数据
+      if (hisIdx.value < hisList.value.length - 1) {
+        // hisList.value = hisList.value.slice(0, hisIdx.value + 1)
+        hisList.value.splice(hisIdx.value + 1, hisList.value.length - 1)
+      }
+      hisList.value.push(deepClone(item))
+      hisIdx.value = hisList.value.length - 1
+    }, 200)
   }
   // 撤销
   function revokeHis() {
@@ -30,7 +31,7 @@ export function stateHistory() {
       throw new Error('已经撤回到底')
     }
     hisIdx.value--
-    return hisList.value[hisIdx.value]
+    return deepClone(hisList.value[hisIdx.value])
   }
   // 反撤销
   function backRevokeHis() {
@@ -38,7 +39,7 @@ export function stateHistory() {
       throw new Error('已经反撤回到最新代码')
     }
     hisIdx.value++
-    return hisList.value[hisIdx.value]
+    return deepClone(hisList.value[hisIdx.value])
   }
   return {
     addHis,

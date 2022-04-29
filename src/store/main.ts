@@ -1,7 +1,7 @@
 import { baseComList, baseComponent } from '@/modules/component'
-import { debounce } from '@/utils'
 import { useCloud } from '@/utils/request'
 import { ElMessage, ElNotification } from 'element-plus'
+import { watch } from 'vue'
 import { defineStore } from 'pinia'
 import { stateHistory } from './History'
 
@@ -91,6 +91,7 @@ export const useMain = defineStore('main', {
       this.template.splice(index, 1)
       this.acIdx = []
       this.hoverCompIndex = -1
+      stateHis.addHis(this.template) // 删除元素记录历史
     },
     updateLockComp(id) {
       let idx = this.lockCompId.findIndex((e) => e == id)
@@ -146,7 +147,6 @@ export const useMain = defineStore('main', {
         ElNotification.error(String(err))
       }
     },
-    // 防撤回
     savePage(thmbImg, fileID) {
       // 更新页面信息
       let updatePageList = useCloud('pageList').doc(this.pageId).update({
@@ -174,9 +174,8 @@ export const useMain = defineStore('main', {
 useMain().$subscribe((mutation, state) => {
   // 只有元素相关改动才会被记录到时间旅行
   if ((mutation.events as any).target.position == 'absolute') {
-    debounce(() => {
-      console.log('保存历史数据')
-      stateHis.addHis(state.template)
-    }, 200)
+    stateHis.addHis(state.template)
   }
 })
+
+const main = useMain()
