@@ -1,7 +1,11 @@
 import { baseComList, baseComponent } from '@/modules/component'
+import { debounce } from '@/utils'
 import { useCloud } from '@/utils/request'
 import { ElMessage, ElNotification } from 'element-plus'
 import { defineStore } from 'pinia'
+import { stateHistory } from './History'
+
+let stateHis = stateHistory()
 
 export const useMain = defineStore('main', {
   state: () => {
@@ -26,8 +30,6 @@ export const useMain = defineStore('main', {
       return state.acIdx.length == 1 ? state.template[state.acIdx[0]].name : ''
     },
     acTempCss(state) {
-      console.log(1111, state.acIdx)
-
       return state.acIdx.length == 1 ? state.template[state.acIdx[0]].cssModule : {}
     },
     acTempData(state) {
@@ -61,6 +63,8 @@ export const useMain = defineStore('main', {
             this.template = template
             this.pageHeight = height
             this.backColor = backColor
+            // 历史记录进行保存
+            stateHis.addHis(this.template)
           } else {
             console.log('数据异常')
           }
@@ -78,8 +82,6 @@ export const useMain = defineStore('main', {
       }
     },
     deleteComp(index) {
-      console.log(index);
-      
       // if (this.acIdx.length == 0) {
       //   ElMessage.warning('请选择元素')
       // } else if (this.acIdx.length != 1) {
@@ -89,8 +91,6 @@ export const useMain = defineStore('main', {
       this.template.splice(index, 1)
       this.acIdx = []
       this.hoverCompIndex = -1
-
-      console.log(this.acIdx)
     },
     updateLockComp(id) {
       let idx = this.lockCompId.findIndex((e) => e == id)
@@ -101,10 +101,7 @@ export const useMain = defineStore('main', {
       }
     },
     toggleComp(index: number) {
-      console.log('切换元素')
-
       let id = this.template[index].id
-
       // 按住ctrl就是多选
       if (!this.isCtrl) {
         this.acIdx = [index]
@@ -118,7 +115,7 @@ export const useMain = defineStore('main', {
         this.changeMoveIndex(10)
       }
     },
-    // 切换
+    // 切换拖拽标识
     changeMoveIndex(index: number) {
       if (this.moveIndex == 0) {
         this.moveIndex = index
@@ -133,6 +130,23 @@ export const useMain = defineStore('main', {
       this.hoverCompIndex = newIdx
       this.acIdx = [newIdx]
     },
+    // 撤回
+    revoke() {
+      try {
+        this.template = stateHis.revokeHis()
+      } catch (err) {
+        ElNotification.error(String(err))
+      }
+    },
+    // 反撤回
+    backRevoke() {
+      try {
+        this.template = stateHis.backRevokeHis()
+      } catch (err) {
+        ElNotification.error(String(err))
+      }
+    },
+    // 防撤回
     savePage(thmbImg, fileID) {
       // 更新页面信息
       let updatePageList = useCloud('pageList').doc(this.pageId).update({
@@ -154,4 +168,15 @@ export const useMain = defineStore('main', {
       return Promise.all([updatePageList, updatePageDetails])
     },
   },
+})
+
+// 启动时间旅行功能
+useMain().$subscribe((mutation, state) => {
+  // 只有元素相关改动才会被记录到时间旅行
+  if ((mutation.events as any).target.position == 'absolute') {
+    debounce(() => {
+      console.log('保存历史数据')
+      stateHis.addHis(state.template)
+    }, 200)
+  }
 })

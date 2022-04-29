@@ -29,12 +29,12 @@ const hoverMenu = ref(0)
 const activeMenu = reactive([
   {
     icon: 'chehui',
-    fun: () => {},
+    fun: () => main.revoke(),
     text: '撤销',
   },
   {
     icon: 'fanchexiao-copy-copy',
-    type: () => {},
+    fun: () => main.backRevoke(),
     text: '反撤销',
   },
   // {

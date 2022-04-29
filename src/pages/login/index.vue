@@ -21,8 +21,8 @@ import { useUserStore } from '@/store/user'
 
 const store = useUserStore()
 const router = useRouter()
-const username = ref('2467230789@qq.com')
-const password = ref('79715712242aA')
+const username = ref('')
+const password = ref('')
 
 onMounted(() => {
   const loginState = auth.hasLoginState()

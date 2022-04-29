@@ -36,6 +36,7 @@ const main = useMain()
 
 <style lang="less" scoped>
 .page_data {
+  margin-top: 20px;
   .base_input {
     width: 180px;
   }

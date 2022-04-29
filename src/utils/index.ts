@@ -55,14 +55,13 @@ export const isEmail = (str: string) => {
   return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str)
 }
 
-let _debounceTimeout: any = undefined,
-  _throttleRunning = false
-
 /**
  * 防抖
  * @param {Function} 执行函数
  * @param {Number} delay 延时ms
  */
+let _debounceTimeout: any = undefined,
+  _throttleRunning = false
 export const debounce = (fn, delay = 500) => {
   clearTimeout(_debounceTimeout)
   _debounceTimeout = setTimeout(() => {
