@@ -21,9 +21,11 @@
 
 <script setup lang="ts">
 import { useMain } from '@/store/main'
+import { useMainUtils } from '@/store/mainUtils'
 import { reactive, ref } from 'vue'
 
 const main = useMain()
+const mainUtils = useMainUtils()
 
 const hoverMenu = ref(0)
 const activeMenu = reactive([
@@ -42,16 +44,16 @@ const activeMenu = reactive([
   //   fun: () => main.deleteComp(main.acIdx),
   //   text: '删除',
   // },
-  // {
-  //   icon: 'fuzhi1',
-  //   fun: () => {},
-  //   text: '复制',
-  // },
-  // {
-  //   icon: 'niantie1',
-  //   fun: () => {},
-  //   text: '粘贴',
-  // },
+  {
+    icon: 'fuzhi1',
+    fun: () => mainUtils.setCopyData(),
+    text: '复制',
+  },
+  {
+    icon: 'niantie1',
+    fun: () => mainUtils.pasteData(),
+    text: '粘贴',
+  },
 ])
 
 function activeItem(fun) {

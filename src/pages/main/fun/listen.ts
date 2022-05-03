@@ -10,7 +10,7 @@ export default function useListen(coreRef) {
   const main = useMain()
   let initX = 0 // 保存操作前的坐标
   let initY = 0
-  const { ctrl, c, v, z, Delete, ControlLeft } = useMagicKeys()
+  const { ctrl, c, v, z, Delete, ControlLeft, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } = useMagicKeys()
   watchEffect(() => {
     if (ctrl.value && c.value) {
       console.log('复制')
@@ -20,6 +20,14 @@ export default function useListen(coreRef) {
       main.revoke()
     } else if (Delete.value) {
       main.deleteComp(main.acIdx)
+    } else if (ArrowUp.value) {
+      main.acIdx.map((e) => main.template[e].cssModule.top--)
+    } else if (ArrowDown.value) {
+      main.acIdx.map((e) => main.template[e].cssModule.top++)
+    } else if (ArrowLeft.value) {
+      main.acIdx.map((e) => main.template[e].cssModule.left--)
+    } else if (ArrowRight.value) {
+      main.acIdx.map((e) => main.template[e].cssModule.left++)
     }
   })
 
@@ -31,8 +39,15 @@ export default function useListen(coreRef) {
   // 监听鼠标松开
   const { pressed } = useMousePressed(coreRef)
   watch(pressed, (value) => {
+    console.log('监听鼠标', value)
+
     if (!value) {
       main.moveIndex = 0
+    } else {
+      if (main.moveIndex == 0) {
+        // 形成选中外框
+        // console.log('111', initX, initY)
+      }
     }
   })
 
@@ -123,7 +138,10 @@ export default function useListen(coreRef) {
   function moveDom() {
     main.acIdx.map((e) => {
       main.template[e].cssModule.top = numberFun(main.template[e].cssModule.top + (elementY.value - initY), 0)
-      main.template[e].cssModule.left = numberFun(main.template[e].cssModule.left + (elementX.value - initX), 0)
+      main.template[e].cssModule.left = numberFun(
+        main.template[e].cssModule.left + (elementX.value - initX),
+        0
+      )
     })
     // 移动距离为相对于页面左上角减去抓手距离元素左上角位置
     initX = elementX.value
