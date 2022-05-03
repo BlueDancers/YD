@@ -10,6 +10,7 @@ let stateHis = stateHistory()
 export const useMain = defineStore('main', {
   state: () => {
     return {
+      organizeId: '', // 组织id
       pageId: '', // 页面id
       thmbImgFileId: '', // 页面缩略图id
       pageTitle: '', // 网页名称
@@ -21,7 +22,6 @@ export const useMain = defineStore('main', {
       hoverCompIndex: -1, //
       acIdx: [] as number[], //
       lockCompId: [] as string[], // 锁住的元素id
-
       isCtrl: false, // 当前是否按下ctrl键
     }
   },
@@ -45,6 +45,7 @@ export const useMain = defineStore('main', {
         .then((res) => {
           console.log(res)
           if (res.data.length == 1) {
+            this.organizeId = res.data[0].organizeId
             this.pageTitle = res.data[0].title
             this.pageRouter = res.data[0].router
             this.thmbImgFileId = res.data[0].thmbImgFileId

@@ -17,4 +17,10 @@ html {
   align-items: center;
   justify-content: center;
 }
+.default_input {
+  width: 140px !important;
+}
+.p_input {
+  width: 180px !important;
+}
 </style>

@@ -16,6 +16,7 @@
       <!-- 可用组件 -->
       <component-data v-if="activeMenu == 0"></component-data>
       <z-index-data v-if="activeMenu == 1"></z-index-data>
+      <plugin-list v-if="activeMenu == 2"></plugin-list>
       <page-data v-if="activeMenu == 3"></page-data>
     </div>
   </div>
@@ -26,6 +27,7 @@ import { ref } from 'vue'
 import componentData from './components/componentData.vue'
 import PageData from './components/pageData.vue'
 import ZIndexData from './components/zIndexData.vue'
+import PluginList from './components/pluginList.vue'
 
 const activeMenu = ref(0)
 const menu = [

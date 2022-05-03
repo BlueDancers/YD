@@ -79,7 +79,7 @@ function changeItem(index) {
       break
     case 6:
       console.log('打开弹窗')
-      // updateComp.value.open()
+      updateComp.value.open(acTeIdx.value)
       break
     default:
       break
