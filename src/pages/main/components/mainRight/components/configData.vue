@@ -17,6 +17,10 @@
       />
     </div>
     <el-form label-width="90px">
+      <!-- 文本独有 -->
+      <el-form-item label="文本：" v-if="main.acTEmpName == 'y-p'">
+        <el-input class="p_input" v-model="main.acTempData.text" placeholder="请输入文本文字"></el-input>
+      </el-form-item>
       <!-- 图片独有 -->
       <el-form-item label="图片：" v-if="main.acTEmpName == 'y-img'">
         <div class="upload_img">
@@ -27,14 +31,14 @@
       <!-- 按钮独有 -->
       <el-form-item label="按钮文字：" v-if="main.acTEmpName == 'y-button'">
         <el-input
-          class="mini_input"
+          class="default_input"
           v-model="main.acTempData.btnValue"
           placeholder="请输入按钮文字"
         ></el-input>
       </el-form-item>
       <!-- 公共部分 -->
       <el-form-item label="事件：" v-if="main.acTempData.linkType != undefined">
-        <el-select v-model="main.acTempData.linkType" class="mini_input">
+        <el-select v-model="main.acTempData.linkType" class="default_input">
           <el-option
             v-for="item in linkDataFun"
             :key="item.key"
@@ -44,10 +48,18 @@
         </el-select>
       </el-form-item>
       <el-form-item label="链接地址：" v-if="main.acTempData.linkType == 1">
-        <el-input class="mini_input" v-model="main.acTempData.link" placeholder="请输入链接地址"></el-input>
+        <el-input
+          class="default_input"
+          v-model="main.acTempData.link"
+          placeholder="请输入链接地址"
+        ></el-input>
       </el-form-item>
       <el-form-item label="电话号码：" v-if="main.acTempData.linkType == 2">
-        <el-input class="mini_input" v-model="main.acTempData.phone" placeholder="请输入电话号码"></el-input>
+        <el-input
+          class="default_input"
+          v-model="main.acTempData.phone"
+          placeholder="请输入电话号码"
+        ></el-input>
       </el-form-item>
     </el-form>
   </div>
@@ -130,10 +142,6 @@ onBeforeUnmount(() => {
       max-height: 100%;
       max-width: 100%;
     }
-  }
-
-  .mini_input {
-    width: 140px;
   }
 }
 </style>

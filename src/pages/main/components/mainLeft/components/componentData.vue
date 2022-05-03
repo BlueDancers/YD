@@ -44,6 +44,11 @@ const baseComp = reactive([
     name: 'y-img',
   },
   {
+    icon: 'fuhao-fuwenben',
+    text: '文本',
+    name: 'y-p',
+  },
+  {
     icon: 'wenben1',
     text: '富文本',
     name: 'y-edit',

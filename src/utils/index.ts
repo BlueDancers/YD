@@ -202,6 +202,7 @@ export function cssTopx(name) {
     'border-width',
     'font-size',
     'border-radius',
+    'line-height',
     // 'margin-top',
     // 'margin-bottom',
     // 'margin-left',
