@@ -23,10 +23,7 @@
           @mousedown="mouseDown($event, index)"
           @contextmenu="contextmenu($event, index)"
         >
-          <y-button v-if="item.name == 'y-button'" :compData="item"></y-button>
-          <y-div v-else-if="item.name == 'y-div'" :compData="item"></y-div>
-          <y-img v-else-if="item.name == 'y-img'" :compData="item"></y-img>
-          <y-edit v-else-if="item.name == 'y-edit'" :compData="item"></y-edit>
+          <comp-dom :item="item"></comp-dom>
         </point>
       </template>
       <div class="main_add_height" @mousedown="changeHeight">
@@ -42,14 +39,11 @@
 import { onMounted, ref } from 'vue'
 import useListen from '../../fun/listen'
 import { useMain } from '@/store/main'
-import yButton from '@/pages/main/dragComp/yButton.vue'
 import Point from './components/point.vue'
-import { contResetCss, numberFun } from '@/utils/index'
-import YDiv from '../../dragComp/yDiv.vue'
-import YImg from '../../dragComp/yImg.vue'
-import YEdit from '../../dragComp/yEdit.vue'
+import { contResetCss } from '@/utils/index'
 import rightMenu from './components/rightMenu.vue'
 import RightMenu from './components/rightMenu.vue'
+import CompDom from './components/compDom.vue'
 
 const main = useMain()
 

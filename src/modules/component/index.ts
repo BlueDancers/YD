@@ -80,12 +80,30 @@ function baseComList(name: string, tempLen) {
     {
       id: guid(),
       name: 'y-edit',
-      showTitle: `文本${tempLen}`, // 显示组件名称
+      showTitle: `富文本${tempLen}`, // 显示组件名称
       show: true,
       cssModule: {
         ...absolute(tempLen),
         ...borderData(),
         ...compSize(100, 20),
+        color: '#000000',
+      }, // 样式
+      staticData: {
+        html: '<p>一段文本</p>',
+      }, // 展示文字
+      function: {}, // 方法
+      animation: [], // 动画
+    },
+    {
+      id: guid(),
+      name: 'y-p',
+      showTitle: `文字${tempLen}`, // 显示组件名称
+      show: true,
+      cssModule: {
+        ...absolute(tempLen),
+        ...borderData(),
+        ...compSize(100, 20),
+        'line-height': 20,
         'font-weight': 'normal',
         'text-align': 'left',
         'background-color': '#ffffff',
@@ -94,7 +112,7 @@ function baseComList(name: string, tempLen) {
         color: '#000000',
       }, // 样式
       staticData: {
-        html: '<p>一段文本</p>',
+        text: '一段文字',
       }, // 展示文字
       function: {}, // 方法
       animation: [], // 动画
