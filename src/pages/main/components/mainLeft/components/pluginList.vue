@@ -127,30 +127,6 @@ function useTemp(content, title) {
       display: flex;
       flex-direction: column;
       align-items: center;
-      // .comp_dom {
-      //   position: relative;
-      //   overflow: hidden;
-      //   .comp_dom_cont {
-      //     width: 100%;
-      //     height: 100%;
-      //     position: absolute;
-      //     top: 0;
-      //     left: 0;
-      //     display: none;
-      //     .comp_dom_btn {
-      //       position: absolute;
-      //       top: 50%;
-      //       left: 50%;
-      //       transform: translate(-50%, -50%);
-      //     }
-      //   }
-      // }
-      // .comp_dom:hover {
-      //   .comp_dom_cont {
-      //     display: block;
-      //     background: rgba(0, 0, 0, 0.5);
-      //   }
-      // }
       .comp_info {
         width: 100%;
         margin-top: 10px;
@@ -175,6 +151,7 @@ function useTemp(content, title) {
         left: 0;
         display: none;
         .comp_use_btn {
+          width: 210px;
           position: absolute;
           top: 50%;
           left: 50%;
