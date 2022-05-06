@@ -31,7 +31,10 @@
         <span v-else>↕</span>
       </div>
     </div>
+    <!-- 元素辅助线 -->
+    <temp-line></temp-line>
   </div>
+  <!-- 右击菜单 -->
   <right-menu ref="rightMenuRef"></right-menu>
 </template>
 
@@ -39,13 +42,16 @@
 import { onMounted, ref } from 'vue'
 import useListen from '../../fun/listen'
 import { useMain } from '@/store/main'
+import { useLine } from '@/store/line'
 import Point from './components/point.vue'
-import { contResetCss } from '@/utils/index'
+import { contResetCss, deepClone } from '@/utils/index'
 import rightMenu from './components/rightMenu.vue'
 import RightMenu from './components/rightMenu.vue'
 import CompDom from './components/compDom.vue'
+import tempLine from './components/tempLine.vue'
 
 const main = useMain()
+const line = useLine()
 
 onMounted(() => {
   useListen(coreRef.value)
@@ -94,10 +100,16 @@ function mouseOut(evt) {
 // 按下鼠标
 function mouseDown(evt, index) {
   main.toggleComp(index)
-  // line.getLineList({
-  //   left: mainCore.value.offsetLeft - mainCore.value.offsetWidth / 2,
-  //   top: mainCore.value.offsetTop,
-  // }) // 全局按键松开初初始化辅助线信息
+  let template: any[] = deepClone(main.template)
+  template.splice(main.acIdx[0], 1)
+  line.getLineXY(
+    {
+      top: coreRef.value.offsetTop,
+      left: coreRef.value.offsetLeft,
+      template,
+    },
+    main.acIdx
+  )
   evt.preventDefault()
 }
 

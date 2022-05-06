@@ -1,3 +1,4 @@
+import { useLine } from '@/store/line'
 import { useMain } from '@/store/main'
 import { numberFun } from '@/utils'
 import { onClickOutside, useMagicKeys, useMouseInElement, useMousePressed } from '@vueuse/core'
@@ -8,6 +9,7 @@ import { computed, watch, watchEffect } from 'vue'
  */
 export default function useListen(coreRef) {
   const main = useMain()
+  const line = useLine()
   let initX = 0 // 保存操作前的坐标
   let initY = 0
   const { ctrl, c, v, z, Delete, ControlLeft, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } = useMagicKeys()
@@ -39,10 +41,9 @@ export default function useListen(coreRef) {
   // 监听鼠标松开
   const { pressed } = useMousePressed(coreRef)
   watch(pressed, (value) => {
-    console.log('监听鼠标', value)
-
     if (!value) {
       main.moveIndex = 0
+      line.resetLine()
     } else {
       if (main.moveIndex == 0) {
         // 形成选中外框
@@ -146,5 +147,8 @@ export default function useListen(coreRef) {
     // 移动距离为相对于页面左上角减去抓手距离元素左上角位置
     initX = elementX.value
     initY = elementY.value
+
+    // 更新辅助线
+    line.listenEvent(main.template[main.acIdx[0]].cssModule, main.acIdx)
   }
 }
