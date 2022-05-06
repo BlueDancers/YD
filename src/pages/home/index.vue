@@ -17,7 +17,7 @@
         <el-table-column prop="date" label="操作">
           <template #default="scope">
             <el-button
-              v-if="scope.row.founderUser.includes(userData.uid)"
+              v-if="scope.row._openid == userData.uid || scope.row.founderUser.includes(userData.uid)"
               type="primary"
               size="default"
               @click="showPageList(scope.row)"
@@ -41,12 +41,7 @@
                 </el-button>
               </div>
             </el-popover>
-            <el-popover
-              placement="top"
-              :width="300"
-              trigger="click"
-              v-if="scope.row.founderUser[0] == userData.uid"
-            >
+            <el-popover placement="top" :width="300" trigger="click" v-if="scope.row._openid == userData.uid">
               <template #reference>
                 <el-button type="danger" size="default">删除组织</el-button>
               </template>
@@ -112,6 +107,7 @@ async function init() {
       routerCode: true,
       founderUser: true,
       _id: true,
+      _openid: true,
     })
     .skip((pagination.current - 1) * 10)
     .limit(10)
@@ -150,6 +146,7 @@ async function joinGroup(id) {
       .then((res) => {
         console.log(res)
         ElMessage.success('加入成功~')
+        showPageList(currentData.data[0])
       })
   } else {
     ElMessage.error('密码错误')
