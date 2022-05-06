@@ -16,7 +16,7 @@
     </el-form>
     <div class="plugin_cont">
       <div class="plugin_item" v-for="item in compList" :key="item._id">
-        <comp-dom class="comp_dom" :item="item.content"></comp-dom>
+        <comp-dom :item="item.content"></comp-dom>
         <div class="comp_info">
           <p>名称：{{ item.compName }}</p>
           <p>创建时间：{{ parseTime(item.createTime, {}) }}</p>
@@ -25,7 +25,9 @@
           <el-button @click="deletePlugin(item._id)" type="warning" v-if="item._openid == userData.uid">
             删除
           </el-button>
-          <el-button @click="useTemp(item.content, item.compName)">使用</el-button>
+        </div>
+        <div class="comp_use">
+          <el-button class="comp_use_btn" @click="useTemp(item.content, item.compName)">使用</el-button>
         </div>
       </div>
     </div>
@@ -117,6 +119,7 @@ function useTemp(content, title) {
     overflow-y: scroll;
     height: calc(100vh - 220px);
     .plugin_item {
+      position: relative;
       margin: 0 10px;
       margin-top: 10px;
       padding: 20px 10px;
@@ -124,6 +127,30 @@ function useTemp(content, title) {
       display: flex;
       flex-direction: column;
       align-items: center;
+      // .comp_dom {
+      //   position: relative;
+      //   overflow: hidden;
+      //   .comp_dom_cont {
+      //     width: 100%;
+      //     height: 100%;
+      //     position: absolute;
+      //     top: 0;
+      //     left: 0;
+      //     display: none;
+      //     .comp_dom_btn {
+      //       position: absolute;
+      //       top: 50%;
+      //       left: 50%;
+      //       transform: translate(-50%, -50%);
+      //     }
+      //   }
+      // }
+      // .comp_dom:hover {
+      //   .comp_dom_cont {
+      //     display: block;
+      //     background: rgba(0, 0, 0, 0.5);
+      //   }
+      // }
       .comp_info {
         width: 100%;
         margin-top: 10px;
@@ -139,6 +166,26 @@ function useTemp(content, title) {
         width: 100%;
         display: flex;
         justify-content: flex-end;
+      }
+      .comp_use {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        .comp_use_btn {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+    .plugin_item:hover {
+      .comp_use {
+        display: block;
+        background: rgba(0, 0, 0, 0.7);
       }
     }
   }
