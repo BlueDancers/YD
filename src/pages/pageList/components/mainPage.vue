@@ -4,6 +4,7 @@
     <div class="page_cont">
       <div class="page_box" v-for="(item, index) in mainList" :key="index">
         <div class="box_top flex_center">
+          <div class="top_img_back" :style="{ 'background-image': `url(${item.thmbImg})` }"></div>
           <img class="top_img" :src="item.thmbImg" />
         </div>
         <div class="box_mid">
@@ -120,10 +121,22 @@ function deleteItem(id) {
       border-radius: 5px;
       overflow: hidden;
       .box_top {
+        position: relative;
         height: 162px;
         display: flex;
-        background: #e2e2e280;
+        overflow: hidden;
+        .top_img_back {
+          position: absolute;
+          z-index: 0;
+          background-size: 100% 240%;
+          background-position: center center;
+          width: 100%;
+          height: 100%;
+          filter: blur(7px);
+        }
         .top_img {
+          position: relative;
+          z-index: 1;
           width: 78px;
           height: 129px;
           background: #ffffff;
