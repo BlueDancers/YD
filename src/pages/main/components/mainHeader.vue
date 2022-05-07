@@ -3,7 +3,7 @@
     <div class="header_left" @click="gotoHome">易动</div>
     <div class="header_right">
       <div class="header_menu">
-        <div class="menu_item">
+        <div class="menu_item" @click="gotoLink('https://github.com/vkcyan/YD')">
           <svg-icon class="item_icon" name="github"></svg-icon>
           <span class="item_text">github</span>
         </div>
@@ -36,6 +36,11 @@ function gotoHome() {
   router.replace({
     name: 'home',
   })
+}
+
+// 外链
+function gotoLink(url) {
+  location.href = url
 }
 
 /**

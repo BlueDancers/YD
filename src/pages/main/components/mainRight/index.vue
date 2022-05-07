@@ -9,6 +9,8 @@
         <el-tab-pane label="配置" :name="2">
           <config-data v-if="main.acIdx.length == 1"></config-data>
         </el-tab-pane>
+        <el-empty v-if="main.acIdx.length == 0" description="请选中组件" />
+        <el-empty v-if="main.acIdx.length > 1" description="请选择单个组件进行操作" />
       </el-tabs>
     </div>
   </div>

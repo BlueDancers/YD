@@ -16,7 +16,12 @@
     </el-form>
     <div class="plugin_cont">
       <div class="plugin_item" v-for="item in compList" :key="item._id">
-        <comp-dom :item="item.content"></comp-dom>
+        <div class="plugin_comp flex_center">
+          <comp-dom :item="item.content"></comp-dom>
+          <div class="comp_use">
+            <el-button class="comp_use_btn" @click="useTemp(item.content, item.compName)">使用</el-button>
+          </div>
+        </div>
         <div class="comp_info">
           <p>名称：{{ item.compName }}</p>
           <p>创建时间：{{ parseTime(item.createTime, {}) }}</p>
@@ -26,10 +31,8 @@
             删除
           </el-button>
         </div>
-        <div class="comp_use">
-          <el-button class="comp_use_btn" @click="useTemp(item.content, item.compName)">使用</el-button>
-        </div>
       </div>
+      <el-empty v-if="compList.length == 0" description="这里空空如也" />
     </div>
   </div>
 </template>
@@ -116,21 +119,51 @@ function useTemp(content, title) {
     border-bottom: 1px solid #eee;
   }
   .plugin_cont {
+    overflow-x: hidden;
     overflow-y: scroll;
     height: calc(100vh - 220px);
     .plugin_item {
       position: relative;
       margin: 0 10px;
       margin-top: 10px;
-      padding: 20px 10px;
+      padding: 0px;
       border: 1px solid #eee;
       display: flex;
       flex-direction: column;
       align-items: center;
+      .plugin_comp {
+        box-sizing: border-box;
+        min-height: 100px;
+        padding: 20px 10px;
+        position: relative;
+        width: 100%;
+        &:hover {
+          .comp_use {
+            display: block;
+            background: rgba(0, 0, 0, 0.8);
+          }
+        }
+        .comp_use {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          display: none;
+          .comp_use_btn {
+            width: 210px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
       .comp_info {
+        box-sizing: border-box;
         width: 100%;
         margin-top: 10px;
-        padding: 10px 0;
+        padding: 10px;
 
         border-top: 1px solid #eee;
         p {
@@ -139,30 +172,13 @@ function useTemp(content, title) {
         }
       }
       .comp_active {
+        box-sizing: border-box;
         width: 100%;
         display: flex;
         justify-content: flex-end;
-      }
-      .comp_use {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: none;
-        .comp_use_btn {
-          width: 210px;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-      }
-    }
-    .plugin_item:hover {
-      .comp_use {
-        display: block;
-        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }

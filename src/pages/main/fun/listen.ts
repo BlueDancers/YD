@@ -1,5 +1,6 @@
 import { useLine } from '@/store/line'
 import { useMain } from '@/store/main'
+import { useMainUtils } from '@/store/mainUtils'
 import { numberFun } from '@/utils'
 import { onClickOutside, useMagicKeys, useMouseInElement, useMousePressed } from '@vueuse/core'
 import { computed, watch, watchEffect } from 'vue'
@@ -10,14 +11,17 @@ import { computed, watch, watchEffect } from 'vue'
 export default function useListen(coreRef) {
   const main = useMain()
   const line = useLine()
+  const mainUtils = useMainUtils()
   let initX = 0 // 保存操作前的坐标
   let initY = 0
   const { ctrl, c, v, z, Delete, ControlLeft, ArrowUp, ArrowDown, ArrowLeft, ArrowRight } = useMagicKeys()
   watchEffect(() => {
     if (ctrl.value && c.value) {
       console.log('复制')
+      mainUtils.setCopyData()
     } else if (ctrl.value && v.value) {
       console.log('粘贴')
+      mainUtils.pasteData()
     } else if (ctrl.value && z.value) {
       main.revoke()
     } else if (Delete.value) {

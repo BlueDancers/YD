@@ -4,8 +4,12 @@
     <div class="page_cont">
       <div class="page_box" v-for="(item, index) in mainList" :key="index">
         <div class="box_top flex_center">
-          <div class="top_img_back" :style="{ 'background-image': `url(${item.thmbImg})` }"></div>
-          <img class="top_img" :src="item.thmbImg" />
+          <div
+            v-if="item.thmbImg"
+            class="top_img_back"
+            :style="{ 'background-image': `url(${item.thmbImg})` }"
+          ></div>
+          <img v-if="item.thmbImg" class="top_img" :src="item.thmbImg" />
         </div>
         <div class="box_mid">
           <div class="mid_cont">
@@ -46,6 +50,7 @@
         </div>
       </div>
     </div>
+    <el-empty v-if="mainList.length == 0" description="点击左上角创建页面~" />
   </div>
 </template>
 

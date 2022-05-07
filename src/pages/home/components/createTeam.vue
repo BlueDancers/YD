@@ -15,11 +15,11 @@
       <el-form-item label="组织密码" prop="password">
         <el-input v-model="formState.password" placeholder="其他成员需要密码才能加入" />
       </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">创建</el-button>
-        <el-button @click="close">取消</el-button>
-      </el-form-item>
     </el-form>
+    <template #footer>
+      <el-button type="primary" @click="onSubmit">创建</el-button>
+      <el-button @click="close">取消</el-button>
+    </template>
   </el-dialog>
 </template>
 
