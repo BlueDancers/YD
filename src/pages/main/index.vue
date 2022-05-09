@@ -14,7 +14,7 @@ import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMain } from '@/store/main'
 
-import MainHeader from './components/mainHeader.vue'
+import MainHeader from './components/mainHeader/index.vue'
 import MainLeft from './components/mainLeft/index.vue'
 import MainRight from './components/mainRight/index.vue'
 import MainCore from './components/mainCore/index.vue'
