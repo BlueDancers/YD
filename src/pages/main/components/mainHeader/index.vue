@@ -18,6 +18,7 @@
       </div>
       <el-button type="primary" @click="savePage">保存</el-button>
     </div>
+    <update-temp class="header_update"></update-temp>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import domtoimage from 'dom-to-image'
 import { imgToStorage } from '@/utils/index'
 import { deleteFile } from '@/utils/request'
 import { ElMessage } from 'element-plus'
+import updateTemp from './components/updateTemp.vue'
 
 const router = useRouter()
 const main = useMain()
@@ -87,6 +89,7 @@ async function savePage() {
 
 <style lang="less" scoped>
 .main_header {
+  position: relative;
   height: 49px;
   width: 100%;
   background-color: #fff;
@@ -119,6 +122,12 @@ async function savePage() {
         }
       }
     }
+  }
+  .header_update {
+    position: absolute;
+    top: 500px;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 </style>
