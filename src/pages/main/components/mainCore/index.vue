@@ -1,5 +1,5 @@
 <template>
-  <div class="main_core" @click="handleCore">
+  <div class="main_core" @click="handleCore" @mousedown="coreMouseDown">
     <div class="main_core_header flex_center">
       <div class="header_title">{{ main.pageTitle }}</div>
     </div>
@@ -22,6 +22,7 @@
           @mouseout="mouseOut"
           @mousedown="mouseDown($event, index)"
           @contextmenu="contextmenu($event, index)"
+          @dblclick="resetAcIdx($event, index)"
         >
           <comp-dom :item="item"></comp-dom>
         </point>
@@ -33,6 +34,8 @@
     </div>
     <!-- 元素辅助线 -->
     <temp-line></temp-line>
+    <!-- 选中框 -->
+    <coordinates></coordinates>
   </div>
   <!-- 右击菜单 -->
   <right-menu ref="rightMenuRef"></right-menu>
@@ -49,9 +52,12 @@ import rightMenu from './components/rightMenu.vue'
 import RightMenu from './components/rightMenu.vue'
 import CompDom from './components/compDom.vue'
 import tempLine from './components/tempLine.vue'
+import Coordinates from './components/coordinates.vue'
+import { useMainUtils } from '@/store/mainUtils'
 
 const main = useMain()
 const line = useLine()
+const mainUtils = useMainUtils()
 
 onMounted(() => {
   useListen(coreRef.value)
@@ -99,7 +105,9 @@ function mouseOut(evt) {
 
 // 按下鼠标
 function mouseDown(evt, index) {
+  // 元素操作
   main.toggleComp(index)
+  // 辅助线逻辑
   let template: any[] = deepClone(main.template)
   template.splice(main.acIdx[0], 1)
   line.getLineXY(
@@ -110,7 +118,13 @@ function mouseDown(evt, index) {
     },
     main.acIdx
   )
+  // 选中框逻辑
   evt.preventDefault()
+}
+
+function resetAcIdx(evt, index) {
+  main.acIdx = [index]
+  // mouseDown(evt, index)
 }
 
 // 取消选中
@@ -132,6 +146,22 @@ function contextmenu(evt, index) {
 // 修改页面高度
 function changeHeight() {
   main.changeMoveIndex(9)
+}
+
+// 点击页面底板
+function coreMouseDown(evt) {
+  main.changeMoveIndex(11)
+  if (evt.target.className == 'main_core') {
+    mainUtils.initCoordinates = [evt.offsetX, evt.offsetY]
+  } else if (evt.target.className == 'core_temp') {
+    mainUtils.initCoordinates = [
+      evt.offsetX + coreRef.value.offsetLeft,
+      evt.offsetY + coreRef.value.offsetTop,
+    ]
+  }
+  mainUtils.coreLeft = coreRef.value.offsetLeft
+  mainUtils.coreTop = coreRef.value.offsetTop
+  evt.preventDefault()
 }
 </script>
 

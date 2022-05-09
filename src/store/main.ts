@@ -105,11 +105,17 @@ export const useMain = defineStore('main', {
     toggleComp(index: number) {
       let id = this.template[index].id
       // 按住ctrl就是多选
-      if (!this.isCtrl) {
-        this.acIdx = [index]
-      } else {
+      if (this.isCtrl) {
         if (!this.acIdx.includes(index)) {
           this.acIdx.push(index)
+        }
+      } else {
+        if (this.acIdx.length <= 1) {
+          this.acIdx = [index]
+        } else {
+          if (!this.acIdx.includes(index)) {
+            this.acIdx = [index]
+          }
         }
       }
       // 判断是否被锁

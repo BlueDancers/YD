@@ -12,6 +12,10 @@ export const useMainUtils = defineStore('mainUtils', {
   state: () => {
     return {
       copyData: [] as baseComponent[],
+      initCoordinates: [0, 0], // 选中框初始坐标
+      endCoordinates: [0, 0], // 选中框结束坐标
+      coreLeft: 0,
+      coreTop: 0,
     }
   },
   actions: {

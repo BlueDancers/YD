@@ -48,11 +48,9 @@ export default function useListen(coreRef) {
     if (!value) {
       main.moveIndex = 0
       line.resetLine()
+      mainUtils.initCoordinates = [0, 0]
+      mainUtils.endCoordinates = [0, 0]
     } else {
-      if (main.moveIndex == 0) {
-        // 形成选中外框
-        // console.log('111', initX, initY)
-      }
     }
   })
 
@@ -108,6 +106,17 @@ export default function useListen(coreRef) {
         break
       case 10:
         moveDom()
+        break
+      case 11:
+        mainUtils.endCoordinates[0] += elementX.value - initX
+        mainUtils.endCoordinates[1] += elementY.value - initY
+        initX = elementX.value
+        initY = elementY.value
+        console.log('初始x距离', mainUtils.initCoordinates[0] - mainUtils.coreLeft)
+        console.log('初始y距离', mainUtils.initCoordinates[1] - mainUtils.coreTop)
+        console.log('结束x距离', mainUtils.endCoordinates[0] - mainUtils.coreLeft)
+        console.log('结束y距离', mainUtils.endCoordinates[1] - mainUtils.coreTop)
+        // 判断是否应该选中
         break
       case 0:
         // 保存操作前坐标
