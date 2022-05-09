@@ -46,11 +46,10 @@ export default function useListen(coreRef) {
   const { pressed } = useMousePressed(coreRef)
   watch(pressed, (value) => {
     if (!value) {
-      main.moveIndex = 0
       line.resetLine()
       mainUtils.initCoordinates = [0, 0]
       mainUtils.endCoordinates = [0, 0]
-    } else {
+      main.moveIndex = 0
     }
   })
 
@@ -112,11 +111,28 @@ export default function useListen(coreRef) {
         mainUtils.endCoordinates[1] += elementY.value - initY
         initX = elementX.value
         initY = elementY.value
-        console.log('初始x距离', mainUtils.initCoordinates[0] - mainUtils.coreLeft)
-        console.log('初始y距离', mainUtils.initCoordinates[1] - mainUtils.coreTop)
-        console.log('结束x距离', mainUtils.endCoordinates[0] - mainUtils.coreLeft)
-        console.log('结束y距离', mainUtils.endCoordinates[1] - mainUtils.coreTop)
         // 判断是否应该选中
+        let startLeft = -(mainUtils.coreLeft - mainUtils.initCoordinates[0])
+        let endLeft = -(mainUtils.coreLeft - mainUtils.initCoordinates[0] - mainUtils.endCoordinates[0])
+        let startTop = -(mainUtils.coreTop - mainUtils.initCoordinates[1])
+        let endTop = -(mainUtils.coreTop - mainUtils.initCoordinates[1] - mainUtils.endCoordinates[1])
+        main.template.map((res, index) => {
+          if (
+            startLeft < res.cssModule.left &&
+            endLeft > res.cssModule.left &&
+            startTop < res.cssModule.top &&
+            endTop > res.cssModule.top
+          ) {
+            if (!main.acIdx.includes(index)) {
+              main.acIdx.push(index)
+            }
+          } else {
+            let idx = main.acIdx.findIndex((e) => e == index)
+            if (idx != -1) {
+              main.acIdx.splice(idx, 1)
+            }
+          }
+        })
         break
       case 0:
         // 保存操作前坐标

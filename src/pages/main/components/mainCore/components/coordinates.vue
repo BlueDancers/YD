@@ -20,6 +20,7 @@ const mainUtils = useMainUtils()
 .coordinates {
   position: absolute;
   z-index: 100;
-  border: 3px solid #000;
+  outline: 2px solid var(--primary);
+  background-color: rgba(41, 113, 246, 0.3);
 }
 </style>

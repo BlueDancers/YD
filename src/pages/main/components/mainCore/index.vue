@@ -1,5 +1,5 @@
 <template>
-  <div class="main_core" @click="handleCore" @mousedown="coreMouseDown">
+  <div class="main_core" @mousedown="coreMouseDown">
     <div class="main_core_header flex_center">
       <div class="header_title">{{ main.pageTitle }}</div>
     </div>
@@ -127,14 +127,6 @@ function resetAcIdx(evt, index) {
   // mouseDown(evt, index)
 }
 
-// 取消选中
-function handleCore(evt) {
-  if (evt.target.className.includes('core_temp') || evt.target.className.includes('main_core')) {
-    main.acIdx = []
-    main.hoverCompIndex = -1
-  }
-}
-
 // 右击事件
 function contextmenu(evt, index) {
   // 获取xy轴
@@ -150,6 +142,13 @@ function changeHeight() {
 
 // 点击页面底板
 function coreMouseDown(evt) {
+  // 取消选中逻辑
+  if (evt.target.className.includes('core_temp') || evt.target.className.includes('main_core')) {
+    main.acIdx = []
+    main.hoverCompIndex = -1
+  }
+
+  // 选中区域内组件逻辑
   main.changeMoveIndex(11)
   if (evt.target.className == 'main_core') {
     mainUtils.initCoordinates = [evt.offsetX, evt.offsetY]
