@@ -22,22 +22,43 @@
         </div>
         <div class="right_qrcode">
           <span>二维码：</span>
+          <div class="qrcode_box">
+            <img v-if="tempQrimg" :src="tempQrimg" class="qrcode_img" />
+            <div class="qrcode_text">扫码直接访问哦</div>
+          </div>
         </div>
       </div>
+      <div @click="init">点击</div>
     </div>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import QRCode from 'qrcode'
 
 const tempShow = ref(true)
-const tempTime = ref('2021-10-21')
+const tempTime = ref('2021-10-21 13:59:59')
 const tempName = ref('国庆营销活动')
 const tempUrl = ref('http://lt.591wsh.com/')
+const tempQrimg = ref('')
+
+onMounted(() => {
+  init()
+})
 
 function handleClose() {
   tempShow.value = false
+}
+
+function init() {
+  QRCode.toDataURL(tempUrl.value)
+    .then((url) => {
+      tempQrimg.value = url
+    })
+    .catch((err) => {
+      console.error(err)
+    })
 }
 </script>
 
@@ -79,7 +100,10 @@ function handleClose() {
       }
     }
     .temp_time {
+      text-align: center;
+      width: 219px;
       margin-top: 10px;
+      color: #99999999;
     }
   }
   .temp_line {
@@ -100,7 +124,18 @@ function handleClose() {
       margin-top: 20px;
     }
     .right_qrcode {
+      display: flex;
       margin-top: 20px;
+      .qrcode_box {
+        .qrcode_text {
+          margin-left: 20px;
+          color: #99999999;
+        }
+        .qrcode_img {
+          width: 200px;
+          height: 200px;
+        }
+      }
     }
   }
 }
