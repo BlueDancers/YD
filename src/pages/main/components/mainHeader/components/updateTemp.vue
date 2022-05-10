@@ -104,7 +104,19 @@ defineExpose({
         position: absolute;
         top: 10px;
         left: 65px;
-        width: 90px;
+        width: 85px;
+      }
+      .left_img_text {
+        width: 219px;
+        position: absolute;
+        color: rgba(0, 0, 0, 0.8);
+        top: 34px;
+        font-size: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0.9);
+        font-weight: bold;
       }
       .left_iframe {
         position: absolute;
