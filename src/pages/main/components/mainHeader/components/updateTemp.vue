@@ -6,35 +6,36 @@
           <img class="left_img" src="@/assets/phone.png" />
           <img class="left_img_header" src="@/assets/header.png" />
           <img class="left_img_hair" src="@/assets/hair.png" />
-          <iframe class="left_iframe" :src="tempUrl" frameborder="0"></iframe>
+          <iframe class="left_iframe" :src="tempForm.tempUrl" frameborder="0"></iframe>
         </div>
         <div class="temp_time">更新时间：{{ tempTime }}</div>
       </div>
       <div class="temp_line"></div>
       <div class="temp_right">
-        <div class="right_name">
-          <span>页面名称：</span>
-          <span class="right_name_text">{{ main.pageTitle }}</span>
-        </div>
-        <div class="right_url">
-          <span>访问地址：</span>
-          <span>{{ `${baseUrl}/${main.pageRouter}` }}</span>
-        </div>
-        <div class="right_qrcode">
-          <span>二维码：</span>
-          <div class="qrcode_box">
-            <img v-if="tempQrimg" :src="tempQrimg" class="qrcode_img" />
-            <div class="qrcode_text">扫码直接访问哦</div>
-          </div>
-        </div>
+        <el-form :model="tempForm" label-width="80px">
+          <el-form-item label="页面名称:">
+            <div class="right_name">
+              {{ main.pageTitle }}
+            </div>
+          </el-form-item>
+          <el-form-item label="访问地址:">
+            {{ `${baseUrl}/${main.pageRouter}` }}
+          </el-form-item>
+          <el-form-item label="二维码:">
+            <div class="qrcode_box">
+              <canvas id="canvas" style="display: none"></canvas>
+              <img v-if="tempForm.tempQrimg" :src="tempForm.tempQrimg" class="qrcode_img" />
+              <div class="qrcode_text">扫码直接访问哦</div>
+            </div>
+          </el-form-item>
+        </el-form>
       </div>
-      <!-- <div @click="init">点击</div> -->
     </div>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import QRCode from 'qrcode'
 import { useMain } from '@/store/main'
 import { baseUrl } from '@/config'
@@ -42,8 +43,10 @@ import { parseTime } from '@/utils'
 
 const tempShow = ref(false)
 const tempTime = ref('2021-10-21 13:59:59')
-const tempUrl = ref('http://lt.591wsh.com/')
-const tempQrimg = ref('')
+const tempForm = reactive({
+  tempUrl: 'http://lt.591wsh.com/', //地址
+  tempQrimg: '', //二维码图片
+})
 
 const main = useMain()
 
@@ -51,23 +54,21 @@ onMounted(() => {
   init()
 })
 
-function handleClose() {
-  tempShow.value = false
-}
-
+//生成二维码和时间
 function init() {
-  QRCode.toDataURL(tempUrl.value)
-    .then((url) => {
-      tempQrimg.value = url
-    })
-    .catch((err) => {
-      console.error(err)
-    })
+  let canvas = document.getElementById('canvas')
+  QRCode.toCanvas(tempForm.tempUrl, { canvas, width: 180, height: 180, margin: 0 }).then((url) => {
+    tempForm.tempQrimg = url.toDataURL('image/png')
+  })
   tempTime.value = parseTime(Date.now(), {})
 }
 
 function open() {
   tempShow.value = true
+}
+
+function handleClose() {
+  tempShow.value = false
 }
 
 defineExpose({
@@ -83,7 +84,7 @@ defineExpose({
   border-radius: 19px 19px 19px 19px;
   .temp_left {
     margin-left: 40px;
-    width: 45%;
+    width: 40%;
     .left_imgbox {
       position: relative;
       .left_img {
@@ -122,32 +123,22 @@ defineExpose({
   .temp_line {
     width: 1px;
     height: 480px;
-    background: rgba(128, 128, 128, 0.6);
+    background: rgba(128, 128, 128, 0.2);
   }
   .temp_right {
-    margin-left: 20px;
+    margin-left: 40px;
     .right_name {
-      margin-top: 50px;
-      .right_name_text {
-        font-size: 18px;
-        font-weight: bold;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .qrcode_box {
+      margin-top: 10px;
+      .qrcode_text {
+        color: #99999999;
       }
-    }
-    .right_url {
-      margin-top: 20px;
-    }
-    .right_qrcode {
-      display: flex;
-      margin-top: 20px;
-      .qrcode_box {
-        .qrcode_text {
-          margin-left: 20px;
-          color: #99999999;
-        }
-        .qrcode_img {
-          width: 200px;
-          height: 200px;
-        }
+      .qrcode_img {
+        width: 180px;
+        height: 180px;
       }
     }
   }
