@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="tempShow" width="766px" :before-close="handleClose">
+  <el-dialog v-model="tempShow" title="页面信息" width="766px">
     <div class="update_temp">
       <div class="temp_left">
         <div class="left_imgbox">
@@ -14,11 +14,11 @@
       <div class="temp_right">
         <div class="right_name">
           <span>页面名称：</span>
-          <span class="right_name_text">{{ tempName }}</span>
+          <span class="right_name_text">{{ main.pageTitle }}</span>
         </div>
         <div class="right_url">
           <span>访问地址：</span>
-          <span>{{ tempUrl }}</span>
+          <span>{{ `${baseUrl}/${main.pageRouter}` }}</span>
         </div>
         <div class="right_qrcode">
           <span>二维码：</span>
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div @click="init">点击</div>
+      <!-- <div @click="init">点击</div> -->
     </div>
   </el-dialog>
 </template>
@@ -36,12 +36,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import QRCode from 'qrcode'
+import { useMain } from '@/store/main'
+import { baseUrl } from '@/config'
+import { parseTime } from '@/utils'
 
-const tempShow = ref(true)
+const tempShow = ref(false)
 const tempTime = ref('2021-10-21 13:59:59')
-const tempName = ref('国庆营销活动')
 const tempUrl = ref('http://lt.591wsh.com/')
 const tempQrimg = ref('')
+
+const main = useMain()
 
 onMounted(() => {
   init()
@@ -59,7 +63,16 @@ function init() {
     .catch((err) => {
       console.error(err)
     })
+  tempTime.value = parseTime(Date.now(), {})
 }
+
+function open() {
+  tempShow.value = true
+}
+
+defineExpose({
+  open,
+})
 </script>
 
 <style lang="less" scoped>

@@ -18,7 +18,7 @@
       </div>
       <el-button type="primary" @click="savePage">保存</el-button>
     </div>
-    <update-temp class="header_update"></update-temp>
+    <update-temp ref="updateTemp"></update-temp>
   </div>
 </template>
 
@@ -29,16 +29,22 @@ import domtoimage from 'dom-to-image'
 import { imgToStorage } from '@/utils/index'
 import { deleteFile } from '@/utils/request'
 import { ElMessage } from 'element-plus'
-import updateTemp from './components/updateTemp.vue'
+import UpdateTemp from './components/updateTemp.vue'
+import { onMounted, ref } from 'vue'
 
 const router = useRouter()
 const main = useMain()
+const updateTemp = ref()
 
 function gotoHome() {
   router.replace({
-    name: 'home',
+    path: '/',
   })
 }
+
+onMounted(() => {
+  updateTemp.value.open()
+})
 
 // 外链
 function gotoLink(url) {
@@ -84,6 +90,9 @@ async function savePage() {
   const res = await main.savePage(url.tempFileURL, url.fileID)
   console.log(res)
   ElMessage.success('保存成功~')
+  setTimeout(() => {
+    updateTemp.value.open()
+  }, 200)
 }
 </script>
 
@@ -122,12 +131,6 @@ async function savePage() {
         }
       }
     }
-  }
-  .header_update {
-    position: absolute;
-    top: 500px;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 }
 </style>
