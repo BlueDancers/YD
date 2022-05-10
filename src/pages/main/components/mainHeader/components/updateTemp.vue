@@ -6,25 +6,25 @@
           <img class="left_img" src="@/assets/phone.png" />
           <img class="left_img_header" src="@/assets/header.png" />
           <img class="left_img_hair" src="@/assets/hair.png" />
-          <iframe class="left_iframe" :src="tempForm.tempUrl" frameborder="0"></iframe>
+          <iframe class="left_iframe" :src="tempUrl" frameborder="0"></iframe>
         </div>
         <div class="temp_time">更新时间：{{ tempTime }}</div>
       </div>
       <div class="temp_line"></div>
       <div class="temp_right">
-        <el-form :model="tempForm" label-width="80px">
+        <el-form label-width="80px">
           <el-form-item label="页面名称:">
             <div class="right_name">
-              {{ main.pageTitle }}
+              <span>{{ main.pageTitle }}</span>
             </div>
           </el-form-item>
           <el-form-item label="访问地址:">
-            {{ `${baseUrl}/${main.pageRouter}` }}
+            <span>{{ tempUrl }}</span>
           </el-form-item>
           <el-form-item label="二维码:">
             <div class="qrcode_box">
               <canvas id="canvas" style="display: none"></canvas>
-              <img v-if="tempForm.tempQrimg" :src="tempForm.tempQrimg" class="qrcode_img" />
+              <img v-if="tempForm" :src="tempForm" class="qrcode_img" />
               <div class="qrcode_text">扫码直接访问哦</div>
             </div>
           </el-form-item>
@@ -35,20 +35,22 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import QRCode from 'qrcode'
 import { useMain } from '@/store/main'
 import { baseUrl } from '@/config'
 import { parseTime } from '@/utils'
+const main = useMain()
 
 const tempShow = ref(false)
-const tempTime = ref('2021-10-21 13:59:59')
-const tempForm = reactive({
-  tempUrl: 'http://lt.591wsh.com/', //地址
-  tempQrimg: '', //二维码图片
-})
 
-const main = useMain()
+const tempForm = ref('') // 二维码数据
+const tempTime = ref('') // 保存时间
+
+// 真实访问地址
+const tempUrl = computed(() => {
+  return `${baseUrl}/${main.parentPageRouter}/${main.pageRouter}`
+})
 
 onMounted(() => {
   init()
@@ -57,8 +59,8 @@ onMounted(() => {
 //生成二维码和时间
 function init() {
   let canvas = document.getElementById('canvas')
-  QRCode.toCanvas(tempForm.tempUrl, { canvas, width: 180, height: 180, margin: 0 }).then((url) => {
-    tempForm.tempQrimg = url.toDataURL('image/png')
+  QRCode.toCanvas(tempUrl.value, { canvas, width: 180, height: 180, margin: 0 }).then((url) => {
+    tempForm.value = url.toDataURL('image/png')
   })
   tempTime.value = parseTime(Date.now(), {})
 }

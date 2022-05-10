@@ -14,6 +14,7 @@ export const useMain = defineStore('main', {
       pageId: '', // 页面id
       thmbImgFileId: '', // 页面缩略图id
       pageTitle: '', // 网页名称
+      parentPageRouter: '', // 组织网址地址
       pageRouter: '', // 网页地址
       backColor: '#fff', // 页面背景颜色
       pageHeight: 650, // 页面高度
@@ -49,6 +50,17 @@ export const useMain = defineStore('main', {
             this.pageTitle = res.data[0].title
             this.pageRouter = res.data[0].router
             this.thmbImgFileId = res.data[0].thmbImgFileId
+
+            // 获取父级路由
+            useCloud('organize')
+              .where({ _id: this.organizeId })
+              .field({
+                routerCode: true,
+              })
+              .get()
+              .then((res) => {
+                this.parentPageRouter = res.data[0].routerCode
+              })
           }
         })
       // 获取页面装修数据信息
