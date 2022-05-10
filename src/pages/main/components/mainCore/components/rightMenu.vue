@@ -72,7 +72,7 @@ function changeItem(index) {
       main.exchangeComp(acTeIdx.value, 0)
       break
     case 4:
-      main.deleteComp(acTeIdx.value)
+      main.deleteComp([acTeIdx.value])
       break
     case 5:
       main.updateLockComp(main.template[acTeIdx.value].id)

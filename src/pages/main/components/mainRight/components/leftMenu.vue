@@ -39,11 +39,11 @@ const activeMenu = reactive([
     fun: () => main.backRevoke(),
     text: '反撤销',
   },
-  // {
-  //   icon: 'shanchu2',
-  //   fun: () => main.deleteComp(main.acIdx),
-  //   text: '删除',
-  // },
+  {
+    icon: 'shanchu2',
+    fun: () => main.deleteComp(main.acIdx),
+    text: '删除',
+  },
   {
     icon: 'fuzhi1',
     fun: () => mainUtils.setCopyData(),

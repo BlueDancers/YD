@@ -82,14 +82,16 @@ export const useMain = defineStore('main', {
         this.template.push({ ...dom })
       }
     },
-    deleteComp(index) {
-      // if (this.acIdx.length == 0) {
-      //   ElMessage.warning('请选择元素')
-      // } else if (this.acIdx.length != 1) {
-      //   ElNotification.warning('该操作暂不支持多选')
-      // } else {
-      // }
-      this.template.splice(index, 1)
+    deleteComp(idxs: number[]) {
+      if (this.acIdx.length == 0) {
+        ElMessage.warning('请选择元素')
+        return
+      }
+      idxs = idxs.sort((a, b) => b - a)
+      // 数组与原数组进行对比 ，遇到了就剔除
+      idxs.map((e) => {
+        this.template.splice(e, 1)
+      })
       this.acIdx = []
       this.hoverCompIndex = -1
       stateHis.addHis(this.template) // 删除元素记录历史

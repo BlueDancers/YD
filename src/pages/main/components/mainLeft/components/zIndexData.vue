@@ -33,7 +33,11 @@
           @click.stop="changeZ(index, index + 1)"
           v-if="index != template.length - 1"
         ></svg-icon>
-        <svg-icon class="right_icon" name="shanchu2" @click.stop="main.deleteComp(realIdx(index))"></svg-icon>
+        <svg-icon
+          class="right_icon"
+          name="shanchu2"
+          @click.stop="main.deleteComp([realIdx(index)])"
+        ></svg-icon>
       </div>
     </div>
     <el-empty v-if="template.length == 0" description="请添加组件" />
