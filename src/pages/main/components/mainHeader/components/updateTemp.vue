@@ -6,6 +6,7 @@
           <img class="left_img" src="@/assets/phone.png" />
           <img class="left_img_header" src="@/assets/header.png" />
           <img class="left_img_hair" src="@/assets/hair.png" />
+          <div class="left_img_text">{{ main.pageTitle }}</div>
           <iframe class="left_iframe" :src="tempUrl" frameborder="0"></iframe>
         </div>
         <div class="temp_time">更新时间：{{ tempTime }}</div>
@@ -51,9 +52,7 @@ const tempUrl = computed(() => {
   return `${baseUrl}/${main.parentPageRouter}/${main.pageRouter}`
 })
 
-onMounted(() => {
-  init()
-})
+onMounted(() => {})
 
 //生成二维码和时间
 function init() {
@@ -65,6 +64,7 @@ function init() {
 
 function open() {
   tempShow.value = true
+  init()
 }
 
 function handleClose() {
@@ -101,8 +101,8 @@ defineExpose({
       .left_img_hair {
         position: absolute;
         top: 10px;
-        left: 65px;
-        width: 85px;
+        left: 73px;
+        width: 75px;
       }
       .left_img_text {
         width: 219px;
