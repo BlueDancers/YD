@@ -6,6 +6,7 @@
           <img class="left_img" src="@/assets/phone.png" />
           <img class="left_img_header" src="@/assets/header.png" />
           <img class="left_img_hair" src="@/assets/hair.png" />
+          <div class="left_img_text">测试标题</div>
           <iframe class="left_iframe" :src="tempForm.tempUrl" frameborder="0"></iframe>
         </div>
         <div class="temp_time">更新时间：{{ tempTime }}</div>
@@ -102,7 +103,19 @@ defineExpose({
         position: absolute;
         top: 10px;
         left: 65px;
-        width: 90px;
+        width: 85px;
+      }
+      .left_img_text {
+        width: 219px;
+        position: absolute;
+        color: rgba(0, 0, 0, 0.8);
+        top: 34px;
+        font-size: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0.9);
+        font-weight: bold;
       }
       .left_iframe {
         position: absolute;
