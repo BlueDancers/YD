@@ -42,10 +42,6 @@ function gotoHome() {
   })
 }
 
-onMounted(() => {
-  updateTemp.value.open()
-})
-
 // 外链
 function gotoLink(url) {
   location.href = url
