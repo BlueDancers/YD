@@ -16,6 +16,7 @@
         <svg-icon class="item_icon" :name="item.icon"></svg-icon>
       </div>
     </el-tooltip>
+    <input type="file" @change="uploadImg" />
   </div>
 </template>
 
@@ -23,7 +24,6 @@
 import { useMain } from '@/store/main'
 import { useMainUtils } from '@/store/mainUtils'
 import { reactive, ref } from 'vue'
-
 const main = useMain()
 const mainUtils = useMainUtils()
 
@@ -54,11 +54,23 @@ const activeMenu = reactive([
     fun: () => mainUtils.pasteData(),
     text: '粘贴',
   },
+  {
+    icon: 'niantie1',
+    fun: () => uploadPsd(),
+    text: '上传psd',
+  },
 ])
 
 function activeItem(fun) {
   fun()
 }
+
+// 上传psd
+function uploadPsd() {
+  console.log(111)
+}
+
+function uploadImg(evt) {}
 </script>
 
 <style lang="less" scoped>
