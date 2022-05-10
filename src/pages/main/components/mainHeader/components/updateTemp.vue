@@ -23,7 +23,6 @@
           </el-form-item>
           <el-form-item label="二维码:">
             <div class="qrcode_box">
-              <canvas id="canvas" style="display: none"></canvas>
               <img v-if="tempForm" :src="tempForm" class="qrcode_img" />
               <div class="qrcode_text">扫码直接访问哦</div>
             </div>
@@ -58,8 +57,7 @@ onMounted(() => {
 
 //生成二维码和时间
 function init() {
-  let canvas = document.getElementById('canvas')
-  QRCode.toCanvas(tempUrl.value, { canvas, width: 180, height: 180, margin: 0 }).then((url) => {
+  QRCode.toCanvas(tempUrl.value, { width: 180, height: 180, margin: 0 }).then((url) => {
     tempForm.value = url.toDataURL('image/png')
   })
   tempTime.value = parseTime(Date.now(), {})
