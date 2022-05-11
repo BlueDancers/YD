@@ -965,18 +965,6 @@
   dependencies:
     "@cloudbase/adapter-interface" "^0.4.0"
 
-"coffee-script@~ 1.7.1":
-  "integrity" "sha1-YplqhheAx15tUGnROCJyO3NAS/w="
-  "resolved" "https://registry.npmjs.org/coffee-script/-/coffee-script-1.7.1.tgz"
-  "version" "1.7.1"
-  dependencies:
-    "mkdirp" "~0.3.5"
-
-"coffeescript-module@~ 0.2.1":
-  "integrity" "sha1-LGGqhpg8rNImcZ+fHdqSPLCuZ7A="
-  "resolved" "https://registry.npmjs.org/coffeescript-module/-/coffeescript-module-0.2.1.tgz"
-  "version" "0.2.1"
-
 "color-convert@^1.9.0":
   "integrity" "sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg=="
   "resolved" "https://registry.npmmirror.com/color-convert/-/color-convert-1.9.3.tgz"
@@ -1562,7 +1550,7 @@
   dependencies:
     "@babel/runtime" "^7.12.0"
 
-"iconv-lite@^0.4.4", "iconv-lite@~ 0.4.4":
+"iconv-lite@^0.4.4":
   "integrity" "sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA=="
   "resolved" "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz"
   "version" "0.4.24"
@@ -1754,11 +1742,6 @@
     "jsonparse" "^1.2.0"
     "through" ">=2.2.7 <3"
 
-"jspack@~ 0.0.3":
-  "integrity" "sha1-Mt01x/3LPjRWwY+7fvntC8YjgXc="
-  "resolved" "https://registry.npmjs.org/jspack/-/jspack-0.0.4.tgz"
-  "version" "0.0.4"
-
 "jstransformer@1.0.0":
   "integrity" "sha1-7Yvwkh4vPx7U1cGkT2hwntJHIsM="
   "resolved" "https://registry.npmjs.org/jstransformer/-/jstransformer-1.0.0.tgz"
@@ -1902,7 +1885,7 @@
   "resolved" "https://registry.npmjs.org/lodash.unset/-/lodash.unset-4.5.2.tgz"
   "version" "4.5.2"
 
-"lodash@*", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.21", "lodash@~4.17.21":
+"lodash@*", "lodash@^4.17.15", "lodash@^4.17.19", "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -2019,11 +2002,6 @@
     "arrify" "^1.0.1"
     "is-plain-obj" "^1.1.0"
     "kind-of" "^6.0.3"
-
-"mkdirp@~0.3.5":
-  "integrity" "sha1-3j5fiWHIjHh+4TaN+EmsRBPsqNc="
-  "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.5.tgz"
-  "version" "0.3.5"
 
 "ms@^2.1.1":
   "integrity" "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="
@@ -2160,13 +2138,6 @@
   dependencies:
     "callsites" "^3.0.0"
 
-"parse-engine-data@~ 0.1":
-  "integrity" "sha1-UWH2EzyYiPUhVezO1CcWV13+oFI="
-  "resolved" "https://registry.npmjs.org/parse-engine-data/-/parse-engine-data-0.1.2.tgz"
-  "version" "0.1.2"
-  dependencies:
-    "iconv-lite" "^0.4.4"
-
 "parse-json@^5.0.0":
   "integrity" "sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg=="
   "resolved" "https://registry.npmmirror.com/parse-json/-/parse-json-5.2.0.tgz"
@@ -2235,11 +2206,6 @@
   "resolved" "https://registry.npmjs.org/pngjs/-/pngjs-5.0.0.tgz"
   "version" "5.0.0"
 
-"pngjs@3.2.0":
-  "integrity" "sha1-/J/OoaijddpUpRFIAZ1avUHbq94="
-  "resolved" "https://registry.npmjs.org/pngjs/-/pngjs-3.2.0.tgz"
-  "version" "3.2.0"
-
 "postcss@^8.1.10", "postcss@^8.4.12":
   "integrity" "sha512-lg6eITwYe9v6Hr5CncVbK70SoioNQIq81nsaG86ev5hAidQvmOeETBqs7jm43K2F5/Ley3ytDtriImV6TpNiSg=="
   "resolved" "https://registry.npmjs.org/postcss/-/postcss-8.4.12.tgz"
@@ -2275,20 +2241,6 @@
   "integrity" "sha1-0/wRS6BplaRexok/SEzrHXj19HY="
   "resolved" "https://registry.npmjs.org/prr/-/prr-1.0.1.tgz"
   "version" "1.0.1"
-
-"psd@^3.4.0":
-  "integrity" "sha512-LCPskSzQopgwOgFFaYbKgEzm8yOid0cT/GoA46yCnP1ZYTdmkm6cSQNa3x/3GcDX9IUatV+gRrf6RHskLGAdHQ=="
-  "resolved" "https://registry.npmjs.org/psd/-/psd-3.4.0.tgz"
-  "version" "3.4.0"
-  dependencies:
-    "coffee-script" "~ 1.7.1"
-    "coffeescript-module" "~ 0.2.1"
-    "iconv-lite" "~ 0.4.4"
-    "jspack" "~ 0.0.3"
-    "lodash" "~4.17.21"
-    "parse-engine-data" "~ 0.1"
-    "pngjs" "3.2.0"
-    "rsvp" "~ 3.0.6"
 
 "pug-attrs@^3.0.0":
   "integrity" "sha512-azINV9dUtzPMFQktvTXciNAfAuVh/L/JCl0vtPCwvOA21uZrC08K/UnmrL+SXGEVc1FwzjW62+xw5S/uaLj6cA=="
@@ -2519,11 +2471,6 @@
   "version" "2.70.1"
   optionalDependencies:
     "fsevents" "~2.3.2"
-
-"rsvp@~ 3.0.6":
-  "integrity" "sha1-ScWI/hjvKTvNCrn05nVuasQzNZ8="
-  "resolved" "https://registry.npmjs.org/rsvp/-/rsvp-3.0.21.tgz"
-  "version" "3.0.21"
 
 "rxjs@^7.5.5":
   "integrity" "sha512-sy+H0pQofO95VDmFLzyaw9xNJU4KTRSwQIGM6+iG3SypAtCiLDzpeG8sJrNCWn2Up9km+KhkvTdbkrdy+yzZdw=="
