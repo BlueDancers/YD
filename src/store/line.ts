@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
+import { useMain } from './main'
 
 const baseXpoint: number[] = [0] // 默认X轴的标注点
 const baseYpoint: number[] = [0, 162, 325] // 默认Y轴的标注点
+
+const main = useMain()
 
 export const useLine = defineStore('line', {
   state: () => {
@@ -63,11 +66,27 @@ export const useLine = defineStore('line', {
         if (this.lineX.has(x)) {
           this.showX.push(x)
         }
+        if (this.lineX.has(x + 1)) {
+          this.showX.push(x + 1)
+          main.acTempCss.top = main.acTempCss.top + 0.5
+        }
+        if (this.lineX.has(x - 1)) {
+          this.showX.push(x - 1)
+          main.acTempCss.top = main.acTempCss.top - 0.5
+        }
       }
       this.showY = []
-      for (const y of this.calineY) {
+      for (const y of this.calineY) { 
         if (this.lineY.has(y)) {
           this.showY.push(y)
+        }
+        if (this.lineY.has(y + 1)) {
+          this.showY.push(y + 1)
+          main.acTempCss.left = main.acTempCss.left + 0.5
+        }
+        if (this.lineY.has(y - 1)) {
+          this.showY.push(y - 1)
+          main.acTempCss.left = main.acTempCss.left - 0.5
         }
       }
     },
