@@ -62,12 +62,49 @@
         ></el-input>
       </el-form-item>
     </el-form>
+    <!-- 轮播图独有 -->
+    <div v-if="main.acTEmpName == 'y-swiper'">
+      <el-button type="primary" class="add_swiper_btn" @click="addSwiper">添加轮播图</el-button>
+      <el-collapse>
+        <el-collapse-item v-for="(item, index) in main.acTempData.data" :key="index">
+          <template #title>
+            <span class="collapse_title">第{{ index + 1 }}项</span>
+          </template>
+          <div>
+            <el-form label-width="90px">
+              <el-form-item label="图片：">
+                <div class="upload_img">
+                  <input class="upload_core" type="file" @change="changeSwiperImg($event, index)" />
+                  <img class="img_cont" :src="item.imglUrl" />
+                </div>
+              </el-form-item>
+              <!-- 公共部分 -->
+              <el-form-item label="事件：">
+                <el-select v-model="item.linkType" class="default_input">
+                  <el-option
+                    v-for="item in linkDataFun"
+                    :key="item.key"
+                    :label="item.value"
+                    :value="item.key"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="链接地址：" v-if="item.linkType == 1">
+                <el-input class="default_input" v-model="item.link" placeholder="请输入链接地址"></el-input>
+              </el-form-item>
+              <el-form-item label="电话号码：" v-if="item.linkType == 2">
+                <el-input class="default_input" v-model="item.phone" placeholder="请输入电话号码"></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useMain } from '@/store/main'
-import { imgToStorage } from '@/utils'
 import { uploadFile } from '@/utils/request'
 import { linkDataFun } from '@/utils/styleData'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
@@ -75,6 +112,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import { nextTick, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
 import { IToolbarConfig, DomEditor } from '@wangeditor/editor'
+import { baseSwiper } from '@/modules/component'
 
 const main = useMain()
 
@@ -112,6 +150,19 @@ function uploadImg(evt) {
   })
 }
 
+// 添加轮播图
+function addSwiper() {
+  main.acTempData.data.push(baseSwiper())
+}
+
+// 修改轮播图图片
+function changeSwiperImg(event, index) {
+  let file = event.target.files[0]
+  uploadFile(`imgPhoto/${file.name}`, file).then((res) => {
+    main.acTempData.data[index].imglUrl = res.tempFileURL
+  })
+}
+
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
   console.log('卸载')
@@ -142,6 +193,11 @@ onBeforeUnmount(() => {
       max-height: 100%;
       max-width: 100%;
     }
+  }
+  .add_swiper_btn {
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 10px;
   }
 }
 </style>

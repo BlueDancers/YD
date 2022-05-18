@@ -118,30 +118,30 @@ function baseComList(name: string, tempLen) {
       animation: [], // 动画
     },
     // 业务组件
-    // {
-    //   id: guid(),
-    //   name: 'y-swiper',
-    //   showTitle: `轮播图${tempLen}`, // 显示组件名称
-    //   show: true,
-    //   cssModule: {
-    //     ...absolute(tempLen),
-    //     ...borderData(),
-    //     ...padAndMar(),
-    //     ...compSize(200, 60),
-    //   }, // 样式
-    //   staticData: {
-    //     // 轮播图数据
-    //     data: [baseSwiper()], // 轮播图数据
-    //     props: {
-    //       autoplay: 2000, // 自动轮播间隔
-    //       showIndicators: true, // 是否显示指示器
-    //       vertical: false, //	是否为纵向滚动
-    //       indicatorColor: '#1989fa', // 指示器颜色
-    //     },
-    //   }, // 展示文字
-    //   function: {}, // 方法
-    //   animation: [], // 动画
-    // },
+    {
+      id: guid(),
+      name: 'y-swiper',
+      showTitle: `轮播图${tempLen}`, // 显示组件名称
+      show: true,
+      cssModule: {
+        ...absolute(tempLen),
+        ...borderData(),
+        ...padAndMar(),
+        ...compSize(200, 60),
+      }, // 样式
+      staticData: {
+        // 轮播图数据
+        data: [baseSwiper()], // 轮播图数据
+        props: {
+          autoplay: 2000, // 自动轮播间隔
+          showIndicators: true, // 是否显示指示器
+          vertical: false, //	是否为纵向滚动
+          indicatorColor: '#1989fa', // 指示器颜色
+        },
+      }, // 展示文字
+      function: {}, // 方法
+      animation: [], // 动画
+    },
     // 图标组件
   ]
   return list.find((e) => e.name == name)

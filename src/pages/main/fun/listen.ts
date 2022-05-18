@@ -18,10 +18,10 @@ export default function useListen(coreRef) {
   watchEffect(() => {
     if (ctrl.value && c.value) {
       console.log('复制')
-      mainUtils.setCopyData()
+      // mainUtils.setCopyData()
     } else if (ctrl.value && v.value) {
       console.log('粘贴')
-      mainUtils.pasteData()
+      // mainUtils.pasteData()
     } else if (ctrl.value && z.value) {
       main.revoke()
     } else if (Delete.value) {

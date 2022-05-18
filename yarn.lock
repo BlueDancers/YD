@@ -347,7 +347,7 @@
   dependencies:
     "@floating-ui/core" "^0.6.1"
 
-"@popperjs/core@^2.11.4":
+"@popperjs/core@^2.11.4", "@popperjs/core@^2.9.2":
   "integrity" "sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.11.5.tgz"
   "version" "2.11.5"
@@ -456,6 +456,23 @@
     "@uppy/companion-client" "^2.0.4"
     "@uppy/utils" "^4.0.4"
     "nanoid" "^3.1.25"
+
+"@vant/icons@^1.8.0":
+  "integrity" "sha512-sKfEUo2/CkQFuERxvkuF6mGQZDKu3IQdj5rV9Fm0weJXtchDSSQ+zt8qPCNUEhh9Y8shy5PzxbvAfOOkCwlCXg=="
+  "resolved" "https://registry.npmjs.org/@vant/icons/-/icons-1.8.0.tgz"
+  "version" "1.8.0"
+
+"@vant/popperjs@^1.1.0":
+  "integrity" "sha512-8MD1gz146awV/uPxYjz4pet22f7a9YVKqk7T+gFkWFwT9mEcrIUEg/xPrdOnWKLP9puXyYtm7oVfSDSefZ/p/w=="
+  "resolved" "https://registry.npmjs.org/@vant/popperjs/-/popperjs-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+
+"@vant/use@^1.3.6":
+  "integrity" "sha512-3z+nywPaV2F5BdJO7RQxWlgfzJeEOmViD2yHMb7Tg+R4NR/7iQskqW8v2Cnv9FWSJgTOSHlcr7UzeLpiTAP4HA=="
+  "resolved" "https://registry.npmjs.org/@vant/use/-/use-1.3.6.tgz"
+  "version" "1.3.6"
 
 "@vitejs/plugin-vue@^2.3.0":
   "integrity" "sha512-YNzBt8+jt6bSwpt7LP890U1UcTOIZZxfpE5WOJ638PNxSEKOqAi0+FSKS0nVeukfdZ0Ai/H7AFd6k3hayfGZqQ=="
@@ -2879,6 +2896,15 @@
     "spdx-correct" "^3.0.0"
     "spdx-expression-parse" "^3.0.0"
 
+"vant@^3.4.9":
+  "integrity" "sha512-OXwfL3oDahlEQC4HhaC7TmM9uoPDjAuWi1mR/OLW3JyOvPoCR8YhOtX2M6OQnz3Hnd3l4oWjjASKNGltWiPtjQ=="
+  "resolved" "https://registry.npmjs.org/vant/-/vant-3.4.9.tgz"
+  "version" "3.4.9"
+  dependencies:
+    "@vant/icons" "^1.8.0"
+    "@vant/popperjs" "^1.1.0"
+    "@vant/use" "^1.3.6"
+
 "vite@^2.5.10", "vite@^2.9.0":
   "integrity" "sha512-vSlsSdOYGcYEJfkQ/NeLXgnRv5zZfpAsdztkIrs7AZHV8RCMZQkwjo4DS5BnrYTqoWqLoUe1Cah4aVO4oNNqCQ=="
   "resolved" "https://registry.npmjs.org/vite/-/vite-2.9.1.tgz"
@@ -3045,7 +3071,7 @@
     "@volar/shared" "0.29.8"
     "vscode-vue-languageservice" "0.29.8"
 
-"vue@^2.6.0 || ^3.2.0", "vue@^2.6.14 || ^3.2.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.5", "vue@^3.2.0", "vue@^3.2.25", "vue@3.2.32":
+"vue@^2.6.0 || ^3.2.0", "vue@^2.6.14 || ^3.2.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.5", "vue@^3.2.0", "vue@^3.2.25", "vue@3.2.32":
   "integrity" "sha512-6L3jKZApF042OgbCkh+HcFeAkiYi3Lovi8wNhWqIK98Pi5efAMLZzRHgi91v+60oIRxdJsGS9sTMsb+yDpY8Eg=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.32.tgz"
   "version" "3.2.32"
@@ -3169,11 +3195,12 @@
     "y18n" "^5.0.5"
     "yargs-parser" "^21.0.0"
 
-"ydh5-ui@^0.0.12":
-  "integrity" "sha512-LtOOprbBXR02yRUfMPMUG5kB3lNP01iV4J4I+W2pEaDhgKt2tgs82yNFKwJXel8yKk9jrpuwNdYifnmhW/E/7Q=="
-  "resolved" "https://registry.npmjs.org/ydh5-ui/-/ydh5-ui-0.0.12.tgz"
-  "version" "0.0.12"
+"ydh5-ui@^0.0.24":
+  "integrity" "sha512-0bpS+vkh+u9mzfSwkhLt1BroNKFu7R+kmV+nfw9nzf/GWk06Q4DNzSq82nmxVRrxmOFoYSNBQseJD5C9uXrYAA=="
+  "resolved" "https://registry.npmjs.org/ydh5-ui/-/ydh5-ui-0.0.24.tgz"
+  "version" "0.0.24"
   dependencies:
+    "vant" "^3.4.9"
     "vue" "^3.2.25"
 
 "yn@3.1.1":

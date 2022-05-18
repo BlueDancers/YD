@@ -1,7 +1,7 @@
 <template>
   <div class="component_data">
     <el-collapse v-model="activeLeft">
-      <el-collapse-item title="Consistency" :name="1">
+      <el-collapse-item :name="1">
         <template #title>
           <span class="collapse_title">基础组件</span>
         </template>
@@ -19,11 +19,23 @@
           </div>
         </div>
       </el-collapse-item>
-      <el-collapse-item title="Feedback" :name="2">
+      <el-collapse-item :name="2">
         <template #title>
           <span class="collapse_title">业务组件</span>
         </template>
-        <div>暂无</div>
+        <div class="component_list">
+          <div
+            class="list_item flex_center"
+            v-for="item in plusComp"
+            :key="item.icon"
+            :draggable="true"
+            @dragstart="dragstart($event, item.name)"
+            @click="main.addComp(item.name)"
+          >
+            <svg-icon class="item_icon" :name="item.icon"></svg-icon>
+            <span class="item_span">{{ item.text }}</span>
+          </div>
+        </div>
       </el-collapse-item>
     </el-collapse>
   </div>
@@ -62,6 +74,14 @@ const baseComp = reactive([
     icon: 'anniu',
     text: '按钮',
     name: 'y-button',
+  },
+])
+
+const plusComp = reactive([
+  {
+    icon: 'tupian1',
+    text: '轮播图',
+    name: 'y-swiper',
   },
 ])
 

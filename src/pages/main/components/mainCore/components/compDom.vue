@@ -4,6 +4,7 @@
   <yd-img v-if="item.name == 'y-img'" :compData="item" :isMobile="false"></yd-img>
   <yd-edit v-else-if="item.name == 'y-edit'" :compData="item" :isMobile="false"></yd-edit>
   <yd-p v-else-if="item.name == 'y-p'" :compData="item" :isMobile="false"></yd-p>
+  <yd-swiper v-else-if="item.name == 'y-swiper'" :compData="item" :isMobile="false"></yd-swiper>
 </template>
 
 <script setup lang="ts">

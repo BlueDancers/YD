@@ -7,6 +7,7 @@ import '@/style/reset.css'
 import '@/style/index.css'
 
 import ydH5 from 'ydh5-ui'
+import 'ydh5-ui/dist/style.css'
 
 import { createPinia } from 'pinia'
 
