@@ -3169,6 +3169,13 @@
     "y18n" "^5.0.5"
     "yargs-parser" "^21.0.0"
 
+"ydh5-ui@^0.0.12":
+  "integrity" "sha512-LtOOprbBXR02yRUfMPMUG5kB3lNP01iV4J4I+W2pEaDhgKt2tgs82yNFKwJXel8yKk9jrpuwNdYifnmhW/E/7Q=="
+  "resolved" "https://registry.npmjs.org/ydh5-ui/-/ydh5-ui-0.0.12.tgz"
+  "version" "0.0.12"
+  dependencies:
+    "vue" "^3.2.25"
+
 "yn@3.1.1":
   "integrity" "sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q=="
   "resolved" "https://registry.npmmirror.com/yn/-/yn-3.1.1.tgz"
