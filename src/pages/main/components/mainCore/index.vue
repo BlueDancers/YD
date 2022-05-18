@@ -151,7 +151,7 @@ function coreMouseDown(evt) {
   // 选中区域内组件逻辑
   main.changeMoveIndex(11)
   if (evt.target.className == 'main_core') {
-    mainUtils.initCoordinates = [evt.offsetX, evt.offsetY]
+    mainUtils.initCoordinates = [evt.offsetX, evt.offsetY + evt.target.scrollTop] // Y轴为相对是视口高度 + dom具体顶部的滚动高度
   } else if (evt.target.className == 'core_temp') {
     mainUtils.initCoordinates = [
       evt.offsetX + coreRef.value.offsetLeft,
