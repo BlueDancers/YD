@@ -9,7 +9,7 @@
       @dragover="(evt) => evt.preventDefault()"
       @dragend="(evt) => evt.preventDefault()"
       @dragleave="(evt) => evt.preventDefault()"
-      :style="{ height: `${main.pageHeight}px`, backgroundColor: main.backColor }"
+      :style="{ height: `${main.pageHeight}px`, background: main.backColor }"
       ref="coreRef"
     >
       <!-- <component v-for="item in main.template" :key="item.id" :is="item.name" :compData="item" /> -->

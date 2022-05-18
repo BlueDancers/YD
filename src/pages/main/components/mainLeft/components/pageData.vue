@@ -19,7 +19,8 @@
           class="mini_input back_picker"
           placeholder="请输入背景颜色"
         ></el-input>
-        <el-color-picker v-model="main.backColor"></el-color-picker>
+        <!-- v-if="!main.backColor.includes('linear')" -->
+        <el-color-picker v-model="main.backColor" show-alpha></el-color-picker>
       </el-form-item>
       <el-form-item label="页面高度:">
         <el-input v-model="main.pageHeight" class="p_input" placeholder="请填写页面高度"></el-input>
