@@ -17,6 +17,9 @@ html {
   align-items: center;
   justify-content: center;
 }
+.mini_input {
+  width: 100px !important;
+}
 .default_input {
   width: 140px !important;
 }
