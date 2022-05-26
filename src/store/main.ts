@@ -193,6 +193,9 @@ export const useMain = defineStore('main', {
 
 // 启动时间旅行功能
 useMain().$subscribe((mutation, state) => {
+  console.log('生产环境mutation.events无法获取，撤销功能失效！')
+
+  return
   // 只有元素相关改动才会被记录到时间旅行
   if ((mutation.events as any).target.position == 'absolute') {
     stateHis.addHis(state.template)

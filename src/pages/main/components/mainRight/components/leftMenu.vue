@@ -28,16 +28,16 @@ const mainUtils = useMainUtils()
 
 const hoverMenu = ref(0)
 const activeMenu = reactive([
-  {
-    icon: 'chehui',
-    fun: () => main.revoke(),
-    text: '撤销',
-  },
-  {
-    icon: 'fanchexiao-copy-copy',
-    fun: () => main.backRevoke(),
-    text: '反撤销',
-  },
+  // {
+  //   icon: 'chehui',
+  //   fun: () => main.revoke(),
+  //   text: '撤销',
+  // },
+  // {
+  //   icon: 'fanchexiao-copy-copy',
+  //   fun: () => main.backRevoke(),
+  //   text: '反撤销',
+  // },
   {
     icon: 'shanchu2',
     fun: () => main.deleteComp(main.acIdx),
