@@ -79,7 +79,7 @@ function deleteFile(ids: string[]) {
         fileList: [...ids],
       })
       .then((res) => {
-        if (res.fileList.find((e) => e.code != 'SUCCESS')) {
+        if (res.fileList && res.fileList.find((e) => e.code != 'SUCCESS')) {
           reject('图片删除失败')
         } else {
           resolve('图片删除成功')

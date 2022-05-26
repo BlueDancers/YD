@@ -4,16 +4,16 @@
       <el-form-item label="组织名称" prop="name">
         <el-input v-model="formState.name" placeholder="请输入组织名称" />
       </el-form-item>
-      <el-form-item label="路由前缀" prop="disp">
-        <el-input v-model="formState.disp" placeholder="请输入路由前缀">
+      <el-form-item label="路由前缀" prop="routerCode">
+        <el-input v-model="formState.routerCode" placeholder="请输入路由前缀">
           <template #prepend>/</template>
         </el-input>
       </el-form-item>
-      <el-form-item label="组织描述" prop="routerCode">
-        <el-input v-model="formState.routerCode" placeholder="请输入组织描述" />
-      </el-form-item>
       <el-form-item label="组织密码" prop="password">
         <el-input v-model="formState.password" placeholder="其他成员需要密码才能加入" />
+      </el-form-item>
+      <el-form-item label="组织描述" prop="disp">
+        <el-input type="textarea" v-model="formState.disp" placeholder="请输入组织描述" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -35,9 +35,9 @@ let userData = getStorageSync('userData') //拿取uid和email
 const ruleFormRef = ref<any>()
 const rules = reactive({
   name: [{ required: true, message: '请输入组织名称', trigger: ['blur', 'change'] }],
-  disp: [{ required: true, message: '请输入路由前缀', trigger: ['blur', 'change'] }],
+  disp: [{ required: true, message: '请输入组织描述', trigger: ['blur', 'change'] }],
   password: [{ required: true, message: '其他成员需要密码才能加入', trigger: ['blur', 'change'] }],
-  routerCode: [{ required: true, message: '请输入组织描述', trigger: ['blur', 'change'] }],
+  routerCode: [{ required: true, message: '请输入路由前缀', trigger: ['blur', 'change'] }],
 })
 
 //表单数据

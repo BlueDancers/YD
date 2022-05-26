@@ -48,11 +48,11 @@ const activeMenu = reactive([
     fun: () => mainUtils.setCopyData(),
     text: '复制',
   },
-  {
-    icon: 'niantie1',
-    fun: () => mainUtils.pasteData(),
-    text: '粘贴',
-  },
+  // {
+  //   icon: 'niantie1',
+  //   fun: () => mainUtils.pasteData(),
+  //   text: '粘贴',
+  // },
 ])
 
 function activeItem(fun) {

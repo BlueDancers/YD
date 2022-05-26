@@ -67,28 +67,30 @@ export const useLine = defineStore('line', {
           this.showX.push(x)
         }
         if (this.lineX.has(x + 1)) {
-          this.showX.push(x + 1)
+          this.showX.push(x)
           main.acTempCss.top = main.acTempCss.top + 0.5
         }
         if (this.lineX.has(x - 1)) {
-          this.showX.push(x - 1)
+          this.showX.push(x)
           main.acTempCss.top = main.acTempCss.top - 0.5
         }
       }
       this.showY = []
-      for (const y of this.calineY) { 
+      for (const y of this.calineY) {
         if (this.lineY.has(y)) {
           this.showY.push(y)
         }
         if (this.lineY.has(y + 1)) {
-          this.showY.push(y + 1)
+          this.showY.push(y)
           main.acTempCss.left = main.acTempCss.left + 0.5
         }
         if (this.lineY.has(y - 1)) {
-          this.showY.push(y - 1)
+          this.showY.push(y)
           main.acTempCss.left = main.acTempCss.left - 0.5
         }
       }
+      this.showY = Array.from(new Set(this.showY))
+      this.showX = Array.from(new Set(this.showX))
     },
     resetLine() {
       this.$reset()

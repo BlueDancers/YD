@@ -25,6 +25,7 @@ export const useMainUtils = defineStore('mainUtils', {
         this.copyData.push(deepClone(main.template[e]))
       })
       console.log('数据', this.copyData)
+      this.pasteData()
     },
     pasteData() {
       this.copyData.forEach((e) => {

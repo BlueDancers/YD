@@ -28,9 +28,10 @@ import { useRouter } from 'vue-router'
 import domtoimage from 'dom-to-image'
 import { imgToStorage } from '@/utils/index'
 import { deleteFile } from '@/utils/request'
-import { ElMessage } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 import UpdateTemp from './components/updateTemp.vue'
 import { onMounted, ref } from 'vue'
+import { Loading } from 'element-plus/lib/components/loading/src/service'
 
 const router = useRouter()
 const main = useMain()
@@ -69,6 +70,11 @@ async function imgToFile() {
 
 // 保存页面
 async function savePage() {
+  const loading = ElLoading.service({
+    lock: true,
+    text: '保存中...',
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
   main.hoverCompIndex = -1
   main.acIdx = []
 
@@ -85,7 +91,7 @@ async function savePage() {
   let url = await imgToStorage(img, `${main.pageId}_${new Date().getTime()}.png`, 'pagePhoto')
   const res = await main.savePage(url.tempFileURL, url.fileID)
   console.log(res)
-  ElMessage.success('保存成功~')
+  loading.close()
   setTimeout(() => {
     updateTemp.value.open()
   }, 200)

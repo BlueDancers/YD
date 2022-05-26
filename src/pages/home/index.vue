@@ -13,7 +13,7 @@
             <span>/{{ scope.row.routerCode }}</span>
           </template>
         </el-table-column>
-
+        <el-table-column prop="organizeDisp" label="群组说明" />
         <el-table-column prop="date" label="操作">
           <template #default="scope">
             <el-button
